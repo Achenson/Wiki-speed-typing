@@ -1,3 +1,11 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
 
 
 .outer-container {
@@ -5,13 +13,50 @@
   flex-direction: column;
   justify-content: center;
   height: 100vh;
+ 
 }
 
 .main-square {
   width: 400px;
-  height: 400px;
+  height: 500px;
   background-color: cadetblue;
   margin-left: auto;
   margin-right: auto;
+  border: 1px solid cadetblue;
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px black;
 
 }
+
+.title {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.typing-display {
+  margin: 10px 20px;
+  background-color: whitesmoke;
+  height: 130px;
+  padding: 2px 4px;
+
+}
+
+.counter {
+  margin: 10px 20px;
+  color: whitesmoke;
+  background: black;
+  width: 50px;
+  /* !!!!! */
+  text-align: center;
+
+}
+
+
+.control-buttons {
+  margin: 10px 20px;
+}
+
+.btn-control {
+  background-color: lightsteelblue;
+}
+
