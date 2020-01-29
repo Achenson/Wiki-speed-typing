@@ -1,0 +1,17 @@
+
+
+.outer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.main-square {
+  width: 400px;
+  height: 400px;
+  background-color: cadetblue;
+  margin-left: auto;
+  margin-right: auto;
+
+}

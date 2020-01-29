@@ -1,14 +1,15 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
+      <div className="outer-container">
+        <div className="main-square">
+    test
 
-    
-     
-     <p>Test</p>
-      
+        </div>
+      </div>
     </div>
   );
 }
