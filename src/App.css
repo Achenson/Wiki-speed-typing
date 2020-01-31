@@ -2,30 +2,28 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
-
 
 .outer-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100vh;
- 
 }
 
 .main-square {
   width: 400px;
   height: 500px;
-  background-color: cadetblue;
+  background-color: rgba(92, 177, 158, 0.431);
   margin-left: auto;
   margin-right: auto;
-  border: 1px solid cadetblue;
+  border: 1px solid rgba(92, 177, 158, 0.831);
   border-radius: 4px;
   box-shadow: 2px 2px 2px black;
-
 }
 
 .title {
@@ -33,30 +31,66 @@ html, body {
   margin-right: auto;
 }
 
-.typing-display {
+.container {
   margin: 10px 20px;
+}
+
+.typing-display {
   background-color: whitesmoke;
   height: 130px;
   padding: 2px 4px;
-
 }
 
 .counter {
-  margin: 10px 20px;
   color: whitesmoke;
   background: black;
   width: 50px;
   /* !!!!! */
   text-align: center;
-
 }
 
+.control-buttons-row {
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+}
 
-.control-buttons {
-  margin: 10px 20px;
+.column-left,
+.column-right {
+  display: inline-block;
+}
+
+.control-item {
+  margin-right: 2px;
+  width: 60px;
+  height: 1.8em;
+}
+
+.btn {
+  padding: 0.3em 0.4em;
+  cursor: pointer;
+  border: none;
+  
+  text-align: center;
+  vertical-align: middle;
 }
 
 .btn-control {
-  background-color: lightsteelblue;
+  background-color: steelblue;
+  border-radius: 0.5em;
+  color: white;
+  border: 1px solid black;
 }
 
+.btn-control:hover {
+  background-color: slateblue;
+}
+
+.btn-reset {
+  margin-right: 0;
+  background-color: tomato;
+}
+
+.btn-reset:hover {
+  background-color: rgb(228, 27, 1);
+}
