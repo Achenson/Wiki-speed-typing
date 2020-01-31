@@ -5,8 +5,10 @@ import "./App.css";
 function App() {
   const [timerValue, setTimerValue] = useState(10);
 
+  // for pause button
   const [isActive, toggleActive] = useState(false);
 
+  // for counter
   useEffect(() => {
     // otherwise there will be error: timerInterval not defined
     let timerInterval = null;
@@ -25,10 +27,12 @@ function App() {
     // useEffect will run every time isActive changes
   }, [isActive, timerValue]);
 
+  // for pause button
   function toggleTimer() {
     toggleActive(!isActive);
   }
 
+  // for time select
   function setTimerOnSelect(e) {
     setTimerValue(e.target.value);
   }
@@ -44,14 +48,40 @@ function App() {
   );
 }
 
+function SingleLetter(props) {
+  return (
+    <span>{props.letterToRender}</span>
+  )
+}
+
 function Display(props) {
+  const [textToRender, setTextToRender] = useState(["t", "e", "s", "t"]);
+
+  let myText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  aliquip ex ea commodo consequat`;
+
+  let myTextArr = myText.split("");
+
+  console.log("TCL: Display -> myTextArr", myTextArr);
+
   return (
     <div className="outer-container">
       <h3 className="title">Typing App</h3>
       <div className="main-square">
         <div className="counter container">{props.timerValue}</div>
-        <div className="typing-display wiki-display container">sfsdfsd</div>
-        <div className="typing-display current-display container">sfsdfsd</div>
+        <div className="typing-display wiki-display container">
+          {textToRender.map((el, i) => {
+            return <SingleLetter letterToRender={el} key={i} />
+          }
+            
+          )}
+        </div>
+        <div
+          className="typing-display current-display container"
+          contentEditable="true"
+        ></div>
 
         <div className="control-buttons-row container">
           <div className="column-left">
