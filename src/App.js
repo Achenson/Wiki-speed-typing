@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [timerValue, setTimerValue] = useState(60);
+  const [timerValue, setTimerValue] = useState(10);
 
   const [isActive, toggleActive] = useState(false);
 
@@ -26,12 +26,20 @@ function App() {
   }, [isActive, timerValue]);
 
   function toggleTimer() {
-    toggleActive(!isActive)
+    toggleActive(!isActive);
+  }
+
+  function setTimerOnSelect(e) {
+    setTimerValue(e.target.value);
   }
 
   return (
     <div className="App">
-      <Display timerValue={timerValue} toggleTimer={toggleTimer} />
+      <Display
+        timerValue={timerValue}
+        toggleTimer={toggleTimer}
+        setTimerOnSelect={setTimerOnSelect}
+      />
     </div>
   );
 }
@@ -47,17 +55,17 @@ function Display(props) {
 
         <div className="control-buttons-row container">
           <div className="column-left">
+            <button className="btn btn-control control-item">Start</button>
             <button
               className="btn btn-control control-item"
               onClick={() => props.toggleTimer()}
             >
-              Start
+              Pause
             </button>
-            <button className="btn btn-control control-item">Pause</button>
-            <select className="control-item">
-              <option value="volvo">00:10</option>
-              <option value="saab">00:30</option>
-              <option value="mercedes">01:00</option>
+            <select className="control-item" onChange={props.setTimerOnSelect}>
+              <option value="10">00:10</option>
+              <option value="30">00:30</option>
+              <option value="60">01:00</option>
             </select>
           </div>
 
