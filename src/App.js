@@ -49,22 +49,64 @@ function App() {
 }
 
 function SingleLetter(props) {
-  return (
-    <span>{props.letterToRender}</span>
-  )
+  return <span style={{color: `${props.color}`}}>{props.letterToRender}</span>;
 }
 
 function Display(props) {
-  const [textToRender, setTextToRender] = useState(["t", "e", "s", "t"]);
+  const [textToRender, setTextToRender] = useState("tst");
+  const [arrOutOfText, setArrOutOfText] = useState(['t', 's', 't'])
+  const [colorForEachLetter, setColorForEachLetter] = useState(["red", "red", "red"])
+  const [arrToRender, setArrToRender] = useState([["t", "red"], ["s", "red"], ["t", "red"]]);
+
+  
+
 
   let myText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
   minim veniam, quis nostrud exercitation ullamco laboris nisi ut
   aliquip ex ea commodo consequat`;
 
-  let myTextArr = myText.split("");
+  useEffect(() => {
 
-  console.log("TCL: Display -> myTextArr", myTextArr);
+    let arrOutOfString = textToRender.split("")
+
+    setArrOutOfText(arrOutOfString);
+
+    let arrToSetLetterColors = [];
+    for (let i = 0; i<arrOutOfText.length; i++) {
+      arrToSetLetterColors.push("blue")
+    }
+
+    setColorForEachLetter(arrToSetLetterColors)
+
+   
+    
+  }, [textToRender]);
+
+
+  useEffect( () => {
+    let arrToSet = [];
+    for (let i=0; i<arrOutOfText.length; i++) {
+      let newArr= [];
+      newArr.push(arrOutOfText[i])
+      newArr.push(colorForEachLetter[i])
+      arrToSet.push(newArr)
+    }
+
+    setArrToRender(arrToSet)
+
+  }, [arrOutOfText, colorForEachLetter ])
+ 
+
+ function changeLetterColors() {
+   console.log('çhange');
+    let newColors = [...colorForEachLetter];
+
+    newColors[2] = "green";
+
+    setColorForEachLetter(newColors)
+ }
+
 
   return (
     <div className="outer-container">
@@ -72,16 +114,17 @@ function Display(props) {
       <div className="main-square">
         <div className="counter container">{props.timerValue}</div>
         <div className="typing-display wiki-display container">
-          {textToRender.map((el, i) => {
-            return <SingleLetter letterToRender={el} key={i} />
-          }
-            
-          )}
+          {arrToRender.map((el, i) => {
+            return <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />;
+          })}
         </div>
         <div
           className="typing-display current-display container"
           contentEditable="true"
+          
         ></div>
+        <input onChange={changeLetterColors}></input>
+     
 
         <div className="control-buttons-row container">
           <div className="column-left">
