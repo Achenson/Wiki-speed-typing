@@ -65,7 +65,53 @@ function SingleLetter(props) {
 }
 
 function Display(props) {
-  const [textToRender, setTextToRender] = useState("test ing");
+  let myText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
+
+  let arrOfPartialText = makeArrOfPartialText(362, myText);
+
+  function makeArrOfPartialText(lengthOfSinglePart, text) {
+    let arrOfPartialText = [];
+    let myTextToArr = text.split("");
+
+    for (
+      let i = 0;
+      i < Math.round(myTextToArr.length / lengthOfSinglePart);
+      i++
+    ) {
+      let newArr = [];
+      for (
+        let j = 0 + i * lengthOfSinglePart;
+        j < lengthOfSinglePart + i * lengthOfSinglePart;
+        j++
+      ) {
+        newArr.push(myTextToArr[j]);
+      }
+
+      let joinedNewArr = newArr.join("");
+
+      arrOfPartialText.push(joinedNewArr);
+    }
+
+    console.log(arrOfPartialText);
+    return arrOfPartialText;
+  }
+
+  //362 text length fits
+  console.log(myText.length);
+
+  const [textToRender, setTextToRender] = useState(arrOfPartialText[0]);
 
   let arrOutOfText = textToRender.split("");
 
@@ -127,11 +173,6 @@ function Display(props) {
     setTextAreaValue(e.target.value);
     console.log();
   }
-
-  let myText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-  aliquip ex ea commodo consequat`;
 
   function changeLetterColors() {
     //console.log("çhange");
