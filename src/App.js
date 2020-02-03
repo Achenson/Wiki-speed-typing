@@ -55,13 +55,43 @@ function SingleLetter(props) {
 }
 
 function Display(props) {
-  const [textToRender, setTextToRender] = useState("tst");
+  const [textToRender, setTextToRender] = useState("testing");
 
   let arrOutOfText = textToRender.split("");
 
   const [colorForEachLetter, setColorForEachLetter] = useState(
     makeColoredLetters()
   );
+
+  const [textAreaValue, setTextAreaValue] = useState("");
+  let arrOutOfTextValue = textAreaValue.split("");
+
+  console.log(textAreaValue);
+
+  //coloring letters in display according to errors or no
+  useEffect(() => {
+    let arrOfColors = [...colorForEachLetter];
+
+    for (let i = 0; i < arrOutOfTextValue.length; i++) {
+      if (arrOutOfTextValue[i] !== arrOutOfText[i]) {
+        arrOfColors[i] = "red";
+      }
+
+      if (arrOutOfTextValue[i] === arrOutOfText[i]) {
+        arrOfColors[i] = "green";
+      }
+    }
+
+    for (let i = 0; i < arrOutOfText.length; i++) {
+      if (arrOutOfTextValue[i] == null) {
+        arrOfColors[i] = "black";
+      }
+    }
+
+    setColorForEachLetter(arrOfColors);
+  }, [textAreaValue]);
+
+  const arrToRender = makeArrayToRender();
 
   function makeColoredLetters() {
     let arrToReturn = [];
@@ -70,8 +100,6 @@ function Display(props) {
     }
     return arrToReturn;
   }
-
-  const arrToRender = makeArrayToRender();
 
   function makeArrayToRender() {
     let arrToSet = [];
@@ -85,14 +113,18 @@ function Display(props) {
     return arrToSet;
   }
 
+  function changeTextAreaValue(e) {
+    setTextAreaValue(e.target.value);
+    console.log();
+  }
+
   let myText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
   minim veniam, quis nostrud exercitation ullamco laboris nisi ut
   aliquip ex ea commodo consequat`;
 
-
   function changeLetterColors() {
-    console.log("çhange");
+    //console.log("çhange");
     let newColors = [...colorForEachLetter];
 
     newColors[2] = "green";
@@ -113,11 +145,12 @@ function Display(props) {
           })}
         </div>
 
+        <textarea
+          className="typing-display container"
+          // onChange={changeLetterColors}
+          onChange={changeTextAreaValue}
+        ></textarea>
 
-        <textarea className="typing-display container" onChange={changeLetterColors}></textarea>
-       
-      
-          
         <div className="control-buttons-row container">
           <div className="column-left">
             <button className="btn btn-control control-item">Start</button>
@@ -141,7 +174,7 @@ function Display(props) {
           </div>
         </div>
       </div>
-  </div>
+    </div>
   );
 }
 
