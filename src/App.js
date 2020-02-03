@@ -105,19 +105,19 @@ function Display(props) {
       <h3 className="title">Typing App</h3>
       <div className="main-square">
         <div className="counter container">{props.timerValue}</div>
-        <div className="typing-display wiki-display container">
+        <div className="wiki-display container">
           {arrToRender.map((el, i) => {
             return (
               <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />
             );
           })}
         </div>
-        <div
-          className="typing-display current-display container"
-          contentEditable="true"
-        ></div>
-        <input onChange={changeLetterColors}></input>
 
+
+        <textarea className="typing-display container" onChange={changeLetterColors}></textarea>
+       
+      
+          
         <div className="control-buttons-row container">
           <div className="column-left">
             <button className="btn btn-control control-item">Start</button>
@@ -141,7 +141,7 @@ function Display(props) {
           </div>
         </div>
       </div>
-    </div>
+  </div>
   );
 }
 

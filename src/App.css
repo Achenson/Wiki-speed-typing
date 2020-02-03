@@ -35,10 +35,19 @@ body {
   margin: 10px 20px;
 }
 
-.typing-display {
+.wiki-display {
   background-color: whitesmoke;
   height: 130px;
   padding: 2px 4px;
+}
+
+.typing-display {
+ outline: none;
+ resize: none;
+ padding: 2px 4px;
+ width: 360px;
+ height: 130px;
+
 }
 
 .counter {
