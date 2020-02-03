@@ -49,13 +49,23 @@ function App() {
 }
 
 function SingleLetter(props) {
+  let textDecoration = "none";
+
+  if (props.color === "red") {
+    textDecoration = "underline";
+  }
+
   return (
-    <span style={{ color: `${props.color}` }}>{props.letterToRender}</span>
+    <span
+      style={{ color: `${props.color}`, textDecoration: `${textDecoration}` }}
+    >
+      {props.letterToRender}
+    </span>
   );
 }
 
 function Display(props) {
-  const [textToRender, setTextToRender] = useState("testing");
+  const [textToRender, setTextToRender] = useState("test ing");
 
   let arrOutOfText = textToRender.split("");
 
