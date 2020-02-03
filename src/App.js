@@ -70,48 +70,31 @@ function Display(props) {
   minim veniam, quis nostrud exercitation ullamco laboris nisi ut
   aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut ENIM ad
   minim veniam, quis nostrud exercitation ullamco laboris nisi ut
   aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
   minim veniam, quis nostrud exercitation ullamco laboris nisi ut
   aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
+  eiusmod tempor incididunt ut labore et dolore magna ALIQua.`;
 
-  let arrOfPartialText = makeArrOfPartialText(362, myText);
+  
+  let lengthOfSinglePart = 362;
+  let myTextToArr = myText.split("");
+  let roundedTextDividedByLength = Math.round(myTextToArr.length / lengthOfSinglePart)
 
-  function makeArrOfPartialText(lengthOfSinglePart, text) {
-    let arrOfPartialText = [];
-    let myTextToArr = text.split("");
+  let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
 
-    for (
-      let i = 0;
-      i < Math.round(myTextToArr.length / lengthOfSinglePart);
-      i++
-    ) {
-      let newArr = [];
-      for (
-        let j = 0 + i * lengthOfSinglePart;
-        j < lengthOfSinglePart + i * lengthOfSinglePart;
-        j++
-      ) {
-        newArr.push(myTextToArr[j]);
-      }
-
-      let joinedNewArr = newArr.join("");
-
-      arrOfPartialText.push(joinedNewArr);
-    }
-
-    console.log(arrOfPartialText);
-    return arrOfPartialText;
-  }
+ 
 
   //362 text length fits
   console.log(myText.length);
 
-  const [textToRender, setTextToRender] = useState(arrOfPartialText[0]);
+  const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0)
+
+  //const [textToRender, setTextToRender] = useState(arrOfPartialText[0]);
+  const textToRender = arrOfPartialText[indexOfPartialTextArr];
 
   let arrOutOfText = textToRender.split("");
 
@@ -122,13 +105,11 @@ function Display(props) {
   const [textAreaValue, setTextAreaValue] = useState("");
   let arrOutOfTextValue = textAreaValue.split("");
 
-  console.log(textAreaValue);
-
   //coloring letters in display according to errors or no
   useEffect(() => {
     let arrOfColors = [...colorForEachLetter];
 
-    for (let i = 0; i < arrOutOfTextValue.length; i++) {
+    for (let i = 0; i < textAreaValue.length; i++) {
       if (arrOutOfTextValue[i] !== arrOutOfText[i]) {
         arrOfColors[i] = "red";
       }
@@ -147,7 +128,40 @@ function Display(props) {
     setColorForEachLetter(arrOfColors);
   }, [textAreaValue]);
 
+  // displaying next part of text to display
+
   const arrToRender = makeArrayToRender();
+
+
+  
+  function makeArrOfPartialText(lengthOfSinglePart, myTextToArr) {
+    let arrOfPartialText = [];
+    //let myTextToArr = text.split("");
+    
+    
+
+    for (
+      let i = 0;
+      i < roundedTextDividedByLength;
+      i++
+    ) {
+      let newArr = [];
+      for (
+        let j = 0 + i * (lengthOfSinglePart + 1);
+        j < lengthOfSinglePart + i * lengthOfSinglePart;
+        j++
+      ) {
+        newArr.push(myTextToArr[j]);
+      }
+
+      let joinedNewArr = newArr.join("");
+
+      arrOfPartialText.push(joinedNewArr);
+    }
+
+    //console.log(arrOfPartialText);
+    return arrOfPartialText;
+  }
 
   function makeColoredLetters() {
     let arrToReturn = [];
@@ -170,17 +184,20 @@ function Display(props) {
   }
 
   function changeTextAreaValue(e) {
+    //console.log();
+
+    if (e.target.value.length === textToRender.length) {
+
+
+      e.target.value = "";
+      setTextAreaValue("");
+
+        if (indexOfPartialTextArr < roundedTextDividedByLength-1 ) {
+          setIndexOfPartialTextArr(indexOfPartialTextArr => indexOfPartialTextArr +1);
+        } else {setIndexOfPartialTextArr(0)}
+    }
+
     setTextAreaValue(e.target.value);
-    console.log();
-  }
-
-  function changeLetterColors() {
-    //console.log("çhange");
-    let newColors = [...colorForEachLetter];
-
-    newColors[2] = "green";
-
-    setColorForEachLetter(newColors);
   }
 
   return (
