@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
 
 function App() {
@@ -38,6 +38,9 @@ function App() {
       toggleActive(false);
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
+      setToReset(true);
+
+      //setToReset(false);
     }
 
     // this equivalent to componentWillUnmount
@@ -72,6 +75,7 @@ function App() {
         setTimerOnSelect={setTimerOnSelect}
         isActive={isActive}
         resetTimer={resetTimer}
+        toReset={toReset}
       />
     </div>
   );
@@ -156,16 +160,23 @@ function Display(props) {
     setColorForEachLetter(arrOfColors);
   }, [textAreaValue]);
 
-  /*  useEffect( () => {
+  // reseting display
 
-    if(props.toReset) {
-      setIndexOfPartialTextArr(0);
-      setColorForEachLetter(makeColoredLetters())
-      setTextAreaValue("")
-    
+  useEffect(() => {
+    if (props.toReset) {
+      resetDisplay();
+    }
+  }, [props.toReset]);
 
-  }}, [props.toReset])
-  */
+  // unfocusing textArea
+
+  const focusElement = useRef(null);
+
+  useEffect(() => {
+    if (props.timerValue <= 0) {
+      focusElement.current.focus();
+    }
+  }, [props.timerValue]);
 
   // displaying next part of text to display
   const arrToRender = makeArrayToRender();
@@ -273,7 +284,11 @@ function Display(props) {
             >
               {props.isActive ? "pause" : "start"}
             </button>
-            <select className="control-item" onChange={props.setTimerOnSelect}>
+            <select
+              className="control-item"
+              onChange={props.setTimerOnSelect}
+              ref={focusElement}
+            >
               <option value="10">00:10</option>
               <option value="30">00:30</option>
               <option value="60">01:00</option>
@@ -285,7 +300,8 @@ function Display(props) {
               className="btn btn-control control-item btn-reset"
               onClick={() => {
                 props.resetTimer();
-                resetDisplay();
+
+                //resetDisplay();
               }}
             >
               Reset
