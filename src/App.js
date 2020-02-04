@@ -6,7 +6,7 @@ function App() {
   const [timerValue, setTimerValue] = useState(10);
   const [constantTimerValue, setConstantTimerValue] = useState(10);
 
-  // for pause button
+  // for start/pause button
   const [isActive, toggleActive] = useState(false);
   // for reset button
   const [toReset, setToReset] = useState(false);
@@ -35,20 +35,10 @@ function App() {
     }
 
     if (timerValue <= 0) {
+      toggleActive(false);
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
     }
-
-    /* if (isActive && timerValue>0) {
-      timerInterval = setInterval(
-        () => setTimerValue(timerValue => timerValue - 1),
-        1000
-      );
-    } else {
-      clearInterval(timerInterval);
-      setTimerValue(constantTimerValue);
-      toggleActive(false);
-    } */
 
     // this equivalent to componentWillUnmount
     return () => clearInterval(timerInterval);
@@ -127,7 +117,7 @@ function Display(props) {
   let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
 
   //362 text length fits
-  console.log(myText.length);
+  //console.log(myText.length);
 
   const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0);
 
@@ -166,8 +156,18 @@ function Display(props) {
     setColorForEachLetter(arrOfColors);
   }, [textAreaValue]);
 
-  // displaying next part of text to display
+  /*  useEffect( () => {
 
+    if(props.toReset) {
+      setIndexOfPartialTextArr(0);
+      setColorForEachLetter(makeColoredLetters())
+      setTextAreaValue("")
+    
+
+  }}, [props.toReset])
+  */
+
+  // displaying next part of text to display
   const arrToRender = makeArrayToRender();
 
   function makeArrOfPartialText(lengthOfSinglePart, myTextToArr) {
@@ -196,7 +196,7 @@ function Display(props) {
   function makeColoredLetters() {
     let arrToReturn = [];
     for (let i = 0; i < arrOutOfText.length; i++) {
-      arrToReturn.push("brown");
+      arrToReturn.push("black");
     }
     return arrToReturn;
   }
@@ -232,6 +232,12 @@ function Display(props) {
     setTextAreaValue(e.target.value);
   }
 
+  function resetDisplay() {
+    setTextAreaValue("");
+    setIndexOfPartialTextArr(0);
+    setColorForEachLetter(makeColoredLetters());
+  }
+
   return (
     <div className="outer-container">
       <h3 className="title">Typing App</h3>
@@ -247,8 +253,16 @@ function Display(props) {
 
         <textarea
           className="typing-display container"
-          // onChange={changeLetterColors}
-          onChange={changeTextAreaValue}
+          onChange={e => {
+            changeTextAreaValue(e);
+
+            if (!props.isActive) {
+              props.toggleTimer();
+            }
+          }}
+          autoFocus
+          // crucial for two-way binding! reset button
+          value={textAreaValue}
         ></textarea>
 
         <div className="control-buttons-row container">
@@ -269,7 +283,10 @@ function Display(props) {
           <div className="column-right">
             <button
               className="btn btn-control control-item btn-reset"
-              onClick={() => props.resetTimer()}
+              onClick={() => {
+                props.resetTimer();
+                resetDisplay();
+              }}
             >
               Reset
             </button>
