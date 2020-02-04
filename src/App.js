@@ -4,6 +4,7 @@ import "./App.css";
 
 function App() {
   const [timerValue, setTimerValue] = useState(10);
+  const [constantTimerValue, setConstantTimerValue] = useState(10);
 
   // for pause button
   const [isActive, toggleActive] = useState(false);
@@ -13,14 +14,33 @@ function App() {
     // otherwise there will be error: timerInterval not defined
     let timerInterval = null;
 
-    if (isActive) {
+    if (isActive && timerValue > 0) {
+      timerInterval = setInterval(
+        () => setTimerValue(timerValue => timerValue - 1),
+        1000
+      );
+    }
+
+    if (!isActive && timerValue > 0) {
+      clearInterval(timerInterval);
+    }
+
+    if (timerValue <= 0) {
+      clearInterval(timerInterval);
+      setTimerValue(constantTimerValue);
+      toggleActive(false);
+    }
+
+    /* if (isActive && timerValue>0) {
       timerInterval = setInterval(
         () => setTimerValue(timerValue => timerValue - 1),
         1000
       );
     } else {
       clearInterval(timerInterval);
-    }
+      setTimerValue(constantTimerValue);
+      toggleActive(false);
+    } */
 
     // this equivalent to componentWillUnmount
     return () => clearInterval(timerInterval);
@@ -35,6 +55,7 @@ function App() {
   // for time select
   function setTimerOnSelect(e) {
     setTimerValue(e.target.value);
+    setConstantTimerValue(e.target.value);
   }
 
   return (
@@ -43,6 +64,7 @@ function App() {
         timerValue={timerValue}
         toggleTimer={toggleTimer}
         setTimerOnSelect={setTimerOnSelect}
+        isActive={isActive}
       />
     </div>
   );
@@ -79,19 +101,18 @@ function Display(props) {
   aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna ALIQua.`;
 
-  
   let lengthOfSinglePart = 362;
   let myTextToArr = myText.split("");
-  let roundedTextDividedByLength = Math.round(myTextToArr.length / lengthOfSinglePart)
+  let roundedTextDividedByLength = Math.round(
+    myTextToArr.length / lengthOfSinglePart
+  );
 
   let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
-
- 
 
   //362 text length fits
   console.log(myText.length);
 
-  const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0)
+  const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0);
 
   //const [textToRender, setTextToRender] = useState(arrOfPartialText[0]);
   const textToRender = arrOfPartialText[indexOfPartialTextArr];
@@ -132,19 +153,11 @@ function Display(props) {
 
   const arrToRender = makeArrayToRender();
 
-
-  
   function makeArrOfPartialText(lengthOfSinglePart, myTextToArr) {
     let arrOfPartialText = [];
     //let myTextToArr = text.split("");
-    
-    
 
-    for (
-      let i = 0;
-      i < roundedTextDividedByLength;
-      i++
-    ) {
+    for (let i = 0; i < roundedTextDividedByLength; i++) {
       let newArr = [];
       for (
         let j = 0 + i * (lengthOfSinglePart + 1);
@@ -187,14 +200,16 @@ function Display(props) {
     //console.log();
 
     if (e.target.value.length === textToRender.length) {
-
-
       e.target.value = "";
       setTextAreaValue("");
 
-        if (indexOfPartialTextArr < roundedTextDividedByLength-1 ) {
-          setIndexOfPartialTextArr(indexOfPartialTextArr => indexOfPartialTextArr +1);
-        } else {setIndexOfPartialTextArr(0)}
+      if (indexOfPartialTextArr < roundedTextDividedByLength - 1) {
+        setIndexOfPartialTextArr(
+          indexOfPartialTextArr => indexOfPartialTextArr + 1
+        );
+      } else {
+        setIndexOfPartialTextArr(0);
+      }
     }
 
     setTextAreaValue(e.target.value);
@@ -221,12 +236,11 @@ function Display(props) {
 
         <div className="control-buttons-row container">
           <div className="column-left">
-            <button className="btn btn-control control-item">Start</button>
             <button
               className="btn btn-control control-item"
               onClick={() => props.toggleTimer()}
             >
-              Pause
+              {props.isActive ? "pause" : "start"}
             </button>
             <select className="control-item" onChange={props.setTimerOnSelect}>
               <option value="10">00:10</option>
