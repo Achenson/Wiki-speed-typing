@@ -32,13 +32,15 @@ body {
 }
 
 .container {
-  margin: 10px 20px;
+  margin: 0 20px;
 }
 
 .wiki-display {
   background-color: whitesmoke;
   height: 130px;
   padding: 2px 4px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .typing-display {
@@ -47,6 +49,8 @@ body {
  padding: 2px 4px;
  width: 360px;
  height: 130px;
+ margin-top: 10px;
+margin-bottom: 10px;
 
 }
 
@@ -56,6 +60,7 @@ body {
   width: 50px;
   /* !!!!! */
   text-align: center;
+  margin-top: 10px;
 }
 
 .control-buttons-row {

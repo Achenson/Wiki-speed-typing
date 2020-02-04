@@ -8,6 +8,8 @@ function App() {
 
   // for pause button
   const [isActive, toggleActive] = useState(false);
+  // for reset button
+  const [toReset, setToReset] = useState(false);
 
   // for counter
   useEffect(() => {
@@ -21,6 +23,13 @@ function App() {
       );
     }
 
+    if (toReset) {
+      clearInterval(timerInterval);
+      setTimerValue(constantTimerValue);
+      toggleActive(false);
+      setToReset(false);
+    }
+
     if (!isActive && timerValue > 0) {
       clearInterval(timerInterval);
     }
@@ -28,7 +37,6 @@ function App() {
     if (timerValue <= 0) {
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
-      toggleActive(false);
     }
 
     /* if (isActive && timerValue>0) {
@@ -45,7 +53,7 @@ function App() {
     // this equivalent to componentWillUnmount
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
-  }, [isActive, timerValue]);
+  }, [isActive, timerValue, toReset]);
 
   // for pause button
   function toggleTimer() {
@@ -58,6 +66,14 @@ function App() {
     setConstantTimerValue(e.target.value);
   }
 
+  function resetTimer() {
+    if (timerValue !== constantTimerValue) {
+      setToReset(true);
+    }
+
+    return;
+  }
+
   return (
     <div className="App">
       <Display
@@ -65,6 +81,7 @@ function App() {
         toggleTimer={toggleTimer}
         setTimerOnSelect={setTimerOnSelect}
         isActive={isActive}
+        resetTimer={resetTimer}
       />
     </div>
   );
@@ -250,7 +267,10 @@ function Display(props) {
           </div>
 
           <div className="column-right">
-            <button className="btn btn-control control-item btn-reset">
+            <button
+              className="btn btn-control control-item btn-reset"
+              onClick={() => props.resetTimer()}
+            >
               Reset
             </button>
           </div>
