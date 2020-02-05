@@ -149,7 +149,19 @@ margin-bottom: 10px;
   font-size: 1.1em;
 }
 
+.results-buttons-row {
+  display: flex;
+  justify-content: center;
+  /* change this later!!!!! */
+  margin-top: 100px;
+}
 
+.btn-results {
+  background-color: rgb(50, 94, 119);
+  border-radius: 0.1em;
+  color: white;
+  border: 1px solid grey;
+}
 
 
 .control-buttons-row {
