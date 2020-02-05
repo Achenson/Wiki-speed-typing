@@ -82,6 +82,20 @@ function App() {
     return;
   }
 
+  // hints & results visibility
+  const [areHintsVisible, setAreHintsVisible] = useState(false);
+  
+  function toggleHints() {
+    setAreHintsVisible(!areHintsVisible);
+  }
+  
+  const [areResultsVisible, setAreResultsVisible] = useState(false);
+
+  function toggleResults() {
+    setAreResultsVisible(!areResultsVisible);
+  }
+
+
   return (
     <div className="App" onKeyDown={handleKeyPress}>
       <Display
@@ -91,6 +105,10 @@ function App() {
         isActive={isActive}
         resetTimer={resetTimer}
         toReset={toReset}
+        areHintsVisible={areHintsVisible}
+        areResultsVisible={areResultsVisible}
+        toggleHints={toggleHints}
+        toggleResults={toggleResults}
       />
     </div>
   );
@@ -271,25 +289,13 @@ function Display(props) {
     setColorForEachLetter(makeColoredLetters());
   }
 
-  // hints & results visibility
-  const [areHintsVisible, setAreHintsVisible] = useState(false);
   
-  function toggleHints() {
-    setAreHintsVisible(!areHintsVisible);
-  }
-  
-  const [areResultsVisible, setAreResultsVisible] = useState(false);
-
-  function toggleResults() {
-    setAreResultsVisible(!areResultsVisible);
-  }
-
 
   return (
     <div className="outer-container">
       <div
         className="hints"
-        style={{ visibility: `${areHintsVisible ? "visible" : "hidden"}` }}
+        style={{ visibility: `${props.areHintsVisible ? "visible" : "hidden"}` }}
       >
         <div className="inner-hints container">
           <p className="hints-title">Hints</p>
@@ -308,18 +314,18 @@ function Display(props) {
           <p className="counter ">{props.timerValue}</p>
           <button
             className="btn btn-display-hints"
-            onClick={toggleHints}
+            onClick={props.toggleHints}
             style={{
-              backgroundColor: `${areHintsVisible ? "black" : "green"}`
+              backgroundColor: `${props.areHintsVisible ? "black" : "green"}`
             }}
             onMouseEnter={e => {
               e.target.style.backgroundColor = `${
-                areHintsVisible ? "green" : "black"
+                props.areHintsVisible ? "green" : "black"
               }`;
             }}
             onMouseLeave={e => {
               e.target.style.backgroundColor = `${
-                areHintsVisible ? "black" : "green"
+                props.areHintsVisible ? "black" : "green"
               }`;
             }}
           >
@@ -383,18 +389,18 @@ function Display(props) {
         </div>
         <div className="results-buttons-row container">
         <button className="btn btn-results"
-           onClick={toggleResults}
+           onClick={props.toggleResults}
             style={{
-              backgroundColor: `${areResultsVisible ? "black" : "rgb(50, 94, 119)"}`
+              backgroundColor: `${props.areResultsVisible ? "black" : "rgb(50, 94, 119)"}`
             }}
             onMouseEnter={e => {
               e.target.style.backgroundColor = `${
-                areResultsVisible ? "rgb(50, 94, 119)" : "black"
+                props.areResultsVisible ? "rgb(50, 94, 119)" : "black"
               }`;
             }}
             onMouseLeave={e => {
               e.target.style.backgroundColor = `${
-                areResultsVisible ? "black" : "rgb(50, 94, 119)"
+                props.areResultsVisible ? "black" : "rgb(50, 94, 119)"
               }`;
             }}
         
@@ -404,7 +410,7 @@ function Display(props) {
       </div>
       <div
         className="results"
-        style={{ visibility: `${areResultsVisible ? 'visible': 'hidden'}` }}
+        style={{ visibility: `${props.areResultsVisible ? 'visible': 'hidden'}` }}
       >
         <div className="inner-results container">
           <p className="results-title">Results</p>
