@@ -271,11 +271,54 @@ function Display(props) {
     setColorForEachLetter(makeColoredLetters());
   }
 
+  // hints visibility
+  const [areHintsVisible, setAreHintsVisible] = useState(true);
+
+  function toggleHints() {
+    setAreHintsVisible(!areHintsVisible);
+  }
+
   return (
     <div className="outer-container">
+      <div
+        className="hints"
+        style={{ visibility: `${areHintsVisible ? "hidden" : "visible"}` }}
+      >
+        <div className="inner-hints container">
+          <p className="hints-title">Hints</p>
+          <ul>
+            <li>Set the timer</li>
+            <li>Type to start/resume</li>
+            <li>
+              Keyboard shorcut for pause/resume: <b>Pause|Break</b>
+            </li>
+          </ul>
+        </div>
+      </div>
       <h3 className="title">Typing App</h3>
       <div className="main-square">
-        <div className="counter container">{props.timerValue}</div>
+        <div className="upper-ui container">
+          <p className="counter ">{props.timerValue}</p>
+          <button
+            className="btn btn-display-hints"
+            onClick={toggleHints}
+            style={{
+              backgroundColor: `${areHintsVisible ? "green" : "black"}`
+            }}
+            onMouseEnter={e => {
+              e.target.style.backgroundColor = `${
+                areHintsVisible ? "black" : "green"
+              }`;
+            }}
+            onMouseLeave={e => {
+              e.target.style.backgroundColor = `${
+                areHintsVisible ? "green" : "black"
+              }`;
+            }}
+          >
+            ?
+          </button>
+        </div>
         <div className="wiki-display container">
           {arrToRender.map((el, i) => {
             return (
@@ -305,7 +348,7 @@ function Display(props) {
               className="btn btn-control control-item"
               onClick={() => props.toggleTimer()}
             >
-              {props.isActive ? "pause" : "start"}
+              {props.isActive ? "Pause" : "Start"}
             </button>
             <select
               className="control-item"
