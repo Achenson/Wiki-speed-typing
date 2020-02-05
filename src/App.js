@@ -375,6 +375,21 @@ function Display(props) {
           </div>
         </div>
       </div>
+      <div
+        className="results"
+        style={{ visibility: "visible"} }
+      >
+        <div className="inner-results container">
+          <p className="results-title">Results</p>
+          <ul>
+            <li>Timer length:</li>
+            <li>Speed:</li>
+            <li>
+             Accuracy:
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
