@@ -11,6 +11,11 @@ function App() {
   // for reset button
   const [toReset, setToReset] = useState(false);
 
+  // for keyboard shortcuts
+  useEffect(() => {
+    document.addEventListener("keypress", handleKeyPress);
+  }, []);
+
   // for counter
   useEffect(() => {
     // otherwise there will be error: timerInterval not defined
@@ -67,8 +72,18 @@ function App() {
     return;
   }
 
+  //  for key press
+
+  function handleKeyPress(event) {
+    // pause button will work only if the timer hasn't started yet
+    if (event.key === "Pause" && constantTimerValue !== timerValue) {
+      toggleTimer();
+    }
+    return;
+  }
+
   return (
-    <div className="App">
+    <div className="App" onKeyDown={handleKeyPress}>
       <Display
         timerValue={timerValue}
         toggleTimer={toggleTimer}
@@ -168,15 +183,22 @@ function Display(props) {
     }
   }, [props.toReset]);
 
-  // unfocusing textArea
+  // useRef unfocusing textArea
 
   const focusElement = useRef(null);
+  const focusTextArea = useRef(null);
 
   useEffect(() => {
     if (props.timerValue <= 0) {
       focusElement.current.focus();
     }
   }, [props.timerValue]);
+
+  useEffect(() => {
+    if (props.isActive) {
+      focusTextArea.current.focus();
+    }
+  }, [props.isActive]);
 
   // displaying next part of text to display
   const arrToRender = makeArrayToRender();
@@ -274,6 +296,7 @@ function Display(props) {
           autoFocus
           // crucial for two-way binding! reset button
           value={textAreaValue}
+          ref={focusTextArea}
         ></textarea>
 
         <div className="control-buttons-row container">
