@@ -1,3 +1,18 @@
+/* 
+
+possible issues: 
+1.can't pause during first second (ignore it?)
+2. result are being hidden after 1 second if the timer is on
+(make the btn unresponsive if the timer is on)
+
+toChange:
+1. counter display (00:00 format)
+2. Start is also a pause btn (change it to arrow and ||)
+
+*/ 
+
+
+
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
@@ -10,6 +25,33 @@ function App() {
   const [isActive, toggleActive] = useState(false);
   // for reset button
   const [toReset, setToReset] = useState(false);
+
+
+
+  // for Results
+
+  const [resultsObj, setResultsObj] = useState( {
+    Speed: '1',
+    Accuracy: '2',
+    "Timer length": '3',
+    Date: '4',
+
+  })
+
+
+ function resultsMaker() {
+
+  return {
+    Speed: "1",
+    Accuracy: '2',
+    "Timer length": constantTimerValue.toString(),
+    Date: Date.now().toString(),
+  }
+
+ }
+
+
+
 
   // for keyboard shortcuts
   useEffect(() => {
@@ -26,6 +68,12 @@ function App() {
         () => setTimerValue(timerValue => timerValue - 1),
         1000
       );
+
+      if(areResultsVisible){
+        toggleResults();
+
+      }
+
     }
 
     if (toReset) {
@@ -44,6 +92,13 @@ function App() {
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
       setToReset(true);
+
+      if(!areResultsVisible){
+        toggleResults();
+
+      }
+
+      setResultsObj(resultsMaker())
 
       //setToReset(false);
     }
@@ -109,6 +164,7 @@ function App() {
         areResultsVisible={areResultsVisible}
         toggleHints={toggleHints}
         toggleResults={toggleResults}
+        resultsObj={resultsObj}
       />
     </div>
   );
@@ -353,6 +409,11 @@ function Display(props) {
           // crucial for two-way binding! reset button
           value={textAreaValue}
           ref={focusTextArea}
+
+          onPaste={(e) => {
+            e.preventDefault()
+          }}
+
         ></textarea>
 
         <div className="control-buttons-row container">
@@ -404,7 +465,7 @@ function Display(props) {
               }`;
             }}
         
-        >Show|Hide Results</button>
+        >Show<span style={{margin: 'auto 0.05em' }}>|</span>Hide Results</button>
 
         </div>
       </div>
@@ -415,11 +476,13 @@ function Display(props) {
         <div className="inner-results container">
           <p className="results-title">Results</p>
           <ul>
-            <li>Timer length:</li>
-            <li>Speed:</li>
+          <li>Speed: {props.resultsObj.Speed}</li>
             <li>
-             Accuracy:
+             Accuracy: {props.resultsObj.Accuracy}
             </li>
+          
+            <li>Timer length: {props.resultsObj["Timer length"]}</li>
+            <li>Date: {props.resultsObj.Date}</li>
           </ul>
         </div>
       </div>
