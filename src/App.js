@@ -17,12 +17,9 @@ toChange:
 
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import composeRefs from '@seznam/compose-react-refs'
+import composeRefs from "@seznam/compose-react-refs";
 
 import "./App.css";
-
-
-
 
 function App() {
   const [timerValue, setTimerValue] = useState(5);
@@ -32,6 +29,8 @@ function App() {
   const [isActive, toggleActive] = useState(false);
   // for reset button
   const [toReset, setToReset] = useState(false);
+
+  // on reset button click (or shortcut) => focus on textArea
 
   // for Results
 
@@ -110,9 +109,6 @@ function App() {
 
   // for time select
   function setTimerOnSelect(e) {
-
-    
-
     setTimerValue(e.target.value);
     setConstantTimerValue(e.target.value);
   }
@@ -134,13 +130,9 @@ function App() {
       keysPressed[event.key] = true;
 
       if (keysPressed["Shift"] && event.key == "Backspace") {
-        
         toggleTimer();
-       delete keysPressed[event.key];
-
+        delete keysPressed[event.key];
       }
-
-
     }
 
     //toggleTimer();
@@ -163,9 +155,7 @@ function App() {
 
   // for disabling select
 
-
-
-  const isDisabled = useRef(null)
+  const isDisabled = useRef(null);
 
   useEffect(() => {
     if (isActive) {
@@ -173,8 +163,6 @@ function App() {
     } else {
       isDisabled.current.removeAttribute("disabled");
     }
-
-
   }, [isActive]);
 
   return (
@@ -189,7 +177,8 @@ function App() {
         areHintsVisible={areHintsVisible}
         areResultsVisible={areResultsVisible}
         toggleHints={toggleHints}
-        toggleResults={toggleResults}c
+        toggleResults={toggleResults}
+        c
         resultsObj={resultsObj}
         isDisabled={isDisabled}
       />
@@ -297,9 +286,13 @@ function Display(props) {
 
   useEffect(() => {
     if (props.isActive) {
-      focusTextArea.current.focus();
+      putFocusOnTextArea();
     }
   }, [props.isActive]);
+
+  function putFocusOnTextArea() {
+    focusTextArea.current.focus();
+  }
 
   // displaying next part of text to display
   const arrToRender = makeArrayToRender();
@@ -453,10 +446,8 @@ function Display(props) {
             <select
               className="control-item"
               onChange={props.setTimerOnSelect}
-             // ref={composeRefs(focusElement, props.isDisabled)}
-             ref={props.isDisabled}
-             
-              
+              // ref={composeRefs(focusElement, props.isDisabled)}
+              ref={props.isDisabled}
             >
               <option value="5">00:05</option>
               <option value="30">00:30</option>
@@ -467,8 +458,9 @@ function Display(props) {
           <div className="column-right">
             <button
               className="btn btn-control control-item btn-reset"
-              onClick={() => {
+              onClick={event => {
                 props.resetTimer();
+                putFocusOnTextArea();
 
                 //resetDisplay();
               }}
@@ -496,7 +488,6 @@ function Display(props) {
                 props.areResultsVisible ? "black" : "steelblue"
               }`;
             }}
-
             ref={focusElement}
           >
             Show<span style={{ margin: "auto 0.05em" }}>|</span>Hide Results
