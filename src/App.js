@@ -12,6 +12,7 @@ toChange:
 3. Set default select value to higher val
 4. Results display to fast - add some animation??
 5. show|hide results -> make the button name togglable show & hide?
+6. uninstall compose refs?
 */
 
 import React from "react";
@@ -452,7 +453,8 @@ function Display(props) {
             <select
               className="control-item"
               onChange={props.setTimerOnSelect}
-              ref={composeRefs(focusElement, props.isDisabled)}
+             // ref={composeRefs(focusElement, props.isDisabled)}
+             ref={props.isDisabled}
              
               
             >
@@ -494,6 +496,8 @@ function Display(props) {
                 props.areResultsVisible ? "black" : "steelblue"
               }`;
             }}
+
+            ref={focusElement}
           >
             Show<span style={{ margin: "auto 0.05em" }}>|</span>Hide Results
           </button>
