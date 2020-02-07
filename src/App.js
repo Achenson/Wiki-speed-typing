@@ -4,54 +4,51 @@ possible issues:
 1.can't pause during first second (ignore it?)
 2. result are being hidden after 1 second if the timer is on
 (make the btn unresponsive if the timer is on)
+DONE 3. Disable time select if the app is running!!! DONE
 
 toChange:
 1. counter display (00:00 format)
 2. Start is also a pause btn (change it to arrow and ||)
-
-*/ 
-
-
+3. Set default select value to higher val
+4. Results display to fast - add some animation??
+5. show|hide results -> make the button name togglable show & hide?
+*/
 
 import React from "react";
 import { useState, useEffect, useRef } from "react";
+import composeRefs from '@seznam/compose-react-refs'
+
 import "./App.css";
 
+
+
+
 function App() {
-  const [timerValue, setTimerValue] = useState(10);
-  const [constantTimerValue, setConstantTimerValue] = useState(10);
+  const [timerValue, setTimerValue] = useState(5);
+  const [constantTimerValue, setConstantTimerValue] = useState(5);
 
   // for start/pause button
   const [isActive, toggleActive] = useState(false);
   // for reset button
   const [toReset, setToReset] = useState(false);
 
-
-
   // for Results
 
-  const [resultsObj, setResultsObj] = useState( {
-    Speed: '1',
-    Accuracy: '2',
-    "Timer length": '3',
-    Date: '4',
-
-  })
-
-
- function resultsMaker() {
-
-  return {
+  const [resultsObj, setResultsObj] = useState({
     Speed: "1",
-    Accuracy: '2',
-    "Timer length": constantTimerValue.toString(),
-    Date: Date.now().toString(),
+    Accuracy: "2",
+    "Timer length": "3",
+    Date: "4"
+  });
+
+  function resultsMaker() {
+    return {
+      Speed: "1",
+      Accuracy: "2",
+      "Timer length": constantTimerValue.toString(),
+      Date: Date.now().toString()
+    };
   }
-
- }
-
-
-
 
   // for keyboard shortcuts
   useEffect(() => {
@@ -69,11 +66,9 @@ function App() {
         1000
       );
 
-      if(areResultsVisible){
+      if (areResultsVisible) {
         toggleResults();
-
       }
-
     }
 
     if (toReset) {
@@ -93,12 +88,11 @@ function App() {
       setTimerValue(constantTimerValue);
       setToReset(true);
 
-      if(!areResultsVisible){
+      if (!areResultsVisible) {
         toggleResults();
-
       }
 
-      setResultsObj(resultsMaker())
+      setResultsObj(resultsMaker());
 
       //setToReset(false);
     }
@@ -115,6 +109,9 @@ function App() {
 
   // for time select
   function setTimerOnSelect(e) {
+
+    
+
     setTimerValue(e.target.value);
     setConstantTimerValue(e.target.value);
   }
@@ -128,28 +125,56 @@ function App() {
   }
 
   //  for key press
+  let keysPressed = {};
 
   function handleKeyPress(event) {
     // pause button will work only if the timer hasn't started yet
-    if (event.key === "Pause" && constantTimerValue !== timerValue) {
-      toggleTimer();
+    if (constantTimerValue !== timerValue) {
+      keysPressed[event.key] = true;
+
+      if (keysPressed["Shift"] && event.key == "Backspace") {
+        
+        toggleTimer();
+       delete keysPressed[event.key];
+
+      }
+
+
     }
+
+    //toggleTimer();
+
     return;
   }
 
   // hints & results visibility
   const [areHintsVisible, setAreHintsVisible] = useState(false);
-  
+
   function toggleHints() {
     setAreHintsVisible(!areHintsVisible);
   }
-  
+
   const [areResultsVisible, setAreResultsVisible] = useState(false);
 
   function toggleResults() {
     setAreResultsVisible(!areResultsVisible);
   }
 
+  // for disabling select
+
+
+
+  const isDisabled = useRef(null)
+
+  useEffect(() => {
+    if (isActive) {
+      isDisabled.current.setAttribute("disabled", true);
+    } else {
+      isDisabled.current.removeAttribute("disabled");
+    }
+
+
+  }, [isActive]);
 
   return (
     <div className="App" onKeyDown={handleKeyPress}>
@@ -163,8 +188,9 @@ function App() {
         areHintsVisible={areHintsVisible}
         areResultsVisible={areResultsVisible}
         toggleHints={toggleHints}
-        toggleResults={toggleResults}
+        toggleResults={toggleResults}c
         resultsObj={resultsObj}
+        isDisabled={isDisabled}
       />
     </div>
   );
@@ -345,13 +371,13 @@ function Display(props) {
     setColorForEachLetter(makeColoredLetters());
   }
 
-  
-
   return (
     <div className="outer-container">
       <div
         className="hints"
-        style={{ visibility: `${props.areHintsVisible ? "visible" : "hidden"}` }}
+        style={{
+          visibility: `${props.areHintsVisible ? "visible" : "hidden"}`
+        }}
       >
         <div className="inner-hints container">
           <p className="hints-title">Hints</p>
@@ -361,6 +387,7 @@ function Display(props) {
             <li>
               Keyboard shorcut for pause/resume: <b>Pause|Break</b>
             </li>
+            <li>Mouse over results' labels for more information</li>
           </ul>
         </div>
       </div>
@@ -409,11 +436,9 @@ function Display(props) {
           // crucial for two-way binding! reset button
           value={textAreaValue}
           ref={focusTextArea}
-
-          onPaste={(e) => {
-            e.preventDefault()
+          onPaste={e => {
+            e.preventDefault();
           }}
-
         ></textarea>
 
         <div className="control-buttons-row container">
@@ -427,9 +452,11 @@ function Display(props) {
             <select
               className="control-item"
               onChange={props.setTimerOnSelect}
-              ref={focusElement}
+              ref={composeRefs(focusElement, props.isDisabled)}
+             
+              
             >
-              <option value="10">00:10</option>
+              <option value="5">00:05</option>
               <option value="30">00:30</option>
               <option value="60">01:00</option>
             </select>
@@ -449,38 +476,41 @@ function Display(props) {
           </div>
         </div>
         <div className="results-buttons-row container">
-        <button className="btn btn-results"
-           onClick={props.toggleResults}
+          <button
+            className="btn btn-control btn-results"
+            onClick={props.toggleResults}
             style={{
-              backgroundColor: `${props.areResultsVisible ? "black" : "rgb(50, 94, 119)"}`
+              backgroundColor: `${
+                props.areResultsVisible ? "black" : "steelblue"
+              }`
             }}
             onMouseEnter={e => {
               e.target.style.backgroundColor = `${
-                props.areResultsVisible ? "rgb(50, 94, 119)" : "black"
+                props.areResultsVisible ? "steelblue" : "black"
               }`;
             }}
             onMouseLeave={e => {
               e.target.style.backgroundColor = `${
-                props.areResultsVisible ? "black" : "rgb(50, 94, 119)"
+                props.areResultsVisible ? "black" : "steelblue"
               }`;
             }}
-        
-        >Show<span style={{margin: 'auto 0.05em' }}>|</span>Hide Results</button>
-
+          >
+            Show<span style={{ margin: "auto 0.05em" }}>|</span>Hide Results
+          </button>
         </div>
       </div>
       <div
         className="results"
-        style={{ visibility: `${props.areResultsVisible ? 'visible': 'hidden'}` }}
+        style={{
+          visibility: `${props.areResultsVisible ? "visible" : "hidden"}`
+        }}
       >
         <div className="inner-results container">
           <p className="results-title">Results</p>
           <ul>
-          <li>Speed: {props.resultsObj.Speed}</li>
-            <li>
-             Accuracy: {props.resultsObj.Accuracy}
-            </li>
-          
+            <li>Speed: {props.resultsObj.Speed}</li>
+            <li>Accuracy: {props.resultsObj.Accuracy}</li>
+
             <li>Timer length: {props.resultsObj["Timer length"]}</li>
             <li>Date: {props.resultsObj.Date}</li>
           </ul>
