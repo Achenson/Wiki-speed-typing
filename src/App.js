@@ -30,15 +30,16 @@ function App() {
   // for reset button
   const [toReset, setToReset] = useState(false);
 
-  // on reset button click (or shortcut) => focus on textArea
-
   // for Results
 
   const [resultsObj, setResultsObj] = useState({
     Speed: "1",
     Accuracy: "2",
-    "Timer length": "3",
-    Date: "4"
+    Correct: "4",
+    Incorrect: "5",
+    Corrected: "6",
+    "Timer length": "7",
+    Date: "8"
   });
 
   function resultsMaker() {
@@ -129,8 +130,15 @@ function App() {
     if (constantTimerValue !== timerValue) {
       keysPressed[event.key] = true;
 
-      if (keysPressed["Shift"] && event.key == "Backspace") {
+      //if (keysPressed["Shift"] && event.key == "Pause") {
+      if (event.key == "Tab" && isActive) {
         toggleTimer();
+        delete keysPressed[event.key];
+      }
+
+      if (keysPressed["Shift"] && event.key == "Delete") {
+        resetTimer();
+
         delete keysPressed[event.key];
       }
     }
@@ -165,6 +173,27 @@ function App() {
     }
   }, [isActive]);
 
+  // useRef unfocusing textArea
+
+  const focusElement = useRef(null);
+  const focusTextArea = useRef(null);
+
+  useEffect(() => {
+    if (timerValue <= 0) {
+      focusElement.current.focus();
+    }
+  }, [timerValue]);
+
+  useEffect(() => {
+    if (isActive) {
+      putFocusOnTextArea();
+    }
+  }, [isActive]);
+
+  function putFocusOnTextArea() {
+    focusTextArea.current.focus();
+  }
+
   return (
     <div className="App" onKeyDown={handleKeyPress}>
       <Display
@@ -181,6 +210,9 @@ function App() {
         c
         resultsObj={resultsObj}
         isDisabled={isDisabled}
+        focusTextArea={focusTextArea}
+        focusElement={focusElement}
+        putFocusOnTextArea={putFocusOnTextArea}
       />
     </div>
   );
@@ -273,27 +305,6 @@ function Display(props) {
     }
   }, [props.toReset]);
 
-  // useRef unfocusing textArea
-
-  const focusElement = useRef(null);
-  const focusTextArea = useRef(null);
-
-  useEffect(() => {
-    if (props.timerValue <= 0) {
-      focusElement.current.focus();
-    }
-  }, [props.timerValue]);
-
-  useEffect(() => {
-    if (props.isActive) {
-      putFocusOnTextArea();
-    }
-  }, [props.isActive]);
-
-  function putFocusOnTextArea() {
-    focusTextArea.current.focus();
-  }
-
   // displaying next part of text to display
   const arrToRender = makeArrayToRender();
 
@@ -379,7 +390,10 @@ function Display(props) {
             <li>Change the timer value (optional)</li>
             <li>Type to start/resume</li>
             <li>
-              Keyboard shorcut for pause/resume: <b>Pause|Break</b>
+              Keyboard shorcut for pause/resume: <b>Shift+Pause</b>
+            </li>
+            <li>
+              Keyboard shorcut for reset: <b>Shift+Delete</b>
             </li>
             <li>Mouse over results' labels for more information</li>
           </ul>
@@ -429,10 +443,12 @@ function Display(props) {
           autoFocus
           // crucial for two-way binding! reset button
           value={textAreaValue}
-          ref={focusTextArea}
+          ref={props.focusTextArea}
           onPaste={e => {
             e.preventDefault();
           }}
+
+          //onBlur={props.toggleTimer}
         ></textarea>
 
         <div className="control-buttons-row container">
@@ -460,7 +476,7 @@ function Display(props) {
               className="btn btn-control control-item btn-reset"
               onClick={event => {
                 props.resetTimer();
-                putFocusOnTextArea();
+                props.putFocusOnTextArea();
 
                 //resetDisplay();
               }}
@@ -488,7 +504,7 @@ function Display(props) {
                 props.areResultsVisible ? "black" : "steelblue"
               }`;
             }}
-            ref={focusElement}
+            ref={props.focusElement}
           >
             Show<span style={{ margin: "auto 0.05em" }}>|</span>Hide Results
           </button>
@@ -503,8 +519,12 @@ function Display(props) {
         <div className="inner-results container">
           <p className="results-title">Results</p>
           <ul>
-            <li>Speed: {props.resultsObj.Speed}</li>
+            <li>Keys Per Minute: {props.resultsObj.Speed}</li>
             <li>Accuracy: {props.resultsObj.Accuracy}</li>
+
+            <li>Correct: {props.resultsObj.Correct}</li>
+            <li>Incorrect: {props.resultsObj.Incorrect}</li>
+            <li>Corrected: {props.resultsObj.Corrected}</li>
 
             <li>Timer length: {props.resultsObj["Timer length"]}</li>
             <li>Date: {props.resultsObj.Date}</li>
