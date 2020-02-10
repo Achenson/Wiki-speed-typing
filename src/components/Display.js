@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import SingleLetter from './SingleLetter.js'
+import SingleLetter from "./SingleLetter.js";
 
 function Display(props) {
   let myText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -48,17 +48,9 @@ function Display(props) {
   //  + counting entries!!
 
   useEffect(() => {
-    // for counting
-    if (textAreaValue.length > prevTextAreaValue.length) {
-      props.setResultsNoPenalty(props.resultsNoPenalty + 1 );
-    }
-
     let arrOfColors = [...colorForEachLetter];
 
-    let copyOfArrOfColors = [...arrOfColors];
-
-    console.log(arrOfColors.length);
-    console.log(copyOfArrOfColors.length);
+    //console.log(arrOfColors.length);
 
     for (let i = 0; i < textAreaValue.length; i++) {
       if (arrOutOfTextValue[i] !== arrOutOfText[i]) {
@@ -78,6 +70,21 @@ function Display(props) {
 
     setColorForEachLetter(arrOfColors);
     // for counting
+
+    // for counting
+    if (textAreaValue.length > prevTextAreaValue.length) {
+      props.setResultsNoPenalty(props.resultsNoPenalty + 1);
+
+      console.log(textAreaValue.length);
+
+      if (arrOfColors[textAreaValue.length - 1] === "LimeGreen") {
+        props.setResultsCorrect(props.resultsCorrect + 1);
+      }
+
+      if (arrOfColors[textAreaValue.length - 1] === "red") {
+        props.setResultsIncorrect(props.resultsIncorrect + 1);
+      }
+    }
     setPrevTextAreaValue(textAreaValue);
   }, [textAreaValue]);
 

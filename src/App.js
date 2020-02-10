@@ -100,6 +100,7 @@ function App() {
     }
 
     if (timerValue <= 0) {
+      // reseting results
       setResultsSpeed(0);
       setResultsAccuracy(0);
       setResultsCorrect(0);
@@ -247,8 +248,13 @@ function App() {
         resultsMaker={resultsMaker}
         setResultsSpeed={setResultsSpeed}
         setResultsAccuracy={setResultsAccuracy}
+
+        resultsCorrect={resultsCorrect}
         setResultsCorrect={setResultsCorrect}
+
+        resultsIncorrect={resultsIncorrect}
         setResultsIncorrect={setResultsIncorrect}
+
         setResultsNoPenalty={setResultsNoPenalty}
         resultsNoPenalty={resultsNoPenalty}
       />
@@ -256,29 +262,5 @@ function App() {
   );
 }
 
-/* function SingleLetter(props) {
-  let textDecoration = "none";
-  let fontWeight = "normal";
-
-  if (props.color === "red") {
-    textDecoration = "underline";
-  }
-
-  // if (props.color === "green") {
-  //fontWeight = "bold";
-  //}
-
-  return (
-    <span
-      style={{
-        color: `${props.color}`,
-        textDecoration: `${textDecoration}`,
-        fontWeight: `${fontWeight}`
-      }}
-    >
-      {props.letterToRender}
-    </span>
-  );
-} */
 
 export default App;
