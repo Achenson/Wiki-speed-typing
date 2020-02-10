@@ -17,6 +17,7 @@ li {
   flex-direction: column;
   justify-content: center;
   height: 100vh;
+  background-color: whitesmoke;
 }
 
 .hints {
@@ -66,11 +67,12 @@ li {
 }
 
 .wiki-display {
-  background-color: whitesmoke;
+  background-color: white;
   height: 130px;
   padding: 2px 4px;
   margin-top: 0px;
   margin-bottom: 10px;
+  border: 1px solid black;
 }
 
 .typing-display {

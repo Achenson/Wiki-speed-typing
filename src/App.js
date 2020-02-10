@@ -13,6 +13,10 @@ toChange:
 4. Results display to fast - add some animation??
 5. show|hide results -> make the button name togglable show & hide?
 6. uninstall compose refs?
+7. contrast between main square and correct letters
+8. display hint& result on one of the displays?
+9. add tooltips!!!
+10. resultObj and set individual results redundant!!???
 */
 
 import React from "react";
@@ -32,22 +36,32 @@ function App() {
 
   // for Results
 
+  const [resultsSpeed, setResultsSpeed] = useState(0);
+  const [resultsAccuracy, setResultsAccuracy] = useState(0);
+  const [resultsCorrect, setResultsCorrect] = useState(0);
+  const [resultsIncorrect, setResultsIncorrect] = useState(0);
+  const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
+
+  // delete ?!!!
   const [resultsObj, setResultsObj] = useState({
-    Speed: "1",
-    Accuracy: "2",
-    Correct: "4",
-    Incorrect: "5",
-    Corrected: "6",
-    "Timer length": "7",
-    Date: "8"
+    speed: 0,
+    accuracy: 0,
+    correct: 0,
+    incorrect: 0,
+    noPenalty: 0,
+    "timer length": 7,
+    date: 8
   });
 
-  function resultsMaker() {
+  function resultsMaker(speed, accuracy, correct, incorrect, noPenalty) {
     return {
-      Speed: "1",
-      Accuracy: "2",
-      "Timer length": constantTimerValue.toString(),
-      Date: Date.now().toString()
+      speed: speed,
+      accuracy: accuracy,
+      correct: correct,
+      incorrect: incorrect,
+      noPenalty: noPenalty,
+      "timer length": constantTimerValue.toString(),
+      date: Date.now().toString()
     };
   }
 
@@ -84,6 +98,14 @@ function App() {
     }
 
     if (timerValue <= 0) {
+
+      setResultsSpeed(0)
+      setResultsAccuracy(0)
+      setResultsCorrect(0)
+      setResultsIncorrect(0)
+      setResultsNoPenalty(0)
+
+
       toggleActive(false);
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
@@ -93,7 +115,15 @@ function App() {
         toggleResults();
       }
 
-      setResultsObj(resultsMaker());
+      setResultsObj(
+        resultsMaker(
+          resultsSpeed,
+          resultsAccuracy,
+          resultsCorrect,
+          resultsIncorrect,
+          resultsNoPenalty
+        )
+      );
 
       //setToReset(false);
     }
@@ -208,11 +238,19 @@ function App() {
         toggleHints={toggleHints}
         toggleResults={toggleResults}
         c
-        resultsObj={resultsObj}
         isDisabled={isDisabled}
         focusTextArea={focusTextArea}
         focusElement={focusElement}
         putFocusOnTextArea={putFocusOnTextArea}
+        setResultsObj={setResultsObj}
+        resultsObj={resultsObj}
+        resultsMaker={resultsMaker}
+        setResultsSpeed={setResultsSpeed}
+        setResultsAccuracy={setResultsAccuracy}
+        setResultsCorrect={setResultsCorrect}
+        setResultsIncorrect={setResultsIncorrect}
+        setResultsNoPenalty={setResultsNoPenalty}
+        resultsNoPenalty={resultsNoPenalty}
       />
     </div>
   );
@@ -220,14 +258,23 @@ function App() {
 
 function SingleLetter(props) {
   let textDecoration = "none";
+  let fontWeight = "normal";
 
   if (props.color === "red") {
     textDecoration = "underline";
   }
 
+  // if (props.color === "green") {
+  //fontWeight = "bold";
+  //}
+
   return (
     <span
-      style={{ color: `${props.color}`, textDecoration: `${textDecoration}` }}
+      style={{
+        color: `${props.color}`,
+        textDecoration: `${textDecoration}`,
+        fontWeight: `${fontWeight}`
+      }}
     >
       {props.letterToRender}
     </span>
@@ -272,11 +319,25 @@ function Display(props) {
   );
 
   const [textAreaValue, setTextAreaValue] = useState("");
+  const [prevTextAreaValue, setPrevTextAreaValue] = useState("");
+
   let arrOutOfTextValue = textAreaValue.split("");
 
   //coloring letters in display according to errors or no
+  //  + counting entries!!
+
   useEffect(() => {
+    // for counting
+    if (textAreaValue.length > prevTextAreaValue.length) {
+      props.setResultsNoPenalty(props.resultsNoPenalty + 1 );
+    }
+
     let arrOfColors = [...colorForEachLetter];
+
+    let copyOfArrOfColors = [...arrOfColors];
+
+    console.log(arrOfColors.length);
+    console.log(copyOfArrOfColors.length);
 
     for (let i = 0; i < textAreaValue.length; i++) {
       if (arrOutOfTextValue[i] !== arrOutOfText[i]) {
@@ -284,7 +345,7 @@ function Display(props) {
       }
 
       if (arrOutOfTextValue[i] === arrOutOfText[i]) {
-        arrOfColors[i] = "green";
+        arrOfColors[i] = "LimeGreen";
       }
     }
 
@@ -295,6 +356,8 @@ function Display(props) {
     }
 
     setColorForEachLetter(arrOfColors);
+    // for counting
+    setPrevTextAreaValue(textAreaValue);
   }, [textAreaValue]);
 
   // reseting display
@@ -388,14 +451,14 @@ function Display(props) {
           <p className="hints-title">Hints</p>
           <ul>
             <li>Change the timer value (optional)</li>
-            <li>Type to start/resume</li>
+            <li>Type in typing area to start/resume</li>
             <li>
-              Keyboard shorcut for pause/resume: <b>Shift+Pause</b>
+              Press <b>Tab</b> to pause
             </li>
             <li>
-              Keyboard shorcut for reset: <b>Shift+Delete</b>
+              Press <b>Shift+Delete</b> to reset
             </li>
-            <li>Mouse over results' labels for more information</li>
+            <li>Mouse over result labels for more information</li>
           </ul>
         </div>
       </div>
@@ -519,15 +582,15 @@ function Display(props) {
         <div className="inner-results container">
           <p className="results-title">Results</p>
           <ul>
-            <li>Keys Per Minute: {props.resultsObj.Speed}</li>
-            <li>Accuracy: {props.resultsObj.Accuracy}</li>
+            <li>Keys Per Minute: {props.resultsObj.speed}</li>
+            <li>Accuracy: {props.resultsObj.accuracy}</li>
 
-            <li>Correct: {props.resultsObj.Correct}</li>
-            <li>Incorrect: {props.resultsObj.Incorrect}</li>
-            <li>Corrected: {props.resultsObj.Corrected}</li>
+            <li>Correct Entries: {props.resultsObj.correct}</li>
+            <li>Incorrect Entries: {props.resultsObj.incorrect}</li>
+            <li>KPM no penalties: {props.resultsObj.noPenalty}</li>
 
-            <li>Timer length: {props.resultsObj["Timer length"]}</li>
-            <li>Date: {props.resultsObj.Date}</li>
+            <li>Timer length: {props.resultsObj["timer length"]}</li>
+            <li>Date: {props.resultsObj.date}</li>
           </ul>
         </div>
       </div>
