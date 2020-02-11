@@ -43,6 +43,8 @@ function App() {
   const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
   const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
+  const [resultsCorrected, setResultsCorrected] = useState(0);
+  
 
   // delete ?!!!
   const [resultsObj, setResultsObj] = useState({
@@ -50,12 +52,14 @@ function App() {
     accuracy: 0,
     correct: 0,
     incorrect: 0,
+    corrected:0,
+    
     noPenalty: 0,
     "timer length": 7,
     date: 8
   });
 
-  function resultsMaker(correct, incorrect, allEntries) {
+  function resultsMaker(correct, incorrect, allEntries, corrected) {
 
     let noPenaltyKPM = Math.round((allEntries*60)/constantTimerValue * 100) / 100
     let incorrectPerMinute = (incorrect*60)/constantTimerValue
@@ -66,6 +70,7 @@ function App() {
       accuracy: Math.round((correct / allEntries) * 10000) / 100,
       correct: correct,
       incorrect: incorrect,
+      corrected: corrected,
       noPenalty: noPenaltyKPM,
       "timer length": constantTimerValue.toString(),
       date: Date.now().toString()
@@ -126,7 +131,8 @@ function App() {
         
           resultsCorrect,
           resultsIncorrect,
-          resultsNoPenalty
+          resultsNoPenalty,
+          resultsCorrected
         )
       );
 
@@ -259,6 +265,10 @@ function App() {
         setResultsIncorrect={setResultsIncorrect}
         setResultsNoPenalty={setResultsNoPenalty}
         resultsNoPenalty={resultsNoPenalty}
+
+        resultsCorrected={resultsCorrected}
+        setResultsCorrected={setResultsCorrected}
+
       />
     </div>
   );

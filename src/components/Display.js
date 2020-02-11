@@ -71,7 +71,11 @@ function Display(props) {
     setColorForEachLetter(arrOfColors);
     // for counting
 
-    // for counting
+    if (textAreaValue.length < prevTextAreaValue.length) {
+        props.setResultsCorrected(props.resultsCorrected+1)
+    }
+
+    // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
       props.setResultsNoPenalty(props.resultsNoPenalty + 1);
 
@@ -332,6 +336,7 @@ function Display(props) {
             <li>Correct Entries: {props.resultsObj.correct}</li>
             <li>Incorrect Entries: {props.resultsObj.incorrect}</li>
             <li>KPM no penalties: {props.resultsObj.noPenalty}</li>
+            <li>Corrected Entries: {props.resultsObj.corrected}</li>
 
             <li>Timer length: {props.resultsObj["timer length"]}</li>
             <li>Date: {props.resultsObj.date}</li>
