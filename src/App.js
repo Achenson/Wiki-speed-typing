@@ -38,8 +38,8 @@ function App() {
 
   // for Results
 
-  const [resultsSpeed, setResultsSpeed] = useState(0);
-  //const [resultsAccuracy, setResultsAccuracy] = useState(0);
+  
+  
   const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
   const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
@@ -55,13 +55,18 @@ function App() {
     date: 8
   });
 
-  function resultsMaker(speed, correct, incorrect, noPenalty) {
+  function resultsMaker(correct, incorrect, allEntries) {
+
+    let noPenaltyKPM = Math.round((allEntries*60)/constantTimerValue * 100) / 100
+    let incorrectPerMinute = (incorrect*60)/constantTimerValue
+
     return {
-      speed: speed,
-      accuracy: Math.round((correct / noPenalty) * 10000) / 100,
+      // speed penalty: -5 per incorrectEntry/minute
+      speed: noPenaltyKPM-(5*incorrectPerMinute),
+      accuracy: Math.round((correct / allEntries) * 10000) / 100,
       correct: correct,
       incorrect: incorrect,
-      noPenalty: Math.round(noPenalty * (constantTimerValue / 60) * 100) / 100,
+      noPenalty: noPenaltyKPM,
       "timer length": constantTimerValue.toString(),
       date: Date.now().toString()
     };
@@ -101,8 +106,8 @@ function App() {
 
     if (timerValue <= 0) {
       // reseting results
-      setResultsSpeed(0);
-      //setResultsAccuracy(0);
+     
+      
       setResultsCorrect(0);
       setResultsIncorrect(0);
       setResultsNoPenalty(0);
@@ -118,8 +123,7 @@ function App() {
 
       setResultsObj(
         resultsMaker(
-          resultsSpeed,
-
+        
           resultsCorrect,
           resultsIncorrect,
           resultsNoPenalty
@@ -246,7 +250,7 @@ function App() {
         setResultsObj={setResultsObj}
         resultsObj={resultsObj}
         resultsMaker={resultsMaker}
-        setResultsSpeed={setResultsSpeed}
+        
         //setResultsAccuracy={setResultsAccuracy}
 
         resultsCorrect={resultsCorrect}
