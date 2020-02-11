@@ -63,10 +63,11 @@ function App() {
 
     let noPenaltyKPM = Math.round((allEntries*60)/constantTimerValue * 100) / 100
     let incorrectPerMinute = (incorrect*60)/constantTimerValue
-
+    // speed penalty: -5 per incorrectEntry/minute
+    let penaltyKPM = noPenaltyKPM-(5*incorrectPerMinute)
+    
     return {
-      // speed penalty: -5 per incorrectEntry/minute
-      speed: noPenaltyKPM-(5*incorrectPerMinute),
+      speed: calcSpeed(),
       accuracy: Math.round((correct / allEntries) * 10000) / 100,
       correct: correct,
       incorrect: incorrect,
@@ -75,6 +76,14 @@ function App() {
       "timer length": constantTimerValue.toString(),
       date: Date.now().toString()
     };
+
+    function calcSpeed() {
+      if (penaltyKPM >= 0) {
+        return penaltyKPM
+      } else {
+        return 0
+      }
+    }
   }
 
   // for keyboard shortcuts
