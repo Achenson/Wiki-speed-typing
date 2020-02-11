@@ -9,6 +9,14 @@ function SingleLetter(props) {
     textDecoration = "underline";
   }
 
+
+  if (props.color === "LimeGreen" && props.letterToRender === " ") {
+    textDecoration = "underline";
+  }
+
+
+
+
   // if (props.color === "green") {
   //fontWeight = "bold";
   //}

@@ -199,7 +199,7 @@ function Display(props) {
             <li>Change the timer value (optional)</li>
             <li>Type in typing area to start/resume</li>
             <li>
-              Press <b>Tab</b> to pause
+              Press <b>Tab</b> to pause, <b>Enter</b> to resume
             </li>
             <li>
               Press <b>Shift+Delete</b> to reset
@@ -330,8 +330,8 @@ function Display(props) {
         <div className="inner-results container">
           <p className="results-title">Results</p>
           <ul>
-            <li>Keys Per Minute: {props.resultsObj.speed}</li>
-            <li>Accuracy: {props.resultsObj.accuracy}</li>
+            <li>Speed: {props.resultsObj.speed} KPM</li>
+            <li>Accuracy: {props.resultsObj.accuracy}%</li>
 
             <li>Correct Entries: {props.resultsObj.correct}</li>
             <li>Incorrect Entries: {props.resultsObj.incorrect}</li>
