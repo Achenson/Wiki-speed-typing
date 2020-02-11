@@ -167,6 +167,20 @@ function Display(props) {
     setColorForEachLetter(makeColoredLetters());
   }
 
+  function preventArrowKeys(event) {
+    let arrowKeysArr = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
+
+    if (arrowKeysArr.indexOf(event.key) !== -1) {
+      event.preventDefault();
+    }
+  }
+
+  function focusOnlyOnClick(event) {
+    //props.putFocusOnTextArea()
+    let myTarget = event.target;
+    myTarget.setSelectionRange(myTarget.value.length, myTarget.value.length);
+  }
+
   return (
     <div className="outer-container">
       <div
@@ -238,6 +252,8 @@ function Display(props) {
           onPaste={e => {
             e.preventDefault();
           }}
+          onKeyDown={preventArrowKeys}
+          onClick={focusOnlyOnClick}
 
           //onBlur={props.toggleTimer}
         ></textarea>

@@ -3,7 +3,9 @@
 }
 
 html,
-body, ul, p {
+body,
+ul,
+p {
   margin: 0;
   padding: 0;
 }
@@ -27,10 +29,9 @@ li {
   margin-right: auto;
   padding: 2px 2px;
   color: black;
-  background-color:  rgba(228, 240, 237, 0.431);
+  background-color: rgba(228, 240, 237, 0.431);
   border: 2px solid green;
   border-radius: 2px;
-  
 }
 
 .inner-hints {
@@ -41,7 +42,6 @@ li {
   text-align: center;
   font-weight: bold;
   font-size: 1.1em;
-  
 }
 
 .main-square {
@@ -54,8 +54,6 @@ li {
   border-radius: 4px;
   box-shadow: 2px 2px 2px black;
 }
-
-
 
 .title {
   margin-left: auto;
@@ -76,14 +74,13 @@ li {
 }
 
 .typing-display {
- outline: none;
- resize: none;
- padding: 2px 4px;
- width: 360px;
- height: 130px;
- margin-top: 10px;
-margin-bottom: 10px;
-
+  outline: none;
+  resize: none;
+  padding: 2px 4px;
+  width: 360px;
+  height: 130px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .upper-ui {
@@ -107,15 +104,12 @@ margin-bottom: 10px;
   padding: 0.3em 0.4em;
   cursor: pointer;
   border: none;
-  
+
   text-align: center;
   vertical-align: middle;
 }
 
-
-
 .btn-display-hints {
-  
   font-size: 1.05em;
   /* background-color: green; */
   border-radius: 20%;
@@ -123,27 +117,25 @@ margin-bottom: 10px;
   padding: 0.05em 0.3em;
   font-weight: bolder;
   border: 1px solid black;
- 
 }
 
-.results{
-   /* visibility: hidden; */
-   
-   width: 400px;
-   margin-top: 10px;
-   margin-left: auto;
-   margin-right: auto;
-   padding: 2px 2px;
-   color: black;
-   background-color:  rgba(111, 198, 219, 0.431);
-   transition: background-color 1000ms;
-   border: 1px solid steelblue;
-   border-radius: 4px;
-   box-shadow: 1px 1px 1px black;
-   
+.results {
+  /* visibility: hidden; */
+
+  width: 400px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2px 2px;
+  color: black;
+  background-color: rgba(111, 198, 219, 0.431);
+  transition: background-color 1000ms;
+  border: 1px solid steelblue;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px black;
 }
 
-.inner-results{
+.inner-results {
   padding-bottom: 5px;
 }
 
@@ -159,9 +151,6 @@ margin-bottom: 10px;
   /* change this later!!!!! */
   margin-top: 100px;
 }
-
-
-
 
 .control-buttons-row {
   display: flex;
@@ -179,7 +168,6 @@ margin-bottom: 10px;
   width: 60px;
   height: 1.8em;
 }
-
 
 .btn-control {
   background-color: steelblue;
