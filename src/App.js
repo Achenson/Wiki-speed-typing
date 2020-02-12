@@ -5,6 +5,7 @@ possible issues:
 2. result are being hidden after 1 second if the timer is on
 (make the btn unresponsive if the timer is on)
 DONE 3. Disable time select if the app is running!!! DONE
+4. accuracy NaN!
 
 toChange:
 1. counter display (00:00 format)
@@ -12,16 +13,18 @@ toChange:
 3. Set default select value to higher val
 4. Results display to fast - add some animation??
 5. show|hide results -> make the button name togglable show & hide?
-6. uninstall compose refs?
+DONE uninstall compose refs? DONE
 7. contrast between main square and correct letters
 8. display hint& result on one of the displays?
 9. add tooltips!!!
 10. resultObj and set individual results redundant!!???
+11. hide result btn until 1 test was run?
+12. disable 5s timer in the end
 */
 
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import composeRefs from "@seznam/compose-react-refs";
+//import composeRefs from "@seznam/compose-react-refs";
 
 import Display from "./components/Display.js";
 
@@ -43,7 +46,7 @@ function App() {
   const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
   const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
-  const [resultsCorrected, setResultsCorrected] = useState(0);
+  
   
 
   // delete ?!!!
@@ -52,14 +55,14 @@ function App() {
     accuracy: 0,
     correct: 0,
     incorrect: 0,
-    corrected:0,
+    
     
     noPenalty: 0,
-    "timer length": 7,
-    date: 8
+    "timer length": 0,
+    
   });
 
-  function resultsMaker(correct, incorrect, allEntries, corrected) {
+  function resultsMaker(correct, incorrect, allEntries) {
 
     let noPenaltyKPM = Math.round((allEntries*60)/constantTimerValue * 100) / 100
     let incorrectPerMinute = (incorrect*60)/constantTimerValue
@@ -71,10 +74,10 @@ function App() {
       accuracy: Math.round((correct / allEntries) * 10000) / 100,
       correct: correct,
       incorrect: incorrect,
-      corrected: corrected,
+      
       noPenalty: noPenaltyKPM,
       "timer length": constantTimerValue.toString(),
-      date: Date.now().toString()
+     
     };
 
     function calcSpeed() {
@@ -141,7 +144,7 @@ function App() {
           resultsCorrect,
           resultsIncorrect,
           resultsNoPenalty,
-          resultsCorrected
+          
         )
       );
 
@@ -275,8 +278,7 @@ function App() {
         setResultsNoPenalty={setResultsNoPenalty}
         resultsNoPenalty={resultsNoPenalty}
 
-        resultsCorrected={resultsCorrected}
-        setResultsCorrected={setResultsCorrected}
+       
 
       />
     </div>

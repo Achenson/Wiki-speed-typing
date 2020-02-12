@@ -71,10 +71,6 @@ function Display(props) {
     setColorForEachLetter(arrOfColors);
     // for counting
 
-    if (textAreaValue.length < prevTextAreaValue.length) {
-        props.setResultsCorrected(props.resultsCorrected+1)
-    }
-
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
       props.setResultsNoPenalty(props.resultsNoPenalty + 1);
@@ -268,7 +264,7 @@ function Display(props) {
               className="btn btn-control control-item"
               onClick={() => props.toggleTimer()}
             >
-              {props.isActive ? "Pause" : "Start"}
+              {props.isActive ? "Pause" : "Run"}
             </button>
             <select
               className="control-item"
@@ -328,19 +324,50 @@ function Display(props) {
         }}
       >
         <div className="inner-results container">
-          <p className="results-title">Results</p>
-          <ul>
-            <li>Speed: {props.resultsObj.speed} KPM</li>
-            <li>Accuracy: {props.resultsObj.accuracy}%</li>
+          <p className="results-title">
+            Results{" "}
+            <span style={{ fontWeight: "normal" }}>
+              (timer length: {props.resultsObj["timer length"]}s)
+            </span>
+          </p>
 
-            <li>Correct Entries: {props.resultsObj.correct}</li>
-            <li>Incorrect Entries: {props.resultsObj.incorrect}</li>
-            <li>KPM no penalties: {props.resultsObj.noPenalty}</li>
-            <li>Corrected Entries: {props.resultsObj.corrected}</li>
+          <div className="results-main">
+            <div className="tooltip">
+              <p>Speed: {props.resultsObj.speed} KPM</p>
+              <span className="tooltip-text">
+              Keys per minute - with penalties (minus 5 for 1 mistake/minute)
+              </span>
+            </div>
 
-            <li>Timer length: {props.resultsObj["timer length"]}</li>
-            <li>Date: {props.resultsObj.date}</li>
-          </ul>
+            <div className="tooltip">
+              <p>Accuracy: {props.resultsObj.accuracy}%</p>
+              <span className="tooltip-text">
+                Incorrect entries/total entries percentage
+              </span>
+            </div>
+          </div>
+
+          <div className="results-other">
+            <div className="tooltip">
+              <p>Correct Entries: {props.resultsObj.correct}</p>
+              <span className="tooltip-text">
+                Total correct entries (including backspace corrected)
+              </span>
+            </div>
+
+            <div className="tooltip">
+              <p>Incorrect Entries: {props.resultsObj.incorrect}</p>
+              <span className="tooltip-text">
+                Total incorrect entries (including backspace corrected)
+              </span>
+            </div>
+            <div className="tooltip">
+              <p>Raw Key Speed: {props.resultsObj.noPenalty} KPM</p>
+              <span className="tooltip-text">
+                Keys per minute - without penalties for mistakes
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
