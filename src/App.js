@@ -5,21 +5,23 @@ possible issues:
 2. result are being hidden after 1 second if the timer is on
 (make the btn unresponsive if the timer is on)
 DONE 3. Disable time select if the app is running!!! DONE
-4. accuracy NaN!
+DONE 4. accuracy NaN! DONE
+5. solve useEffect errors
 
 toChange:
 1. counter display (00:00 format)
-2. Start is also a pause btn (change it to arrow and ||)
+X 2. Start is also a pause btn (change it to arrow and ||)X
 3. Set default select value to higher val
-4. Results display to fast - add some animation??
+X 4. Results display to fast - add some animation?? X
 5. show|hide results -> make the button name togglable show & hide?
 DONE uninstall compose refs? DONE
 7. contrast between main square and correct letters
-8. display hint& result on one of the displays?
-9. add tooltips!!!
+DONE 8. display hint& result on one of the displays? DONE
+DONE 9. add tooltips!!! DONE
 10. resultObj and set individual results redundant!!???
 11. hide result btn until 1 test was run?
 12. disable 5s timer in the end
+DONE 13. default results DONE
 */
 
 import React from "react";
@@ -41,50 +43,51 @@ function App() {
 
   // for Results
 
-  
-  
   const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
   const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
-  
-  
 
   // delete ?!!!
   const [resultsObj, setResultsObj] = useState({
-    speed: 0,
-    accuracy: 0,
-    correct: 0,
-    incorrect: 0,
-    
-    
-    noPenalty: 0,
-    "timer length": 0,
-    
+    speed: "-",
+    accuracy: "- " ,
+    correct: "-",
+    incorrect: "-",
+
+    noPenalty: "-",
+    "timer length": constantTimerValue
   });
 
   function resultsMaker(correct, incorrect, allEntries) {
-
-    let noPenaltyKPM = Math.round((allEntries*60)/constantTimerValue * 100) / 100
-    let incorrectPerMinute = (incorrect*60)/constantTimerValue
+    let noPenaltyKPM =
+      Math.round(((allEntries * 60) / constantTimerValue) * 100) / 100;
+    let incorrectPerMinute = (incorrect * 60) / constantTimerValue;
     // speed penalty: -5 per incorrectEntry/minute
-    let penaltyKPM = noPenaltyKPM-(5*incorrectPerMinute)
-    
+    let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
+
     return {
       speed: calcSpeed(),
-      accuracy: Math.round((correct / allEntries) * 10000) / 100,
+      accuracy: calcAccuracy(),
       correct: correct,
       incorrect: incorrect,
-      
       noPenalty: noPenaltyKPM,
-      "timer length": constantTimerValue.toString(),
-     
+      "timer length": constantTimerValue.toString()
     };
 
     function calcSpeed() {
       if (penaltyKPM >= 0) {
-        return penaltyKPM
+        return penaltyKPM;
       } else {
-        return 0
+        return 0;
+      }
+    }
+
+    function calcAccuracy() {
+      if (allEntries > 0) {
+        let accuracyResult = Math.round((correct / allEntries) * 10000) / 100;
+        return accuracyResult;
+      } else {
+        return 0;
       }
     }
   }
@@ -123,8 +126,7 @@ function App() {
 
     if (timerValue <= 0) {
       // reseting results
-     
-      
+
       setResultsCorrect(0);
       setResultsIncorrect(0);
       setResultsNoPenalty(0);
@@ -139,13 +141,7 @@ function App() {
       }
 
       setResultsObj(
-        resultsMaker(
-        
-          resultsCorrect,
-          resultsIncorrect,
-          resultsNoPenalty,
-          
-        )
+        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
       );
 
       //setToReset(false);
@@ -205,21 +201,16 @@ function App() {
   const [areHintsVisible, setAreHintsVisible] = useState(false);
 
   function toggleHints() {
-    if(!isActive) {
-
+    if (!isActive) {
       setAreHintsVisible(!areHintsVisible);
     }
   }
-
-
 
   const [areResultsVisible, setAreResultsVisible] = useState(false);
 
   function toggleResults() {
     setAreResultsVisible(!areResultsVisible);
   }
-
-
 
   // for disabling select
 
@@ -250,12 +241,8 @@ function App() {
     }
   }, [isActive]);
 
-  
-
   function putFocusOnTextArea() {
     focusTextArea.current.focus();
-   
-
   }
 
   return (
@@ -275,11 +262,9 @@ function App() {
         focusTextArea={focusTextArea}
         putFocusOnTextArea={putFocusOnTextArea}
         focusElement={focusElement}
-        
         setResultsObj={setResultsObj}
         resultsObj={resultsObj}
         resultsMaker={resultsMaker}
-        
         //setResultsAccuracy={setResultsAccuracy}
 
         resultsCorrect={resultsCorrect}
@@ -288,9 +273,6 @@ function App() {
         setResultsIncorrect={setResultsIncorrect}
         setResultsNoPenalty={setResultsNoPenalty}
         resultsNoPenalty={resultsNoPenalty}
-
-       
-
       />
     </div>
   );
