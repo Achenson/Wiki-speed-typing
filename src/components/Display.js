@@ -195,7 +195,7 @@ function Display(props) {
             <li>Change the timer value (optional)</li>
             <li>Type in typing area to start/resume</li>
             <li>
-              Press <b>Tab</b> to pause, <b>Enter</b> to resume
+              Press <b>Tab</b> once to pause, <b>Enter</b> to resume
             </li>
             <li>
               Press <b>Shift+Delete</b> to reset
@@ -204,7 +204,8 @@ function Display(props) {
           </ul>
         </div>
       </div>
-      <h3 className="title">Typing App</h3>
+
+      <h3 className="title">Speed Typing App</h3>
       <div className="main-square">
         <div className="upper-ui container">
           <p className="counter ">{props.timerValue}</p>
@@ -254,6 +255,16 @@ function Display(props) {
           }}
           onKeyDown={preventArrowKeys}
           onClick={focusOnlyOnClick}
+          onFocus={() => {
+            if (props.areHintsVisible) {
+              props.toggleHints();
+            }
+          }}
+          onBlur={() => {
+            if (props.areHintsVisible) {
+              props.toggleHints();
+            }
+          }}
 
           //onBlur={props.toggleTimer}
         ></textarea>
@@ -275,6 +286,8 @@ function Display(props) {
               <option value="5">00:05</option>
               <option value="30">00:30</option>
               <option value="60">01:00</option>
+              <option value="120">02:00</option>
+              <option value="300">05:00</option>
             </select>
           </div>
 
@@ -294,6 +307,7 @@ function Display(props) {
         </div>
         <div className="results-buttons-row container">
           <button
+          hidden
             className="btn btn-control btn-results"
             onClick={props.toggleResults}
             style={{
@@ -335,7 +349,7 @@ function Display(props) {
             <div className="tooltip">
               <p>Speed: {props.resultsObj.speed} KPM</p>
               <span className="tooltip-text">
-              Keys per minute - with penalties (minus 5 for 1 mistake/minute)
+                Keys per minute - with penalties (minus 5 for 1 mistake/minute)
               </span>
             </div>
 

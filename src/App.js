@@ -205,14 +205,21 @@ function App() {
   const [areHintsVisible, setAreHintsVisible] = useState(false);
 
   function toggleHints() {
-    setAreHintsVisible(!areHintsVisible);
+    if(!isActive) {
+
+      setAreHintsVisible(!areHintsVisible);
+    }
   }
+
+
 
   const [areResultsVisible, setAreResultsVisible] = useState(false);
 
   function toggleResults() {
     setAreResultsVisible(!areResultsVisible);
   }
+
+
 
   // for disabling select
 
@@ -226,7 +233,7 @@ function App() {
     }
   }, [isActive]);
 
-  // useRef unfocusing textArea
+  // useRef unfocusing textArea, btn-hints on textarea focus
 
   const focusElement = useRef(null);
   const focusTextArea = useRef(null);
@@ -243,8 +250,12 @@ function App() {
     }
   }, [isActive]);
 
+  
+
   function putFocusOnTextArea() {
     focusTextArea.current.focus();
+   
+
   }
 
   return (
