@@ -249,6 +249,7 @@ function App() {
     <div className="App" onKeyDown={handleKeyPress}>
       <Display
         timerValue={timerValue}
+        constantTimerValue={constantTimerValue}
         toggleTimer={toggleTimer}
         setTimerOnSelect={setTimerOnSelect}
         isActive={isActive}

@@ -208,7 +208,26 @@ function Display(props) {
       <h3 className="title">Speed Typing App</h3>
       <div className="main-square">
         <div className="upper-ui container">
-          <p className="counter ">{props.timerValue}</p>
+          <div className="upper-ui-left">
+            <div className="upper-ui-inner">
+              <p className="upper-ui-item-label" style={{visibility: "hidden"}}>Time</p>
+
+              <p className="upper-ui-item counter">{props.timerValue}</p>
+            </div>
+          </div>
+          <div className="upper-ui-right">
+          <div className="upper-ui-inner">
+            <p className="upper-ui-item-label">Speed (KPM)</p>
+
+            <p className="upper-ui-item display-speed">{props.timerValue}55</p>
+          </div>
+          <div className="upper-ui-inner">
+            <p className="upper-ui-item-label">Accuracy</p>
+            <p className="upper-ui-item display-accuracy">
+              {props.timerValue}9.9 %
+            </p>
+          </div>
+
           <button
             className="btn btn-display-hints"
             onClick={props.toggleHints}
@@ -228,6 +247,9 @@ function Display(props) {
           >
             ?
           </button>
+          </div>
+
+        
         </div>
         <div className="wiki-display container">
           {arrToRender.map((el, i) => {
@@ -307,7 +329,7 @@ function Display(props) {
         </div>
         <div className="results-buttons-row container">
           <button
-          hidden
+            hidden
             className="btn btn-control btn-results"
             onClick={props.toggleResults}
             style={{
@@ -341,7 +363,7 @@ function Display(props) {
           <p className="results-title">
             Results{" "}
             <span style={{ fontWeight: "normal" }}>
-              (timer length: {props.resultsObj["timer length"]}s)
+              (timer length: {props.constantTimerValue}s)
             </span>
           </p>
 

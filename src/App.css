@@ -23,7 +23,7 @@ body {
 .outer-container {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   height: 100vh;
 }
 
@@ -43,7 +43,7 @@ body {
   border: 2px solid green;
   border-radius: 2px;
   position: relative;
-  top: 232px;
+  top: 245px;
   z-index: 1;
   
 }
@@ -109,15 +109,47 @@ body {
   margin-top: 10px;
   margin-bottom: 5px;
   align-items: center;
+  height: 2.5em;
 }
 
-.counter {
+.upper-ui-right {
+  display: flex;
+  flex-direction: row;
+}
+
+.upper-ui-inner {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.upper-ui-item-label {
+  font-size: 0.65rem;
+  margin-bottom: 0.1rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  
+}
+
+.upper-ui-item {
   color: whitesmoke;
   background: black;
   width: 50px;
   /* !!!!! */
   text-align: center;
+  
+ 
 }
+
+.display-speed, .display-accuracy {
+  
+
+  width: 60px;
+  background-color: rgb(12, 66, 68);
+  border-radius: 2px;
+  border: 1px solid black;
+  
+}
+
 
 .btn {
   display: inline-block;
@@ -137,6 +169,7 @@ body {
   padding: 0.05em 0.3em;
   font-weight: bolder;
   border: 1px solid black;
+  align-self: flex-end;
 }
 
 .results {
