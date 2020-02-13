@@ -50,7 +50,7 @@ function App() {
   // delete ?!!!
   const [resultsObj, setResultsObj] = useState({
     speed: "-",
-    accuracy: "- " ,
+    accuracy: "- ",
     correct: "-",
     incorrect: "-",
 
@@ -84,7 +84,7 @@ function App() {
 
     function calcAccuracy() {
       if (allEntries > 0) {
-        let accuracyResult = Math.round((correct / allEntries) * 10000) / 100;
+        let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
         return accuracyResult;
       } else {
         return 0;

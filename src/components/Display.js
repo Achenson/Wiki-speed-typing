@@ -261,12 +261,12 @@ function Display(props) {
             <div className="upper-ui-inner">
               <p className="upper-ui-item-label">Speed (KPM)</p>
 
-              <p className="upper-ui-item display-speed">{props.timerValue}</p>
+              <p className="upper-ui-item display-speed">{props.resultsObj.speed}</p>
             </div>
             <div className="upper-ui-inner">
               <p className="upper-ui-item-label">Accuracy</p>
               <p className="upper-ui-item display-accuracy">
-                {props.timerValue} %
+                {props.resultsObj.accuracy} %
               </p>
             </div>
 
