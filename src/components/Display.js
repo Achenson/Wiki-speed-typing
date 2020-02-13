@@ -181,6 +181,43 @@ function Display(props) {
     myTarget.setSelectionRange(myTarget.value.length, myTarget.value.length);
   }
 
+  // counter display
+
+  let minutesInt = Math.floor(props.timerValue / 60);
+  console.log("TCL: Display -> minutesInt", minutesInt);
+  let secondsInt = props.timerValue - minutesInt * 60;
+  console.log("TCL: Display -> secondsInt", secondsInt);
+
+  let minutesStr = minutesInt.toString();
+  let secondsStr = secondsInt.toString();
+
+  let minutesFormatted;
+  let secondsFormatted;
+
+  if (minutesInt >= 10) {
+    minutesFormatted = minutesStr;
+  } else {
+    minutesFormatted = `0${minutesStr}`;
+  }
+
+  if (secondsInt >= 10) {
+    secondsFormatted = secondsStr;
+  } else {
+    secondsFormatted = `0${secondsStr}`;
+  }
+
+  // counter display in results
+  let counterDisplay = `${minutesFormatted}:${secondsFormatted}`;
+
+  let resultsDisplay;
+  let resultsMinutes;
+  let resultsSeconds;
+
+  minutesInt ? (resultsMinutes = `${minutesStr}min`) : (resultsMinutes = "");
+  secondsInt ? (resultsSeconds = `${secondsStr}s`) : (resultsSeconds = "");
+
+  resultsDisplay = `${resultsMinutes} ${resultsSeconds}`;
+
   return (
     <div className="outer-container">
       <div
@@ -210,46 +247,49 @@ function Display(props) {
         <div className="upper-ui container">
           <div className="upper-ui-left">
             <div className="upper-ui-inner">
-              <p className="upper-ui-item-label" style={{visibility: "hidden"}}>Time</p>
+              <p
+                className="upper-ui-item-label"
+                style={{ visibility: "hidden" }}
+              >
+                Time
+              </p>
 
-              <p className="upper-ui-item counter">{props.timerValue}</p>
+              <p className="upper-ui-item counter">{counterDisplay}</p>
             </div>
           </div>
           <div className="upper-ui-right">
-          <div className="upper-ui-inner">
-            <p className="upper-ui-item-label">Speed (KPM)</p>
+            <div className="upper-ui-inner">
+              <p className="upper-ui-item-label">Speed (KPM)</p>
 
-            <p className="upper-ui-item display-speed">{props.timerValue}55</p>
-          </div>
-          <div className="upper-ui-inner">
-            <p className="upper-ui-item-label">Accuracy</p>
-            <p className="upper-ui-item display-accuracy">
-              {props.timerValue}9.9 %
-            </p>
-          </div>
+              <p className="upper-ui-item display-speed">{props.timerValue}</p>
+            </div>
+            <div className="upper-ui-inner">
+              <p className="upper-ui-item-label">Accuracy</p>
+              <p className="upper-ui-item display-accuracy">
+                {props.timerValue} %
+              </p>
+            </div>
 
-          <button
-            className="btn btn-display-hints"
-            onClick={props.toggleHints}
-            style={{
-              backgroundColor: `${props.areHintsVisible ? "black" : "green"}`
-            }}
-            onMouseEnter={e => {
-              e.target.style.backgroundColor = `${
-                props.areHintsVisible ? "green" : "black"
-              }`;
-            }}
-            onMouseLeave={e => {
-              e.target.style.backgroundColor = `${
-                props.areHintsVisible ? "black" : "green"
-              }`;
-            }}
-          >
-            ?
-          </button>
+            <button
+              className="btn btn-display-hints"
+              onClick={props.toggleHints}
+              style={{
+                backgroundColor: `${props.areHintsVisible ? "black" : "green"}`
+              }}
+              onMouseEnter={e => {
+                e.target.style.backgroundColor = `${
+                  props.areHintsVisible ? "green" : "black"
+                }`;
+              }}
+              onMouseLeave={e => {
+                e.target.style.backgroundColor = `${
+                  props.areHintsVisible ? "black" : "green"
+                }`;
+              }}
+            >
+              ?
+            </button>
           </div>
-
-        
         </div>
         <div className="wiki-display container">
           {arrToRender.map((el, i) => {
@@ -363,7 +403,7 @@ function Display(props) {
           <p className="results-title">
             Results{" "}
             <span style={{ fontWeight: "normal" }}>
-              (timer length: {props.constantTimerValue}s)
+              (timer length: {resultsDisplay})
             </span>
           </p>
 
