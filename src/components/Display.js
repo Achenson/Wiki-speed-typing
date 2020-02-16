@@ -59,7 +59,7 @@ function Display(props) {
 
       if (arrOutOfTextValue[i] === arrOutOfText[i]) {
         // arrOfColors[i] = "#196719";
-        arrOfColors[i] = "Blue";
+        arrOfColors[i] = "blue";
       }
     }
 
@@ -78,7 +78,7 @@ function Display(props) {
 
       console.log(textAreaValue.length);
 
-      if (arrOfColors[textAreaValue.length - 1] === "#196719") {
+      if (arrOfColors[textAreaValue.length - 1] === "blue") {
         props.setResultsCorrect(props.resultsCorrect + 1);
       }
 
@@ -275,16 +275,16 @@ function Display(props) {
               className="btn btn-display-hints"
               onClick={props.toggleHints}
               style={{
-                backgroundColor: `${props.areHintsVisible ? "DimGray" : "green"}`
+                backgroundColor: `${props.areHintsVisible ? "black" : "green"}`
               }}
               onMouseEnter={e => {
                 e.target.style.backgroundColor = `${
-                  props.areHintsVisible ? "green" : "DimGray"
+                  props.areHintsVisible ? "green" : "black"
                 }`;
               }}
               onMouseLeave={e => {
                 e.target.style.backgroundColor = `${
-                  props.areHintsVisible ? "DimGray" : "green"
+                  props.areHintsVisible ? "black" : "green"
                 }`;
               }}
             >
@@ -328,8 +328,8 @@ function Display(props) {
               props.toggleHints();
             }
           }}
-
-          //onBlur={props.toggleTimer}
+          placeholder="Type here"
+          
         ></textarea>
 
         <div className="control-buttons-row container">
@@ -375,17 +375,17 @@ function Display(props) {
             onClick={props.toggleResults}
             style={{
               backgroundColor: `${
-                props.areResultsVisible ? "DimGray" : "steelblue"
+                props.areResultsVisible ? "Black" : "steelblue"
               }`
             }}
             onMouseEnter={e => {
               e.target.style.backgroundColor = `${
-                props.areResultsVisible ? "steelblue" : "DimGray"
+                props.areResultsVisible ? "steelblue" : "Black"
               }`;
             }}
             onMouseLeave={e => {
               e.target.style.backgroundColor = `${
-                props.areResultsVisible ? "DimGray" : "steelblue"
+                props.areResultsVisible ? "Black" : "steelblue"
               }`;
             }}
             ref={props.focusElement}

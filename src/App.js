@@ -9,19 +9,26 @@ DONE 4. accuracy NaN! DONE
 5. solve useEffect errors
 
 toChange:
-1. counter display (00:00 format)
+ DONE 1. counter display (00:00 format) DONE
 X 2. Start is also a pause btn (change it to arrow and ||)X
 3. Set default select value to higher val
 X 4. Results display to fast - add some animation?? X
-5. show|hide results -> make the button name togglable show & hide?
+XX 5. show|hide results -> make the button name togglable show & hide?XX
 DONE uninstall compose refs? DONE
-7. contrast between main square and correct letters
+DONE 7. contrast between main square and correct letters DONE
 DONE 8. display hint& result on one of the displays? DONE
 DONE 9. add tooltips!!! DONE
-10. resultObj and set individual results redundant!!???
-11. hide result btn until 1 test was run?
+XX 10. resultObj and set individual results redundant!!??? XX
+XX 11. hide result btn until 1 test was run? XX
 12. disable 5s timer in the end
 DONE 13. default results DONE
+14. reset current display immediately after start 
+DONE 15. placeholder text DONE
+DONE 16. typing are get the scroll in the end -> different  font? DONE
+17. timer value styling
+18. btn text not centered? FIrefox only?
+19. scroll to results if they are not visible?
+20. accuracy only 1 afer .
 */
 
 import React from "react";

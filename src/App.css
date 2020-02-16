@@ -85,7 +85,7 @@ body {
 
 .wiki-display {
   background-color: white;
-  height: 130px;
+  height: 133px;
   padding: 2px 4px;
   margin-top: 0px;
   margin-bottom: 10px;
@@ -97,9 +97,12 @@ body {
   resize: none;
   padding: 2px 4px;
   width: 360px;
-  height: 130px;
+  height: 133px;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: 100;
+  color: dimgray;
 }
 
 .upper-ui {

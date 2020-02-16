@@ -10,7 +10,7 @@ function SingleLetter(props) {
     textDecoration = "underline";
   }
 
-  if (props.color === "Blue" && props.letterToRender === " ") {
+  if (props.color === "blue" && props.letterToRender === " ") {
     textDecoration = "underline";
     // backgroundColor = "AliceBlue";
   }
