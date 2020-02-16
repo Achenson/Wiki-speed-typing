@@ -7,6 +7,7 @@ possible issues:
 DONE 3. Disable time select if the app is running!!! DONE
 DONE 4. accuracy NaN! DONE
 5. solve useEffect errors
+6. current result not updading if user stop typing!
 
 toChange:
  DONE 1. counter display (00:00 format) DONE
@@ -28,7 +29,7 @@ DONE 16. typing are get the scroll in the end -> different  font? DONE
 17. timer value styling
 18. btn text not centered? FIrefox only?
 19. scroll to results if they are not visible?
-20. accuracy only 1 afer .
+20. speed only 1 afer .
 */
 
 import React from "react";
@@ -83,7 +84,7 @@ function App() {
 
     function calcSpeed() {
       if (penaltyKPM >= 0) {
-        return penaltyKPM;
+        return Math.round(penaltyKPM*10)/10;
       } else {
         return 0;
       }
