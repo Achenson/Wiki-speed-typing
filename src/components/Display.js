@@ -58,13 +58,14 @@ function Display(props) {
       }
 
       if (arrOutOfTextValue[i] === arrOutOfText[i]) {
-        arrOfColors[i] = "LimeGreen";
+        // arrOfColors[i] = "#196719";
+        arrOfColors[i] = "Blue";
       }
     }
 
     for (let i = 0; i < arrOutOfText.length; i++) {
       if (arrOutOfTextValue[i] == null) {
-        arrOfColors[i] = "black";
+        arrOfColors[i] = "DimGray";
       }
     }
 
@@ -77,7 +78,7 @@ function Display(props) {
 
       console.log(textAreaValue.length);
 
-      if (arrOfColors[textAreaValue.length - 1] === "LimeGreen") {
+      if (arrOfColors[textAreaValue.length - 1] === "#196719") {
         props.setResultsCorrect(props.resultsCorrect + 1);
       }
 
@@ -125,7 +126,7 @@ function Display(props) {
   function makeColoredLetters() {
     let arrToReturn = [];
     for (let i = 0; i < arrOutOfText.length; i++) {
-      arrToReturn.push("black");
+      arrToReturn.push("DimGray");
     }
     return arrToReturn;
   }
@@ -274,16 +275,16 @@ function Display(props) {
               className="btn btn-display-hints"
               onClick={props.toggleHints}
               style={{
-                backgroundColor: `${props.areHintsVisible ? "black" : "green"}`
+                backgroundColor: `${props.areHintsVisible ? "DimGray" : "green"}`
               }}
               onMouseEnter={e => {
                 e.target.style.backgroundColor = `${
-                  props.areHintsVisible ? "green" : "black"
+                  props.areHintsVisible ? "green" : "DimGray"
                 }`;
               }}
               onMouseLeave={e => {
                 e.target.style.backgroundColor = `${
-                  props.areHintsVisible ? "black" : "green"
+                  props.areHintsVisible ? "DimGray" : "green"
                 }`;
               }}
             >
@@ -374,17 +375,17 @@ function Display(props) {
             onClick={props.toggleResults}
             style={{
               backgroundColor: `${
-                props.areResultsVisible ? "black" : "steelblue"
+                props.areResultsVisible ? "DimGray" : "steelblue"
               }`
             }}
             onMouseEnter={e => {
               e.target.style.backgroundColor = `${
-                props.areResultsVisible ? "steelblue" : "black"
+                props.areResultsVisible ? "steelblue" : "DimGray"
               }`;
             }}
             onMouseLeave={e => {
               e.target.style.backgroundColor = `${
-                props.areResultsVisible ? "black" : "steelblue"
+                props.areResultsVisible ? "DimGray" : "steelblue"
               }`;
             }}
             ref={props.focusElement}

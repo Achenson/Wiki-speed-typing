@@ -101,12 +101,20 @@ function App() {
   useEffect(() => {
     // otherwise there will be error: timerInterval not defined
     let timerInterval = null;
+    let intervalForDisplay = null;
 
     if (isActive && timerValue > 0) {
       timerInterval = setInterval(
         () => setTimerValue(timerValue => timerValue - 1),
         1000
       );
+
+      if(isActive && timerValue%2===0 && timerValue>0) {
+       // intervalForDisplay = setInterval(
+          setResultsObj(resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)) //),
+          //3000
+        //)
+      }
 
       if (areResultsVisible) {
         toggleResults();
@@ -115,6 +123,7 @@ function App() {
 
     if (toReset) {
       clearInterval(timerInterval);
+      //clearInterval(intervalForDisplay);
       setTimerValue(constantTimerValue);
       toggleActive(false);
       setToReset(false);
@@ -122,6 +131,7 @@ function App() {
 
     if (!isActive && timerValue > 0) {
       clearInterval(timerInterval);
+      clearInterval(intervalForDisplay);
     }
 
     if (timerValue <= 0) {
@@ -180,12 +190,12 @@ function App() {
       keysPressed[event.key] = true;
 
       //if (keysPressed["Shift"] && event.key == "Pause") {
-      if (event.key == "Tab" && isActive) {
+      if (event.key === "Tab" && isActive) {
         toggleTimer();
         delete keysPressed[event.key];
       }
 
-      if (keysPressed["Shift"] && event.key == "Delete") {
+      if (keysPressed["Shift"] && event.key === "Delete") {
         resetTimer();
 
         delete keysPressed[event.key];

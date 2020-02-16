@@ -33,7 +33,7 @@ body {
   margin-right: auto;
 
   color: black;
-  /* background-color: rgba(228, 240, 237, 0.431); */
+ 
   background-color: rgba(228, 240, 237, 1);
   border: 2px solid green;
   border-radius: 2px;
@@ -58,7 +58,15 @@ body {
 .main-square {
   width: 400px;
   /* height: 500px; */
-  background-color: rgba(92, 177, 158, 0.431);
+   /* background-color: rgba(92, 177, 158, 0.431); */
+    background-color: #AFD9D0; 
+   
+  /* background-color: #C6DAE6; */
+  /* limeGreen 32CD32*/
+  /* #5cb19e
+  opacity 0.4
+  new green: #208320
+  */
   margin-left: auto;
   margin-right: auto;
   border: 1px solid rgba(92, 177, 158, 0.831);
