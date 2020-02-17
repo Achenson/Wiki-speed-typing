@@ -123,6 +123,7 @@ body {
   display: flex;
   flex-direction: column;
   margin-right: 20px;
+  text-align: center;
 }
 
 .upper-ui-item-label {
@@ -137,6 +138,12 @@ body {
   width: 50px;
   /* !!!!! */
   text-align: center;
+}
+
+.counter {
+  font-family: 'droid-serif, sant-serif';
+  padding: 1px 1px;
+  
 }
 
 .display-speed,

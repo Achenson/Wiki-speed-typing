@@ -7,7 +7,7 @@ possible issues:
 DONE 3. Disable time select if the app is running!!! DONE
 DONE 4. accuracy NaN! DONE
 5. solve useEffect errors
-6. current result not updading if user stop typing!
+DONE 6. current result not updading if user stop typing! DONE
 
 toChange:
  DONE 1. counter display (00:00 format) DONE
@@ -23,18 +23,17 @@ XX 10. resultObj and set individual results redundant!!??? XX
 XX 11. hide result btn until 1 test was run? XX
 12. disable 5s timer in the end
 DONE 13. default results DONE
-14. reset current display immediately after start 
+DONE 14. reset current display immediately after start DONE
 DONE 15. placeholder text DONE
 DONE 16. typing are get the scroll in the end -> different  font? DONE
-17. timer value styling
+DONE 17. timer value styling DONE
 18. btn text not centered? FIrefox only?
-19. scroll to results if they are not visible?
-20. speed only 1 afer .
+19. scroll to results if they are not visible? Later - after wiki component is live
+DONE 20. speed only 1 afer . DONE
 */
 
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-//import composeRefs from "@seznam/compose-react-refs";
 
 import Display from "./components/Display.js";
 
