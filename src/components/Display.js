@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import SingleLetter from "./SingleLetter.js";
+import Wiki from "./Wiki.js";
+
 
 function Display(props) {
   let myText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -368,6 +370,7 @@ function Display(props) {
             </button>
           </div>
         </div>
+        <Wiki/>
         <div className="results-buttons-row container">
           <button
             hidden

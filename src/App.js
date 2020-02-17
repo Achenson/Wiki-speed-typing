@@ -30,6 +30,7 @@ DONE 17. timer value styling DONE
 18. btn text not centered? FIrefox only?
 19. scroll to results if they are not visible? Later - after wiki component is live
 DONE 20. speed only 1 afer . DONE
+21. transition for results?
 */
 
 import React from "react";
