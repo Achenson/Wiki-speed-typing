@@ -112,6 +112,11 @@ function App() {
     let timerInterval = null;
     let intervalForDisplay = null;
 
+    // for displaying 0speed & ) accuracy if the counter becomes active
+    if(isActive && timerValue === constantTimerValue) {
+      setResultsObj(resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)) 
+    }
+
     if (isActive && timerValue > 0) {
       timerInterval = setInterval(
         () => setTimerValue(timerValue => timerValue - 1),
@@ -119,8 +124,8 @@ function App() {
       );
 
       if(isActive && timerValue%2===0 && timerValue>0) {
-          console.log("timer changes")
-          setResultsObj(resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)) //),
+          
+          setResultsObj(resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)) 
         
       }
 
