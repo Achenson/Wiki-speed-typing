@@ -58,7 +58,7 @@ function Display(props) {
       }
 
       if (arrOutOfTextValue[i] === arrOutOfText[i]) {
-        // arrOfColors[i] = "#196719";
+        
         arrOfColors[i] = "blue";
       }
     }
@@ -76,7 +76,7 @@ function Display(props) {
     if (textAreaValue.length > prevTextAreaValue.length) {
       props.setResultsNoPenalty(props.resultsNoPenalty + 1);
 
-      console.log(textAreaValue.length);
+      //console.log(textAreaValue.length);
 
       if (arrOfColors[textAreaValue.length - 1] === "blue") {
         props.setResultsCorrect(props.resultsCorrect + 1);
@@ -185,9 +185,9 @@ function Display(props) {
   // counter display
 
   let minutesInt = Math.floor(props.timerValue / 60);
-  console.log("TCL: Display -> minutesInt", minutesInt);
+  //console.log("TCL: Display -> minutesInt", minutesInt);
   let secondsInt = props.timerValue - minutesInt * 60;
-  console.log("TCL: Display -> secondsInt", secondsInt);
+  //console.log("TCL: Display -> secondsInt", secondsInt);
 
   let minutesStr = minutesInt.toString();
   let secondsStr = secondsInt.toString();

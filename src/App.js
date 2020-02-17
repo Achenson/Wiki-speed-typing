@@ -61,15 +61,16 @@ function App() {
     accuracy: "- ",
     correct: "-",
     incorrect: "-",
-
     noPenalty: "-",
     "timer length": constantTimerValue
   });
 
   function resultsMaker(correct, incorrect, allEntries) {
+
+    // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
     let noPenaltyKPM =
-      Math.round(((allEntries * 60) / constantTimerValue) * 100) / 100;
-    let incorrectPerMinute = (incorrect * 60) / constantTimerValue;
+      Math.round(((allEntries * 60) / (constantTimerValue-timerValue)) * 100) / 100;
+    let incorrectPerMinute = (incorrect * 60) / (constantTimerValue-timerValue);
     // speed penalty: -5 per incorrectEntry/minute
     let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
 
@@ -118,10 +119,9 @@ function App() {
       );
 
       if(isActive && timerValue%2===0 && timerValue>0) {
-       // intervalForDisplay = setInterval(
+          console.log("timer changes")
           setResultsObj(resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)) //),
-          //3000
-        //)
+        
       }
 
       if (areResultsVisible) {
@@ -131,7 +131,6 @@ function App() {
 
     if (toReset) {
       clearInterval(timerInterval);
-      //clearInterval(intervalForDisplay);
       setTimerValue(constantTimerValue);
       toggleActive(false);
       setToReset(false);
