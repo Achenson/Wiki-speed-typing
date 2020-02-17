@@ -8,6 +8,7 @@ DONE 3. Disable time select if the app is running!!! DONE
 DONE 4. accuracy NaN! DONE
 5. solve useEffect errors
 DONE 6. current result not updading if user stop typing! DONE
+DONE 7. CHECK how penalty should be applied! https://www.bleepingcomputer.com/forums/t/642883/calculating-net-typing-speed/ DONE
 
 toChange:
  DONE 1. counter display (00:00 format) DONE
@@ -31,6 +32,7 @@ DONE 17. timer value styling DONE
 19. scroll to results if they are not visible? Later - after wiki component is live
 DONE 20. speed only 1 afer . DONE
 21. transition for results?
+22. implement phase transition?
 */
 
 import React from "react";
