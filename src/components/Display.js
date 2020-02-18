@@ -5,7 +5,8 @@ import Wiki from "./Wiki.js";
 
 
 function Display(props) {
-  let myText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+
+  let loremText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
   minim veniam, quis nostrud exercitation ullamco laboris nisi ut
   aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -18,6 +19,15 @@ function Display(props) {
   minim veniam, quis nostrud exercitation ullamco laboris nisi ut
   aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna ALIQua.`;
+  
+  
+  const [myText, setMyText] = useState(loremText)
+
+  function setTextToRender(text) {
+    setMyText(text)
+
+  }
+
 
   let lengthOfSinglePart = 362;
   let myTextToArr = myText.split("");
@@ -294,7 +304,9 @@ function Display(props) {
             </button>
           </div>
         </div>
-        <div className="wiki-display container">
+        <div className="wiki-display container"
+        
+        >
           {arrToRender.map((el, i) => {
             return (
               <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />
@@ -370,7 +382,9 @@ function Display(props) {
             </button>
           </div>
         </div>
-        <Wiki/>
+        <Wiki
+          setTextToRender={setTextToRender}
+        />
         <div className="results-buttons-row container">
           <button
             hidden
