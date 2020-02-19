@@ -28,7 +28,11 @@ function Display(props) {
 
   const disablingButton = useRef(null);
 
+  
   useEffect(() => {
+
+    
+    //////////////////////
     if (newRandomArticle) {
       fetch(wikiApiUrl, {
         method: "GET"
@@ -37,7 +41,8 @@ function Display(props) {
         .then(data => {
           let dataQueryPages = data.query.pages;
 
-          console.log(JSON.stringify(data, null, 2));
+           console.log(JSON.stringify(data, null, 2));
+           /* 
           console.log(
             JSON.stringify(
               dataQueryPages[Object.keys(dataQueryPages)[0]],
@@ -45,6 +50,7 @@ function Display(props) {
               2
             )
           );
+
           console.log(
             JSON.stringify(
               dataQueryPages[Object.keys(dataQueryPages)[0]].extract,
@@ -52,10 +58,8 @@ function Display(props) {
               2
             )
           );
-
-          
-
-
+*/
+         
 
           setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
 
@@ -64,12 +68,25 @@ function Display(props) {
           );
         });
 
+        
+
+        //////////////////////
+
+
       setNewRandomArticle(false);
-      
-      setTimeout(() => {disablingButton.current.removeAttribute("disabled")}, 1000 )
-      
+
+      setTimeout(() => {
+        disablingButton.current.removeAttribute("disabled");
+      }, 500);
     }
+
+
+ 
   }, [newRandomArticle]);
+
+
+
+
 
   function setTextToRender(text) {
     setMyText(text);
@@ -356,7 +373,8 @@ function Display(props) {
             return (
               <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />
             );
-          })}...
+          })}
+          ...
         </div>
 
         <textarea
