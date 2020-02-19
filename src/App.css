@@ -192,18 +192,23 @@ body {
   margin-top: 0px;
   margin-bottom: 5px;
   border: 1px solid black;
-  
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+  
+
 
 .wiki-title-display-link {
  text-decoration: none;
  color: black;
  cursor: pointer;
+ transition: all .1s linear;
 }
 
 .wiki-title-display-link:hover {
-  
-  color: blue;
+  overflow: visible;
+  color: rgb(37, 111, 172);
  }
 
 .results {
