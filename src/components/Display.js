@@ -25,6 +25,8 @@ function Display(props) {
 
   let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=0&origin=*&explaintext`;
 
+  const disablingButton = useRef(null);
+
   useEffect(() => {
     if (newRandomArticle) {
       fetch(wikiApiUrl, {
@@ -58,6 +60,9 @@ function Display(props) {
         });
 
       setNewRandomArticle(false);
+      
+      setTimeout(() => {disablingButton.current.removeAttribute("disabled")}, 1000 )
+      
     }
   }, [newRandomArticle]);
 
@@ -416,7 +421,15 @@ function Display(props) {
             </button>
           </div>
         </div>
-        <Wiki wikiTitle={wikiTitle} setNewRandomArticle={setNewRandomArticle} />
+        <Wiki
+          wikiTitle={wikiTitle}
+          setNewRandomArticle={setNewRandomArticle}
+          disablingButton={disablingButton}
+          isActive={props.isActive}
+          timerValue={props.timerValue}
+          constantTimerValue={props.constantTimerValue}
+          resetTimer={props.resetTimer}
+        />
         <div className="results-buttons-row container">
           <button
             hidden
