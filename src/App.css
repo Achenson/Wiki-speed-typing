@@ -192,8 +192,19 @@ body {
   margin-top: 0px;
   margin-bottom: 5px;
   border: 1px solid black;
+  
 }
 
+.wiki-title-display-link {
+ text-decoration: none;
+ color: black;
+ cursor: pointer;
+}
+
+.wiki-title-display-link:hover {
+  
+  color: blue;
+ }
 
 .results {
   /* visibility: hidden; */

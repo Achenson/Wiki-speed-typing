@@ -3,9 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import SingleLetter from "./SingleLetter.js";
 import Wiki from "./Wiki.js";
 
-
 function Display(props) {
-
   let loremText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
   minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -19,15 +17,53 @@ function Display(props) {
   minim veniam, quis nostrud exercitation ullamco laboris nisi ut
   aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna ALIQua.`;
-  
-  
-  const [myText, setMyText] = useState(loremText)
+
+  const [myText, setMyText] = useState(loremText);
+
+  const [wikiTitle, setWikiTitle] = useState("");
+  const [newRandomArticle, setNewRandomArticle] = useState(true);
+
+  let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=0&origin=*&explaintext`;
+
+  useEffect(() => {
+    if (newRandomArticle) {
+      fetch(wikiApiUrl, {
+        method: "GET"
+      })
+        .then(res => res.json())
+        .then(data => {
+          let dataQueryPages = data.query.pages;
+
+          console.log(JSON.stringify(data, null, 2));
+          console.log(
+            JSON.stringify(
+              dataQueryPages[Object.keys(dataQueryPages)[0]],
+              null,
+              2
+            )
+          );
+          console.log(
+            JSON.stringify(
+              dataQueryPages[Object.keys(dataQueryPages)[0]].extract,
+              null,
+              2
+            )
+          );
+
+          setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
+
+          setTextToRender(
+            dataQueryPages[Object.keys(dataQueryPages)[0]].extract
+          );
+        });
+
+      setNewRandomArticle(false);
+    }
+  }, [newRandomArticle]);
 
   function setTextToRender(text) {
-    setMyText(text)
-
+    setMyText(text);
   }
-
 
   let lengthOfSinglePart = 362;
   let myTextToArr = myText.split("");
@@ -70,7 +106,6 @@ function Display(props) {
       }
 
       if (arrOutOfTextValue[i] === arrOutOfText[i]) {
-        
         arrOfColors[i] = "blue";
       }
     }
@@ -274,7 +309,9 @@ function Display(props) {
             <div className="upper-ui-inner">
               <p className="upper-ui-item-label">Speed (KPM)</p>
 
-              <p className="upper-ui-item display-speed">{props.resultsObj.speed}</p>
+              <p className="upper-ui-item display-speed">
+                {props.resultsObj.speed}
+              </p>
             </div>
             <div className="upper-ui-inner">
               <p className="upper-ui-item-label">Accuracy</p>
@@ -304,9 +341,7 @@ function Display(props) {
             </button>
           </div>
         </div>
-        <div className="wiki-display container"
-        
-        >
+        <div className="wiki-display container">
           {arrToRender.map((el, i) => {
             return (
               <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />
@@ -343,7 +378,6 @@ function Display(props) {
             }
           }}
           placeholder="Type here"
-          
         ></textarea>
 
         <div className="control-buttons-row container">
@@ -382,9 +416,7 @@ function Display(props) {
             </button>
           </div>
         </div>
-        <Wiki
-          setTextToRender={setTextToRender}
-        />
+        <Wiki wikiTitle={wikiTitle} setNewRandomArticle={setNewRandomArticle} />
         <div className="results-buttons-row container">
           <button
             hidden
