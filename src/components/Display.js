@@ -23,7 +23,8 @@ function Display(props) {
   const [wikiTitle, setWikiTitle] = useState("");
   const [newRandomArticle, setNewRandomArticle] = useState(true);
 
-  let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=0&origin=*&explaintext`;
+  // let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext`;
+  let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exlimit=10&exsectionformat=plain`;
 
   const disablingButton = useRef(null);
 
@@ -52,6 +53,10 @@ function Display(props) {
             )
           );
 
+          
+
+
+
           setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
 
           setTextToRender(
@@ -70,7 +75,7 @@ function Display(props) {
     setMyText(text);
   }
 
-  let lengthOfSinglePart = 362;
+  let lengthOfSinglePart = 363;
   let myTextToArr = myText.split("");
   let roundedTextDividedByLength = Math.round(
     myTextToArr.length / lengthOfSinglePart
@@ -78,7 +83,7 @@ function Display(props) {
 
   let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
 
-  //362 text length fits
+  //363 text length fits
   //console.log(myText.length);
 
   const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0);
@@ -351,7 +356,7 @@ function Display(props) {
             return (
               <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />
             );
-          })}
+          })}...
         </div>
 
         <textarea

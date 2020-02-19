@@ -10,7 +10,7 @@ DONE 4. accuracy NaN! DONE
 DONE 6. current result not updading if user stop typing! DONE
 DONE 7. CHECK how penalty should be applied! https://www.bleepingcomputer.com/forums/t/642883/calculating-net-typing-speed/ DONE
 8. text to render undefined! error handling?
-
+9. cutting one letter!
 
 toChange:
  DONE 1. counter display (00:00 format) DONE

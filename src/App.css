@@ -85,11 +85,12 @@ body {
 
 .wiki-display {
   background-color: white;
-  height: 133px;
+  height: 153px;
   padding: 2px 4px;
   margin-top: 0px;
   margin-bottom: 10px;
   border: 1px solid black;
+  
 }
 
 .typing-display {
@@ -97,7 +98,7 @@ body {
   resize: none;
   padding: 2px 4px;
   width: 360px;
-  height: 133px;
+  height: 153px;
   margin-top: 10px;
   margin-bottom: 10px;
   font-family: 'Times New Roman', Times, serif;
@@ -259,7 +260,7 @@ body {
   display: flex;
   justify-content: center;
   /* change this later!!!!! */
-  margin-top: 60px;
+  margin-top: 40px;
   margin-bottom: 5px;
 }
 
