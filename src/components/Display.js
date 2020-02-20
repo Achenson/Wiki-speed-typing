@@ -29,11 +29,7 @@ function Display(props) {
   const disablingButton = useRef(null);
 
   useEffect(() => {
-   
-
     fetchWikiApi();
-
-
 
     setNewRandomArticle(false);
 
@@ -41,19 +37,18 @@ function Display(props) {
       disablingButton.current.removeAttribute("disabled");
     }, 500);
 
-
     function fetchWikiApi() {
-       //////////////////////
-    if (newRandomArticle) {
-      fetch(wikiApiUrl, {
-        method: "GET"
-      })
-        .then(res => res.json())
-        .then(data => {
-          let dataQueryPages = data.query.pages;
+      //////////////////////
+      if (newRandomArticle) {
+        fetch(wikiApiUrl, {
+          method: "GET"
+        })
+          .then(res => res.json())
+          .then(data => {
+            let dataQueryPages = data.query.pages;
 
-          // console.log(JSON.stringify(data, null, 2));
-          /* 
+            // console.log(JSON.stringify(data, null, 2));
+            /* 
           console.log(
             JSON.stringify(
               dataQueryPages[Object.keys(dataQueryPages)[0]],
@@ -71,29 +66,33 @@ function Display(props) {
           );
 */
 
-          setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
+            setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
 
-          let articleExtract = dataQueryPages[Object.keys(dataQueryPages)[0]].extract;
+            let articleNoFormat =
+              dataQueryPages[Object.keys(dataQueryPages)[0]].extract;
 
-          if (articleExtract.length<370 ) {
-            console.log('text to short, rendering again')
-            return fetchWikiApi()
-          }
+            let articleExtract = articleNoFormat
+              .replace(/\(.*\)/g, "")
+              .replace(/\[.*\]/g, "")
+              .replace(/\s\./g, ".")
+              .replace(/\s,/g, ",")
+              .replace(/\s\s/g, " ");
 
-          setTextToRender(
-            articleExtract
-          );
-        })
-        .catch(() => {
-          console.log("error fetching data");
-          setMyText(loremText);
-          setWikiTitle('[Error accessing wikipedia - default text loaded]')
-        });
+            if (articleExtract.length < 370) {
+              console.log("text to short, rendering again");
+              return fetchWikiApi();
+            }
 
+            setTextToRender(articleExtract);
+          })
+          .catch(() => {
+            console.log("error fetching data");
+            setMyText(loremText);
+            setWikiTitle("[Error accessing wikipedia - default text loaded]");
+          });
       }
       //////////////////////
     }
-
   }, [newRandomArticle]);
 
   function setTextToRender(text) {
