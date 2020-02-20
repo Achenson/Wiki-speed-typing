@@ -28,10 +28,7 @@ function Display(props) {
 
   const disablingButton = useRef(null);
 
-  
   useEffect(() => {
-
-    
     //////////////////////
     if (newRandomArticle) {
       fetch(wikiApiUrl, {
@@ -41,8 +38,8 @@ function Display(props) {
         .then(data => {
           let dataQueryPages = data.query.pages;
 
-           console.log(JSON.stringify(data, null, 2));
-           /* 
+          // console.log(JSON.stringify(data, null, 2));
+          /* 
           console.log(
             JSON.stringify(
               dataQueryPages[Object.keys(dataQueryPages)[0]],
@@ -59,46 +56,46 @@ function Display(props) {
             )
           );
 */
-         
 
           setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
 
           setTextToRender(
             dataQueryPages[Object.keys(dataQueryPages)[0]].extract
           );
+        })
+        .catch(() => {
+          console.log("error fetching data");
+          setMyText(loremText);
         });
 
-        
-
-        //////////////////////
-
-
-      setNewRandomArticle(false);
-
-      setTimeout(() => {
-        disablingButton.current.removeAttribute("disabled");
-      }, 500);
+      //////////////////////
     }
 
+    setNewRandomArticle(false);
 
- 
+    setTimeout(() => {
+      disablingButton.current.removeAttribute("disabled");
+    }, 500);
   }, [newRandomArticle]);
-
-
-
-
 
   function setTextToRender(text) {
     setMyText(text);
   }
 
   let lengthOfSinglePart = 363;
+  console.log("myText length");
+
+  console.log(myText.length);
   let myTextToArr = myText.split("");
   let roundedTextDividedByLength = Math.round(
     myTextToArr.length / lengthOfSinglePart
   );
 
   let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
+  console.log(
+    "TCL: Display -> arrOfPartialText length",
+    arrOfPartialText.length
+  );
 
   //363 text length fits
   //console.log(myText.length);
@@ -178,7 +175,7 @@ function Display(props) {
     let arrOfPartialText = [];
     //let myTextToArr = text.split("");
 
-    for (let i = 0; i < roundedTextDividedByLength; i++) {
+    for (let i = 0; i <= roundedTextDividedByLength; i++) {
       let newArr = [];
       for (
         let j = 0 + i * (lengthOfSinglePart + 1);
@@ -293,6 +290,8 @@ function Display(props) {
 
   resultsDisplay = `${resultsMinutes} ${resultsSeconds}`;
 
+  // for "..." displaying at the end of wiki-diplay
+  let ellipsis = "...";
   return (
     <div className="outer-container">
       <div
@@ -374,7 +373,9 @@ function Display(props) {
               <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />
             );
           })}
-          ...
+          {indexOfPartialTextArr !== arrOfPartialText.length - 1
+            ? ellipsis
+            : ""}
         </div>
 
         <textarea

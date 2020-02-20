@@ -10,7 +10,7 @@ DONE 4. accuracy NaN! DONE
 DONE 6. current result not updading if user stop typing! DONE
 DONE 7. CHECK how penalty should be applied! https://www.bleepingcomputer.com/forums/t/642883/calculating-net-typing-speed/ DONE
 8. text to render undefined! error handling?
-9. cutting one letter!
+DONE 9. cutting one letter! DONE
 
 toChange:
  DONE 1. counter display (00:00 format) DONE
@@ -35,6 +35,12 @@ DONE 17. timer value styling DONE
 DONE 20. speed only 1 afer . DONE
 21. transition for results?
 22. implement phase transition?
+23. wikipedia text length display?
+24. what if text is too short
+25. no "..." if case of last part of text
+26. getting rid of text in () []
+27. getting rid of non-english chars
+28. proper components/state management
 */
 
 import React from "react";
