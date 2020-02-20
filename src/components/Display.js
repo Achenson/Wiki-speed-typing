@@ -29,7 +29,21 @@ function Display(props) {
   const disablingButton = useRef(null);
 
   useEffect(() => {
-    //////////////////////
+   
+
+    fetchWikiApi();
+
+
+
+    setNewRandomArticle(false);
+
+    setTimeout(() => {
+      disablingButton.current.removeAttribute("disabled");
+    }, 500);
+
+
+    function fetchWikiApi() {
+       //////////////////////
     if (newRandomArticle) {
       fetch(wikiApiUrl, {
         method: "GET"
@@ -59,23 +73,27 @@ function Display(props) {
 
           setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
 
+          let articleExtract = dataQueryPages[Object.keys(dataQueryPages)[0]].extract;
+
+          if (articleExtract.length<370 ) {
+            console.log('text to short, rendering again')
+            return fetchWikiApi()
+          }
+
           setTextToRender(
-            dataQueryPages[Object.keys(dataQueryPages)[0]].extract
+            articleExtract
           );
         })
         .catch(() => {
           console.log("error fetching data");
           setMyText(loremText);
+          setWikiTitle('[Error accessing wikipedia - default text loaded]')
         });
 
+      }
       //////////////////////
     }
 
-    setNewRandomArticle(false);
-
-    setTimeout(() => {
-      disablingButton.current.removeAttribute("disabled");
-    }, 500);
   }, [newRandomArticle]);
 
   function setTextToRender(text) {
