@@ -56,15 +56,14 @@ function Display(props) {
               2
             )
           );
-
-          console.log(
-            JSON.stringify(
-              dataQueryPages[Object.keys(dataQueryPages)[0]].extract,
-              null,
-              2
-            )
-          );
 */
+            console.log(
+              JSON.stringify(
+                dataQueryPages[Object.keys(dataQueryPages)[0]].extract,
+                null,
+                2
+              )
+            );
 
             setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
 
@@ -384,15 +383,21 @@ function Display(props) {
             </button>
           </div>
         </div>
-        <div className="wiki-display container">
-          {arrToRender.map((el, i) => {
-            return (
-              <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />
-            );
-          })}
-          {indexOfPartialTextArr !== arrOfPartialText.length - 1
-            ? ellipsis
-            : ""}
+        <div className="wiki-display-outer container">
+          <div className="wiki-display">
+            {arrToRender.map((el, i) => {
+              return (
+                <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />
+              );
+            })}
+            {indexOfPartialTextArr !== arrOfPartialText.length - 1
+              ? ellipsis
+              : ""}
+          </div>
+          <div className="wiki-display-page-counter">
+          {indexOfPartialTextArr+1}/{arrOfPartialText.length}
+
+          </div>
         </div>
 
         <textarea

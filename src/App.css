@@ -93,6 +93,22 @@ body {
   
 }
 
+.wiki-display-outer {
+  position: relative;
+}
+
+.wiki-display-page-counter {
+  font-size: 0.95em;
+  color: dimgray;
+  position: absolute;
+  border: 1px solid black;
+  padding: 0.025em 0.05em;
+  min-width: 25px;
+  text-align: center;
+  top: 132px;
+  left: 333px;
+}
+
 .typing-display {
   outline: none;
   resize: none;
