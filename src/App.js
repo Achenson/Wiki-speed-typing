@@ -41,6 +41,7 @@ DONE 20. speed only 1 afer . DONE
 26. getting rid of text in () []
 27. getting rid of non-english chars
 28. proper components/state management
+29. more Hints
 */
 
 import React from "react";

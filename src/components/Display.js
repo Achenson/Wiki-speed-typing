@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import SingleLetter from "./SingleLetter.js";
 import Wiki from "./Wiki.js";
 
+const escapeStringRegexp = require("escape-string-regexp");
+
 function Display(props) {
   let loremText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
   eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
@@ -27,6 +29,15 @@ function Display(props) {
   let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exlimit=10&exsectionformat=plain`;
 
   const disablingButton = useRef(null);
+
+  // let regexpForEngCharOnly = /^[\w\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]*$/i;
+  let regexpString = "'\\^!\"#$%&()*+,-./:;<=>?@[]^_`{|}~";
+
+  const escapedString = escapeStringRegexp(regexpString);
+  let testRegex = new RegExp(escapedString);
+  //console.log("TCL: Display -> testRegex", testRegex);
+
+  let newRegex = /'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~/;
 
   useEffect(() => {
     fetchWikiApi();
@@ -57,15 +68,21 @@ function Display(props) {
             )
           );
 */
-            console.log(
+            /* 
+console.log(
               JSON.stringify(
                 dataQueryPages[Object.keys(dataQueryPages)[0]].extract,
                 null,
                 2
               )
             );
+*/
 
             setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
+            console.log('wiki title1');
+            
+            console.log(wikiTitle);
+            
 
             let articleNoFormat =
               dataQueryPages[Object.keys(dataQueryPages)[0]].extract;
@@ -79,6 +96,20 @@ function Display(props) {
 
             if (articleExtract.length < 370) {
               console.log("text to short, rendering again");
+              return fetchWikiApi();
+            }
+
+            let newRegex2 = /'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~/;
+
+            let regexpForEngCharOnly = /^[\w\s'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~ ]*$/i;
+            //let regexpForEngCharOnly = /^[\w\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]*$/i;
+            // let regexpString= '\'\\^!\"#$%&()*+,-./:;<=>?@[]^_`{|}~';
+
+            if (!regexpForEngCharOnly.test(articleExtract)) {
+              console.log("characters out of english, rendering again");
+              console.log('wiki title');
+              
+              console.log(wikiTitle);
               return fetchWikiApi();
             }
 
@@ -99,19 +130,22 @@ function Display(props) {
   }
 
   let lengthOfSinglePart = 363;
-  console.log("myText length");
+  //console.log("myText length");
 
-  console.log(myText.length);
+  //console.log(myText.length);
   let myTextToArr = myText.split("");
   let roundedTextDividedByLength = Math.round(
     myTextToArr.length / lengthOfSinglePart
   );
 
   let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
-  console.log(
+  /* 
+   console.log(
     "TCL: Display -> arrOfPartialText length",
     arrOfPartialText.length
   );
+   */
+ 
 
   //363 text length fits
   //console.log(myText.length);
@@ -395,8 +429,7 @@ function Display(props) {
               : ""}
           </div>
           <div className="wiki-display-page-counter">
-          {indexOfPartialTextArr+1}/{arrOfPartialText.length}
-
+            {indexOfPartialTextArr + 1}/{arrOfPartialText.length}
           </div>
         </div>
 
