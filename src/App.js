@@ -35,13 +35,13 @@ DONE 17. timer value styling DONE
 DONE 20. speed only 1 afer . DONE
 21. transition for results?
 22. implement phase transition?
-23. wikipedia text length display?
-24. what if text is too short
-25. no "..." if case of last part of text
-26. getting rid of text in () []
-27. getting rid of non-english chars
+DONE 23. wikipedia text length display? DONE
+DONE 24. what if text is too short DONE
+DONE 25. no "..." if case of last part of text DONE
+DONE 26. getting rid of text in () [] DONE
+DONE 27. getting rid of non-english chars DONE
 28. proper components/state management
-29. more Hints
+29. more Hints OR put Hints lower?
 */
 
 import React from "react";
@@ -77,11 +77,13 @@ function App() {
   });
 
   function resultsMaker(correct, incorrect, allEntries) {
-
     // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
     let noPenaltyKPM =
-      Math.round(((allEntries * 60) / (constantTimerValue-timerValue)) * 100) / 100;
-    let incorrectPerMinute = (incorrect * 60) / (constantTimerValue-timerValue);
+      Math.round(
+        ((allEntries * 60) / (constantTimerValue - timerValue)) * 100
+      ) / 100;
+    let incorrectPerMinute =
+      (incorrect * 60) / (constantTimerValue - timerValue);
     // speed penalty: -5 per incorrectEntry/minute
     let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
 
@@ -96,7 +98,7 @@ function App() {
 
     function calcSpeed() {
       if (penaltyKPM >= 0) {
-        return Math.round(penaltyKPM*10)/10;
+        return Math.round(penaltyKPM * 10) / 10;
       } else {
         return 0;
       }
@@ -124,8 +126,10 @@ function App() {
     let intervalForDisplay = null;
 
     // for displaying 0speed & ) accuracy if the counter becomes active
-    if(isActive && timerValue === constantTimerValue) {
-      setResultsObj(resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)) 
+    if (isActive && timerValue === constantTimerValue) {
+      setResultsObj(
+        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+      );
     }
 
     if (isActive && timerValue > 0) {
@@ -134,10 +138,10 @@ function App() {
         1000
       );
 
-      if(isActive && timerValue%2===0 && timerValue>0) {
-          
-          setResultsObj(resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)) 
-        
+      if (isActive && timerValue % 2 === 0 && timerValue > 0) {
+        setResultsObj(
+          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+        );
       }
 
       if (areResultsVisible) {

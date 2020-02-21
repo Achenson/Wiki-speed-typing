@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 
 function Wiki(props) {
+  console.log(props.wikiTitle);
+
   return (
     <div className="wiki-controler container">
       <div className="wiki-title-container">
@@ -23,10 +25,9 @@ function Wiki(props) {
             props.setNewRandomArticle(true);
             props.disablingButton.current.setAttribute("disabled", true);
           } else {
-            props.resetTimer()
+            props.resetTimer();
             props.setNewRandomArticle(true);
             props.disablingButton.current.setAttribute("disabled", true);
-
           }
         }}
         ref={props.disablingButton}
