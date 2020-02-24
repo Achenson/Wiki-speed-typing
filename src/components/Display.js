@@ -21,24 +21,27 @@ function Display(props) {
   eiusmod tempor incididunt ut labore et dolore magna ALIQua.`;
 
   const [myText, setMyText] = useState(loremText);
-
   const [wikiTitle, setWikiTitle] = useState("");
+  // newRandomArticle will be fetched if true
   const [newRandomArticle, setNewRandomArticle] = useState(true);
 
-  // let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext`;
-  let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exlimit=10&exsectionformat=plain`;
+  // Multiple extracts can only be returned if exintro is set to true.! (if only first part of wiki article is considered)
+  let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exsectionformat=plain`;
 
-  const disablingButton = useRef(null);
-
-  /*  ==== escaping string characters for Regex
+  /*  ==== escaping string characters for Regex with escape-string-regexp npm module
     let regexpString = "'\\^!\"#$%&()*+,-./:;<=>?@[]^_`{|}~";
 
   const escapedString = escapeStringRegexp(regexpString);
   let testRegex = new RegExp(escapedString);
   console.log("TCL: Display -> testRegex", testRegex);
 
-  let newRegex = /'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~/;
+  let regexpStringEscaped = /'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~/;
   */
+
+  // fetching data from wiki API ===============
+
+  // disabling random wiki article button
+  const disablingButton = useRef(null);
 
   useEffect(() => {
     fetchWikiApi();
@@ -69,10 +72,10 @@ function Display(props) {
             )
           );
 */
-
             let articleNoFormat =
               dataQueryPages[Object.keys(dataQueryPages)[0]].extract;
 
+            //deleting all brackets and its content from article
             let articleExtract = articleNoFormat
               .replace(/\(.*\)/g, "")
               .replace(/\[.*\]/g, "")
@@ -86,10 +89,8 @@ function Display(props) {
               return fetchWikiApi();
             }
 
-       
             // regex to exclude non-english characters
             let regexpForEngCharOnly = /^[\w\s'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~ ]*$/i;
-        
 
             if (!regexpForEngCharOnly.test(articleExtract)) {
               console.log("characters out of english, rendering again");
@@ -114,10 +115,8 @@ function Display(props) {
     setMyText(text);
   }
 
+  // rendering text ============================
   let lengthOfSinglePart = 363;
-
-  //console.log("myText length");
-  //console.log(myText.length);
 
   let myTextToArr = myText.split("");
   let roundedTextDividedByLength = Math.round(
@@ -125,24 +124,12 @@ function Display(props) {
   );
 
   let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
-  /* 
-   console.log(
-    "TCL: Display -> arrOfPartialText length",
-    arrOfPartialText.length
-  );
-   */
-
-  //363 text length fits
-  //console.log(myText.length);
-
   const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0);
-
-  //const [textToRender, setTextToRender] = useState(arrOfPartialText[0]);
   const textToRender = arrOfPartialText[indexOfPartialTextArr];
-
   let arrOutOfText = textToRender.split("");
 
   const [colorForEachLetter, setColorForEachLetter] = useState(
+    // setting gray color for each letter by default
     makeColoredLetters()
   );
 
@@ -153,11 +140,8 @@ function Display(props) {
 
   //coloring letters in display according to errors or no
   //  + counting entries!!
-
   useEffect(() => {
     let arrOfColors = [...colorForEachLetter];
-
-    //console.log(arrOfColors.length);
 
     for (let i = 0; i < textAreaValue.length; i++) {
       if (arrOutOfTextValue[i] !== arrOutOfText[i]) {
@@ -176,13 +160,9 @@ function Display(props) {
     }
 
     setColorForEachLetter(arrOfColors);
-    // for counting
-
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
       props.setResultsNoPenalty(props.resultsNoPenalty + 1);
-
-      //console.log(textAreaValue.length);
 
       if (arrOfColors[textAreaValue.length - 1] === "blue") {
         props.setResultsCorrect(props.resultsCorrect + 1);
@@ -196,14 +176,13 @@ function Display(props) {
   }, [textAreaValue]);
 
   // reseting display
-
   useEffect(() => {
     if (props.toReset) {
       resetDisplay();
     }
   }, [props.toReset]);
 
-  // displaying next part of text to display
+  // arrToRender = [ [letter, color for the letter], ... ]
   const arrToRender = makeArrayToRender();
 
   function makeArrOfPartialText(lengthOfSinglePart, myTextToArr) {
@@ -228,7 +207,7 @@ function Display(props) {
     //console.log(arrOfPartialText);
     return arrOfPartialText;
   }
-
+  //make default(gray) color in wiki display area
   function makeColoredLetters() {
     let arrToReturn = [];
     for (let i = 0; i < arrOutOfText.length; i++) {
@@ -281,14 +260,14 @@ function Display(props) {
       event.preventDefault();
     }
   }
-
+  // no text selecting
   function focusOnlyOnClick(event) {
     //props.putFocusOnTextArea()
     let myTarget = event.target;
     myTarget.setSelectionRange(myTarget.value.length, myTarget.value.length);
   }
 
-  // counter display
+  // counter display ================================
 
   let minutesInt = Math.floor(props.timerValue / 60);
   //console.log("TCL: Display -> minutesInt", minutesInt);
