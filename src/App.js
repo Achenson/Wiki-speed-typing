@@ -61,12 +61,10 @@ function App() {
   const [toReset, setToReset] = useState(false);
 
   // for Results
-
   const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
   const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
 
-  // delete ?!!!
   const [resultsObj, setResultsObj] = useState({
     speed: "-",
     accuracy: "- ",
@@ -84,7 +82,7 @@ function App() {
       ) / 100;
     let incorrectPerMinute =
       (incorrect * 60) / (constantTimerValue - timerValue);
-    // speed penalty: -5 per incorrectEntry/minute
+    // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
     let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
 
     return {
@@ -125,7 +123,7 @@ function App() {
     let timerInterval = null;
     let intervalForDisplay = null;
 
-    // for displaying 0speed & ) accuracy if the counter becomes active
+    // for displaying 0speed & 0 accuracy if the counter becomes active
     if (isActive && timerValue === constantTimerValue) {
       setResultsObj(
         resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
@@ -137,7 +135,7 @@ function App() {
         () => setTimerValue(timerValue => timerValue - 1),
         1000
       );
-
+      // for displaying live results every 2 seconds
       if (isActive && timerValue % 2 === 0 && timerValue > 0) {
         setResultsObj(
           resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
@@ -155,7 +153,7 @@ function App() {
       toggleActive(false);
       setToReset(false);
     }
-
+    // turning counter off on pause
     if (!isActive && timerValue > 0) {
       clearInterval(timerInterval);
       clearInterval(intervalForDisplay);
@@ -180,8 +178,6 @@ function App() {
       setResultsObj(
         resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
       );
-
-      //setToReset(false);
     }
 
     // this equivalent to componentWillUnmount
@@ -204,7 +200,6 @@ function App() {
     if (timerValue !== constantTimerValue) {
       setToReset(true);
     }
-
     return;
   }
 
@@ -229,13 +224,12 @@ function App() {
       }
     }
 
-    //toggleTimer();
-
     return;
   }
 
   // hints & results visibility
   const [areHintsVisible, setAreHintsVisible] = useState(false);
+  const [areResultsVisible, setAreResultsVisible] = useState(false);
 
   function toggleHints() {
     if (!isActive) {
@@ -243,14 +237,11 @@ function App() {
     }
   }
 
-  const [areResultsVisible, setAreResultsVisible] = useState(false);
-
   function toggleResults() {
     setAreResultsVisible(!areResultsVisible);
   }
 
   // for disabling select
-
   const isDisabled = useRef(null);
 
   useEffect(() => {
@@ -261,7 +252,8 @@ function App() {
     }
   }, [isActive]);
 
-  // useRef unfocusing textArea, btn-hints on textarea focus
+  // useRef unfocusing btn-hints on textarea focus
+  // useRef focusin on textArea is the timer is active
 
   const focusElement = useRef(null);
   const focusTextArea = useRef(null);
@@ -285,6 +277,7 @@ function App() {
   return (
     <div className="App" onKeyDown={handleKeyPress}>
       <Display
+      // timer
         timerValue={timerValue}
         constantTimerValue={constantTimerValue}
         toggleTimer={toggleTimer}
@@ -292,25 +285,24 @@ function App() {
         isActive={isActive}
         resetTimer={resetTimer}
         toReset={toReset}
+        // hints & results visibility
         areHintsVisible={areHintsVisible}
         areResultsVisible={areResultsVisible}
         toggleHints={toggleHints}
         toggleResults={toggleResults}
+        // disabling select, menaging focus
         isDisabled={isDisabled}
         focusTextArea={focusTextArea}
         putFocusOnTextArea={putFocusOnTextArea}
         focusElement={focusElement}
-        setResultsObj={setResultsObj}
+        // results
         resultsObj={resultsObj}
-        resultsMaker={resultsMaker}
-        //setResultsAccuracy={setResultsAccuracy}
-
         resultsCorrect={resultsCorrect}
         setResultsCorrect={setResultsCorrect}
         resultsIncorrect={resultsIncorrect}
         setResultsIncorrect={setResultsIncorrect}
-        setResultsNoPenalty={setResultsNoPenalty}
         resultsNoPenalty={resultsNoPenalty}
+        setResultsNoPenalty={setResultsNoPenalty}
       />
     </div>
   );
