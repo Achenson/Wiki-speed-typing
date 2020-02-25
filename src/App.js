@@ -42,7 +42,7 @@ DONE 26. getting rid of text in () [] DONE
 DONE 27. getting rid of non-english chars DONE
 28. proper components/state management
 29. more Hints OR put Hints lower?
-30. font for "speed typing app" ?
+30. font for "speed typing app"
 */
 
 import React from "react";

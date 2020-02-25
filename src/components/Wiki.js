@@ -38,6 +38,5 @@ function Wiki(props) {
   );
 }
 
-/* https://en.wikipedia.org/w/api.php?format=jsonfm&action=query&generator=random&grnnamespace=0&prop=revisions&rvprop=content&grnlimit=1&rvslots=main */
 
 export default Wiki;
