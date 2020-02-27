@@ -331,7 +331,7 @@ function Display(props) {
         </div>
       </div>
 
-      <h3 className="title">Speed Typing App</h3>
+      <h3 className="title">Wiki Speed Typing</h3>
       <div className="main-square">
         <div className="upper-ui container">
           <div className="upper-ui-left">
@@ -445,7 +445,7 @@ function Display(props) {
             >
               <option value="5">00:05</option>
               <option value="30">00:30</option>
-              <option value="60">01:00</option>
+              <option value="60" selected="selected">01:00</option>
               <option value="120">02:00</option>
               <option value="300">05:00</option>
             </select>

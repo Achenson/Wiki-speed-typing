@@ -11,11 +11,12 @@ DONE 6. current result not updading if user stop typing! DONE
 DONE 7. CHECK how penalty should be applied! https://www.bleepingcomputer.com/forums/t/642883/calculating-net-typing-speed/ DONE
 8. text to render undefined! error handling?
 DONE 9. cutting one letter! DONE
+10. chrome not working?
 
 toChange:
  DONE 1. counter display (00:00 format) DONE
 X 2. Start is also a pause btn (change it to arrow and ||)X
-3. Set default select value to higher val
+DONE 3. Set default select value to higher val DONE
 X 4. Results display to fast - add some animation?? X
 XX 5. show|hide results -> make the button name togglable show & hide?XX
 DONE uninstall compose refs? DONE
@@ -41,8 +42,29 @@ DONE 25. no "..." if case of last part of text DONE
 DONE 26. getting rid of text in () [] DONE
 DONE 27. getting rid of non-english chars DONE
 28. proper components/state management
-29. more Hints OR put Hints lower?
-30. font for "speed typing app"
+DONE 29. more Hints OR put Hints lower? DONE
+DONE 30. font for "speed typing app" DONE
+DONE 31. change app title? DONE
+32. more components?
+*/
+
+
+/* 
+
+<App/> - counter(start, pause/run, reset, results),
+-keyboard shortcuts, -hints & results visibility,
+-focusing/unfocusing elements
+    <Display/> - handling input in textarea
+    -fetching data from wikiAPI,
+    -array witj colorred letters in wikiDisplay according to mistakes
+    -counting correct, incorrect, [if length goes up according
+    to color of the last letter] allEntries
+        <SingleLetter/> - rendering colors of each single letter
+        <Wiki/> - passive component
+
+
+
+
 */
 
 import React from "react";
@@ -53,8 +75,8 @@ import Display from "./components/Display.js";
 import "./App.css";
 
 function App() {
-  const [timerValue, setTimerValue] = useState(5);
-  const [constantTimerValue, setConstantTimerValue] = useState(5);
+  const [timerValue, setTimerValue] = useState(60);
+  const [constantTimerValue, setConstantTimerValue] = useState(60);
 
   // for start/pause button
   const [isActive, toggleActive] = useState(false);

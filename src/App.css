@@ -1,3 +1,9 @@
+
+
+
+
+
+
 * {
   box-sizing: border-box;
 }
@@ -32,6 +38,7 @@ body {
 .hints {
   /* visibility: hidden; */
   width: 420px;
+  min-height: 158px;
   margin-left: auto;
   margin-right: auto;
   color: black;
@@ -40,7 +47,8 @@ body {
   border-radius: 2px;
   /* absolute would be better if there are more hints */
   position: relative;
-  top: 245px;
+  top: 265px;
+  left: 1px;
   z-index: 1;
 }
 
@@ -70,10 +78,11 @@ body {
 .title {
   /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
   /* font-weight: bold; */
-  font-family: Montserrat;
+  font-family: Merriweather;
   margin-left: auto;
   margin-right: auto;
-  /* font-size: 1.1rem; */
+  font-weight: normal;
+  font-size: 1rem;
 }
 
 .btn {
