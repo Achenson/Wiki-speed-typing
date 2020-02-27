@@ -51,7 +51,7 @@ DONE 31. change app title? DONE
 
 /* 
 
-<App/> - counter(start, pause/run, reset, results),
+<App/> - counter(start, pause/run, reset, results), [dependencies: isActive, timerValue, toReset]
 -keyboard shortcuts, -hints & results visibility,
 -focusing/unfocusing elements
     <Display/> - handling input in textarea
@@ -68,7 +68,7 @@ DONE 31. change app title? DONE
 */
 
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef} from "react";
 
 import Display from "./components/Display.js";
 
@@ -97,48 +97,44 @@ function App() {
     "timer length": constantTimerValue
   });
 
-  function resultsMaker(correct, incorrect, allEntries) {
-    // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
-    let noPenaltyKPM =
-      Math.round(
-        ((allEntries * 60) / (constantTimerValue - timerValue)) * 100
-      ) / 100;
-    let incorrectPerMinute =
-      (incorrect * 60) / (constantTimerValue - timerValue);
-    // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
-    let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
-
-    return {
-      speed: calcSpeed(),
-      accuracy: calcAccuracy(),
-      correct: correct,
-      incorrect: incorrect,
-      noPenalty: noPenaltyKPM,
-      "timer length": constantTimerValue.toString()
-    };
-
-    function calcSpeed() {
-      if (penaltyKPM >= 0) {
-        return Math.round(penaltyKPM * 10) / 10;
-      } else {
-        return 0;
-      }
-    }
-
-    function calcAccuracy() {
-      if (allEntries > 0) {
-        let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
-        return accuracyResult;
-      } else {
-        return 0;
-      }
-    }
-  }
-
+  
   // for keyboard shortcuts
   useEffect(() => {
     document.addEventListener("keypress", handleKeyPress);
-  }, []);
+  });
+
+
+
+
+   // hints & results visibility
+   const [areHintsVisible, setAreHintsVisible] = useState(false);
+   const [areResultsVisible, setAreResultsVisible] = useState(false);
+ 
+   function toggleHints() {
+     if (!isActive) {
+       setAreHintsVisible(!areHintsVisible);
+     }
+   }
+
+/*  function def changed to useCallback because of warning below:
+   (to prevent unnecessary renders?)
+   Line 119:4:  The 'toggleResults' function makes the dependencies of useEffect Hook
+    (at line 232) change on every render. To fix this, wrap the 'toggleResults' definition
+     into its own useCallback() Hook  react-hooks/exhaustive-deps
+*/  
+    function toggleResults() {
+     setAreResultsVisible(!areResultsVisible);
+   }
+
+/* 
+const toggleResults = useCallback(
+  () => {
+    setAreResultsVisible(!areResultsVisible);
+  },
+  [areResultsVisible]
+); */
+
+ 
 
   // for counter
   useEffect(() => {
@@ -206,7 +202,50 @@ function App() {
     // this equivalent to componentWillUnmount
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
+
+    // 'areResultsVisible', 'constantTimerValue', 'resultsCorrect', 'resultsIncorrect',
+    //  'resultsMaker', 'resultsNoPenalty', and 'toggleResults' added because of the warning,
+    // not used actually
+    function resultsMaker(correct, incorrect, allEntries) {
+      // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
+      let noPenaltyKPM =
+        Math.round(
+          ((allEntries * 60) / (constantTimerValue - timerValue)) * 100
+        ) / 100;
+      let incorrectPerMinute =
+        (incorrect * 60) / (constantTimerValue - timerValue);
+      // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
+      let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
+  
+      return {
+        speed: calcSpeed(),
+        accuracy: calcAccuracy(),
+        correct: correct,
+        incorrect: incorrect,
+        noPenalty: noPenaltyKPM,
+        "timer length": constantTimerValue.toString()
+      };
+  
+      function calcSpeed() {
+        if (penaltyKPM >= 0) {
+          return Math.round(penaltyKPM * 10) / 10;
+        } else {
+          return 0;
+        }
+      }
+  
+      function calcAccuracy() {
+        if (allEntries > 0) {
+          let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
+          return accuracyResult;
+        } else {
+          return 0;
+        }
+      }
+    }
+  
   }, [isActive, timerValue, toReset]);
+  
 
   // for pause button
   function toggleTimer() {
@@ -250,19 +289,7 @@ function App() {
     return;
   }
 
-  // hints & results visibility
-  const [areHintsVisible, setAreHintsVisible] = useState(false);
-  const [areResultsVisible, setAreResultsVisible] = useState(false);
-
-  function toggleHints() {
-    if (!isActive) {
-      setAreHintsVisible(!areHintsVisible);
-    }
-  }
-
-  function toggleResults() {
-    setAreResultsVisible(!areResultsVisible);
-  }
+ 
 
   // for disabling select
   const isDisabled = useRef(null);

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+// import { useState, useEffect, useRef } from "react";
 
 function Wiki(props) {
   console.log(props.wikiTitle);
@@ -13,6 +13,7 @@ function Wiki(props) {
             className="wiki-title-display-link"
             href={`https://en.wikipedia.org/wiki/${props.wikiTitle}`}
             target="_blank"
+            rel="noopener noreferrer"
           >
             {props.wikiTitle}
           </a>

@@ -91,6 +91,7 @@ function Display(props) {
 
             // regex to exclude non-english characters
             let regexpForEngCharOnly = /^[\w\s'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~ ]*$/i;
+            // let regexpForEngCharOnly = /^[\w\s'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~ ]*$/i;
 
             if (!regexpForEngCharOnly.test(articleExtract)) {
               console.log("characters out of english, rendering again");
@@ -109,7 +110,7 @@ function Display(props) {
       }
       //////////////////////
     }
-  }, [newRandomArticle]);
+  }, [newRandomArticle, loremText, wikiApiUrl]);
 
   function setTextToRender(text) {
     setMyText(text);
@@ -180,6 +181,15 @@ function Display(props) {
     if (props.toReset) {
       resetDisplay();
     }
+
+    function resetDisplay() {
+      setTextAreaValue("");
+      setIndexOfPartialTextArr(0);
+      setColorForEachLetter(makeColoredLetters());
+    }
+
+
+
   }, [props.toReset]);
 
   // arrToRender = [ [letter, color for the letter], ... ]
@@ -247,11 +257,7 @@ function Display(props) {
     setTextAreaValue(e.target.value);
   }
 
-  function resetDisplay() {
-    setTextAreaValue("");
-    setIndexOfPartialTextArr(0);
-    setColorForEachLetter(makeColoredLetters());
-  }
+ 
 
   function preventArrowKeys(event) {
     let arrowKeysArr = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
