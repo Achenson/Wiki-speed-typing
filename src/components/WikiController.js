@@ -1,7 +1,7 @@
 import React from "react";
 // import { useState, useEffect, useRef } from "react";
 
-function Wiki(props) {
+function WikiController(props) {
   console.log(props.wikiTitle);
 
   return (
@@ -40,4 +40,4 @@ function Wiki(props) {
 }
 
 
-export default Wiki;
+export default WikiController;

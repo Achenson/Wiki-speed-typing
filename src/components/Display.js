@@ -1,7 +1,12 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import SingleLetter from "./SingleLetter.js";
-import Wiki from "./Wiki.js";
+// import SingleLetter from "./SingleLetter.js";
+import WikiController from "./WikiController.js";
+import Hints from "./Hints.js";
+import UpperUI from "./UpperUI.js";
+import WikiDisplay from "./WikiDisplay.js";
+import InputArea from "./InputArea.js";
+import Controls from "./Controls.js";
 
 // const escapeStringRegexp = require("escape-string-regexp");
 
@@ -187,9 +192,6 @@ function Display(props) {
       setIndexOfPartialTextArr(0);
       setColorForEachLetter(makeColoredLetters());
     }
-
-
-
   }, [props.toReset]);
 
   // arrToRender = [ [letter, color for the letter], ... ]
@@ -257,21 +259,8 @@ function Display(props) {
     setTextAreaValue(e.target.value);
   }
 
- 
 
-  function preventArrowKeys(event) {
-    let arrowKeysArr = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
 
-    if (arrowKeysArr.indexOf(event.key) !== -1) {
-      event.preventDefault();
-    }
-  }
-  // no text selecting
-  function focusOnlyOnClick(event) {
-    //props.putFocusOnTextArea()
-    let myTarget = event.target;
-    myTarget.setSelectionRange(myTarget.value.length, myTarget.value.length);
-  }
 
   // counter display ================================
 
@@ -314,164 +303,47 @@ function Display(props) {
   let ellipsis = "...";
   return (
     <div className="outer-container">
-      <div
-        className="hints"
-        style={{
-          visibility: `${props.areHintsVisible ? "visible" : "hidden"}`
-        }}
-      >
-        <div className="inner-hints container">
-          <p className="hints-title">Hints</p>
-          <ul>
-            <li>Change the timer value (optional)</li>
-            <li>Type in typing area to start/resume</li>
-            <li>
-              Press <b>Tab</b> once to pause, <b>Enter</b> to resume
-            </li>
-            <li>
-              Press <b>Shift+Delete</b> to reset
-            </li>
-            <li>Click on the article title to visit wikipedia page</li>
-            <li>Mouse over results for more information</li>
-          </ul>
-        </div>
-      </div>
+      <Hints areHintsVisible={props.areHintsVisible} />
 
       <h3 className="title">Wiki Speed Typing</h3>
       <div className="main-square">
-        <div className="upper-ui container">
-          <div className="upper-ui-left">
-            <div className="upper-ui-inner">
-              <p
-                className="upper-ui-item-label"
-                style={{ visibility: "hidden" }}
-              >
-                Time
-              </p>
+        <UpperUI
+          resultsObj={props.resultsObj}
+          toggleHints={props.toggleHints}
+          areResultsVisible={props.areResultsVisible}
+          areHintsVisible={props.areHintsVisible}
+          counterDisplay={counterDisplay}
+        />
 
-              <p className="upper-ui-item counter">{counterDisplay}</p>
-            </div>
-          </div>
-          <div className="upper-ui-right">
-            <div className="upper-ui-inner">
-              <p className="upper-ui-item-label">Speed (KPM)</p>
+        <WikiDisplay
+          indexOfPartialTextArr={indexOfPartialTextArr}
+          arrToRender={arrToRender}
+          arrOfPartialText={arrOfPartialText}
+          ellipsis={ellipsis}
+        />
 
-              <p className="upper-ui-item display-speed">
-                {props.resultsObj.speed}
-              </p>
-            </div>
-            <div className="upper-ui-inner">
-              <p className="upper-ui-item-label">Accuracy</p>
-              <p className="upper-ui-item display-accuracy">
-                {props.resultsObj.accuracy} %
-              </p>
-            </div>
+        <InputArea
+          changeTextAreaValue={changeTextAreaValue}
+          toggleTimer={props.toggleTimer}
+          focusTextArea={props.focusTextArea}
+          isActive={props.isActive}
+          areHintsVisible={props.areHintsVisible}
+          toggleHints={props.toggleHints}
+        />
 
-            <button
-              className="btn btn-display-hints"
-              onClick={props.toggleHints}
-              style={{
-                backgroundColor: `${props.areHintsVisible ? "black" : "green"}`
-              }}
-              onMouseEnter={e => {
-                e.target.style.backgroundColor = `${
-                  props.areHintsVisible ? "green" : "black"
-                }`;
-              }}
-              onMouseLeave={e => {
-                e.target.style.backgroundColor = `${
-                  props.areHintsVisible ? "black" : "green"
-                }`;
-              }}
-            >
-              ?
-            </button>
-          </div>
-        </div>
-        <div className="wiki-display-outer container">
-          <div className="wiki-display">
-            {arrToRender.map((el, i) => {
-              return (
-                <SingleLetter letterToRender={el[0]} color={el[1]} key={i} />
-              );
-            })}
-            {indexOfPartialTextArr !== arrOfPartialText.length - 1
-              ? ellipsis
-              : ""}
-          </div>
-          <div className="wiki-display-page-counter">
-            {indexOfPartialTextArr + 1}/{arrOfPartialText.length}
-          </div>
-        </div>
+    <Controls
+  toggleTimer={props.toggleTimer}
+  isActive={props.isActive}
+  setTimerOnSelect={props.setTimerOnSelect}
+  isDisabled={props.isDisabled}
+  resetTimer={props.resetTimer}
+  putFocusOnTextArea={props.putFocusOnTextArea}
 
-        <textarea
-          className="typing-display container"
-          onChange={e => {
-            changeTextAreaValue(e);
 
-            if (!props.isActive) {
-              props.toggleTimer();
-            }
-          }}
-          autoFocus
-          // crucial for two-way binding! reset button
-          value={textAreaValue}
-          ref={props.focusTextArea}
-          onPaste={e => {
-            e.preventDefault();
-          }}
-          onKeyDown={preventArrowKeys}
-          onClick={focusOnlyOnClick}
-          onFocus={() => {
-            if (props.areHintsVisible) {
-              props.toggleHints();
-            }
-          }}
-          onBlur={() => {
-            if (props.areHintsVisible) {
-              props.toggleHints();
-            }
-          }}
-          placeholder="Type here"
-        ></textarea>
+    />
 
-        <div className="control-buttons-row container">
-          <div className="column-left">
-            <button
-              className="btn btn-control control-item"
-              onClick={() => props.toggleTimer()}
-            >
-              {props.isActive ? "Pause" : "Run"}
-            </button>
-            <select
-              className="control-item"
-              onChange={props.setTimerOnSelect}
-              // ref={composeRefs(focusElement, props.isDisabled)}
-              ref={props.isDisabled}
-            >
-              <option value="5">00:05</option>
-              <option value="30">00:30</option>
-              <option value="60" selected="selected">01:00</option>
-              <option value="120">02:00</option>
-              <option value="300">05:00</option>
-            </select>
-          </div>
 
-          <div className="column-right">
-            <button
-              className="btn btn-control control-item btn-reset"
-              onClick={event => {
-                props.resetTimer();
-                props.putFocusOnTextArea();
-
-                //resetDisplay();
-              }}
-            >
-              Reset
-            </button>
-          </div>
-        </div>
-        <Wiki
+        <WikiController
           wikiTitle={wikiTitle}
           setNewRandomArticle={setNewRandomArticle}
           disablingButton={disablingButton}

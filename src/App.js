@@ -56,14 +56,11 @@ DONE 31. change app title? DONE
 -focusing/unfocusing elements
     <Display/> - handling input in textarea
     -fetching data from wikiAPI,
-    -array witj colorred letters in wikiDisplay according to mistakes
-    -counting correct, incorrect, [if length goes up according
-    to color of the last letter] allEntries
+    -array with colorred letters in wikiDisplay according to mistakes
+    -counting correct, incorrect, (if length goes up according
+    to color of the last letter) allEntries
         <SingleLetter/> - rendering colors of each single letter
         <Wiki/> - passive component
-
-
-
 
 */
 
