@@ -7,6 +7,8 @@ import UpperUI from "./UpperUI.js";
 import WikiDisplay from "./WikiDisplay.js";
 import InputArea from "./InputArea.js";
 import Controls from "./Controls.js";
+import ResultsButton from "./ResultsButton.js";
+import Results from "./Results.js";
 
 // const escapeStringRegexp = require("escape-string-regexp");
 
@@ -259,9 +261,6 @@ function Display(props) {
     setTextAreaValue(e.target.value);
   }
 
-
-
-
   // counter display ================================
 
   let minutesInt = Math.floor(props.timerValue / 60);
@@ -329,19 +328,17 @@ function Display(props) {
           isActive={props.isActive}
           areHintsVisible={props.areHintsVisible}
           toggleHints={props.toggleHints}
+          textAreaValue={textAreaValue}
         />
 
-    <Controls
-  toggleTimer={props.toggleTimer}
-  isActive={props.isActive}
-  setTimerOnSelect={props.setTimerOnSelect}
-  isDisabled={props.isDisabled}
-  resetTimer={props.resetTimer}
-  putFocusOnTextArea={props.putFocusOnTextArea}
-
-
-    />
-
+        <Controls
+          toggleTimer={props.toggleTimer}
+          isActive={props.isActive}
+          setTimerOnSelect={props.setTimerOnSelect}
+          isDisabled={props.isDisabled}
+          resetTimer={props.resetTimer}
+          putFocusOnTextArea={props.putFocusOnTextArea}
+        />
 
         <WikiController
           wikiTitle={wikiTitle}
@@ -352,85 +349,19 @@ function Display(props) {
           constantTimerValue={props.constantTimerValue}
           resetTimer={props.resetTimer}
         />
-        <div className="results-buttons-row container">
-          <button
-            hidden
-            className="btn btn-control btn-results"
-            onClick={props.toggleResults}
-            style={{
-              backgroundColor: `${
-                props.areResultsVisible ? "Black" : "steelblue"
-              }`
-            }}
-            onMouseEnter={e => {
-              e.target.style.backgroundColor = `${
-                props.areResultsVisible ? "steelblue" : "Black"
-              }`;
-            }}
-            onMouseLeave={e => {
-              e.target.style.backgroundColor = `${
-                props.areResultsVisible ? "Black" : "steelblue"
-              }`;
-            }}
-            ref={props.focusElement}
-          >
-            Show<span style={{ margin: "auto 0.05em" }}>|</span>Hide Results
-          </button>
-        </div>
+
+        <ResultsButton
+          toggleResults={props.toggleResults}
+          areResultsVisible={props.areResultsVisible}
+          focusElement={props.focusElement}
+        />
       </div>
-      <div
-        className="results"
-        style={{
-          visibility: `${props.areResultsVisible ? "visible" : "hidden"}`
-        }}
-      >
-        <div className="inner-results container">
-          <p className="results-title">
-            Results{" "}
-            <span style={{ fontWeight: "normal" }}>
-              (timer length: {resultsDisplay})
-            </span>
-          </p>
 
-          <div className="results-main">
-            <div className="tooltip">
-              <p>Speed: {props.resultsObj.speed} KPM</p>
-              <span className="tooltip-text">
-                Keys per minute - with penalties (minus 5 for 1 mistake/minute)
-              </span>
-            </div>
-
-            <div className="tooltip">
-              <p>Accuracy: {props.resultsObj.accuracy}%</p>
-              <span className="tooltip-text">
-                Incorrect entries/total entries percentage
-              </span>
-            </div>
-          </div>
-
-          <div className="results-other">
-            <div className="tooltip">
-              <p>Correct Entries: {props.resultsObj.correct}</p>
-              <span className="tooltip-text">
-                Total correct entries (including backspace corrected)
-              </span>
-            </div>
-
-            <div className="tooltip">
-              <p>Incorrect Entries: {props.resultsObj.incorrect}</p>
-              <span className="tooltip-text">
-                Total incorrect entries (including backspace corrected)
-              </span>
-            </div>
-            <div className="tooltip">
-              <p>Raw Key Speed: {props.resultsObj.noPenalty} KPM</p>
-              <span className="tooltip-text">
-                Keys per minute - without penalties for mistakes
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Results
+        areResultsVisible={props.areResultsVisible}
+        resultsObj={props.resultsObj}
+        resultsDisplay={resultsDisplay}
+      />
     </div>
   );
 }
