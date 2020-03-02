@@ -54,13 +54,21 @@ DONE 31. change app title? DONE
 <App/> - counter(start, pause/run, reset, results), [dependencies: isActive, timerValue, toReset]
 -keyboard shortcuts, -hints & results visibility,
 -focusing/unfocusing elements
-    <Display/> - handling input in textarea
-    -fetching data from wikiAPI,
-    -array with colorred letters in wikiDisplay according to mistakes
+- handling data to display (from Fetch to Display)
+    <Fetch/> -fetching data from wikiAPI, no rendering
+    <Display/> -rendering outer App part
+    - handling input in InputArea
+    -array with colorred letters in WikiDisplay according to mistakes
     -counting correct, incorrect, (if length goes up according
     to color of the last letter) allEntries
-        <SingleLetter/> - rendering colors of each single letter
-        <Wiki/> - passive component
+        <UpperUI>
+        <WikiDisplay>
+            <SingleLetter/> - rendering colors of each single letter
+        <InputArea>
+        <Controls>
+        <WikiController/> - passive component
+        <ResultButton>
+        <Results>
 
 */
 
@@ -70,6 +78,7 @@ import { useState, useEffect, useRef} from "react";
 import Display from "./components/Display.js";
 
 import "./App.css";
+import Fetch from "./components/Fetch.js";
 
 function App() {
   const [timerValue, setTimerValue] = useState(60);
@@ -93,6 +102,32 @@ function App() {
     noPenalty: "-",
     "timer length": constantTimerValue
   });
+
+   // disabling random wiki article button
+   const disablingButton = useRef(null); 
+
+
+  // for displaying text 
+
+  let loremText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut ENIM ad
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+  eiusmod tempor incididunt ut labore et dolore magna ALIQua.`;
+
+  const [myText, setMyText] = useState(loremText);
+  const [wikiTitle, setWikiTitle] = useState("");
+  // newRandomArticle will be fetched if true
+  const [newRandomArticle, setNewRandomArticle] = useState(true);
+
 
   
   // for keyboard shortcuts
@@ -122,16 +157,6 @@ function App() {
     function toggleResults() {
      setAreResultsVisible(!areResultsVisible);
    }
-
-/* 
-const toggleResults = useCallback(
-  () => {
-    setAreResultsVisible(!areResultsVisible);
-  },
-  [areResultsVisible]
-); */
-
- 
 
   // for counter
   useEffect(() => {
@@ -323,6 +348,17 @@ const toggleResults = useCallback(
 
   return (
     <div className="App" onKeyDown={handleKeyPress}>
+      <Fetch
+        myText={myText}
+        setMyText={setMyText}
+        wikiTitle={wikiTitle}
+        setWikiTitle={setWikiTitle}
+        newRandomArticle={newRandomArticle}
+        setNewRandomArticle={setNewRandomArticle}
+        disablingButton={disablingButton}
+        loremText={loremText}
+
+      />
       <Display
       // timer
         timerValue={timerValue}
@@ -350,6 +386,16 @@ const toggleResults = useCallback(
         setResultsIncorrect={setResultsIncorrect}
         resultsNoPenalty={resultsNoPenalty}
         setResultsNoPenalty={setResultsNoPenalty}
+
+        myText={myText}
+        // setMyText={setMyText}
+        wikiTitle={wikiTitle}
+        // setWikiTitle={setWikiTitle}
+// newRandomArticle={newRandomArticle}
+        setNewRandomArticle={setNewRandomArticle}
+
+        disablingButton={disablingButton}
+
       />
     </div>
   );

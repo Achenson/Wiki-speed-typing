@@ -2,8 +2,6 @@ import React from "react";
 //import { useState, useEffect, useRef } from "react";
 
 function InputArea(props) {
-
-
   function preventArrowKeys(event) {
     let arrowKeysArr = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
 
@@ -12,13 +10,12 @@ function InputArea(props) {
     }
   }
 
-    // no text selecting
-    function focusOnlyOnClick(event) {
-      //props.putFocusOnTextArea()
-      let myTarget = event.target;
-      myTarget.setSelectionRange(myTarget.value.length, myTarget.value.length);
-    }
-
+  // no text selecting
+  function focusOnlyOnClick(event) {
+    //props.putFocusOnTextArea()
+    let myTarget = event.target;
+    myTarget.setSelectionRange(myTarget.value.length, myTarget.value.length);
+  }
 
   return (
     <textarea

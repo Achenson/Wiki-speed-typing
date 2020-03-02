@@ -13,120 +13,12 @@ import Results from "./Results.js";
 // const escapeStringRegexp = require("escape-string-regexp");
 
 function Display(props) {
-  let loremText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut ENIM ad
-  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna ALIQua.`;
 
-  const [myText, setMyText] = useState(loremText);
-  const [wikiTitle, setWikiTitle] = useState("");
-  // newRandomArticle will be fetched if true
-  const [newRandomArticle, setNewRandomArticle] = useState(true);
-
-  // Multiple extracts can only be returned if exintro is set to true.! (if only first part of wiki article is considered)
-  let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exsectionformat=plain`;
-
-  /*  ==== escaping string characters for Regex with escape-string-regexp npm module
-    let regexpString = "'\\^!\"#$%&()*+,-./:;<=>?@[]^_`{|}~";
-
-  const escapedString = escapeStringRegexp(regexpString);
-  let testRegex = new RegExp(escapedString);
-  console.log("TCL: Display -> testRegex", testRegex);
-
-  let regexpStringEscaped = /'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~/;
-  */
-
-  // fetching data from wiki API ===============
-
-  // disabling random wiki article button
-  const disablingButton = useRef(null);
-
-  useEffect(() => {
-    fetchWikiApi();
-
-    setNewRandomArticle(false);
-
-    setTimeout(() => {
-      disablingButton.current.removeAttribute("disabled");
-    }, 500);
-
-    function fetchWikiApi() {
-      //////////////////////
-      if (newRandomArticle) {
-        fetch(wikiApiUrl, {
-          method: "GET"
-        })
-          .then(res => res.json())
-          .then(data => {
-            let dataQueryPages = data.query.pages;
-
-            // console.log(JSON.stringify(data, null, 2));
-            /* 
-          console.log(
-            JSON.stringify(
-              dataQueryPages[Object.keys(dataQueryPages)[0]],  // dataQueryPages[Object.keys(dataQueryPages)[0]].extract,
-              null,
-              2
-            )
-          );
-*/
-            let articleNoFormat =
-              dataQueryPages[Object.keys(dataQueryPages)[0]].extract;
-
-            //deleting all brackets and its content from article
-            let articleExtract = articleNoFormat
-              .replace(/\(.*\)/g, "")
-              .replace(/\[.*\]/g, "")
-              .replace(/\s\./g, ".")
-              .replace(/\s,/g, ",")
-              .replace(/\s\s/g, " ");
-
-            if (articleExtract.length < 370) {
-              console.log("text to short, rendering again");
-              setWikiTitle("[Data loading...]");
-              return fetchWikiApi();
-            }
-
-            // regex to exclude non-english characters
-            let regexpForEngCharOnly = /^[\w\s'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~ ]*$/i;
-            // let regexpForEngCharOnly = /^[\w\s'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~ ]*$/i;
-
-            if (!regexpForEngCharOnly.test(articleExtract)) {
-              console.log("characters out of english, rendering again");
-              setWikiTitle("[Data loading...]");
-              return fetchWikiApi();
-            }
-
-            setTextToRender(articleExtract);
-            setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
-          })
-          .catch(() => {
-            console.log("error fetching data");
-            setMyText(loremText);
-            setWikiTitle("[Error accessing wikipedia - default text loaded]");
-          });
-      }
-      //////////////////////
-    }
-  }, [newRandomArticle, loremText, wikiApiUrl]);
-
-  function setTextToRender(text) {
-    setMyText(text);
-  }
 
   // rendering text ============================
   let lengthOfSinglePart = 363;
 
-  let myTextToArr = myText.split("");
+  let myTextToArr = props.myText.split("");
   let roundedTextDividedByLength = Math.round(
     myTextToArr.length / lengthOfSinglePart
   );
@@ -341,9 +233,9 @@ function Display(props) {
         />
 
         <WikiController
-          wikiTitle={wikiTitle}
-          setNewRandomArticle={setNewRandomArticle}
-          disablingButton={disablingButton}
+          wikiTitle={props.wikiTitle}
+          setNewRandomArticle={props.setNewRandomArticle}
+          disablingButton={props.disablingButton}
           isActive={props.isActive}
           timerValue={props.timerValue}
           constantTimerValue={props.constantTimerValue}
