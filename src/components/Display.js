@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect} from "react";
 // import SingleLetter from "./SingleLetter.js";
 import WikiController from "./WikiController.js";
 import Hints from "./Hints.js";

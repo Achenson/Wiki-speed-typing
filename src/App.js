@@ -1,77 +1,3 @@
-/* 
-
-possible issues: 
-1.can't pause during first second (ignore it?)
-2. result are being hidden after 1 second if the timer is on
-(make the btn unresponsive if the timer is on)
-DONE 3. Disable time select if the app is running!!! DONE
-DONE 4. accuracy NaN! DONE
-5. solve useEffect errors
-DONE 6. current result not updading if user stop typing! DONE
-DONE 7. CHECK how penalty should be applied! https://www.bleepingcomputer.com/forums/t/642883/calculating-net-typing-speed/ DONE
-8. text to render undefined! error handling?
-DONE 9. cutting one letter! DONE
-10. chrome not working?
-
-toChange:
- DONE 1. counter display (00:00 format) DONE
-X 2. Start is also a pause btn (change it to arrow and ||)X
-DONE 3. Set default select value to higher val DONE
-X 4. Results display to fast - add some animation?? X
-XX 5. show|hide results -> make the button name togglable show & hide?XX
-DONE uninstall compose refs? DONE
-DONE 7. contrast between main square and correct letters DONE
-DONE 8. display hint& result on one of the displays? DONE
-DONE 9. add tooltips!!! DONE
-XX 10. resultObj and set individual results redundant!!??? XX
-XX 11. hide result btn until 1 test was run? XX
-12. disable 5s timer in the end
-DONE 13. default results DONE
-DONE 14. reset current display immediately after start DONE
-DONE 15. placeholder text DONE
-DONE 16. typing are get the scroll in the end -> different  font? DONE
-DONE 17. timer value styling DONE
-18. btn text not centered? FIrefox only?
-19. scroll to results if they are not visible? Later - after wiki component is live
-DONE 20. speed only 1 afer . DONE
-21. transition for results?
-22. implement phase transition?
-DONE 23. wikipedia text length display? DONE
-DONE 24. what if text is too short DONE
-DONE 25. no "..." if case of last part of text DONE
-DONE 26. getting rid of text in () [] DONE
-DONE 27. getting rid of non-english chars DONE
-28. proper components/state management
-DONE 29. more Hints OR put Hints lower? DONE
-DONE 30. font for "speed typing app" DONE
-DONE 31. change app title? DONE
-32. more components?
-*/
-
-
-/* 
-
-<App/> - counter(start, pause/run, reset, results), [dependencies: isActive, timerValue, toReset]
--keyboard shortcuts, -hints & results visibility,
--focusing/unfocusing elements
-- handling data to display (from Fetch to Display)
-    <Fetch/> -fetching data from wikiAPI, no rendering
-    <Display/> -rendering outer App part
-    - handling input in InputArea
-    -array with colorred letters in WikiDisplay according to mistakes
-    -counting correct, incorrect, (if length goes up according
-    to color of the last letter) allEntries
-        <UpperUI>
-        <WikiDisplay>
-            <SingleLetter/> - rendering colors of each single letter
-        <InputArea>
-        <Controls>
-        <WikiController/> - passive component
-        <ResultButton>
-        <Results>
-
-*/
-
 import React from "react";
 import { useState, useEffect, useRef} from "react";
 
@@ -79,6 +5,8 @@ import Display from "./components/Display.js";
 
 import "./App.css";
 import Fetch from "./components/Fetch.js";
+
+import loremText from "./components/_DefaultText.js"
 
 function App() {
   const [timerValue, setTimerValue] = useState(60);
@@ -109,33 +37,15 @@ function App() {
 
   // for displaying text 
 
-  let loremText = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut ENIM ad
-  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-  minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-  aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-  eiusmod tempor incididunt ut labore et dolore magna ALIQua.`;
-
   const [myText, setMyText] = useState(loremText);
   const [wikiTitle, setWikiTitle] = useState("");
   // newRandomArticle will be fetched if true
   const [newRandomArticle, setNewRandomArticle] = useState(true);
-
-
   
   // for keyboard shortcuts
   useEffect(() => {
     document.addEventListener("keypress", handleKeyPress);
   });
-
-
 
 
    // hints & results visibility
