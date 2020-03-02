@@ -1,12 +1,12 @@
 import React from "react";
-import { useState, useEffect, useRef} from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 import Display from "./components/Display.js";
 
 import "./App.css";
 import Fetch from "./components/Fetch.js";
 
-import loremText from "./components/_DefaultText.js"
+import loremText from "./components/_DefaultText.js";
 
 function App() {
   const [timerValue, setTimerValue] = useState(60);
@@ -31,55 +31,145 @@ function App() {
     "timer length": constantTimerValue
   });
 
-   // disabling random wiki article button
-   const disablingButton = useRef(null); 
+  // disabling random wiki article button
+  const disablingButton = useRef(null);
 
-
-  // for displaying text 
+  // for displaying text
 
   const [myText, setMyText] = useState(loremText);
   const [wikiTitle, setWikiTitle] = useState("");
   // newRandomArticle will be fetched if true
   const [newRandomArticle, setNewRandomArticle] = useState(true);
-  
+
   // for keyboard shortcuts
   useEffect(() => {
     document.addEventListener("keypress", handleKeyPress);
   });
 
+  // hints & results visibility
+  const [areHintsVisible, setAreHintsVisible] = useState(false);
+  const [areResultsVisible, setAreResultsVisible] = useState(false);
 
-   // hints & results visibility
-   const [areHintsVisible, setAreHintsVisible] = useState(false);
-   const [areResultsVisible, setAreResultsVisible] = useState(false);
- 
-   function toggleHints() {
-     if (!isActive) {
-       setAreHintsVisible(!areHintsVisible);
-     }
-   }
+  function toggleHints() {
+    if (!isActive) {
+      setAreHintsVisible(!areHintsVisible);
+    }
+  }
 
-/*  function def changed to useCallback because of warning below:
+  /*  function def changed to useCallback because of warning below:
    (to prevent unnecessary renders?)
    Line 119:4:  The 'toggleResults' function makes the dependencies of useEffect Hook
     (at line 232) change on every render. To fix this, wrap the 'toggleResults' definition
      into its own useCallback() Hook  react-hooks/exhaustive-deps
-*/  
-    function toggleResults() {
-     setAreResultsVisible(!areResultsVisible);
-   }
+*/
 
-  // for counter
+  // for turning results off when the timer is running  =========
+
+  //useCallback is used so useEffect below won't run on every every time toggleResults function is called
+  const toggleResults = useCallback(() => {
+    // functional update(r=>!r) so the useCallback don't depend on areResultsVisible
+    setAreResultsVisible(r => !r);
+  }, []);
+
+  useEffect(() => {
+    if (isActive && timerValue > 0 && areResultsVisible) {
+      toggleResults();
+    }
+
+    if (!areResultsVisible && timerValue <= 0) {
+      toggleResults();
+    }
+  }, [isActive, timerValue, areResultsVisible, toggleResults]);
+
+
+  // for live results display every 2s
+
+  useEffect( () => {
+   
+
+        // for displaying 0speed & 0 accuracy if the counter becomes active
+
+     if (isActive && timerValue === constantTimerValue) {
+      setResultsObj(
+        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+      );
+    } 
+
+    
+      if (isActive && timerValue % 2 === 0) {
+        setResultsObj(
+          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+        );
+      }
+    
+  
+
+
+    // setting results
+    if (timerValue <= 0) {
+      setResultsObj(
+        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+      );
+    }
+   
+
+
+    function resultsMaker(correct, incorrect, allEntries) {
+      // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
+      let noPenaltyKPM =
+        Math.round(
+          ((allEntries * 60) / (constantTimerValue - timerValue)) * 100
+        ) / 100;
+      let incorrectPerMinute =
+        (incorrect * 60) / (constantTimerValue - timerValue);
+      // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
+      let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
+
+      return {
+        speed: calcSpeed(),
+        accuracy: calcAccuracy(),
+        correct: correct,
+        incorrect: incorrect,
+        noPenalty: noPenaltyKPM,
+        "timer length": constantTimerValue.toString()
+      };
+
+      function calcSpeed() {
+        if (penaltyKPM >= 0) {
+          return Math.round(penaltyKPM * 10) / 10;
+        } else {
+          return 0;
+        }
+      }
+
+      function calcAccuracy() {
+        if (allEntries > 0) {
+          let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
+          return accuracyResult;
+        } else {
+          return 0;
+        }
+      }
+    }
+
+  }, [isActive, timerValue, constantTimerValue])
+
+
+
+  // for counter  =======
   useEffect(() => {
     // otherwise there will be error: timerInterval not defined
     let timerInterval = null;
     let intervalForDisplay = null;
 
     // for displaying 0speed & 0 accuracy if the counter becomes active
-    if (isActive && timerValue === constantTimerValue) {
+
+    /* if (isActive && timerValue === constantTimerValue) {
       setResultsObj(
         resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
       );
-    }
+    } */
+    
 
     if (isActive && timerValue > 0) {
       timerInterval = setInterval(
@@ -87,15 +177,15 @@ function App() {
         1000
       );
       // for displaying live results every 2 seconds
-      if (isActive && timerValue % 2 === 0 && timerValue > 0) {
+
+
+      /*  if (isActive && timerValue % 2 === 0 && timerValue > 0) {
         setResultsObj(
           resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
         );
-      }
+      }  */
+    
 
-      if (areResultsVisible) {
-        toggleResults();
-      }
     }
 
     if (toReset) {
@@ -122,22 +212,23 @@ function App() {
       setTimerValue(constantTimerValue);
       setToReset(true);
 
-      if (!areResultsVisible) {
-        toggleResults();
-      }
-
-      setResultsObj(
+      /*   setResultsObj(
         resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-      );
+      ); */
+     
+
+
+
     }
 
     // this equivalent to componentWillUnmount
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
 
-    // 'areResultsVisible', 'constantTimerValue', 'resultsCorrect', 'resultsIncorrect',
-    //  'resultsMaker', 'resultsNoPenalty', and 'toggleResults' added because of the warning,
-    // not used actually
+
+
+
+    /* 
     function resultsMaker(correct, incorrect, allEntries) {
       // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
       let noPenaltyKPM =
@@ -148,7 +239,7 @@ function App() {
         (incorrect * 60) / (constantTimerValue - timerValue);
       // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
       let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
-  
+
       return {
         speed: calcSpeed(),
         accuracy: calcAccuracy(),
@@ -157,7 +248,7 @@ function App() {
         noPenalty: noPenaltyKPM,
         "timer length": constantTimerValue.toString()
       };
-  
+
       function calcSpeed() {
         if (penaltyKPM >= 0) {
           return Math.round(penaltyKPM * 10) / 10;
@@ -165,7 +256,7 @@ function App() {
           return 0;
         }
       }
-  
+
       function calcAccuracy() {
         if (allEntries > 0) {
           let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
@@ -175,9 +266,10 @@ function App() {
         }
       }
     }
-  
+    
+    */
+    
   }, [isActive, timerValue, toReset]);
-  
 
   // for pause button
   function toggleTimer() {
@@ -220,8 +312,6 @@ function App() {
 
     return;
   }
-
- 
 
   // for disabling select
   const isDisabled = useRef(null);
@@ -267,10 +357,9 @@ function App() {
         setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         loremText={loremText}
-
       />
       <Display
-      // timer
+        // timer
         timerValue={timerValue}
         constantTimerValue={constantTimerValue}
         toggleTimer={toggleTimer}
@@ -296,16 +385,13 @@ function App() {
         setResultsIncorrect={setResultsIncorrect}
         resultsNoPenalty={resultsNoPenalty}
         setResultsNoPenalty={setResultsNoPenalty}
-
         myText={myText}
         // setMyText={setMyText}
         wikiTitle={wikiTitle}
         // setWikiTitle={setWikiTitle}
-// newRandomArticle={newRandomArticle}
+        // newRandomArticle={newRandomArticle}
         setNewRandomArticle={setNewRandomArticle}
-
         disablingButton={disablingButton}
-
       />
     </div>
   );
