@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 // import SingleLetter from "./SingleLetter.js";
 import WikiController from "./WikiController.js";
 import Hints from "./Hints.js";
@@ -13,8 +13,6 @@ import Results from "./Results.js";
 // const escapeStringRegexp = require("escape-string-regexp");
 
 function Display(props) {
-
-
   // rendering text ============================
   let lengthOfSinglePart = 363;
 
@@ -153,43 +151,6 @@ function Display(props) {
     setTextAreaValue(e.target.value);
   }
 
-  // counter display ================================
-
-  let minutesInt = Math.floor(props.timerValue / 60);
-  //console.log("TCL: Display -> minutesInt", minutesInt);
-  let secondsInt = props.timerValue - minutesInt * 60;
-  //console.log("TCL: Display -> secondsInt", secondsInt);
-
-  let minutesStr = minutesInt.toString();
-  let secondsStr = secondsInt.toString();
-
-  let minutesFormatted;
-  let secondsFormatted;
-
-  if (minutesInt >= 10) {
-    minutesFormatted = minutesStr;
-  } else {
-    minutesFormatted = `0${minutesStr}`;
-  }
-
-  if (secondsInt >= 10) {
-    secondsFormatted = secondsStr;
-  } else {
-    secondsFormatted = `0${secondsStr}`;
-  }
-
-  // counter display in results
-  let counterDisplay = `${minutesFormatted}:${secondsFormatted}`;
-
-  let resultsDisplay;
-  let resultsMinutes;
-  let resultsSeconds;
-
-  minutesInt ? (resultsMinutes = `${minutesStr}min`) : (resultsMinutes = "");
-  secondsInt ? (resultsSeconds = `${secondsStr}s`) : (resultsSeconds = "");
-
-  resultsDisplay = `${resultsMinutes} ${resultsSeconds}`;
-
   // for "..." displaying at the end of wiki-diplay
   let ellipsis = "...";
   return (
@@ -203,7 +164,7 @@ function Display(props) {
           toggleHints={props.toggleHints}
           areResultsVisible={props.areResultsVisible}
           areHintsVisible={props.areHintsVisible}
-          counterDisplay={counterDisplay}
+          timerValue={props.timerValue}
         />
 
         <WikiDisplay
@@ -252,7 +213,7 @@ function Display(props) {
       <Results
         areResultsVisible={props.areResultsVisible}
         resultsObj={props.resultsObj}
-        resultsDisplay={resultsDisplay}
+        resultsAfterFinish={props.resultsAfterFinish}
       />
     </div>
   );

@@ -16,8 +16,12 @@ function App() {
   const [isActive, toggleActive] = useState(false);
   // for reset button
   const [toReset, setToReset] = useState(false);
+  // is the counter running
+  const [isCounterRunning, setIsCounterRunning] = useState(false);
 
-  // for Results
+ 
+
+  // for live results & setting <Result/> when the run is finished
   const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
   const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
@@ -30,6 +34,22 @@ function App() {
     noPenalty: "-",
     "timer length": constantTimerValue
   });
+
+   // for <Result/>
+
+
+
+   let [resultsAfterFinish, setResultsAfterFinish] = useState(
+     {
+      speed: "-",
+    accuracy: "- ",
+    correct: "-",
+    incorrect: "-",
+    noPenalty: "-",
+    "timer length": ""
+
+     }
+   );
 
   // disabling random wiki article button
   const disablingButton = useRef(null);
@@ -81,29 +101,23 @@ function App() {
     }
   }, [isActive, timerValue, areResultsVisible, toggleResults]);
 
-
   // for live results display every 2s
 
-  useEffect( () => {
-   
+  useEffect(() => {
+    // for displaying 0speed & 0 accuracy if the counter becomes active
 
-        // for displaying 0speed & 0 accuracy if the counter becomes active
-
-     if (isActive && timerValue === constantTimerValue) {
+    //  if (isActive && !isCounterRunning) {
+    if (isActive && timerValue === constantTimerValue) {
       setResultsObj(
         resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
       );
-    } 
+    }
 
-    
-      if (isActive && timerValue % 2 === 0) {
-        setResultsObj(
-          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-        );
-      }
-    
-  
-
+    if (isActive && timerValue % 2 === 0) {
+      setResultsObj(
+        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+      );
+    }
 
     // setting results
     if (timerValue <= 0) {
@@ -111,8 +125,6 @@ function App() {
         resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
       );
     }
-   
-
 
     function resultsMaker(correct, incorrect, allEntries) {
       // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
@@ -151,10 +163,7 @@ function App() {
         }
       }
     }
-
-  }, [isActive, timerValue, constantTimerValue])
-
-
+  }, [isActive, timerValue, constantTimerValue]);
 
   // for counter  =======
   useEffect(() => {
@@ -169,23 +178,16 @@ function App() {
         resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
       );
     } */
-    
 
     if (isActive && timerValue > 0) {
       timerInterval = setInterval(
         () => setTimerValue(timerValue => timerValue - 1),
         1000
       );
-      // for displaying live results every 2 seconds
 
-
-      /*  if (isActive && timerValue % 2 === 0 && timerValue > 0) {
-        setResultsObj(
-          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-        );
-      }  */
-    
-
+      if (!isCounterRunning) {
+        setIsCounterRunning(b => !b);
+      }
     }
 
     if (toReset) {
@@ -193,16 +195,22 @@ function App() {
       setTimerValue(constantTimerValue);
       toggleActive(false);
       setToReset(false);
+
+      if (isCounterRunning) {
+        setIsCounterRunning(b => !b);
+      }
     }
-    // turning counter off on pause
+    // turning interval off on pause
     if (!isActive && timerValue > 0) {
       clearInterval(timerInterval);
       clearInterval(intervalForDisplay);
     }
 
     if (timerValue <= 0) {
-      // reseting results
+      // results for <Results/>
+      setResultsAfterFinish({...resultsObj})
 
+      // reseting results
       setResultsCorrect(0);
       setResultsIncorrect(0);
       setResultsNoPenalty(0);
@@ -212,64 +220,15 @@ function App() {
       setTimerValue(constantTimerValue);
       setToReset(true);
 
-      /*   setResultsObj(
-        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-      ); */
-     
-
-
-
+      if (isCounterRunning) {
+        setIsCounterRunning(b => !b);
+      }
     }
 
     // this equivalent to componentWillUnmount
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
-
-
-
-
-    /* 
-    function resultsMaker(correct, incorrect, allEntries) {
-      // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
-      let noPenaltyKPM =
-        Math.round(
-          ((allEntries * 60) / (constantTimerValue - timerValue)) * 100
-        ) / 100;
-      let incorrectPerMinute =
-        (incorrect * 60) / (constantTimerValue - timerValue);
-      // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
-      let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
-
-      return {
-        speed: calcSpeed(),
-        accuracy: calcAccuracy(),
-        correct: correct,
-        incorrect: incorrect,
-        noPenalty: noPenaltyKPM,
-        "timer length": constantTimerValue.toString()
-      };
-
-      function calcSpeed() {
-        if (penaltyKPM >= 0) {
-          return Math.round(penaltyKPM * 10) / 10;
-        } else {
-          return 0;
-        }
-      }
-
-      function calcAccuracy() {
-        if (allEntries > 0) {
-          let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
-          return accuracyResult;
-        } else {
-          return 0;
-        }
-      }
-    }
-    
-    */
-    
-  }, [isActive, timerValue, toReset]);
+  }, [isActive, timerValue, toReset, isCounterRunning]);
 
   // for pause button
   function toggleTimer() {
@@ -283,7 +242,8 @@ function App() {
   }
 
   function resetTimer() {
-    if (timerValue !== constantTimerValue) {
+    // if (timerValue !== constantTimerValue) {
+    if (isCounterRunning) {
       setToReset(true);
     }
     return;
@@ -317,12 +277,12 @@ function App() {
   const isDisabled = useRef(null);
 
   useEffect(() => {
-    if (isActive) {
+    if (isActive || isCounterRunning) {
       isDisabled.current.setAttribute("disabled", true);
     } else {
       isDisabled.current.removeAttribute("disabled");
     }
-  }, [isActive]);
+  }, [isActive, isCounterRunning]);
 
   // useRef unfocusing btn-hints on textarea focus
   // useRef focusin on textArea is the timer is active
@@ -385,6 +345,9 @@ function App() {
         setResultsIncorrect={setResultsIncorrect}
         resultsNoPenalty={resultsNoPenalty}
         setResultsNoPenalty={setResultsNoPenalty}
+
+        resultsAfterFinish={resultsAfterFinish}
+
         myText={myText}
         // setMyText={setMyText}
         wikiTitle={wikiTitle}
@@ -392,6 +355,7 @@ function App() {
         // newRandomArticle={newRandomArticle}
         setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
+        r
       />
     </div>
   );
