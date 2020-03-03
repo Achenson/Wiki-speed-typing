@@ -121,9 +121,17 @@ function App() {
 
     // setting results
     if (timerValue <= 0) {
+
+
+
       setResultsObj(
         resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
       );
+
+        // results for <Results/>
+      setResultsAfterFinish(resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty))
+
+
     }
 
     function resultsMaker(correct, incorrect, allEntries) {
@@ -207,8 +215,7 @@ function App() {
     }
 
     if (timerValue <= 0) {
-      // results for <Results/>
-      setResultsAfterFinish({...resultsObj})
+      
 
       // reseting results
       setResultsCorrect(0);
@@ -228,7 +235,7 @@ function App() {
     // this equivalent to componentWillUnmount
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
-  }, [isActive, timerValue, toReset, isCounterRunning]);
+  }, [isActive, timerValue, toReset, isCounterRunning, constantTimerValue]);
 
   // for pause button
   function toggleTimer() {

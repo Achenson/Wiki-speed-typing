@@ -1,36 +1,51 @@
 // import React from "react";
-import { useEffect} from "react";
+import { useEffect } from "react";
 
 function Fetch(props) {
   // fetching data from wiki API ===============
 
   // Multiple extracts can only be returned if exintro is set to true.! (if only first part of wiki article is considered)
-  let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exsectionformat=plain`;
+  // let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exsectionformat=plain`;
 
   /*  ==== escaping string characters for Regex with escape-string-regexp npm module
-    let regexpString = "'\\^!\"#$%&()*+,-./:;<=>?@[]^_`{|}~";
-
+  let regexpString = "'\\^!\"#$%&()*+,-./:;<=>?@[]^_`{|}~";
+  
   const escapedString = escapeStringRegexp(regexpString);
   let testRegex = new RegExp(escapedString);
   console.log("TCL: Display -> testRegex", testRegex);
-
+  
   let regexpStringEscaped = /'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~/;
   */
 
   /*  // disabling random wiki article button
-  const disablingButton = useRef(null); */
+ const disablingButton = useRef(null); */
+
+  /*  let {newRandomArticle} = props;
+ let {setNewRandomArticle} = props;
+ let {disablingButton} = props;
+ let {setWikiTitle} = props; */
+  let { setMyText } = props;
+  let { setWikiTitle } = props;
+  let { setNewRandomArticle } = props;
+  let { disablingButton } = props;
+  let { newRandomArticle } = props;
+  let { loremText } = props;
+  
 
   useEffect(() => {
+    let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exsectionformat=plain`;
     fetchWikiApi();
 
-    props.setNewRandomArticle(false);
+    //  props.setNewRandomArticle(false);
+    setNewRandomArticle(false);
 
     setTimeout(() => {
-      props.disablingButton.current.removeAttribute("disabled");
+      // props.disablingButton.current.removeAttribute("disabled");
+      disablingButton.current.removeAttribute("disabled");
     }, 500);
 
     function fetchWikiApi() {
-      if (props.newRandomArticle) {
+      if (newRandomArticle) {
         fetch(wikiApiUrl, {
           method: "GET"
         })
@@ -61,7 +76,8 @@ function Fetch(props) {
 
             if (articleExtract.length < 370) {
               console.log("text to short, rendering again");
-              props.setWikiTitle("[Data loading...]");
+              // props.setWikiTitle("[Data loading...]");
+              setWikiTitle("[Data loading...]");
               return fetchWikiApi();
             }
 
@@ -71,31 +87,39 @@ function Fetch(props) {
 
             if (!regexpForEngCharOnly.test(articleExtract)) {
               console.log("characters out of english, rendering again");
-              props.setWikiTitle("[Data loading...]");
+              // props.setWikiTitle("[Data loading...]");
+              setWikiTitle("[Data loading...]");
               return fetchWikiApi();
             }
 
             setTextToRender(articleExtract);
-            props.setWikiTitle(
-              dataQueryPages[Object.keys(dataQueryPages)[0]].title
-            );
+            // props.setWikiTitle(
+            setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
           })
+
           .catch(() => {
             console.log("error fetching data");
-            props.setMyText(props.loremText);
-            props.setWikiTitle(
-              "[Error accessing wikipedia - default text loaded]"
-            );
+            // props.setMyText(props.loremText);
+            setMyText(loremText);
+            // props.setWikiTitle(
+            setWikiTitle("[Error accessing wikipedia - default text loaded]");
           });
       }
     }
-  }, [props.newRandomArticle, props.loremText, props.wikiApiUrl]);
+    function setTextToRender(text) {
+      // props.setMyText(text);
+      setMyText(text);
+    }
+  }, [
+    newRandomArticle,
+    loremText,
+    disablingButton,
+    setMyText,
+    setNewRandomArticle,
+    setWikiTitle
+  ]);
 
-  function setTextToRender(text) {
-    props.setMyText(text);
-  }
-
-  return (null);
+  return null;
 }
 
 export default Fetch;
