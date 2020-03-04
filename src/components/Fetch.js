@@ -20,18 +20,8 @@ function Fetch(props) {
   /*  // disabling random wiki article button
  const disablingButton = useRef(null); */
 
-  /*  let {newRandomArticle} = props;
- let {setNewRandomArticle} = props;
- let {disablingButton} = props;
- let {setWikiTitle} = props; */
-  let { setMyText } = props;
-  let { setWikiTitle } = props;
-  let { setNewRandomArticle } = props;
-  let { disablingButton } = props;
-  let { newRandomArticle } = props;
-  let { loremText } = props;
-  
-
+  let { setMyText, setWikiTitle, setNewRandomArticle, disablingButton, newRandomArticle, loremText    } = props;
+ 
   useEffect(() => {
     let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exsectionformat=plain`;
     fetchWikiApi();
@@ -76,7 +66,6 @@ function Fetch(props) {
 
             if (articleExtract.length < 370) {
               console.log("text to short, rendering again");
-              // props.setWikiTitle("[Data loading...]");
               setWikiTitle("[Data loading...]");
               return fetchWikiApi();
             }
@@ -87,27 +76,22 @@ function Fetch(props) {
 
             if (!regexpForEngCharOnly.test(articleExtract)) {
               console.log("characters out of english, rendering again");
-              // props.setWikiTitle("[Data loading...]");
               setWikiTitle("[Data loading...]");
               return fetchWikiApi();
             }
 
             setTextToRender(articleExtract);
-            // props.setWikiTitle(
             setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
           })
 
           .catch(() => {
             console.log("error fetching data");
-            // props.setMyText(props.loremText);
             setMyText(loremText);
-            // props.setWikiTitle(
             setWikiTitle("[Error accessing wikipedia - default text loaded]");
           });
       }
     }
     function setTextToRender(text) {
-      // props.setMyText(text);
       setMyText(text);
     }
   }, [

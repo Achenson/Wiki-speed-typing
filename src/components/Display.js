@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 // import SingleLetter from "./SingleLetter.js";
 import WikiController from "./WikiController.js";
 import Hints from "./Hints.js";
@@ -26,6 +26,15 @@ function Display(props) {
   const textToRender = arrOfPartialText[indexOfPartialTextArr];
   let arrOutOfText = textToRender.split("");
 
+  //make default(gray) color in wiki display area
+  const makeColoredLetters = useCallback(() => {
+    let arrToReturn = [];
+    for (let i = 0; i < arrOutOfText.length; i++) {
+      arrToReturn.push("DimGray");
+    }
+    return arrToReturn;
+  }, [arrOutOfText]);
+
   const [colorForEachLetter, setColorForEachLetter] = useState(
     // setting gray color for each letter by default
     makeColoredLetters()
@@ -34,11 +43,20 @@ function Display(props) {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [prevTextAreaValue, setPrevTextAreaValue] = useState("");
 
-  let arrOutOfTextValue = textAreaValue.split("");
-
   //coloring letters in display according to errors or no
   //  + counting entries!!
+
+  let {
+    setResultsNoPenalty,
+    setResultsCorrect,
+    setResultsIncorrect,
+    resultsNoPenalty,
+    resultsCorrect,
+    resultsIncorrect
+  } = props;
   useEffect(() => {
+    let arrOutOfTextValue = textAreaValue.split("");
+
     let arrOfColors = [...colorForEachLetter];
 
     for (let i = 0; i < textAreaValue.length; i++) {
@@ -60,18 +78,27 @@ function Display(props) {
     setColorForEachLetter(arrOfColors);
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
-      props.setResultsNoPenalty(props.resultsNoPenalty + 1);
+      setResultsNoPenalty(resultsNoPenalty + 1);
 
       if (arrOfColors[textAreaValue.length - 1] === "blue") {
-        props.setResultsCorrect(props.resultsCorrect + 1);
+        setResultsCorrect(resultsCorrect + 1);
       }
 
       if (arrOfColors[textAreaValue.length - 1] === "red") {
-        props.setResultsIncorrect(props.resultsIncorrect + 1);
+        setResultsIncorrect(resultsIncorrect + 1);
       }
     }
     setPrevTextAreaValue(textAreaValue);
-  }, [textAreaValue]);
+  }, [
+    textAreaValue,
+    prevTextAreaValue.length,
+    resultsCorrect,
+    resultsIncorrect,
+    resultsNoPenalty,
+    setResultsCorrect,
+    setResultsIncorrect,
+    setResultsNoPenalty
+  ]);
 
   // reseting display
   useEffect(() => {
@@ -84,7 +111,7 @@ function Display(props) {
       setIndexOfPartialTextArr(0);
       setColorForEachLetter(makeColoredLetters());
     }
-  }, [props.toReset]);
+  }, [props.toReset, makeColoredLetters]);
 
   // arrToRender = [ [letter, color for the letter], ... ]
   const arrToRender = makeArrayToRender();
@@ -111,14 +138,14 @@ function Display(props) {
     //console.log(arrOfPartialText);
     return arrOfPartialText;
   }
-  //make default(gray) color in wiki display area
-  function makeColoredLetters() {
+
+  /* function makeColoredLetters() {
     let arrToReturn = [];
     for (let i = 0; i < arrOutOfText.length; i++) {
       arrToReturn.push("DimGray");
     }
     return arrToReturn;
-  }
+  } */
 
   function makeArrayToRender() {
     let arrToSet = [];
