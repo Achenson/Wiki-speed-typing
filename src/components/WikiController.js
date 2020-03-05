@@ -28,7 +28,7 @@ function WikiController(props) {
           } else {
             props.resetTimer();
             props.setNewRandomArticle(true);
-            props.disablingButton.current.setAttribute("disabled", true);
+             props.disablingButton.current.setAttribute("disabled", true);
           }
         }}
         ref={props.disablingButton}

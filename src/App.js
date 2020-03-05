@@ -19,8 +19,6 @@ function App() {
   // is the counter running
   const [isCounterRunning, setIsCounterRunning] = useState(false);
 
- 
-
   // for live results & setting <Result/> when the run is finished
   const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
@@ -35,21 +33,16 @@ function App() {
     "timer length": constantTimerValue
   });
 
-   // for <Result/>
+  // for <Result/>
 
-
-
-   let [resultsAfterFinish, setResultsAfterFinish] = useState(
-     {
-      speed: "-",
+  let [resultsAfterFinish, setResultsAfterFinish] = useState({
+    speed: "-",
     accuracy: "- ",
     correct: "-",
     incorrect: "-",
     noPenalty: "-",
     "timer length": ""
-
-     }
-   );
+  });
 
   // disabling random wiki article button
   const disablingButton = useRef(null);
@@ -121,17 +114,14 @@ function App() {
 
     // setting results
     if (timerValue <= 0) {
-
-
-
       setResultsObj(
         resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
       );
 
-        // results for <Results/>
-      setResultsAfterFinish(resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty))
-
-
+      // results for <Results/>
+      setResultsAfterFinish(
+        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+      );
     }
 
     function resultsMaker(correct, incorrect, allEntries) {
@@ -202,11 +192,11 @@ function App() {
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
       toggleActive(false);
-      setToReset(false);
-
+      
       if (isCounterRunning) {
         setIsCounterRunning(b => !b);
       }
+      setToReset(false);
     }
     // turning interval off on pause
     if (!isActive && timerValue > 0) {
@@ -215,8 +205,6 @@ function App() {
     }
 
     if (timerValue <= 0) {
-      
-
       // reseting results
       setResultsCorrect(0);
       setResultsIncorrect(0);
@@ -352,9 +340,7 @@ function App() {
         setResultsIncorrect={setResultsIncorrect}
         resultsNoPenalty={resultsNoPenalty}
         setResultsNoPenalty={setResultsNoPenalty}
-
         resultsAfterFinish={resultsAfterFinish}
-
         myText={myText}
         // setMyText={setMyText}
         wikiTitle={wikiTitle}
