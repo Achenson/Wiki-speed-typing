@@ -233,9 +233,8 @@ function Display(props) {
           setNewRandomArticle={props.setNewRandomArticle}
           disablingButton={props.disablingButton}
           isActive={props.isActive}
-          timerValue={props.timerValue}
-          constantTimerValue={props.constantTimerValue}
           resetTimer={props.resetTimer}
+          isCounterRunning={props.isCounterRunning}
         />
 
         <ResultsButton

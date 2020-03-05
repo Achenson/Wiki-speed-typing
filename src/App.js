@@ -24,6 +24,7 @@ function App() {
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
   const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
 
+  // for live results every 2s
   const [resultsObj, setResultsObj] = useState({
     speed: "-",
     accuracy: "- ",
@@ -34,7 +35,6 @@ function App() {
   });
 
   // for <Result/>
-
   let [resultsAfterFinish, setResultsAfterFinish] = useState({
     speed: "-",
     accuracy: "- ",
@@ -44,11 +44,10 @@ function App() {
     "timer length": ""
   });
 
-  // disabling random wiki article button
+  // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
 
   // for displaying text
-
   const [myText, setMyText] = useState(loremText);
   const [wikiTitle, setWikiTitle] = useState("");
   // newRandomArticle will be fetched if true
@@ -69,15 +68,7 @@ function App() {
     }
   }
 
-  /*  function def changed to useCallback because of warning below:
-   (to prevent unnecessary renders?)
-   Line 119:4:  The 'toggleResults' function makes the dependencies of useEffect Hook
-    (at line 232) change on every render. To fix this, wrap the 'toggleResults' definition
-     into its own useCallback() Hook  react-hooks/exhaustive-deps
-*/
-
   // for turning results off when the timer is running  =========
-
   //useCallback is used so useEffect below won't run on every every time toggleResults function is called
   const toggleResults = useCallback(() => {
     // functional update(r=>!r) so the useCallback don't depend on areResultsVisible
@@ -94,35 +85,84 @@ function App() {
     }
   }, [isActive, timerValue, areResultsVisible, toggleResults]);
 
-  // for live results display every 2s
-
+  // for counter  & live results & final results=======
   useEffect(() => {
-    // for displaying 0speed & 0 accuracy if the counter becomes active
+    // otherwise there will be error: timerInterval not defined
+    let timerInterval = null;
+    let intervalForDisplay = null;
 
-    //  if (isActive && !isCounterRunning) {
+    if (isActive && timerValue > 0) {
+      timerInterval = setInterval(
+        () => setTimerValue(timerValue => timerValue - 1),
+        1000
+      );
+
+      if (!isCounterRunning) {
+        setIsCounterRunning(b => !b);
+      }
+    }
+
     if (isActive && timerValue === constantTimerValue) {
-      setResultsObj(
-        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-      );
+      // for displaying 0speed & 0 accuracy if the counter becomes active
+      setResultsObj(resultsMaker(0, 0, 0));
+      // for live results display every 2s  ==============
+    } else if (isActive && timerValue % 2 === 0) {
+      {
+        setResultsObj(
+          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+        );
+      }
     }
 
-    if (isActive && timerValue % 2 === 0) {
-      setResultsObj(
-        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-      );
+    if (toReset) {
+      clearInterval(timerInterval);
+      setTimerValue(constantTimerValue);
+      toggleActive(false);
+
+      if (isCounterRunning) {
+        setIsCounterRunning(b => !b);
+      }
+      // reseting results
+      setResultsCorrect(0);
+      setResultsIncorrect(0);
+      setResultsNoPenalty(0);
+
+      setResultsObj(resultsMaker(0, 0, 0));
+
+      setToReset(false);
+    }
+    // turning interval off on pause
+    if (!isActive && timerValue > 0) {
+      clearInterval(timerInterval);
+      clearInterval(intervalForDisplay);
     }
 
-    // setting results
     if (timerValue <= 0) {
-      setResultsObj(
-        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-      );
+      // reseting results
+      setResultsCorrect(0);
+      setResultsIncorrect(0);
+      setResultsNoPenalty(0);
 
-      // results for <Results/>
-      setResultsAfterFinish(
-        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-      );
+      toggleActive(false);
+      clearInterval(timerInterval);
+      setTimerValue(constantTimerValue);
+
+      if (isCounterRunning) {
+        setIsCounterRunning(b => !b);
+      }
+
+      if (timerValue <= 0) {
+        setResultsAfterFinish(
+          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+        );
+      }
+      setToReset(true);
     }
+
+    // this equivalent to componentWillUnmount
+    // 
+    return () => clearInterval(timerInterval);
+    // useEffect will run every time isActive changes
 
     function resultsMaker(correct, incorrect, allEntries) {
       // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
@@ -161,68 +201,6 @@ function App() {
         }
       }
     }
-  }, [isActive, timerValue, constantTimerValue]);
-
-  // for counter  =======
-  useEffect(() => {
-    // otherwise there will be error: timerInterval not defined
-    let timerInterval = null;
-    let intervalForDisplay = null;
-
-    // for displaying 0speed & 0 accuracy if the counter becomes active
-
-    /* if (isActive && timerValue === constantTimerValue) {
-      setResultsObj(
-        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-      );
-    } */
-
-    if (isActive && timerValue > 0) {
-      timerInterval = setInterval(
-        () => setTimerValue(timerValue => timerValue - 1),
-        1000
-      );
-
-      if (!isCounterRunning) {
-        setIsCounterRunning(b => !b);
-      }
-    }
-
-    if (toReset) {
-      clearInterval(timerInterval);
-      setTimerValue(constantTimerValue);
-      toggleActive(false);
-      
-      if (isCounterRunning) {
-        setIsCounterRunning(b => !b);
-      }
-      setToReset(false);
-    }
-    // turning interval off on pause
-    if (!isActive && timerValue > 0) {
-      clearInterval(timerInterval);
-      clearInterval(intervalForDisplay);
-    }
-
-    if (timerValue <= 0) {
-      // reseting results
-      setResultsCorrect(0);
-      setResultsIncorrect(0);
-      setResultsNoPenalty(0);
-
-      toggleActive(false);
-      clearInterval(timerInterval);
-      setTimerValue(constantTimerValue);
-      setToReset(true);
-
-      if (isCounterRunning) {
-        setIsCounterRunning(b => !b);
-      }
-    }
-
-    // this equivalent to componentWillUnmount
-    return () => clearInterval(timerInterval);
-    // useEffect will run every time isActive changes
   }, [isActive, timerValue, toReset, isCounterRunning, constantTimerValue]);
 
   // for pause button
@@ -264,7 +242,6 @@ function App() {
         delete keysPressed[event.key];
       }
     }
-
     return;
   }
 
@@ -348,7 +325,7 @@ function App() {
         // newRandomArticle={newRandomArticle}
         setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
-        r
+        isCounterRunning={isCounterRunning}
       />
     </div>
   );

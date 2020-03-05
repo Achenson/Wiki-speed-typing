@@ -22,13 +22,13 @@ function WikiController(props) {
       <button
         className="btn btn-control btn-wiki"
         onClick={() => {
-          if (props.timerValue === props.constantTimerValue) {
+          if (!props.isCounterRunning) {
             props.setNewRandomArticle(true);
             props.disablingButton.current.setAttribute("disabled", true);
           } else {
             props.resetTimer();
             props.setNewRandomArticle(true);
-             props.disablingButton.current.setAttribute("disabled", true);
+            props.disablingButton.current.setAttribute("disabled", true);
           }
         }}
         ref={props.disablingButton}
@@ -38,6 +38,5 @@ function WikiController(props) {
     </div>
   );
 }
-
 
 export default WikiController;
