@@ -48,7 +48,7 @@ function App() {
   const disablingButton = useRef(null);
 
   // for displaying text
-  const [myText, setMyText] = useState(loremText);
+  const [myText, setMyText] = useState("[Data loading...]");
   const [wikiTitle, setWikiTitle] = useState("");
   // newRandomArticle will be fetched if true
   const [newRandomArticle, setNewRandomArticle] = useState(true);
@@ -107,11 +107,9 @@ function App() {
       setResultsObj(resultsMaker(0, 0, 0));
       // for live results display every 2s  ==============
     } else if (isActive && timerValue % 2 === 0) {
-      {
         setResultsObj(
           resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
         );
-      }
     }
 
     if (toReset) {
@@ -160,7 +158,7 @@ function App() {
     }
 
     // this equivalent to componentWillUnmount
-    // 
+    // "our interval would be cleared and set again whenever the count changes" (useEffect complete guite)
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
 
@@ -257,10 +255,15 @@ function App() {
   }, [isActive, isCounterRunning]);
 
   // useRef unfocusing btn-hints on textarea focus
-  // useRef focusin on textArea is the timer is active
-
+  // useRef focusin on textArea if the timer is active
   const focusElement = useRef(null);
   const focusTextArea = useRef(null);
+
+  useEffect( () => {
+    focusTextArea.current.setAttribute("disabled", true);
+  }, [])
+
+
 
   useEffect(() => {
     if (timerValue <= 0) {
@@ -289,6 +292,7 @@ function App() {
         setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         loremText={loremText}
+        focusTextArea={focusTextArea}
       />
       <Display
         // timer

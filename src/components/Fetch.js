@@ -20,8 +20,16 @@ function Fetch(props) {
   /*  // disabling random wiki article button
  const disablingButton = useRef(null); */
 
-  let { setMyText, setWikiTitle, setNewRandomArticle, disablingButton, newRandomArticle, loremText    } = props;
- 
+  let {
+    setMyText,
+    setWikiTitle,
+    setNewRandomArticle,
+    disablingButton,
+    newRandomArticle,
+    loremText,
+    focusTextArea
+  } = props;
+
   useEffect(() => {
     let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exsectionformat=plain`;
     fetchWikiApi();
@@ -82,12 +90,14 @@ function Fetch(props) {
 
             setTextToRender(articleExtract);
             setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
+            focusTextArea.current.removeAttribute("disabled");
           })
 
           .catch(() => {
             console.log("error fetching data");
             setMyText(loremText);
             setWikiTitle("[Error accessing wikipedia - default text loaded]");
+            focusTextArea.current.removeAttribute("disabled");
           });
       }
     }
@@ -100,7 +110,8 @@ function Fetch(props) {
     disablingButton,
     setMyText,
     setNewRandomArticle,
-    setWikiTitle
+    setWikiTitle,
+    focusTextArea
   ]);
 
   return null;

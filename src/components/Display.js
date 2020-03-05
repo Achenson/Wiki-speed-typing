@@ -29,13 +29,11 @@ function Display(props) {
   //make default(gray) color in wiki display area
   const makeDefaultColoredLetters = useCallback(() => {
     let arrToReturn = [];
-    // for (let i = 0; i < arrOutOfText.length; i++) {
-    for (let i = 0; i < 363; i++) {
+    for (let i = 0; i < lengthOfSinglePart; i++) {
       arrToReturn.push("DimGray");
     }
     return arrToReturn;
-    // }, [arrOutOfText]);
-  }, []);
+  }, [lengthOfSinglePart]);
 
   const [colorForEachLetter, setColorForEachLetter] = useState(
     // setting gray color for each letter by default
@@ -45,14 +43,7 @@ function Display(props) {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [prevTextAreaValue, setPrevTextAreaValue] = useState("");
 
-  let {
-    setResultsNoPenalty,
-    setResultsCorrect,
-    setResultsIncorrect,
-    /* resultsNoPenalty,
-    resultsCorrect,
-    resultsIncorrect */
-  } = props;
+  let { setResultsNoPenalty, setResultsCorrect, setResultsIncorrect } = props;
 
   //coloring letters in display according to errors or no
   //  + counting entries!!
@@ -60,54 +51,50 @@ function Display(props) {
   // const [arrOfColors, setArrOfColors] = useState([...colorForEachLetter]);
   useEffect(() => {
     console.log("rendering");
-    
+
     let arrOutOfTextValue = textAreaValue.split("");
     console.log("arrOutOfTextValue");
     console.log(arrOutOfTextValue);
 
-     for (let i = 0; i < textAreaValue.length; i++) {
+    for (let i = 0; i < textAreaValue.length; i++) {
       if (arrOutOfTextValue[i] !== arrOutOfText[i]) {
         arrOfColors[i] = "red";
       }
-      
+
       if (arrOutOfTextValue[i] === arrOutOfText[i]) {
         arrOfColors[i] = "blue";
       }
     }
-    
+
     for (let i = 0; i < arrOutOfText.length; i++) {
       if (arrOutOfTextValue[i] == null) {
         arrOfColors[i] = "DimGray";
       }
-    } 
-    
-  
+    }
 
-      setColorForEachLetter([...arrOfColors]);
-    
+    setColorForEachLetter([...arrOfColors]);
+
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
-      setResultsNoPenalty(r=>r+1);
-      
+      setResultsNoPenalty(r => r + 1);
+
       if (arrOfColors[textAreaValue.length - 1] === "blue") {
-        setResultsCorrect(r=>r+1);
+        setResultsCorrect(r => r + 1);
       }
-      
+
       if (arrOfColors[textAreaValue.length - 1] === "red") {
-        setResultsIncorrect(r=>r+1);
+        setResultsIncorrect(r => r + 1);
       }
-    } 
-     setPrevTextAreaValue(textAreaValue);
+    }
+    setPrevTextAreaValue(textAreaValue);
   }, [
     textAreaValue,
     prevTextAreaValue.length,
     setResultsCorrect,
     setResultsIncorrect,
-    setResultsNoPenalty,
-    
-    
+    setResultsNoPenalty
   ]);
-  
+
   // reseting display
   useEffect(() => {
     if (props.toReset) {
@@ -147,14 +134,6 @@ function Display(props) {
     return arrOfPartialText;
   }
 
-  /* function makeDefaultColoredLetters() {
-    let arrToReturn = [];
-    for (let i = 0; i < arrOutOfText.length; i++) {
-      arrToReturn.push("DimGray");
-    }
-    return arrToReturn;
-  } */
-
   function makeArrayToRender() {
     let arrToSet = [];
     for (let i = 0; i < arrOutOfText.length; i++) {
@@ -168,8 +147,6 @@ function Display(props) {
   }
 
   function changeTextAreaValue(e) {
-    //console.log();
-
     if (e.target.value.length === textToRender.length) {
       e.target.value = "";
       setTextAreaValue("");
