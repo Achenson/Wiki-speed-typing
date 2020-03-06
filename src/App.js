@@ -85,7 +85,7 @@ function App() {
     }
   }, [isActive, timerValue, areResultsVisible, toggleResults]);
 
-  // for counter  & live results & final results=======
+  // for counter=======
   useEffect(() => {
     // otherwise there will be error: timerInterval not defined
     let timerInterval = null;
@@ -99,16 +99,6 @@ function App() {
       }
     }
 
-    /*  if (isActive && timerValue === constantTimerValue) {
-      // for displaying 0speed & 0 accuracy if the counter becomes active
-      setResultsObj(resultsMaker(0, 0, 0));
-      // for live results display every 2s  ==============
-    } else if (isActive && timerValue % 2 === 0) {
-        setResultsObj(
-          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-        );
-    } */
-
     if (toReset) {
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
@@ -117,12 +107,6 @@ function App() {
       if (isCounterRunning) {
         setIsCounterRunning(b => !b);
       }
-      // reseting results
-      /*   setResultsCorrect(0);
-      setResultsIncorrect(0);
-      setResultsNoPenalty(0);
-
-      setResultsObj(resultsMaker(0, 0, 0)); */
 
       setToReset(false);
     }
@@ -133,11 +117,6 @@ function App() {
     }
 
     if (timerValue <= 0) {
-      // reseting results
-      /*   setResultsCorrect(0);
-      setResultsIncorrect(0);
-      setResultsNoPenalty(0); */
-
       toggleActive(false);
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
@@ -146,11 +125,6 @@ function App() {
         setIsCounterRunning(b => !b);
       }
 
-      /*    if (timerValue <= 0) {
-        setResultsAfterFinish(
-          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-        );
-      } */
       setToReset(true);
     }
 
@@ -158,65 +132,10 @@ function App() {
     // "our interval would be cleared and set again whenever the count changes" (useEffect complete guite)
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
-
-    /*  function resultsMaker(correct, incorrect, allEntries) {
-      // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
-      let noPenaltyKPM =
-        Math.round(
-          ((allEntries * 60) / (constantTimerValue - timerValue)) * 100
-        ) / 100;
-      let incorrectPerMinute =
-        (incorrect * 60) / (constantTimerValue - timerValue);
-      // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
-      let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
-
-      return {
-        speed: calcSpeed(),
-        accuracy: calcAccuracy(),
-        correct: correct,
-        incorrect: incorrect,
-        noPenalty: noPenaltyKPM,
-        "timer length": constantTimerValue.toString()
-      };
-
-      function calcSpeed() {
-        if (penaltyKPM >= 0) {
-          return Math.round(penaltyKPM * 10) / 10;
-        } else {
-          return 0;
-        }
-      }
-
-      function calcAccuracy() {
-        if (allEntries > 0) {
-          let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
-          return accuracyResult;
-        } else {
-          return 0;
-        }
-      }
-    } */
   }, [timerValue, isActive, toReset, isCounterRunning, constantTimerValue]);
 
-  // for setting results
-
-  //=========================
-
+  // for setting results (live & final)=====
   useEffect(() => {
-    // otherwise there will be error: timerInterval not defined
-
-    // let intervalForDisplay = null;
-
-    /*    if (isActive && timerValue > 0) {
-      intervalForDisplay = setInterval(
-        () => setTimerValue(t => t - 1),
-
-        2000
-      );
-
-     
-    } */
-
     if (isActive && timerValue === constantTimerValue) {
       // for displaying 0speed & 0 accuracy if the counter becomes active
       setResultsObj(resultsMaker(0, 0, 0));
@@ -248,11 +167,6 @@ function App() {
         );
       }
     }
-
-    // this equivalent to componentWillUnmount
-    // "our interval would be cleared and set again whenever the count changes" (useEffect complete guite)
-    // return () => clearInterval(intervalForDisplay);
-    // useEffect will run every time isActive changes
 
     function resultsMaker(correct, incorrect, allEntries) {
       // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
@@ -292,8 +206,6 @@ function App() {
       }
     }
   }, [timerValue, isActive, toReset, constantTimerValue]);
-
-  // ================================
 
   // for pause button
   function toggleTimer() {

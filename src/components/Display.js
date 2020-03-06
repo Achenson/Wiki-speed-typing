@@ -177,6 +177,7 @@ function Display(props) {
           areResultsVisible={props.areResultsVisible}
           areHintsVisible={props.areHintsVisible}
           timerValue={props.timerValue}
+          isActive={props.isActive}
         />
 
         <WikiDisplay
