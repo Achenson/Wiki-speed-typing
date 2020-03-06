@@ -49,6 +49,9 @@ function Display(props) {
   //  + counting entries!!
   let arrOfColors = makeDefaultColoredLetters();
   // const [arrOfColors, setArrOfColors] = useState([...colorForEachLetter]);
+
+let {dispatch} = props;
+
   useEffect(() => {
     console.log("rendering");
 
@@ -76,23 +79,27 @@ function Display(props) {
 
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
-      setResultsNoPenalty(r => r + 1);
-
+      // setResultsNoPenalty(r => r + 1);
+      dispatch({ type: 'resultsNoPenalty' }); 
       if (arrOfColors[textAreaValue.length - 1] === "blue") {
-        setResultsCorrect(r => r + 1);
+        // setResultsCorrect(r => r + 1);
+        dispatch({ type: 'resultsCorrect' }); 
       }
-
+      
       if (arrOfColors[textAreaValue.length - 1] === "red") {
-        setResultsIncorrect(r => r + 1);
+        // setResultsIncorrect(r => r + 1);
+        dispatch({ type: 'resultsIncorrect' }); 
       }
     }
     setPrevTextAreaValue(textAreaValue);
   }, [
+
     textAreaValue,
     prevTextAreaValue.length,
     setResultsCorrect,
     setResultsIncorrect,
-    setResultsNoPenalty
+    setResultsNoPenalty,
+    dispatch
   ]);
 
   // reseting display
@@ -178,6 +185,7 @@ function Display(props) {
           areHintsVisible={props.areHintsVisible}
           timerValue={props.timerValue}
           isActive={props.isActive}
+          
         />
 
         <WikiDisplay

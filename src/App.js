@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useReducer } from "react";
 
 import Display from "./components/Display.js";
 
@@ -20,9 +20,53 @@ function App() {
   const [isCounterRunning, setIsCounterRunning] = useState(false);
 
   // for live results & setting <Result/> when the run is finished
-  const [resultsCorrect, setResultsCorrect] = useState(0);
+ 
+  const initialState = {
+    resultsCorrect: 0,
+    resultsIncorrect: 0,
+    resultsNoPenalty: 0
+  };
+  
+  function reducer(state, action) {
+    const { resultsCorrect, resultsIncorrect, resultsNoPenalty } = state;
+    if (action.type === 'resultsCorrect') {
+      // return { count: count + step, step };
+      return { resultsCorrect: resultsCorrect+1, resultsIncorrect, resultsNoPenalty };
+    } else if (action.type === 'resultsIncorrect') {
+      
+      return { resultsCorrect, resultsIncorrect: resultsIncorrect+1, resultsNoPenalty };
+    } else if (action.type === 'resultsNoPenalty') {
+      return { resultsCorrect, resultsIncorrect, resultsNoPenalty: resultsNoPenalty+1 };
+    } else if (action.type === 'reset') {
+      return { resultsCorrect: 0, resultsIncorrect: 0, resultsNoPenalty: 0 }; 
+    /* } else if (action.type === 'setResultsObj') {
+      return { resultsCorrect: 0, resultsIncorrect: 0, resultsNoPenalty: 0 }; */ 
+
+    } else {
+      throw new Error();
+    }
+  }
+
+
+  const [
+    state, dispatch] = useReducer(reducer, initialState);
+  // const { resultsCorrect, resultsIncorrect, resultsNoPenalty } = state;
+  
+/*   useEffect(() => {
+    const id = setInterval(() => {
+      dispatch({ type: 'tick' }); // Instead of setCount(c => c + step);
+    }, 1000);
+    return () => clearInterval(id);
+  }, [dispatch]); */
+ 
+ 
+ /*  const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
-  const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
+  const [resultsNoPenalty, setResultsNoPenalty] = useState(0) */;
+
+
+
+
 
   // for live results every 2s
   const [resultsObj, setResultsObj] = useState({
@@ -142,28 +186,32 @@ function App() {
       // for live results display every 2s  ==============
     } else if (isActive && timerValue % 2 === 0) {
       setResultsObj(
-        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+        resultsMaker(state.resultsCorrect, state.resultsIncorrect, state.resultsNoPenalty)
       );
     }
 
     if (toReset) {
       // reseting results
-      setResultsCorrect(0);
+      dispatch({ type: 'reset' }); 
+      /* setResultsCorrect(0);
+
       setResultsIncorrect(0);
-      setResultsNoPenalty(0);
+      setResultsNoPenalty(0); */
 
       setResultsObj(resultsMaker(0, 0, 0));
     }
 
     if (timerValue <= 0) {
       // reseting results
-      setResultsCorrect(0);
+     /*  setResultsCorrect(0);
       setResultsIncorrect(0);
-      setResultsNoPenalty(0);
+      setResultsNoPenalty(0); */
+      dispatch({ type: 'reset' }); 
+
 
       if (timerValue <= 0) {
         setResultsAfterFinish(
-          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+          resultsMaker(state.resultsCorrect, state.resultsIncorrect, state.resultsNoPenalty)
         );
       }
     }
@@ -205,7 +253,7 @@ function App() {
         }
       }
     }
-  }, [timerValue, isActive, toReset, constantTimerValue]);
+  }, [timerValue, isActive, toReset, constantTimerValue, state.resultsCorrect, state.resultsIncorrect, state.resultsNoPenalty]);
 
   // for pause button
   function toggleTimer() {
@@ -319,12 +367,12 @@ function App() {
         focusElement={focusElement}
         // results
         resultsObj={resultsObj}
-        resultsCorrect={resultsCorrect}
-        setResultsCorrect={setResultsCorrect}
-        resultsIncorrect={resultsIncorrect}
-        setResultsIncorrect={setResultsIncorrect}
-        resultsNoPenalty={resultsNoPenalty}
-        setResultsNoPenalty={setResultsNoPenalty}
+        resultsCorrect={state.resultsCorrect}
+        // setResultsCorrect={setResultsCorrect}
+        resultsIncorrect={state.resultsIncorrect}
+        // setResultsIncorrect={setResultsIncorrect}
+        resultsNoPenalty={state.resultsNoPenalty}
+        // setResultsNoPenalty={setResultsNoPenalty}
         resultsAfterFinish={resultsAfterFinish}
         myText={myText}
         // setMyText={setMyText}
@@ -334,6 +382,8 @@ function App() {
         setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         isCounterRunning={isCounterRunning}
+
+        dispatch={dispatch}
       />
     </div>
   );
