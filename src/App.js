@@ -20,56 +20,196 @@ function App() {
   const [isCounterRunning, setIsCounterRunning] = useState(false);
 
   // for live results & setting <Result/> when the run is finished
- 
-  const initialState = {
-    resultsCorrect: 0,
-    resultsIncorrect: 0,
-    resultsNoPenalty: 0
-  };
-  
-  function reducer(state, action) {
-    const { resultsCorrect, resultsIncorrect, resultsNoPenalty } = state;
-    if (action.type === 'resultsCorrect') {
-      // return { count: count + step, step };
-      return { resultsCorrect: resultsCorrect+1, resultsIncorrect, resultsNoPenalty };
-    } else if (action.type === 'resultsIncorrect') {
-      
-      return { resultsCorrect, resultsIncorrect: resultsIncorrect+1, resultsNoPenalty };
-    } else if (action.type === 'resultsNoPenalty') {
-      return { resultsCorrect, resultsIncorrect, resultsNoPenalty: resultsNoPenalty+1 };
-    } else if (action.type === 'reset') {
-      return { resultsCorrect: 0, resultsIncorrect: 0, resultsNoPenalty: 0 }; 
-    /* } else if (action.type === 'setResultsObj') {
-      return { resultsCorrect: 0, resultsIncorrect: 0, resultsNoPenalty: 0 }; */ 
 
+  const initialState = {
+    currentResults: {
+      resultsCorrect: 0,
+      resultsIncorrect: 0,
+      resultsNoPenalty: 0
+    },
+    liveResults: {
+      speed: "-",
+      accuracy: "- ",
+      correct: "-",
+      incorrect: "-",
+      noPenalty: "-",
+      "timer length": constantTimerValue
+    },
+    finalResults: {
+      speed: "-",
+      accuracy: "- ",
+      correct: "-",
+      incorrect: "-",
+      noPenalty: "-",
+      "timer length": ""
+    }
+  };
+
+  function reducer(state, action) {
+    const { currentResults } = state;
+    const {
+      currentResults: { resultsCorrect, resultsIncorrect, resultsNoPenalty }
+    } = state;
+    const { liveResults } = state;
+    const { finalResults } = state;
+
+    // const { speed, accuracy} = state.liveResults;
+    // const { speed:, accuracy, } = state.finalResults;
+
+    if (action.type === "resultsCorrect") {
+      // return { count: count + step, step };
+      // return { resultsCorrect: resultsCorrect+1, resultsIncorrect, resultsNoPenalty };
+      return {
+        currentResults: {
+          resultsCorrect: resultsCorrect + 1,
+          resultsIncorrect: resultsIncorrect,
+          resultsNoPenalty: resultsNoPenalty
+        },
+        liveResults: {
+          ...liveResults
+        },
+        finalResults: {
+          ...finalResults
+        }
+      };
+    } else if (action.type === "resultsIncorrect") {
+      // return { resultsCorrect, resultsIncorrect: resultsIncorrect+1, resultsNoPenalty };
+      return {
+        currentResults: {
+          resultsCorrect: resultsCorrect,
+          resultsIncorrect: resultsIncorrect + 1,
+          resultsNoPenalty: resultsNoPenalty
+        },
+        liveResults: {
+          ...liveResults
+        },
+        finalResults: {
+          ...finalResults
+        }
+      };
+    } else if (action.type === "resultsNoPenalty") {
+      // return { resultsCorrect, resultsIncorrect, resultsNoPenalty: resultsNoPenalty+1 };
+      return {
+        currentResults: {
+          resultsCorrect: resultsCorrect,
+          resultsIncorrect: resultsIncorrect,
+          resultsNoPenalty: resultsNoPenalty + 1
+        },
+        liveResults: {
+          ...liveResults
+        },
+        finalResults: {
+          ...finalResults
+        }
+      };
+    } else if (action.type === "reset") {
+      // return { resultsCorrect: 0, resultsIncorrect: 0, resultsNoPenalty: 0 };
+      return {
+        currentResults: {
+          resultsCorrect: 0,
+          resultsIncorrect: 0,
+          resultsNoPenalty: 0
+        },
+        liveResults: {
+          ...liveResults
+        },
+        finalResults: {
+          ...finalResults
+        }
+      };
+    } else if (action.type === "setLiveResults") {
+      // return { liveResults: {...resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty) }};
+      return {
+        currentResults: { ...currentResults },
+        liveResults: {
+          ...resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+        },
+        finalResults: {
+          ...finalResults
+        }
+      };
+    } else if (action.type === "resetLiveResults") {
+      // return { liveResults: {...resultsMaker(0, 0, 0)} };
+      return {
+        currentResults: { ...currentResults },
+        liveResults: {
+          ...liveResults
+        },
+        finalResults: {
+          ...resultsMaker(0, 0, 0)
+        }
+      };
+    } else if (action.type === "setFinalResults") {
+      // return { finalResults: {...resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)}};
+      return {
+        currentResults: { ...currentResults },
+        liveResults: {
+          ...liveResults
+        },
+        finalResults: {
+          ...resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+        }
+      };
+
+      /* } else if (action.type === 'setResultsObj') {
+      return { resultsCorrect: 0, resultsIncorrect: 0, resultsNoPenalty: 0 }; */
     } else {
       throw new Error();
     }
+
+    function resultsMaker(correct, incorrect, allEntries) {
+      // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
+      let noPenaltyKPM =
+        Math.round(
+          ((allEntries * 60) / (constantTimerValue - timerValue)) * 100
+        ) / 100;
+      let incorrectPerMinute =
+        (incorrect * 60) / (constantTimerValue - timerValue);
+      // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
+      let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
+
+      return {
+        speed: calcSpeed(),
+        accuracy: calcAccuracy(),
+        correct: correct,
+        incorrect: incorrect,
+        noPenalty: noPenaltyKPM,
+        "timer length": constantTimerValue.toString()
+      };
+
+      function calcSpeed() {
+        if (penaltyKPM >= 0) {
+          return Math.round(penaltyKPM * 10) / 10;
+        } else {
+          return 0;
+        }
+      }
+
+      function calcAccuracy() {
+        if (allEntries > 0) {
+          let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
+          return accuracyResult;
+        } else {
+          return 0;
+        }
+      }
+    }
   }
 
-
-  const [
-    state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
   // const { resultsCorrect, resultsIncorrect, resultsNoPenalty } = state;
-  
-/*   useEffect(() => {
+
+  /*   useEffect(() => {
     const id = setInterval(() => {
       dispatch({ type: 'tick' }); // Instead of setCount(c => c + step);
     }, 1000);
     return () => clearInterval(id);
   }, [dispatch]); */
- 
- 
- /*  const [resultsCorrect, setResultsCorrect] = useState(0);
+
+  /*  const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
-  const [resultsNoPenalty, setResultsNoPenalty] = useState(0) */;
-
-
-
-
-
-  // for live results every 2s
-  const [resultsObj, setResultsObj] = useState({
+  const [resultsNoPenalty, setResultsNoPenalty] = useState(0) */ // for live results every 2s
+  /*   const [resultsObj, setResultsObj] = useState({
     speed: "-",
     accuracy: "- ",
     correct: "-",
@@ -86,7 +226,7 @@ function App() {
     incorrect: "-",
     noPenalty: "-",
     "timer length": ""
-  });
+  }); */
 
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
@@ -182,41 +322,40 @@ function App() {
   useEffect(() => {
     if (isActive && timerValue === constantTimerValue) {
       // for displaying 0speed & 0 accuracy if the counter becomes active
-      setResultsObj(resultsMaker(0, 0, 0));
+      dispatch({ type: "resetLiveResults" });
       // for live results display every 2s  ==============
     } else if (isActive && timerValue % 2 === 0) {
-      setResultsObj(
-        resultsMaker(state.resultsCorrect, state.resultsIncorrect, state.resultsNoPenalty)
-      );
+      dispatch({ type: "setLiveResults" });
     }
 
     if (toReset) {
       // reseting results
-      dispatch({ type: 'reset' }); 
+      dispatch({ type: "reset" });
       /* setResultsCorrect(0);
-
+      
       setResultsIncorrect(0);
       setResultsNoPenalty(0); */
 
-      setResultsObj(resultsMaker(0, 0, 0));
+      // setResultsObj(resultsMaker(0, 0, 0));
+      dispatch({ type: "resetLiveResults" });
     }
 
     if (timerValue <= 0) {
       // reseting results
-     /*  setResultsCorrect(0);
+      /*  setResultsCorrect(0);
       setResultsIncorrect(0);
       setResultsNoPenalty(0); */
-      dispatch({ type: 'reset' }); 
-
+      dispatch({ type: "reset" });
 
       if (timerValue <= 0) {
-        setResultsAfterFinish(
+        dispatch({ type: "setFinalResults" });
+        /*    setResultsAfterFinish(
           resultsMaker(state.resultsCorrect, state.resultsIncorrect, state.resultsNoPenalty)
-        );
+        ); */
       }
     }
 
-    function resultsMaker(correct, incorrect, allEntries) {
+    /*   function resultsMaker(correct, incorrect, allEntries) {
       // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
       let noPenaltyKPM =
         Math.round(
@@ -252,8 +391,16 @@ function App() {
           return 0;
         }
       }
-    }
-  }, [timerValue, isActive, toReset, constantTimerValue, state.resultsCorrect, state.resultsIncorrect, state.resultsNoPenalty]);
+    } */
+  }, [
+    timerValue,
+    isActive,
+    toReset,
+    constantTimerValue,
+    state.resultsCorrect,
+    state.resultsIncorrect,
+    state.resultsNoPenalty
+  ]);
 
   // for pause button
   function toggleTimer() {
@@ -366,14 +513,14 @@ function App() {
         putFocusOnTextArea={putFocusOnTextArea}
         focusElement={focusElement}
         // results
-        resultsObj={resultsObj}
+        // resultsObj={resultsObj}
         resultsCorrect={state.resultsCorrect}
         // setResultsCorrect={setResultsCorrect}
         resultsIncorrect={state.resultsIncorrect}
         // setResultsIncorrect={setResultsIncorrect}
         resultsNoPenalty={state.resultsNoPenalty}
         // setResultsNoPenalty={setResultsNoPenalty}
-        resultsAfterFinish={resultsAfterFinish}
+        // resultsAfterFinish={resultsAfterFinish}
         myText={myText}
         // setMyText={setMyText}
         wikiTitle={wikiTitle}
@@ -382,8 +529,8 @@ function App() {
         setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         isCounterRunning={isCounterRunning}
-
         dispatch={dispatch}
+        state={state}
       />
     </div>
   );

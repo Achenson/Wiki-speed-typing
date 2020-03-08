@@ -185,6 +185,7 @@ let {dispatch} = props;
           areHintsVisible={props.areHintsVisible}
           timerValue={props.timerValue}
           isActive={props.isActive}
+          liveResults={props.state.liveResults}
           
         />
 
@@ -234,6 +235,7 @@ let {dispatch} = props;
         areResultsVisible={props.areResultsVisible}
         resultsObj={props.resultsObj}
         resultsAfterFinish={props.resultsAfterFinish}
+        finalResults={props.state.finalResults}
       />
     </div>
   );
