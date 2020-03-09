@@ -50,7 +50,7 @@ function Display(props) {
   let arrOfColors = makeDefaultColoredLetters();
   // const [arrOfColors, setArrOfColors] = useState([...colorForEachLetter]);
 
-let {dispatch} = props;
+  let { dispatch } = props;
 
   useEffect(() => {
     console.log("rendering");
@@ -80,20 +80,19 @@ let {dispatch} = props;
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
       // setResultsNoPenalty(r => r + 1);
-      dispatch({ type: 'resultsNoPenalty' }); 
+      dispatch({ type: "resultsNoPenalty" });
       if (arrOfColors[textAreaValue.length - 1] === "blue") {
         // setResultsCorrect(r => r + 1);
-        dispatch({ type: 'resultsCorrect' }); 
+        dispatch({ type: "resultsCorrect" });
       }
-      
+
       if (arrOfColors[textAreaValue.length - 1] === "red") {
         // setResultsIncorrect(r => r + 1);
-        dispatch({ type: 'resultsIncorrect' }); 
+        dispatch({ type: "resultsIncorrect" });
       }
     }
     setPrevTextAreaValue(textAreaValue);
   }, [
-
     textAreaValue,
     prevTextAreaValue.length,
     setResultsCorrect,
@@ -187,7 +186,6 @@ let {dispatch} = props;
           timerValue={props.timerValue}
           isActive={props.isActive}
           liveResults={props.state.liveResults}
-          
         />
 
         <WikiDisplay

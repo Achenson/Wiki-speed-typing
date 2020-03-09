@@ -125,7 +125,12 @@ function App() {
       return {
         currentResults: { ...currentResults },
         liveResults: {
-          ...resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+          ...resultsMaker(
+            resultsCorrect,
+            resultsIncorrect,
+            resultsNoPenalty,
+            timerValue
+          )
         },
         finalResults: {
           ...finalResults
@@ -136,10 +141,10 @@ function App() {
       return {
         currentResults: { ...currentResults },
         liveResults: {
-          ...liveResults
+          ...resultsMaker(0, 0, 0, 0)
         },
         finalResults: {
-          ...resultsMaker(0, 0, 0)
+          ...finalResults
         }
       };
     } else if (action.type === "setFinalResults") {
@@ -150,7 +155,9 @@ function App() {
           ...liveResults
         },
         finalResults: {
-          ...resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
+          // timerValue is set to 0, because that's the proper value if the counter is finished
+          // otherwise - bug - infinite number due to timerValue reseting to constantTimerValue
+          ...resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty, 0)
         }
       };
 
@@ -160,14 +167,18 @@ function App() {
       throw new Error();
     }
 
-    function resultsMaker(correct, incorrect, allEntries) {
+    function resultsMaker(correct, incorrect, allEntries, timerValue_current) {
       // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
+
+      console.log("resultsMaker -> timerValue", timerValue_current);
+
       let noPenaltyKPM =
         Math.round(
-          ((allEntries * 60) / (constantTimerValue - timerValue)) * 100
+          ((allEntries * 60) / (constantTimerValue - timerValue_current)) * 100
         ) / 100;
+
       let incorrectPerMinute =
-        (incorrect * 60) / (constantTimerValue - timerValue);
+        (incorrect * 60) / (constantTimerValue - timerValue_current);
       // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
       let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
 
@@ -199,7 +210,7 @@ function App() {
     }
   }
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState); // for live results every 2s
   // const { resultsCorrect, resultsIncorrect, resultsNoPenalty } = state;
 
   /*   useEffect(() => {
@@ -211,8 +222,7 @@ function App() {
 
   /*  const [resultsCorrect, setResultsCorrect] = useState(0);
   const [resultsIncorrect, setResultsIncorrect] = useState(0);
-  const [resultsNoPenalty, setResultsNoPenalty] = useState(0) */ // for live results every 2s
-  /*   const [resultsObj, setResultsObj] = useState({
+  const [resultsNoPenalty, setResultsNoPenalty] = useState(0) */ /*   const [resultsObj, setResultsObj] = useState({
     speed: "-",
     accuracy: "- ",
     correct: "-",
@@ -305,30 +315,17 @@ function App() {
     }
 
     if (timerValue <= 0) {
-
-
       setDisplayToReset(true);
 
       clearInterval(timerInterval);
-      setTimerValue(constantTimerValue);
-      
-      
+
       toggleActive(false);
       if (isCounterRunning) {
         setIsCounterRunning(b => !b);
-      } 
+      }
 
+      setTimerValue(constantTimerValue);
       // setToReset(true);
-
-
-
-
-
-
-
-
-
-     
     }
 
     // this equivalent to componentWillUnmount
@@ -341,58 +338,59 @@ function App() {
   useEffect(() => {
     if (isActive && timerValue === constantTimerValue) {
       // for displaying 0speed & 0 accuracy if the counter becomes active
-      
+
       dispatch({ type: "reset" });
       dispatch({ type: "resetLiveResults" });
       // for live results display every 2s  ==============
     } else if (isActive && timerValue % 2 === 0) {
       dispatch({ type: "setLiveResults" });
     }
-    
+
     if (toReset) {
       // reseting results
       /* setResultsCorrect(0);
       
       setResultsIncorrect(0);
       setResultsNoPenalty(0); */
-      
+
       // setResultsObj(resultsMaker(0, 0, 0));
       // dispatch({ type: "reset" });
       dispatch({ type: "resetLiveResults" });
     }
-
-
     if (timerValue <= 0) {
+      dispatch({ type: "setFinalResults" });
+      dispatch({ type: "reset" });
+      dispatch({ type: "resetLiveResults" });
+    }
+
+    /*  if (timerValue <= 0) {
 
       dispatch({ type: "setFinalResults" });
+      setTimerValue(constantTimerValue);
       // resetTimer();
-    }
-    
+    } */
+
     // if (timerValue <= 0) {
-      // reseting results
-      /*  setResultsCorrect(0);
+    // reseting results
+    /*  setResultsCorrect(0);
       setResultsIncorrect(0);
       setResultsNoPenalty(0); */
-      // dispatch({ type: "reset" });
+    // dispatch({ type: "reset" });
 
-      
-        // dispatch({ type: "setFinalResults" });
-        // toggleActive(false);
-        // setTimerValue(constantTimerValue);
-  
-        // if (isCounterRunning) {
-        //   setIsCounterRunning(b => !b);
-        // }
-  
-        // setToReset(true);
+    // dispatch({ type: "setFinalResults" });
+    // toggleActive(false);
+    // setTimerValue(constantTimerValue);
 
+    // if (isCounterRunning) {
+    //   setIsCounterRunning(b => !b);
+    // }
 
+    // setToReset(true);
 
-
-        /*    setResultsAfterFinish(
+    /*    setResultsAfterFinish(
           resultsMaker(state.resultsCorrect, state.resultsIncorrect, state.resultsNoPenalty)
         ); */
-      
+
     // }
 
     /*   function resultsMaker(correct, incorrect, allEntries) {
@@ -432,15 +430,7 @@ function App() {
         }
       }
     } */
-  }, [
-    timerValue,
-    isActive,
-    toReset,
-    constantTimerValue,
-    state.resultsCorrect,
-    state.resultsIncorrect,
-    state.resultsNoPenalty
-  ]);
+  }, [timerValue, isActive, toReset, constantTimerValue]);
 
   // for pause button
   function toggleTimer() {
@@ -455,7 +445,7 @@ function App() {
 
   function resetTimer() {
     // if (timerValue !== constantTimerValue) {
-     if (isCounterRunning) {
+    if (isCounterRunning) {
       setToReset(true);
       setDisplayToReset(true);
     }
@@ -537,6 +527,7 @@ function App() {
       <Display
         // timer
         timerValue={timerValue}
+        setTimerValue={setTimerValue}
         constantTimerValue={constantTimerValue}
         toggleTimer={toggleTimer}
         setTimerOnSelect={setTimerOnSelect}
