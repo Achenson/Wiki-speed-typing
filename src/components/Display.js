@@ -99,13 +99,15 @@ function Display(props) {
     setResultsIncorrect,
     setResultsNoPenalty,
     dispatch
+    
   ]);
 
   // reseting display
+  let {displayToReset, setDisplayToReset} = props;
   useEffect(() => {
-    if (props.displayToReset) {
+    if (displayToReset) {
       resetDisplay();
-      props.setDisplayToReset(false);
+      setDisplayToReset(false);
     }
 
     function resetDisplay() {
@@ -113,7 +115,7 @@ function Display(props) {
       setIndexOfPartialTextArr(0);
       setColorForEachLetter(makeDefaultColoredLetters());
     }
-  }, [props.displayToReset, makeDefaultColoredLetters]);
+  }, [displayToReset, makeDefaultColoredLetters, setDisplayToReset]);
 
   // arrToRender = [ [letter, color for the letter], ... ]
   const arrToRender = makeArrayToRender();

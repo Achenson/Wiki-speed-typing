@@ -6,7 +6,7 @@ import Display from "./components/Display.js";
 import "./App.css";
 import Fetch from "./components/Fetch.js";
 
-import loremText from "./components/_DefaultText.js";
+import loremText from "./components/_defaultText.js";
 
 function App() {
   const [timerValue, setTimerValue] = useState(60);
@@ -294,14 +294,12 @@ function App() {
   useEffect(() => {
     if (isActive && timerValue === constantTimerValue) {
       // for displaying 0speed & 0 accuracy if the counter becomes active
-
       dispatch({ type: "reset" });
       dispatch({ type: "resetLiveResults" });
       // for live results display every 2s  ==============
     } else if (isActive && timerValue % 2 === 0) {
       dispatch({ type: "setLiveResults" });
     }
-
     if (toReset) {
       dispatch({ type: "resetLiveResults" });
     }
