@@ -104,8 +104,9 @@ let {dispatch} = props;
 
   // reseting display
   useEffect(() => {
-    if (props.toReset) {
+    if (props.displayToReset) {
       resetDisplay();
+      props.setDisplayToReset(false);
     }
 
     function resetDisplay() {
@@ -113,7 +114,7 @@ let {dispatch} = props;
       setIndexOfPartialTextArr(0);
       setColorForEachLetter(makeDefaultColoredLetters());
     }
-  }, [props.toReset, makeDefaultColoredLetters]);
+  }, [props.displayToReset, makeDefaultColoredLetters]);
 
   // arrToRender = [ [letter, color for the letter], ... ]
   const arrToRender = makeArrayToRender();

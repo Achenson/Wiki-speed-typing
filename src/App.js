@@ -16,6 +16,9 @@ function App() {
   const [isActive, toggleActive] = useState(false);
   // for reset button
   const [toReset, setToReset] = useState(false);
+  // reseting display if reset btn is clicked or if Timer runs out
+  const [displayToReset, setDisplayToReset] = useState(false);
+
   // is the counter running
   const [isCounterRunning, setIsCounterRunning] = useState(false);
 
@@ -286,6 +289,7 @@ function App() {
     if (toReset) {
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
+
       toggleActive(false);
 
       if (isCounterRunning) {
@@ -301,15 +305,30 @@ function App() {
     }
 
     if (timerValue <= 0) {
-      toggleActive(false);
+
+
+      setDisplayToReset(true);
+
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
-
+      
+      
+      toggleActive(false);
       if (isCounterRunning) {
         setIsCounterRunning(b => !b);
-      }
+      } 
 
-      setToReset(true);
+      // setToReset(true);
+
+
+
+
+
+
+
+
+
+     
     }
 
     // this equivalent to componentWillUnmount
@@ -322,38 +341,59 @@ function App() {
   useEffect(() => {
     if (isActive && timerValue === constantTimerValue) {
       // for displaying 0speed & 0 accuracy if the counter becomes active
+      
+      dispatch({ type: "reset" });
       dispatch({ type: "resetLiveResults" });
       // for live results display every 2s  ==============
     } else if (isActive && timerValue % 2 === 0) {
       dispatch({ type: "setLiveResults" });
     }
-
+    
     if (toReset) {
       // reseting results
-      dispatch({ type: "reset" });
       /* setResultsCorrect(0);
       
       setResultsIncorrect(0);
       setResultsNoPenalty(0); */
-
+      
       // setResultsObj(resultsMaker(0, 0, 0));
+      // dispatch({ type: "reset" });
       dispatch({ type: "resetLiveResults" });
     }
 
+
     if (timerValue <= 0) {
+
+      dispatch({ type: "setFinalResults" });
+      // resetTimer();
+    }
+    
+    // if (timerValue <= 0) {
       // reseting results
       /*  setResultsCorrect(0);
       setResultsIncorrect(0);
       setResultsNoPenalty(0); */
-      dispatch({ type: "reset" });
+      // dispatch({ type: "reset" });
 
-      if (timerValue <= 0) {
-        dispatch({ type: "setFinalResults" });
+      
+        // dispatch({ type: "setFinalResults" });
+        // toggleActive(false);
+        // setTimerValue(constantTimerValue);
+  
+        // if (isCounterRunning) {
+        //   setIsCounterRunning(b => !b);
+        // }
+  
+        // setToReset(true);
+
+
+
+
         /*    setResultsAfterFinish(
           resultsMaker(state.resultsCorrect, state.resultsIncorrect, state.resultsNoPenalty)
         ); */
-      }
-    }
+      
+    // }
 
     /*   function resultsMaker(correct, incorrect, allEntries) {
       // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
@@ -415,8 +455,9 @@ function App() {
 
   function resetTimer() {
     // if (timerValue !== constantTimerValue) {
-    if (isCounterRunning) {
+     if (isCounterRunning) {
       setToReset(true);
+      setDisplayToReset(true);
     }
     return;
   }
@@ -502,6 +543,8 @@ function App() {
         isActive={isActive}
         resetTimer={resetTimer}
         toReset={toReset}
+        displayToReset={displayToReset}
+        setDisplayToReset={setDisplayToReset}
         // hints & results visibility
         areHintsVisible={areHintsVisible}
         areResultsVisible={areResultsVisible}
