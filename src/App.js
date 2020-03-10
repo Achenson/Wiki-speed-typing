@@ -57,6 +57,8 @@ function App() {
     const { finalResults } = state;
 
     if (action.type === "resultsCorrect") {
+      
+      
       return {
         currentResults: {
           resultsCorrect: resultsCorrect + 1,

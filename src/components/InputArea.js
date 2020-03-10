@@ -21,21 +21,27 @@ function InputArea(props) {
     <textarea
       className="typing-display container"
       onChange={e => {
-        props.changeTextAreaValue(e);
+        // if (!props.isActive) {
+        //  props.toggleTimer();
+        // }
 
-        if (!props.isActive) {
-          props.toggleTimer();
-        }
+        props.changeTextAreaValue(e);
       }}
       autoFocus
       // crucial for two-way binding! reset button
       value={props.textAreaValue}
       ref={props.focusTextArea}
-      onPaste={e => {
-        e.preventDefault();
+      // onPaste={e => {
+      //   e.preventDefault();
+      // }}
+      onKeyDown={event => {
+        let arrowKeysArr = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
+        preventArrowKeys(event);
+        if (!props.isActive && arrowKeysArr.indexOf(event.key) === -1) {
+          props.toggleTimer();
+        }
       }}
-      onKeyDown={preventArrowKeys}
-      onClick={focusOnlyOnClick}
+      // onClick={focusOnlyOnClick}
       onFocus={() => {
         if (props.areHintsVisible) {
           props.toggleHints();

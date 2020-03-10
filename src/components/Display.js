@@ -43,11 +43,11 @@ function Display(props) {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [prevTextAreaValue, setPrevTextAreaValue] = useState("");
 
-  let { setResultsNoPenalty, setResultsCorrect, setResultsIncorrect } = props;
+  
 
   //coloring letters in display according to errors or no
   //  + counting entries!!
-  let arrOfColors = makeDefaultColoredLetters();
+  // const [arrOfColors, setArrOfColors]  = useState(makeDefaultColoredLetters());
   // const [arrOfColors, setArrOfColors] = useState([...colorForEachLetter]);
 
   let { dispatch } = props;
@@ -58,8 +58,9 @@ function Display(props) {
     let arrOutOfTextValue = textAreaValue.split("");
     console.log("arrOutOfTextValue");
     console.log(arrOutOfTextValue);
+// =======
+  /*   for (let i = 0; i < textAreaValue.length; i++) {
 
-    for (let i = 0; i < textAreaValue.length; i++) {
       if (arrOutOfTextValue[i] !== arrOutOfText[i]) {
         arrOfColors[i] = "red";
       }
@@ -67,38 +68,55 @@ function Display(props) {
       if (arrOutOfTextValue[i] === arrOutOfText[i]) {
         arrOfColors[i] = "blue";
       }
-    }
+    } */
 
-    for (let i = 0; i < arrOutOfText.length; i++) {
+/*     for (let i = 0; i < arrOutOfText.length; i++) {
       if (arrOutOfTextValue[i] == null) {
         arrOfColors[i] = "DimGray";
       }
-    }
+    } */
+// =======
 
-    setColorForEachLetter([...arrOfColors]);
+// for correct, incorrect, allEntries
+if (textAreaValue.length > prevTextAreaValue.length) {
+  
+  let colorForEachLetter_2 = [...colorForEachLetter];
 
-    // for correct, incorrect, allEntries
-    if (textAreaValue.length > prevTextAreaValue.length) {
-      // setResultsNoPenalty(r => r + 1);
-      dispatch({ type: "resultsNoPenalty" });
-      if (arrOfColors[textAreaValue.length - 1] === "blue") {
-        // setResultsCorrect(r => r + 1);
-        dispatch({ type: "resultsCorrect" });
-      }
+  dispatch({ type: "resultsNoPenalty" });
+  
+  
+  if (textAreaValue[textAreaValue.length - 1] === arrOutOfText[textAreaValue.length -1]) {
+    
+    dispatch({ type: "resultsCorrect" });
+    colorForEachLetter_2[textAreaValue.length -1] = "blue";
+    
+  }
+  
+  if (textAreaValue[textAreaValue.length - 1] !== arrOutOfText[textAreaValue.length -1]) {
+    dispatch({ type: "resultsIncorrect" });
+    colorForEachLetter_2[textAreaValue.length -1] = "red";
+    
+  }
+  
+  
+  setColorForEachLetter([...colorForEachLetter_2]);
+}
 
-      if (arrOfColors[textAreaValue.length - 1] === "red") {
-        // setResultsIncorrect(r => r + 1);
-        dispatch({ type: "resultsIncorrect" });
-      }
-    }
-    setPrevTextAreaValue(textAreaValue);
+
+if (textAreaValue.length < prevTextAreaValue.length) {
+  let colorForEachLetter_3 = [...colorForEachLetter];
+  colorForEachLetter_3[textAreaValue.length] = "DimGray";
+  setColorForEachLetter([...colorForEachLetter_3]);
+}
+
+
+setPrevTextAreaValue(textAreaValue);
   }, [
     textAreaValue,
     prevTextAreaValue.length,
-    setResultsCorrect,
-    setResultsIncorrect,
-    setResultsNoPenalty,
-    dispatch
+    dispatch,
+    colorForEachLetter,
+    arrOutOfText
     
   ]);
 
@@ -161,11 +179,17 @@ function Display(props) {
       setTextAreaValue("");
 
       if (indexOfPartialTextArr < roundedTextDividedByLength - 1) {
+        
+        setColorForEachLetter(makeDefaultColoredLetters())
         setIndexOfPartialTextArr(
           indexOfPartialTextArr => indexOfPartialTextArr + 1
         );
+
       } else {
+
+        setColorForEachLetter(makeDefaultColoredLetters())
         setIndexOfPartialTextArr(0);
+
       }
     }
 
