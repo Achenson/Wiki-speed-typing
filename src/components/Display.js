@@ -17,7 +17,7 @@ function Display(props) {
   let lengthOfSinglePart = 363;
 
   let myTextToArr = props.myText.split("");
-  let roundedTextDividedByLength = Math.round(
+  let textDividedByLength_floor = Math.floor(
     myTextToArr.length / lengthOfSinglePart
   );
 
@@ -43,8 +43,6 @@ function Display(props) {
   const [textAreaValue, setTextAreaValue] = useState("");
   const [prevTextAreaValue, setPrevTextAreaValue] = useState("");
 
-  
-
   //coloring letters in display according to errors or no
   //  + counting entries!!
   // const [arrOfColors, setArrOfColors]  = useState(makeDefaultColoredLetters());
@@ -58,8 +56,8 @@ function Display(props) {
     let arrOutOfTextValue = textAreaValue.split("");
     console.log("arrOutOfTextValue");
     console.log(arrOutOfTextValue);
-// =======
-  /*   for (let i = 0; i < textAreaValue.length; i++) {
+    // =======
+    /*   for (let i = 0; i < textAreaValue.length; i++) {
 
       if (arrOutOfTextValue[i] !== arrOutOfText[i]) {
         arrOfColors[i] = "red";
@@ -70,58 +68,74 @@ function Display(props) {
       }
     } */
 
-/*     for (let i = 0; i < arrOutOfText.length; i++) {
+    /*     for (let i = 0; i < arrOutOfText.length; i++) {
       if (arrOutOfTextValue[i] == null) {
         arrOfColors[i] = "DimGray";
       }
     } */
-// =======
+    // =======
 
-// for correct, incorrect, allEntries
-if (textAreaValue.length > prevTextAreaValue.length) {
-  
-  let colorForEachLetter_2 = [...colorForEachLetter];
+    // for correct, incorrect, allEntries
+    if (textAreaValue.length > prevTextAreaValue.length) {
+      let colorForEachLetter_2 = [...colorForEachLetter];
 
-  dispatch({ type: "resultsNoPenalty" });
-  
-  
-  if (textAreaValue[textAreaValue.length - 1] === arrOutOfText[textAreaValue.length -1]) {
-    
-    dispatch({ type: "resultsCorrect" });
-    colorForEachLetter_2[textAreaValue.length -1] = "blue";
-    
-  }
-  
-  if (textAreaValue[textAreaValue.length - 1] !== arrOutOfText[textAreaValue.length -1]) {
-    dispatch({ type: "resultsIncorrect" });
-    colorForEachLetter_2[textAreaValue.length -1] = "red";
-    
-  }
-  
-  
-  setColorForEachLetter([...colorForEachLetter_2]);
-}
+      dispatch({ type: "resultsNoPenalty" });
 
+      if (
+        textAreaValue[textAreaValue.length - 1] ===
+        arrOutOfText[textAreaValue.length - 1]
+      ) {
+        dispatch({ type: "resultsCorrect" });
+        colorForEachLetter_2[textAreaValue.length - 1] = "blue";
+      }
 
-if (textAreaValue.length < prevTextAreaValue.length) {
-  let colorForEachLetter_3 = [...colorForEachLetter];
-  colorForEachLetter_3[textAreaValue.length] = "DimGray";
-  setColorForEachLetter([...colorForEachLetter_3]);
-}
+      if (
+        textAreaValue[textAreaValue.length - 1] !==
+        arrOutOfText[textAreaValue.length - 1]
+      ) {
+        dispatch({ type: "resultsIncorrect" });
+        colorForEachLetter_2[textAreaValue.length - 1] = "red";
+      }
 
+      setColorForEachLetter([...colorForEachLetter_2]);
 
-setPrevTextAreaValue(textAreaValue);
+      if (textAreaValue.length === textToRender.length) {
+        // e.target.value = "";
+        setTextAreaValue("");
+
+        if (indexOfPartialTextArr < textDividedByLength_floor) {
+          setColorForEachLetter(makeDefaultColoredLetters());
+          setIndexOfPartialTextArr(
+            indexOfPartialTextArr => indexOfPartialTextArr + 1
+          );
+        } else {
+          setColorForEachLetter(makeDefaultColoredLetters());
+          setIndexOfPartialTextArr(0);
+        }
+      }
+    }
+
+    if (textAreaValue.length < prevTextAreaValue.length) {
+      let colorForEachLetter_3 = [...colorForEachLetter];
+      colorForEachLetter_3[textAreaValue.length] = "DimGray";
+      setColorForEachLetter([...colorForEachLetter_3]);
+    }
+
+    setPrevTextAreaValue(textAreaValue);
   }, [
     textAreaValue,
     prevTextAreaValue.length,
     dispatch,
     colorForEachLetter,
-    arrOutOfText
-    
+    arrOutOfText,
+    indexOfPartialTextArr,
+    textDividedByLength_floor,
+    textToRender.length,
+    makeDefaultColoredLetters
   ]);
 
   // reseting display
-  let {displayToReset, setDisplayToReset} = props;
+  let { displayToReset, setDisplayToReset } = props;
   useEffect(() => {
     if (displayToReset) {
       resetDisplay();
@@ -142,7 +156,7 @@ setPrevTextAreaValue(textAreaValue);
     let arrOfPartialText = [];
     //let myTextToArr = text.split("");
 
-    for (let i = 0; i <= roundedTextDividedByLength; i++) {
+    for (let i = 0; i <= textDividedByLength_floor; i++) {
       let newArr = [];
       for (
         let j = 0 + i * (lengthOfSinglePart + 1);
@@ -174,25 +188,6 @@ setPrevTextAreaValue(textAreaValue);
   }
 
   function changeTextAreaValue(e) {
-    if (e.target.value.length === textToRender.length) {
-      e.target.value = "";
-      setTextAreaValue("");
-
-      if (indexOfPartialTextArr < roundedTextDividedByLength - 1) {
-        
-        setColorForEachLetter(makeDefaultColoredLetters())
-        setIndexOfPartialTextArr(
-          indexOfPartialTextArr => indexOfPartialTextArr + 1
-        );
-
-      } else {
-
-        setColorForEachLetter(makeDefaultColoredLetters())
-        setIndexOfPartialTextArr(0);
-
-      }
-    }
-
     setTextAreaValue(e.target.value);
   }
 
