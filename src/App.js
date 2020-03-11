@@ -1,10 +1,9 @@
 import React from "react";
-import { useState, useEffect, useRef, useCallback, useReducer } from "react";
-
-import Display from "./components/Display.js";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 import "./App.css";
 import Fetch from "./components/Fetch.js";
+import Reducer from "./components/Reducer.js";
 
 import loremText from "./components/_defaultText.js";
 
@@ -22,183 +21,6 @@ function App() {
   // is the counter running
   const [isCounterRunning, setIsCounterRunning] = useState(false);
 
-  // for live results & setting <Result/> when the run is finished
-
-  const initialState = {
-    currentResults: {
-      resultsCorrect: 0,
-      resultsIncorrect: 0,
-      resultsNoPenalty: 0
-    },
-    liveResults: {
-      speed: "-",
-      accuracy: "- ",
-      correct: "-",
-      incorrect: "-",
-      noPenalty: "-",
-      "timer length": constantTimerValue
-    },
-    finalResults: {
-      speed: "-",
-      accuracy: "- ",
-      correct: "-",
-      incorrect: "-",
-      noPenalty: "-",
-      "timer length": ""
-    }
-  };
-
-  function reducer(state, action) {
-    const { currentResults } = state;
-    const {
-      currentResults: { resultsCorrect, resultsIncorrect, resultsNoPenalty }
-    } = state;
-    const { liveResults } = state;
-    const { finalResults } = state;
-
-    if (action.type === "resultsCorrect") {
-      
-      
-      return {
-        currentResults: {
-          resultsCorrect: resultsCorrect + 1,
-          resultsIncorrect: resultsIncorrect,
-          resultsNoPenalty: resultsNoPenalty
-        },
-        liveResults: {
-          ...liveResults
-        },
-        finalResults: {
-          ...finalResults
-        }
-      };
-    } else if (action.type === "resultsIncorrect") {
-      return {
-        currentResults: {
-          resultsCorrect: resultsCorrect,
-          resultsIncorrect: resultsIncorrect + 1,
-          resultsNoPenalty: resultsNoPenalty
-        },
-        liveResults: {
-          ...liveResults
-        },
-        finalResults: {
-          ...finalResults
-        }
-      };
-    } else if (action.type === "resultsNoPenalty") {
-      return {
-        currentResults: {
-          resultsCorrect: resultsCorrect,
-          resultsIncorrect: resultsIncorrect,
-          resultsNoPenalty: resultsNoPenalty + 1
-        },
-        liveResults: {
-          ...liveResults
-        },
-        finalResults: {
-          ...finalResults
-        }
-      };
-    } else if (action.type === "reset") {
-      return {
-        currentResults: {
-          resultsCorrect: 0,
-          resultsIncorrect: 0,
-          resultsNoPenalty: 0
-        },
-        liveResults: {
-          ...liveResults
-        },
-        finalResults: {
-          ...finalResults
-        }
-      };
-    } else if (action.type === "setLiveResults") {
-      return {
-        currentResults: { ...currentResults },
-        liveResults: {
-          ...resultsMaker(
-            resultsCorrect,
-            resultsIncorrect,
-            resultsNoPenalty,
-            timerValue
-          )
-        },
-        finalResults: {
-          ...finalResults
-        }
-      };
-    } else if (action.type === "resetLiveResults") {
-      return {
-        currentResults: { ...currentResults },
-        liveResults: {
-          ...resultsMaker(0, 0, 0, 0)
-        },
-        finalResults: {
-          ...finalResults
-        }
-      };
-    } else if (action.type === "setFinalResults") {
-      return {
-        currentResults: { ...currentResults },
-        liveResults: {
-          ...liveResults
-        },
-        finalResults: {
-          // timerValue is set to 0, because that's the proper value if the counter is finished
-          // otherwise - bug - infinite number due to timerValue reseting to constantTimerValue
-          ...resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty, 0)
-        }
-      };
-    } else {
-      throw new Error();
-    }
-
-    function resultsMaker(correct, incorrect, allEntries, timerValue_current) {
-      // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
-
-      console.log("resultsMaker -> timerValue", timerValue_current);
-
-      let noPenaltyKPM =
-        Math.round(
-          ((allEntries * 60) / (constantTimerValue - timerValue_current)) * 100
-        ) / 100;
-
-      let incorrectPerMinute =
-        (incorrect * 60) / (constantTimerValue - timerValue_current);
-      // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
-      let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
-
-      return {
-        speed: calcSpeed(),
-        accuracy: calcAccuracy(),
-        correct: correct,
-        incorrect: incorrect,
-        noPenalty: noPenaltyKPM,
-        "timer length": constantTimerValue.toString()
-      };
-
-      function calcSpeed() {
-        if (penaltyKPM >= 0) {
-          return Math.round(penaltyKPM * 10) / 10;
-        } else {
-          return 0;
-        }
-      }
-
-      function calcAccuracy() {
-        if (allEntries > 0) {
-          let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
-          return accuracyResult;
-        } else {
-          return 0;
-        }
-      }
-    }
-  }
-
-  const [state, dispatch] = useReducer(reducer, initialState); // for live results every 2s
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
 
@@ -293,7 +115,7 @@ function App() {
   }, [timerValue, isActive, toReset, isCounterRunning, constantTimerValue]);
 
   // for setting results (live & final)=====
-  useEffect(() => {
+  /*  useEffect(() => {
     if (isActive && timerValue === constantTimerValue) {
       // for displaying 0speed & 0 accuracy if the counter becomes active
       dispatch({ type: "reset" });
@@ -310,7 +132,7 @@ function App() {
       dispatch({ type: "reset" });
       dispatch({ type: "resetLiveResults" });
     }
-  }, [timerValue, isActive, toReset, constantTimerValue]);
+  }, [timerValue, isActive, toReset, constantTimerValue]); */
 
   // for pause button
   function toggleTimer() {
@@ -404,7 +226,7 @@ function App() {
         loremText={loremText}
         focusTextArea={focusTextArea}
       />
-      <Display
+      <Reducer
         // timer
         timerValue={timerValue}
         setTimerValue={setTimerValue}
@@ -427,16 +249,11 @@ function App() {
         putFocusOnTextArea={putFocusOnTextArea}
         focusElement={focusElement}
         // results
-        resultsCorrect={state.resultsCorrect}
-        resultsIncorrect={state.resultsIncorrect}
-        resultsNoPenalty={state.resultsNoPenalty}
         myText={myText}
         wikiTitle={wikiTitle}
         setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         isCounterRunning={isCounterRunning}
-        dispatch={dispatch}
-        state={state}
       />
     </div>
   );

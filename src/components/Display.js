@@ -159,7 +159,7 @@ function Display(props) {
     for (let i = 0; i <= textDividedByLength_floor; i++) {
       let newArr = [];
       for (
-        let j = i * (lengthOfSinglePart);
+        let j = i * lengthOfSinglePart;
         j < lengthOfSinglePart + i * lengthOfSinglePart;
         j++
       ) {
