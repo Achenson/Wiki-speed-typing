@@ -5,9 +5,7 @@ function UpperUI(props) {
   // counter display ================================
 
   let minutesInt = Math.floor(props.timerValue / 60);
-  //console.log("TCL: Display -> minutesInt", minutesInt);
   let secondsInt = props.timerValue - minutesInt * 60;
-  //console.log("TCL: Display -> secondsInt", secondsInt);
 
   let minutesStr = minutesInt.toString();
   let secondsStr = secondsInt.toString();

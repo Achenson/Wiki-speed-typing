@@ -45,8 +45,6 @@ function Display(props) {
 
   //coloring letters in display according to errors or no
   //  + counting entries!!
-  // const [arrOfColors, setArrOfColors]  = useState(makeDefaultColoredLetters());
-  // const [arrOfColors, setArrOfColors] = useState([...colorForEachLetter]);
   let { dispatch } = props;
 
   useEffect(() => {
