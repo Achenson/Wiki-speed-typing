@@ -114,26 +114,6 @@ function App() {
     // useEffect will run every time isActive changes
   }, [timerValue, isActive, toReset, isCounterRunning, constantTimerValue]);
 
-  // for setting results (live & final)=====
-  /*  useEffect(() => {
-    if (isActive && timerValue === constantTimerValue) {
-      // for displaying 0speed & 0 accuracy if the counter becomes active
-      dispatch({ type: "reset" });
-      dispatch({ type: "resetLiveResults" });
-      // for live results display every 2s  ==============
-    } else if (isActive && timerValue % 2 === 0) {
-      dispatch({ type: "setLiveResults" });
-    }
-    if (toReset) {
-      dispatch({ type: "resetLiveResults" });
-    }
-    if (timerValue <= 0) {
-      dispatch({ type: "setFinalResults" });
-      dispatch({ type: "reset" });
-      dispatch({ type: "resetLiveResults" });
-    }
-  }, [timerValue, isActive, toReset, constantTimerValue]); */
-
   // for pause button
   function toggleTimer() {
     toggleActive(!isActive);

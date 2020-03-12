@@ -47,7 +47,6 @@ function Display(props) {
   //  + counting entries!!
   // const [arrOfColors, setArrOfColors]  = useState(makeDefaultColoredLetters());
   // const [arrOfColors, setArrOfColors] = useState([...colorForEachLetter]);
-
   let { dispatch } = props;
 
   useEffect(() => {
@@ -56,24 +55,6 @@ function Display(props) {
     let arrOutOfTextValue = textAreaValue.split("");
     console.log("arrOutOfTextValue");
     console.log(arrOutOfTextValue);
-    // =======
-    /*   for (let i = 0; i < textAreaValue.length; i++) {
-
-      if (arrOutOfTextValue[i] !== arrOutOfText[i]) {
-        arrOfColors[i] = "red";
-      }
-
-      if (arrOutOfTextValue[i] === arrOutOfText[i]) {
-        arrOfColors[i] = "blue";
-      }
-    } */
-
-    /*     for (let i = 0; i < arrOutOfText.length; i++) {
-      if (arrOutOfTextValue[i] == null) {
-        arrOfColors[i] = "DimGray";
-      }
-    } */
-    // =======
 
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {

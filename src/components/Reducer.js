@@ -180,7 +180,6 @@ function Reducer(props) {
   }
 
   // for setting results (live & final)=====
-
   let { isActive, timerValue, constantTimerValue, toReset } = props;
   useEffect(() => {
     if (isActive && timerValue === constantTimerValue) {

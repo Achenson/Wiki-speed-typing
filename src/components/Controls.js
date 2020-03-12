@@ -17,10 +17,11 @@ function Controls(props) {
         onChange={props.setTimerOnSelect}
         // ref={composeRefs(focusElement, props.isDisabled)}
         ref={props.isDisabled}
+        defaultValue="60"
       >
         <option value="5">00:05</option>
         <option value="30">00:30</option>
-        <option value="60" selected="selected">
+        <option value="60">
           01:00
         </option>
         <option value="120">02:00</option>
