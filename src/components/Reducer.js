@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useReducer } from "react";
 import Display from "./Display.js";
 
+// useReducer implemented due to useEffect deps lint warnings
 function Reducer(props) {
   const initialState = {
     currentResults: {
