@@ -11,7 +11,6 @@ function SingleLetter(props) {
 
   if (props.color === "blue" && props.letterToRender === " ") {
     textDecoration = "underline";
-    // backgroundColor = "AliceBlue";
   }
 
   return (
@@ -19,9 +18,7 @@ function SingleLetter(props) {
       style={{
         color: `${props.color}`,
         textDecoration: `${textDecoration}`,
-        fontWeight: `${fontWeight}`,
-        // backgroundColor: `${backgroundColor}`
-        // backgroundColor: `${backgroundColor}`
+        fontWeight: `${fontWeight}`
       }}
     >
       {props.letterToRender}

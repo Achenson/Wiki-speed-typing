@@ -12,7 +12,6 @@ function InputArea(props) {
 
   // no text selecting
   function focusOnlyOnClick(event) {
-    //props.putFocusOnTextArea()
     let myTarget = event.target;
     myTarget.setSelectionRange(myTarget.value.length, myTarget.value.length);
   }
@@ -22,10 +21,6 @@ function InputArea(props) {
       className="typing-display container"
       onChange={e => {
         props.changeTextAreaValue(e);
-
-        if (!props.isActive) {
-          props.toggleTimer();
-        }
       }}
       autoFocus
       // crucial for two-way binding! reset button
@@ -34,7 +29,13 @@ function InputArea(props) {
       onPaste={e => {
         e.preventDefault();
       }}
-      onKeyDown={preventArrowKeys}
+      onKeyDown={event => {
+        let arrowKeysArr = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
+        preventArrowKeys(event);
+        if (!props.isActive && arrowKeysArr.indexOf(event.key) === -1) {
+          props.toggleTimer();
+        }
+      }}
       onClick={focusOnlyOnClick}
       onFocus={() => {
         if (props.areHintsVisible) {

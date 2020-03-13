@@ -1,12 +1,11 @@
 import React from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
 
-import Display from "./components/Display.js";
-
 import "./App.css";
 import Fetch from "./components/Fetch.js";
+import Reducer from "./components/Reducer.js";
 
-import loremText from "./components/_DefaultText.js";
+import loremText from "./components/_defaultText.js";
 
 function App() {
   const [timerValue, setTimerValue] = useState(60);
@@ -16,33 +15,11 @@ function App() {
   const [isActive, toggleActive] = useState(false);
   // for reset button
   const [toReset, setToReset] = useState(false);
+  // reseting display if reset btn is clicked or if Timer runs out
+  const [displayToReset, setDisplayToReset] = useState(false);
+
   // is the counter running
   const [isCounterRunning, setIsCounterRunning] = useState(false);
-
-  // for live results & setting <Result/> when the run is finished
-  const [resultsCorrect, setResultsCorrect] = useState(0);
-  const [resultsIncorrect, setResultsIncorrect] = useState(0);
-  const [resultsNoPenalty, setResultsNoPenalty] = useState(0);
-
-  // for live results every 2s
-  const [resultsObj, setResultsObj] = useState({
-    speed: "-",
-    accuracy: "- ",
-    correct: "-",
-    incorrect: "-",
-    noPenalty: "-",
-    "timer length": constantTimerValue
-  });
-
-  // for <Result/>
-  let [resultsAfterFinish, setResultsAfterFinish] = useState({
-    speed: "-",
-    accuracy: "- ",
-    correct: "-",
-    incorrect: "-",
-    noPenalty: "-",
-    "timer length": ""
-  });
 
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
@@ -102,6 +79,7 @@ function App() {
     if (toReset) {
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
+
       toggleActive(false);
 
       if (isCounterRunning) {
@@ -117,15 +95,17 @@ function App() {
     }
 
     if (timerValue <= 0) {
-      toggleActive(false);
-      clearInterval(timerInterval);
-      setTimerValue(constantTimerValue);
+      setDisplayToReset(true);
 
+      clearInterval(timerInterval);
+
+      toggleActive(false);
       if (isCounterRunning) {
         setIsCounterRunning(b => !b);
       }
 
-      setToReset(true);
+      setTimerValue(constantTimerValue);
+      // setToReset(true);
     }
 
     // this equivalent to componentWillUnmount
@@ -133,79 +113,6 @@ function App() {
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
   }, [timerValue, isActive, toReset, isCounterRunning, constantTimerValue]);
-
-  // for setting results (live & final)=====
-  useEffect(() => {
-    if (isActive && timerValue === constantTimerValue) {
-      // for displaying 0speed & 0 accuracy if the counter becomes active
-      setResultsObj(resultsMaker(0, 0, 0));
-      // for live results display every 2s  ==============
-    } else if (isActive && timerValue % 2 === 0) {
-      setResultsObj(
-        resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-      );
-    }
-
-    if (toReset) {
-      // reseting results
-      setResultsCorrect(0);
-      setResultsIncorrect(0);
-      setResultsNoPenalty(0);
-
-      setResultsObj(resultsMaker(0, 0, 0));
-    }
-
-    if (timerValue <= 0) {
-      // reseting results
-      setResultsCorrect(0);
-      setResultsIncorrect(0);
-      setResultsNoPenalty(0);
-
-      if (timerValue <= 0) {
-        setResultsAfterFinish(
-          resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty)
-        );
-      }
-    }
-
-    function resultsMaker(correct, incorrect, allEntries) {
-      // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
-      let noPenaltyKPM =
-        Math.round(
-          ((allEntries * 60) / (constantTimerValue - timerValue)) * 100
-        ) / 100;
-      let incorrectPerMinute =
-        (incorrect * 60) / (constantTimerValue - timerValue);
-      // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
-      let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
-
-      return {
-        speed: calcSpeed(),
-        accuracy: calcAccuracy(),
-        correct: correct,
-        incorrect: incorrect,
-        noPenalty: noPenaltyKPM,
-        "timer length": constantTimerValue.toString()
-      };
-
-      function calcSpeed() {
-        if (penaltyKPM >= 0) {
-          return Math.round(penaltyKPM * 10) / 10;
-        } else {
-          return 0;
-        }
-      }
-
-      function calcAccuracy() {
-        if (allEntries > 0) {
-          let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
-          return accuracyResult;
-        } else {
-          return 0;
-        }
-      }
-    }
-  }, [timerValue, isActive, toReset, constantTimerValue]);
 
   // for pause button
   function toggleTimer() {
@@ -222,6 +129,7 @@ function App() {
     // if (timerValue !== constantTimerValue) {
     if (isCounterRunning) {
       setToReset(true);
+      setDisplayToReset(true);
     }
     return;
   }
@@ -298,15 +206,18 @@ function App() {
         loremText={loremText}
         focusTextArea={focusTextArea}
       />
-      <Display
+      <Reducer
         // timer
         timerValue={timerValue}
+        setTimerValue={setTimerValue}
         constantTimerValue={constantTimerValue}
         toggleTimer={toggleTimer}
         setTimerOnSelect={setTimerOnSelect}
         isActive={isActive}
         resetTimer={resetTimer}
         toReset={toReset}
+        displayToReset={displayToReset}
+        setDisplayToReset={setDisplayToReset}
         // hints & results visibility
         areHintsVisible={areHintsVisible}
         areResultsVisible={areResultsVisible}
@@ -318,19 +229,8 @@ function App() {
         putFocusOnTextArea={putFocusOnTextArea}
         focusElement={focusElement}
         // results
-        resultsObj={resultsObj}
-        resultsCorrect={resultsCorrect}
-        setResultsCorrect={setResultsCorrect}
-        resultsIncorrect={resultsIncorrect}
-        setResultsIncorrect={setResultsIncorrect}
-        resultsNoPenalty={resultsNoPenalty}
-        setResultsNoPenalty={setResultsNoPenalty}
-        resultsAfterFinish={resultsAfterFinish}
         myText={myText}
-        // setMyText={setMyText}
         wikiTitle={wikiTitle}
-        // setWikiTitle={setWikiTitle}
-        // newRandomArticle={newRandomArticle}
         setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         isCounterRunning={isCounterRunning}

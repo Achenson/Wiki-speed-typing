@@ -1,13 +1,11 @@
 import React from "react";
-import { useState, useEffect} from "react";
+// import { useState, useEffect} from "react";
 
 function UpperUI(props) {
   // counter display ================================
 
   let minutesInt = Math.floor(props.timerValue / 60);
-  //console.log("TCL: Display -> minutesInt", minutesInt);
   let secondsInt = props.timerValue - minutesInt * 60;
-  //console.log("TCL: Display -> secondsInt", secondsInt);
 
   let minutesStr = minutesInt.toString();
   let secondsStr = secondsInt.toString();
@@ -45,13 +43,13 @@ function UpperUI(props) {
           <p className="upper-ui-item-label">Speed (KPM)</p>
 
           <p className="upper-ui-item display-speed">
-            {props.resultsObj.speed}
+            {props.liveResults.speed}
           </p>
         </div>
         <div className="upper-ui-inner">
           <p className="upper-ui-item-label">Accuracy</p>
           <p className="upper-ui-item display-accuracy">
-            {props.resultsObj.accuracy} %
+            {props.liveResults.accuracy} %
           </p>
         </div>
 
