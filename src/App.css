@@ -1,8 +1,4 @@
-
-
-
-
-
+/*  */
 
 * {
   box-sizing: border-box;
@@ -14,6 +10,10 @@ ul,
 p {
   margin: 0;
   padding: 0;
+}
+/* for consitency between firefox & chrome */
+textarea {
+  vertical-align: top;
 }
 
 li {
@@ -32,7 +32,7 @@ body {
 }
 
 .container {
-  margin: 0 20px;
+  margin: auto 20px;
 }
 
 .hints {
@@ -87,7 +87,8 @@ body {
 
 .btn {
   /* display: block; */
-  padding: 0.3em 0.4em;
+  font-family: Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: normal;
   cursor: pointer;
   border: none;
   text-align: center;
@@ -186,11 +187,12 @@ body {
   outline: none;
   resize: none;
   padding: 2px 4px;
-  width: 360px;
+  width: 358px;
   height: 153px;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-family: "Times New Roman", Times, serif;
+  font-size: 1rem;
   font-weight: 100;
   color: dimgray;
 }
@@ -211,6 +213,11 @@ body {
   margin-right: 2px;
   width: 60px;
   height: 1.8em;
+  font-family: Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.timer-select {
+  vertical-align: middle;
 }
 
 .btn-control {
@@ -232,6 +239,12 @@ body {
 
 .btn-reset:hover {
   background-color: rgb(228, 27, 1);
+}
+
+.btn-wiki,
+.btn-results {
+  display: inline-block;
+  height: 1.95em;
 }
 
 /* wikipedia controller */
@@ -305,7 +318,7 @@ body {
   display: flex;
   justify-content: space-evenly;
   font-size: 1.1em;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin-top: 0.5em;
   margin-bottom: 0.5em;
   border-bottom: 1px solid black;
