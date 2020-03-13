@@ -20,6 +20,7 @@ DONE 15. no changing text if is 2 screen long?! DONE
 DONE 16. shift in display in some cases! + letter being eaten? (pause) DONE
 DONE 17. disable selecting and pasting in the end DONE
 DONE 18. not counting last letter in the screen! DONE
+19. change enter in fetched text to ":" ? eg. Desprition ...
 
 toChange:
  DONE 1. counter display (00:00 format) DONE

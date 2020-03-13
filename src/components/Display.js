@@ -48,11 +48,10 @@ function Display(props) {
   let { dispatch } = props;
 
   useEffect(() => {
-    console.log("rendering");
 
     let arrOutOfTextValue = textAreaValue.split("");
-    console.log("arrOutOfTextValue");
-    console.log(arrOutOfTextValue);
+    // console.log("arrOutOfTextValue");
+    // console.log(arrOutOfTextValue);
 
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {

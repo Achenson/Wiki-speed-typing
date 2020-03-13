@@ -51,7 +51,7 @@ function Fetch(props) {
           .then(data => {
             let dataQueryPages = data.query.pages;
 
-            // console.log(JSON.stringify(data, null, 2));
+            console.log(JSON.stringify(data, null, 2));
             /* 
           console.log(
             JSON.stringify(
@@ -70,7 +70,7 @@ function Fetch(props) {
               .replace(/\[.*\]/g, "")
               .replace(/\s\./g, ".")
               .replace(/\s,/g, ",")
-              .replace(/\s\s/g, " ");
+              .replace(/\s+/g, " ");
 
             if (articleExtract.length < 370) {
               console.log("text to short, rendering again");

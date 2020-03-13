@@ -137,7 +137,7 @@ function Reducer(props) {
     function resultsMaker(correct, incorrect, allEntries, timerValue_current) {
       // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
 
-      console.log("resultsMaker -> timerValue", timerValue_current);
+      // console.log("resultsMaker -> timerValue", timerValue_current);
 
       let noPenaltyKPM =
         Math.round(
