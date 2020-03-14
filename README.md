@@ -6,6 +6,7 @@ Test your typing speed using random* articles from English Wikipedia. Main resul
 
 ## Live app
 
+https://achenson.github.io/wiki-speed-typing/
 
 ## How to run locally
 
@@ -15,7 +16,7 @@ Test your typing speed using random* articles from English Wikipedia. Main resul
 
 ### `npm install` 
 Installs dependencies
-### `npm start` (to start the app)
+### `npm start`
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
