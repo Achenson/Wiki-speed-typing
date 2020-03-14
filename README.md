@@ -1,8 +1,8 @@
 # Wiki-Speed-Typing
 
-Test your typing speed using random* articles from English Wikipedia. Main Results are displayed live every 2 seconds, detailed results are available after the timer goes off.
+Test your typing speed using random* articles from English Wikipedia. Main results are displayed every 2 seconds, detailed results are available after the timer goes off. Press '?' button for more hints. App structure described in appTree.txt
 
-* - articles containing non-english characters are skipped and all text in brackets are edited out
+\* \- articles shorter than 370 characters or containing non-english characters are skipped. All text in brackets is edited out.
 
 ## Live app
 
@@ -11,13 +11,11 @@ Test your typing speed using random* articles from English Wikipedia. Main Resul
 
 1. Install nodejs - https://nodejs.org
 
-2. In the project directory run (Installing dependencies):
-### `npm install`
+2. In the project directory run:
 
-3. In the project directory run (Starting the app):
-
-### `npm start`
-
+### `npm install` 
+Installs dependencies
+### `npm start` (to start the app)
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
