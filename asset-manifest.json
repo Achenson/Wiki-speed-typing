@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/typing-wiki-game/static/css/main.d86a7436.chunk.css",
-    "main.js": "/typing-wiki-game/static/js/main.4c375ee9.chunk.js",
-    "main.js.map": "/typing-wiki-game/static/js/main.4c375ee9.chunk.js.map",
-    "runtime-main.js": "/typing-wiki-game/static/js/runtime-main.9a4b2612.js",
-    "runtime-main.js.map": "/typing-wiki-game/static/js/runtime-main.9a4b2612.js.map",
-    "static/js/2.50d2be15.chunk.js": "/typing-wiki-game/static/js/2.50d2be15.chunk.js",
-    "static/js/2.50d2be15.chunk.js.map": "/typing-wiki-game/static/js/2.50d2be15.chunk.js.map",
-    "index.html": "/typing-wiki-game/index.html",
-    "precache-manifest.45f8bf7a3296f67486e427f3e295f5f6.js": "/typing-wiki-game/precache-manifest.45f8bf7a3296f67486e427f3e295f5f6.js",
-    "service-worker.js": "/typing-wiki-game/service-worker.js",
-    "static/css/main.d86a7436.chunk.css.map": "/typing-wiki-game/static/css/main.d86a7436.chunk.css.map",
-    "static/js/2.50d2be15.chunk.js.LICENSE": "/typing-wiki-game/static/js/2.50d2be15.chunk.js.LICENSE",
-    "static/media/index.css": "/typing-wiki-game/static/media/Merriweather-Regular.c97a9fc2.ttf"
+    "main.css": "/wiki-speed-typing/static/css/main.c5c6b5fd.chunk.css",
+    "main.js": "/wiki-speed-typing/static/js/main.f764c902.chunk.js",
+    "main.js.map": "/wiki-speed-typing/static/js/main.f764c902.chunk.js.map",
+    "runtime-main.js": "/wiki-speed-typing/static/js/runtime-main.2719c2a0.js",
+    "runtime-main.js.map": "/wiki-speed-typing/static/js/runtime-main.2719c2a0.js.map",
+    "static/js/2.50d2be15.chunk.js": "/wiki-speed-typing/static/js/2.50d2be15.chunk.js",
+    "static/js/2.50d2be15.chunk.js.map": "/wiki-speed-typing/static/js/2.50d2be15.chunk.js.map",
+    "index.html": "/wiki-speed-typing/index.html",
+    "precache-manifest.dafb200cd40eebd814e63abd1511a67e.js": "/wiki-speed-typing/precache-manifest.dafb200cd40eebd814e63abd1511a67e.js",
+    "service-worker.js": "/wiki-speed-typing/service-worker.js",
+    "static/css/main.c5c6b5fd.chunk.css.map": "/wiki-speed-typing/static/css/main.c5c6b5fd.chunk.css.map",
+    "static/js/2.50d2be15.chunk.js.LICENSE": "/wiki-speed-typing/static/js/2.50d2be15.chunk.js.LICENSE",
+    "static/media/index.css": "/wiki-speed-typing/static/media/Merriweather-Regular.c97a9fc2.ttf"
   },
   "entrypoints": [
-    "static/js/runtime-main.9a4b2612.js",
+    "static/js/runtime-main.2719c2a0.js",
     "static/js/2.50d2be15.chunk.js",
-    "static/css/main.d86a7436.chunk.css",
-    "static/js/main.4c375ee9.chunk.js"
+    "static/css/main.c5c6b5fd.chunk.css",
+    "static/js/main.f764c902.chunk.js"
   ]
 }
