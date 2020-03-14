@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bb5d5f187510b6be03ae0b8c371338c7",
+    "revision": "97a13563d642d7cb05daa9d975d62f65",
     "url": "/wiki-speed-typing/index.html"
   },
   {
