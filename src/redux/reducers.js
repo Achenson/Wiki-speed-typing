@@ -88,14 +88,14 @@ function postReducer(state = initialState, action) {
   // const { finalResults } = state;
 
   switch (action.type) {
-    case RESULTS_CORRECT:
+    case 'RESULTS_CORRECT':
       return {
         ...state,
         resultsCorrect: resultsCorrect + 1,
         resultsIncorrect: resultsIncorrect,
         resultsNoPenalty: resultsNoPenalty
       };
-    case RESULTS_INCORRECT:
+    case 'RESULTS_INCORRECT':
       return {
         ...state,
         resultsCorrect: resultsCorrect,
@@ -103,7 +103,7 @@ function postReducer(state = initialState, action) {
         resultsNoPenalty: resultsNoPenalty
       };
 
-    case RESULTS_NO_PENALTY:
+    case 'RESULTS_NO_PENALTY':
       return {
         ...state,
         resultsCorrect: resultsCorrect,
@@ -111,7 +111,7 @@ function postReducer(state = initialState, action) {
         resultsNoPenalty: resultsNoPenalty + 1
       };
 
-    case RESULTS_RESET:
+    case 'RESULTS_RESET':
       return {
         ...state,
         resultsCorrect: 0,
@@ -119,7 +119,7 @@ function postReducer(state = initialState, action) {
         resultsNoPenalty: 0
       };
 
-    case SET_LIVE_RESULTS:
+    case 'SET_LIVE_RESULTS':
       return {
         ...state,
         liveResults: {
@@ -132,7 +132,7 @@ function postReducer(state = initialState, action) {
         }
       };
 
-    case RESET_LIVE_RESULTS:
+    case 'RESET_LIVE_RESULTS':
       return {
         ...state,
         liveResults: {
@@ -140,7 +140,7 @@ function postReducer(state = initialState, action) {
         }
       };
 
-    case SET_FINAL_RESULTS:
+    case 'SET_FINAL_RESULTS':
       return {
         ...state,
         finalResults: {
@@ -151,7 +151,7 @@ function postReducer(state = initialState, action) {
       };
 
 
-      
+
 
     default:
       return state;

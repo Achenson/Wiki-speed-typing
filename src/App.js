@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 import "./App.css";
 import Fetch from "./components/Fetch.js";
+import Display from "./components/Display.js";
 import Reducer from "./components/Reducer.js";
 
 import { connect } from "react-redux";
@@ -10,6 +11,7 @@ import { connect } from "react-redux";
 import loremText from "./components/_defaultText.js";
 //!!!!! imported actions creators must be passed here as props
 function App({
+  // state
   timerValue,
   constantTimerValue,
   isActive,
@@ -20,7 +22,9 @@ function App({
   wikiTitle,
   newRandomArticle,
   areHintsVisible,
-  areResultsVisible
+  areResultsVisible,
+  // dipatch
+  
 
 }) {
   // const [timerValue, setTimerValue] = useState(60);
@@ -58,7 +62,9 @@ function App({
     if (!isActive) {
 
 
-      setAreHintsVisible(!areHintsVisible);
+      // setAreHintsVisible(!areHintsVisible);
+      // setAreHintsVisible(h => !h);
+      dispatch({type: "HINTS_VISIBILITY"})
     }
   }
 
@@ -223,7 +229,9 @@ function App({
         loremText={loremText}
         focusTextArea={focusTextArea}
       />
-      <Reducer
+
+      {/* <Reducer */}
+      <Display
         // timer
         timerValue={timerValue}
         setTimerValue={setTimerValue}
@@ -276,7 +284,21 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    // dispatching plain actions
+    resultCorrect: () => dispatch({ type: 'RESULTS_CORRECT' }),
+    resultsIncorrect: () => dispatch({ type: 'RESULTS_INCORRECT' }),
+    resultsNoPenalty: () => dispatch({ type: 'RESULTS_NO_PENALTY' }),
+    
+
+
+  }
+}
+
+
 export default connect(
   mapStateToProps,
+  mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
 )(App); // (3)
