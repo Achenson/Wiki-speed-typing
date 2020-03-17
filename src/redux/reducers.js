@@ -1,10 +1,26 @@
 import { combineReducers } from "redux";
+import { useCallback } from "react";
 
 import actionTypes from "./actionTypes";
-let {RESULTS_CORRECT, RESULTS_INCORRECT, RESULTS_NO_PENALTY, RESULTS_RESET, SET_LIVE_RESULTS, RESET_LIVE_RESULTS, SET_FINAL_RESULTS} = actionTypes;
+let {
+  RESULTS_CORRECT,
+  RESULTS_INCORRECT,
+  RESULTS_NO_PENALTY,
+  RESULTS_RESET,
+  SET_LIVE_RESULTS,
+  RESET_LIVE_RESULTS,
+  SET_FINAL_RESULTS
+} = actionTypes;
 
-
-
+const lengthOfSinglePart = 363;
+//make default(gray) color in wiki display area
+const makeDefaultColoredLetters = useCallback(() => {
+  let arrToReturn = [];
+  for (let i = 0; i < lengthOfSinglePart; i++) {
+    arrToReturn.push("DimGray");
+  }
+  return arrToReturn;
+}, [lengthOfSinglePart]);
 
 const initialState = {
   // originally from <Reducer/> component ======
@@ -59,21 +75,17 @@ const initialState = {
     textAreaValue: "",
     prevTextAreaValue: ""
   }
-
-
-
-
 };
 
 function postReducer(state = initialState, action) {
   //mandatory, action.type is being evaluated
 
-  const { currentResults } = state;
+  // const { currentResults } = state;
   const {
     currentResults: { resultsCorrect, resultsIncorrect, resultsNoPenalty }
   } = state;
-  const { liveResults } = state;
-  const { finalResults } = state;
+  // const { liveResults } = state;
+  // const { finalResults } = state;
 
   switch (action.type) {
     case RESULTS_CORRECT:
@@ -138,28 +150,31 @@ function postReducer(state = initialState, action) {
         }
       };
 
+
+      
+
     default:
       return state;
   }
 
-
   function resultsMaker(correct, incorrect, allEntries, timerValue_current) {
     // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
-  
+
     // console.log("resultsMaker -> timerValue", timerValue_current);
-  
+
     let noPenaltyKPM =
       Math.round(
         ((allEntries * 60) /
           (state.counter.constantTimerValue - timerValue_current)) *
           100
       ) / 100;
-  
+
     let incorrectPerMinute =
-      (incorrect * 60) / (state.counter.constantTimerValue - timerValue_current);
+      (incorrect * 60) /
+      (state.counter.constantTimerValue - timerValue_current);
     // speed penalty: -5 per incorrectEntry/minute (20% or more mistakes === 0KPM!)
     let penaltyKPM = noPenaltyKPM - 5 * incorrectPerMinute;
-  
+
     return {
       speed: calcSpeed(),
       accuracy: calcAccuracy(),
@@ -168,7 +183,7 @@ function postReducer(state = initialState, action) {
       noPenalty: noPenaltyKPM,
       "timer length": state.counter.constantTimerValue.toString()
     };
-  
+
     function calcSpeed() {
       if (penaltyKPM >= 0) {
         return Math.round(penaltyKPM * 10) / 10;
@@ -176,7 +191,7 @@ function postReducer(state = initialState, action) {
         return 0;
       }
     }
-  
+
     function calcAccuracy() {
       if (allEntries > 0) {
         let accuracyResult = Math.round((correct / allEntries) * 1000) / 10;
@@ -186,16 +201,7 @@ function postReducer(state = initialState, action) {
       }
     }
   }
-
-
-
 }
-
-
-
-
-
-
 
 //object with reducers, ??? - arbitrary
 export default combineReducers({

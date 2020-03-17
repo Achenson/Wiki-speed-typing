@@ -5,30 +5,45 @@ import "./App.css";
 import Fetch from "./components/Fetch.js";
 import Reducer from "./components/Reducer.js";
 
-import loremText from "./components/_defaultText.js";
+import { connect } from "react-redux";
 
-function App() {
-  const [timerValue, setTimerValue] = useState(60);
-  const [constantTimerValue, setConstantTimerValue] = useState(60);
+import loremText from "./components/_defaultText.js";
+//!!!!! imported actions creators must be passed here as props
+function App({
+  timerValue,
+  constantTimerValue,
+  isActive,
+  toReset,
+  isCounterRunning,
+  displayToReset,
+  myText,
+  wikiTitle,
+  newRandomArticle,
+  areHintsVisible,
+  areResultsVisible
+
+}) {
+  // const [timerValue, setTimerValue] = useState(60);
+  // const [constantTimerValue, setConstantTimerValue] = useState(60);
 
   // for start/pause button
-  const [isActive, toggleActive] = useState(false);
+  // const [isActive, toggleActive] = useState(false);
   // for reset button
-  const [toReset, setToReset] = useState(false);
+  // const [toReset, setToReset] = useState(false);
   // reseting display if reset btn is clicked or if Timer runs out
-  const [displayToReset, setDisplayToReset] = useState(false);
+  // const [displayToReset, setDisplayToReset] = useState(false);
 
   // is the counter running
-  const [isCounterRunning, setIsCounterRunning] = useState(false);
+  // const [isCounterRunning, setIsCounterRunning] = useState(false);
 
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
 
   // for displaying text
-  const [myText, setMyText] = useState("[Data loading...]");
-  const [wikiTitle, setWikiTitle] = useState("");
+  // const [myText, setMyText] = useState("[Data loading...]");
+  // const [wikiTitle, setWikiTitle] = useState("");
   // newRandomArticle will be fetched if true
-  const [newRandomArticle, setNewRandomArticle] = useState(true);
+  // const [newRandomArticle, setNewRandomArticle] = useState(true);
 
   // for keyboard shortcuts
   useEffect(() => {
@@ -36,11 +51,13 @@ function App() {
   });
 
   // hints & results visibility
-  const [areHintsVisible, setAreHintsVisible] = useState(false);
-  const [areResultsVisible, setAreResultsVisible] = useState(false);
+  // const [areHintsVisible, setAreHintsVisible] = useState(false);
+  // const [areResultsVisible, setAreResultsVisible] = useState(false);
 
   function toggleHints() {
     if (!isActive) {
+
+
       setAreHintsVisible(!areHintsVisible);
     }
   }
@@ -79,7 +96,7 @@ function App() {
     if (toReset) {
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
-
+      // shoul be named setActivate
       toggleActive(false);
 
       if (isCounterRunning) {
@@ -239,4 +256,27 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    timerValue: state.counter.timerValue, // (1)
+    constantTimerValue: state.counter.constantTimerValue, // (1)
+    isActive: state.counter.isActive, // (1)
+    toReset: state.counter.toReset, // (1)
+    isCounterRunning: state.counter.isCounterRunning, // (1)
+    displayToReset: state.textDisplay.displayToReset,
+    myText: state.textDisplay.myText,
+    wikiTitle: state.textDisplay.wikiTitle,
+    newRandomArticle: state.textDisplay.newRandomArticle,
+    // hints & results
+    areHintsVisible: state.componentsDisplay.areHintsVisible,
+    areResultsVisible: state.componentsDisplay.areResultsVisible,
+
+
+    
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+)(App); // (3)
