@@ -18,11 +18,26 @@ import Results from "./Results.js";
 
 // const escapeStringRegexp = require("escape-string-regexp");
 
-function Display(props) {
+function Display({
+
+
+
+  myText,
+  displayToReset,
+   setDisplayToReset,
+
+
+  resultsCorrect,
+  resultsIncorrect,
+  resultsNoPenalty,
+
+
+
+}) {
   // rendering text ============================
   let lengthOfSinglePart = 363;
 
-  let myTextToArr = props.myText.split("");
+  let myTextToArr = myText.split("");
   let textDividedByLength_floor = Math.floor(
     myTextToArr.length / lengthOfSinglePart
   );
@@ -65,7 +80,7 @@ function Display(props) {
       let colorForEachLetter_2 = [...colorForEachLetter];
 
       // dispatch({ type: "resultsNoPenalty" });
-      props.resultsNoPenalty() 
+      resultsNoPenalty() 
       // mapresultsCorrect();
 
       if (
@@ -73,7 +88,7 @@ function Display(props) {
         arrOutOfText[textAreaValue.length - 1]
       ) {
         // dispatch({ type: "resultsCorrect" });
-        props.resultsCorrect() 
+        resultsCorrect() 
         colorForEachLetter_2[textAreaValue.length - 1] = "blue";
       }
       
@@ -82,7 +97,7 @@ function Display(props) {
         arrOutOfText[textAreaValue.length - 1]
         ) {
           
-          props.resultsIncorrect() 
+          resultsIncorrect() 
         // dispatch({ type: "resultsIncorrect" });
         colorForEachLetter_2[textAreaValue.length - 1] = "red";
       }
@@ -125,10 +140,11 @@ function Display(props) {
   ]);
 
   // reseting display
-  let { displayToReset, setDisplayToReset } = props;
+  // let { displayToReset, setDisplayToReset } = props;
   useEffect(() => {
     if (displayToReset) {
       resetDisplay();
+      // setDisplayToReset(false);
       setDisplayToReset(false);
     }
 
@@ -257,6 +273,15 @@ const mapDispatchToProps = dispatch => {
     resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),
     resultsIncorrect: () => dispatch({ type: "RESULTS_INCORRECT" }),
     resultsNoPenalty: () => dispatch({ type: "RESULTS_NO_PENALTY" }),
+
+      // for display only, delete later
+      setIndexOfPartialTextArr: (data) => dispatch({type: "INDEX_OF_PARTIAL_TEXTARR" ,payload: data}),
+      setTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
+      setPrevTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
+      setColorForEachLetter: (data) => dispatch({type: "COLOR_FOR_EACH_LETTER", payload: data})
+
+
+
    
   };
 };

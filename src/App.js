@@ -12,6 +12,7 @@ import loremText from "./components/_defaultText.js";
 //!!!!! imported actions creators must be passed here as props
 function App({
   // state
+  //  from mapStateToProps
   timerValue,
   constantTimerValue,
   isActive,
@@ -22,10 +23,24 @@ function App({
   wikiTitle,
   newRandomArticle,
   areHintsVisible,
-  areResultsVisible
+  areResultsVisible,
+// from mapDispatchToProps
+  setAreHintsVisible,
+  setAreResultsVisible,
+  resultsReset,
+  setLiveResults,
+  resetLiveResults,
+  setFinalResults,
+  setTimerValue,
 
-  setAreHintsVisible
-  setAreResultsVisible
+  setIsCounterRunning,
+  toggleActive,
+
+  setToReset,
+  setDisplayToReset,
+  setConstantTimerValue,
+
+
   // dipatch
 }) {
   // const [timerValue, setTimerValue] = useState(60);
@@ -93,10 +108,13 @@ function App({
     // let intervalForDisplay = null;
 
     if (isActive && timerValue > 0) {
-      timerInterval = setInterval(() => setTimerValue(t => t - 1), 1000);
+      // timerInterval = setInterval(() => setTimerValue(t => t - 1), 1000);
+      timerInterval = setInterval(() => setTimerValue(), 1000);
 
       if (!isCounterRunning) {
-        setIsCounterRunning(b => !b);
+
+        // setIsCounterRunning(b => !b);
+        setIsCounterRunning();
       }
     }
 
@@ -119,7 +137,8 @@ function App({
     }
 
     if (timerValue <= 0) {
-      setDisplayToReset(true);
+      // setDisplayToReset(true);
+      setDisplayToReset();
 
       clearInterval(timerInterval);
 
@@ -152,8 +171,10 @@ function App({
   function resetTimer() {
     // if (timerValue !== constantTimerValue) {
     if (isCounterRunning) {
-      setToReset(true);
-      setDisplayToReset(true);
+      // setToReset(true);
+      setToReset();
+      // setDisplayToReset(true);
+      setDisplayToReset();
     }
     return;
   }
@@ -216,6 +237,42 @@ function App({
   function putFocusOnTextArea() {
     focusTextArea.current.focus();
   }
+
+
+
+   // =========================================== from <Fetch/> components
+  // for setting results (live & final)=====
+  // let { isActive, timerValue, constantTimerValue, toReset } = props;
+  useEffect(() => {
+    if (isActive && timerValue === constantTimerValue) {
+      // for displaying 0speed & 0 accuracy if the counter becomes active
+      // dispatch({ type: "reset" });
+      // dispatch({ type: "resetLiveResults" });
+      resultsReset()
+      resetLiveResults()
+
+
+
+
+      // for live results display every 2s  ==============
+    } else if (isActive && timerValue % 2 === 0) {
+      // dispatch({ type: "setLiveResults" });
+      setLiveResults()
+    }
+    if (toReset) {
+      // dispatch({ type: "resetLiveResults" });
+      resetLiveResults()
+    }
+    if (timerValue <= 0) {
+      setFinalResults()
+      resultsReset()
+      resetLiveResults()
+      // dispatch({ type: "setFinalResults" });
+      // dispatch({ type: "reset" });
+      // dispatch({ type: "resetLiveResults" });
+    }
+  }, [timerValue, isActive, toReset, constantTimerValue]);
+  // ===========================================
 
   return (
     <div className="App" onKeyDown={handleKeyPress}>
@@ -302,11 +359,19 @@ const mapDispatchToProps = dispatch => {
     setNewRandomArticle: () => dispatch({ type: "RANDOM_ARTICLE" }),
     setDisplayToReset: () => dispatch({ type: "DISPLAY_TO_RESET" }),
 
-    setTimerValue: (data) => dispatch({ type: "TIMER_VALUE", payloadh: data }),
+    toggleActive: () => dispatch({type: "TOGGLE_ACTIVATE"}),
+    setTimerValue: (data) => dispatch({ type: "TIMER_VALUE", payload: data }),
     setToReset: () => dispatch({ type: "TO_RESET" }),
+    setIsCounterRunning:() => dispatch({type: "COUNTER_RUNNING"}),
 
     setAreHintsVisible: () => dispatch({type: "HINTS_VISIBILITY"}),
-    setAreResultsVisible: () => dispatch({type: "RESULTS_VISIBILITY"})
+    setAreResultsVisible: () => dispatch({type: "RESULTS_VISIBILITY"}),
+    // for display only, delete later
+    setIndexOfPartialTextArr: (data) => dispatch({type: "INDEX_OF_PARTIAL_TEXTARR" ,payload: data}),
+    setTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
+    setPrevTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
+    
+    setColorForEachLetter: (data) => dispatch({type: "COLOR_FOR_EACH_LETTER", payload: data})
   };
 };
 
