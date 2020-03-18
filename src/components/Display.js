@@ -1,6 +1,10 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
 // import SingleLetter from "./SingleLetter.js";
+import { connect } from "react-redux";
+
+
+
 import WikiController from "./WikiController.js";
 import Hints from "./Hints.js";
 import UpperUI from "./UpperUI.js";
@@ -9,6 +13,8 @@ import InputArea from "./InputArea.js";
 import Controls from "./Controls.js";
 import ResultsButton from "./ResultsButton.js";
 import Results from "./Results.js";
+
+
 
 // const escapeStringRegexp = require("escape-string-regexp");
 
@@ -45,7 +51,8 @@ function Display(props) {
 
   //coloring letters in display according to errors or no
   //  + counting entries!!
-  let { dispatch } = props;
+
+  // let { dispatch } = props;
 
   useEffect(() => {
 
@@ -57,21 +64,26 @@ function Display(props) {
     if (textAreaValue.length > prevTextAreaValue.length) {
       let colorForEachLetter_2 = [...colorForEachLetter];
 
-      dispatch({ type: "resultsNoPenalty" });
+      // dispatch({ type: "resultsNoPenalty" });
+      props.resultsNoPenalty() 
+      // mapresultsCorrect();
 
       if (
         textAreaValue[textAreaValue.length - 1] ===
         arrOutOfText[textAreaValue.length - 1]
       ) {
-        dispatch({ type: "resultsCorrect" });
+        // dispatch({ type: "resultsCorrect" });
+        props.resultsCorrect() 
         colorForEachLetter_2[textAreaValue.length - 1] = "blue";
       }
-
+      
       if (
         textAreaValue[textAreaValue.length - 1] !==
         arrOutOfText[textAreaValue.length - 1]
-      ) {
-        dispatch({ type: "resultsIncorrect" });
+        ) {
+          
+          props.resultsIncorrect() 
+        // dispatch({ type: "resultsIncorrect" });
         colorForEachLetter_2[textAreaValue.length - 1] = "red";
       }
 
@@ -103,7 +115,7 @@ function Display(props) {
   }, [
     textAreaValue,
     prevTextAreaValue.length,
-    dispatch,
+    // dispatch,
     colorForEachLetter,
     arrOutOfText,
     indexOfPartialTextArr,
@@ -239,4 +251,20 @@ function Display(props) {
   );
 }
 
-export default Display;
+const mapDispatchToProps = dispatch => {
+  return {
+    // dispatching plain actions
+    resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),
+    resultsIncorrect: () => dispatch({ type: "RESULTS_INCORRECT" }),
+    resultsNoPenalty: () => dispatch({ type: "RESULTS_NO_PENALTY" }),
+   
+  };
+};
+
+// export default Display;
+
+export default connect(
+  null,
+  mapDispatchToProps
+  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+)(Display); // (3)

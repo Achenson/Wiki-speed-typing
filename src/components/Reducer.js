@@ -180,6 +180,7 @@ function Reducer(props) {
     }
   }
 
+  // =========================================== from <Fetch/> components
   // for setting results (live & final)=====
   let { isActive, timerValue, constantTimerValue, toReset } = props;
   useEffect(() => {
@@ -200,6 +201,7 @@ function Reducer(props) {
       dispatch({ type: "resetLiveResults" });
     }
   }, [timerValue, isActive, toReset, constantTimerValue]);
+  // ===========================================
 
   return (
     <Display

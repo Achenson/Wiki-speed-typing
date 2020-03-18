@@ -92,22 +92,22 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         resultsCorrect: resultsCorrect + 1,
-        resultsIncorrect: resultsIncorrect,
-        resultsNoPenalty: resultsNoPenalty
+        // resultsIncorrect: resultsIncorrect,
+        // resultsNoPenalty: resultsNoPenalty
       };
     case 'RESULTS_INCORRECT':
       return {
         ...state,
-        resultsCorrect: resultsCorrect,
+        // resultsCorrect: resultsCorrect,
         resultsIncorrect: resultsIncorrect + 1,
-        resultsNoPenalty: resultsNoPenalty
+        // resultsNoPenalty: resultsNoPenalty
       };
 
     case 'RESULTS_NO_PENALTY':
       return {
         ...state,
-        resultsCorrect: resultsCorrect,
-        resultsIncorrect: resultsIncorrect,
+        // resultsCorrect: resultsCorrect,
+        // resultsIncorrect: resultsIncorrect,
         resultsNoPenalty: resultsNoPenalty + 1
       };
 

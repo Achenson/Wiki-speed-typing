@@ -22,10 +22,11 @@ function App({
   wikiTitle,
   newRandomArticle,
   areHintsVisible,
-  areResultsVisible,
-  // dipatch
-  
+  areResultsVisible
 
+  setAreHintsVisible
+  setAreResultsVisible
+  // dipatch
 }) {
   // const [timerValue, setTimerValue] = useState(60);
   // const [constantTimerValue, setConstantTimerValue] = useState(60);
@@ -60,11 +61,10 @@ function App({
 
   function toggleHints() {
     if (!isActive) {
-
-
       // setAreHintsVisible(!areHintsVisible);
       // setAreHintsVisible(h => !h);
-      dispatch({type: "HINTS_VISIBILITY"})
+      // dispatch({ type: "HINTS_VISIBILITY" });
+      setAreHintsVisible()
     }
   }
 
@@ -72,7 +72,8 @@ function App({
   //useCallback is used so useEffect below won't run on every every time toggleResults function is called
   const toggleResults = useCallback(() => {
     // functional update(r=>!r) so the useCallback don't depend on areResultsVisible
-    setAreResultsVisible(r => !r);
+    setAreResultsVisible()
+    // setAreResultsVisible(r => !r);
   }, []);
 
   useEffect(() => {
@@ -220,11 +221,11 @@ function App({
     <div className="App" onKeyDown={handleKeyPress}>
       <Fetch
         myText={myText}
-        setMyText={setMyText}
+        // setMyText={setMyText}
         wikiTitle={wikiTitle}
-        setWikiTitle={setWikiTitle}
+        // setWikiTitle={setWikiTitle}
         newRandomArticle={newRandomArticle}
-        setNewRandomArticle={setNewRandomArticle}
+        // setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         loremText={loremText}
         focusTextArea={focusTextArea}
@@ -234,15 +235,15 @@ function App({
       <Display
         // timer
         timerValue={timerValue}
-        setTimerValue={setTimerValue}
+        // setTimerValue={setTimerValue}
         constantTimerValue={constantTimerValue}
         toggleTimer={toggleTimer}
-        setTimerOnSelect={setTimerOnSelect}
+        // setTimerOnSelect={setTimerOnSelect}
         isActive={isActive}
         resetTimer={resetTimer}
         toReset={toReset}
         displayToReset={displayToReset}
-        setDisplayToReset={setDisplayToReset}
+        // setDisplayToReset={setDisplayToReset}
         // hints & results visibility
         areHintsVisible={areHintsVisible}
         areResultsVisible={areResultsVisible}
@@ -256,9 +257,11 @@ function App({
         // results
         myText={myText}
         wikiTitle={wikiTitle}
-        setNewRandomArticle={setNewRandomArticle}
+        // setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         isCounterRunning={isCounterRunning}
+
+        // dispatch={dispatch}
       />
     </div>
   );
@@ -277,25 +280,35 @@ const mapStateToProps = state => {
     newRandomArticle: state.textDisplay.newRandomArticle,
     // hints & results
     areHintsVisible: state.componentsDisplay.areHintsVisible,
-    areResultsVisible: state.componentsDisplay.areResultsVisible,
-
-
-    
+    areResultsVisible: state.componentsDisplay.areResultsVisible
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     // dispatching plain actions
-    resultCorrect: () => dispatch({ type: 'RESULTS_CORRECT' }),
-    resultsIncorrect: () => dispatch({ type: 'RESULTS_INCORRECT' }),
-    resultsNoPenalty: () => dispatch({ type: 'RESULTS_NO_PENALTY' }),
-    
+    resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),
+    resultsIncorrect: () => dispatch({ type: "RESULTS_INCORRECT" }),
+    resultsNoPenalty: () => dispatch({ type: "RESULTS_NO_PENALTY" }),
+    resultsReset: () => dispatch({ type: "RESULTS_RESET" }),
+    setLiveResults: () => dispatch({ type: "SET_LIVE_RESULTS" }),
+    resetLiveResults: () => dispatch({ type: "RESET_LIVE_RESULTS" }),
+    setFinalResults: () => dispatch({ type: "SET_FINAL_RESULTS" }),
 
 
-  }
-}
 
+    setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
+    setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
+    setNewRandomArticle: () => dispatch({ type: "RANDOM_ARTICLE" }),
+    setDisplayToReset: () => dispatch({ type: "DISPLAY_TO_RESET" }),
+
+    setTimerValue: (data) => dispatch({ type: "TIMER_VALUE", payloadh: data }),
+    setToReset: () => dispatch({ type: "TO_RESET" }),
+
+    setAreHintsVisible: () => dispatch({type: "HINTS_VISIBILITY"}),
+    setAreResultsVisible: () => dispatch({type: "RESULTS_VISIBILITY"})
+  };
+};
 
 export default connect(
   mapStateToProps,
