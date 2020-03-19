@@ -24,18 +24,49 @@ function Display({
 
   myText,
   displayToReset,
-   setDisplayToReset,
+  setDisplayToReset,
 
 
   resultsCorrect,
   resultsIncorrect,
   resultsNoPenalty,
 
+  setIndexOfPartialTextArr,
+  setTextAreaValue,
+  setPrevTextAreaValue,
+  setColorForEachLetter,
+
+  textAreaValue,
+    prevTextAreaValue,
+    indexOfPartialTextArr,
+    colorForEachLetter,
+    liveResults,
+    finalResults,
+
+    areResultsVisible,
+    focusElement,
+    toggleResults,
+    isCounterRunning,
+    resetTimer,
+    isActive,
+    disablingButton,
+    setNewRandomArticle,
+    wikiTitle,
+    putFocusOnTextArea,
+    isDisabled,
+    setTimerOnSelect,
+    toggleTimer,
+    toggleHints,
+    areHintsVisible,
+    focusTextArea,
+    timerValue
+
+
 
 
 }) {
   // rendering text ============================
-  let lengthOfSinglePart = 363;
+  const lengthOfSinglePart = 363;
 
   let myTextToArr = myText.split("");
   let textDividedByLength_floor = Math.floor(
@@ -43,7 +74,7 @@ function Display({
   );
 
   let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
-  const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0);
+  // const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0);
   const textToRender = arrOfPartialText[indexOfPartialTextArr];
   let arrOutOfText = textToRender.split("");
 
@@ -56,13 +87,13 @@ function Display({
     return arrToReturn;
   }, [lengthOfSinglePart]);
 
-  const [colorForEachLetter, setColorForEachLetter] = useState(
+  /* const [colorForEachLetter, setColorForEachLetter] = useState(
     // setting gray color for each letter by default
     makeDefaultColoredLetters()
-  );
+  ); */
 
-  const [textAreaValue, setTextAreaValue] = useState("");
-  const [prevTextAreaValue, setPrevTextAreaValue] = useState("");
+  // const [textAreaValue, setTextAreaValue] = useState("");
+  // const [prevTextAreaValue, setPrevTextAreaValue] = useState("");
 
   //coloring letters in display according to errors or no
   //  + counting entries!!
@@ -201,18 +232,19 @@ function Display({
   let ellipsis = "...";
   return (
     <div className="outer-container">
-      <Hints areHintsVisible={props.areHintsVisible} />
+      <Hints areHintsVisible={areHintsVisible} />
 
       <h3 className="title">Wiki Speed Typing</h3>
       <div className="main-square">
         <UpperUI
-          resultsObj={props.resultsObj}
-          toggleHints={props.toggleHints}
-          areResultsVisible={props.areResultsVisible}
-          areHintsVisible={props.areHintsVisible}
-          timerValue={props.timerValue}
-          isActive={props.isActive}
-          liveResults={props.state.liveResults}
+          // resultsObj={resultsObj}
+          toggleHints={toggleHints}
+          areResultsVisible={areResultsVisible}
+          areHintsVisible={areHintsVisible}
+          timerValue={timerValue}
+          isActive={isActive}
+          // liveResults={props.state.liveResults}
+          liveResults={liveResults}
         />
 
         <WikiDisplay
@@ -224,48 +256,64 @@ function Display({
 
         <InputArea
           changeTextAreaValue={changeTextAreaValue}
-          toggleTimer={props.toggleTimer}
-          focusTextArea={props.focusTextArea}
-          isActive={props.isActive}
-          areHintsVisible={props.areHintsVisible}
-          toggleHints={props.toggleHints}
+          toggleTimer={toggleTimer}
+          focusTextArea={focusTextArea}
+          isActive={isActive}
+          areHintsVisible={areHintsVisible}
+          toggleHints={toggleHints}
           textAreaValue={textAreaValue}
         />
 
         <Controls
-          toggleTimer={props.toggleTimer}
-          isActive={props.isActive}
-          setTimerOnSelect={props.setTimerOnSelect}
-          isDisabled={props.isDisabled}
-          resetTimer={props.resetTimer}
-          putFocusOnTextArea={props.putFocusOnTextArea}
+          toggleTimer={toggleTimer}
+          isActive={isActive}
+          setTimerOnSelect={setTimerOnSelect}
+          isDisabled={isDisabled}
+          resetTimer={resetTimer}
+          putFocusOnTextArea={putFocusOnTextArea}
         />
 
         <WikiController
-          wikiTitle={props.wikiTitle}
-          setNewRandomArticle={props.setNewRandomArticle}
-          disablingButton={props.disablingButton}
-          isActive={props.isActive}
-          resetTimer={props.resetTimer}
-          isCounterRunning={props.isCounterRunning}
+          wikiTitle={wikiTitle}
+          setNewRandomArticle={setNewRandomArticle}
+          disablingButton={disablingButton}
+          isActive={isActive}
+          resetTimer={resetTimer}
+          isCounterRunning={isCounterRunning}
         />
 
         <ResultsButton
-          toggleResults={props.toggleResults}
-          areResultsVisible={props.areResultsVisible}
-          focusElement={props.focusElement}
+          toggleResults={toggleResults}
+          areResultsVisible={areResultsVisible}
+          focusElement={focusElement}
         />
       </div>
 
       <Results
-        areResultsVisible={props.areResultsVisible}
-        resultsObj={props.resultsObj}
-        resultsAfterFinish={props.resultsAfterFinish}
-        finalResults={props.state.finalResults}
+        areResultsVisible={areResultsVisible}
+        // resultsObj={resultsObj} delete?
+        // resultsAfterFinish={resultsAfterFinish} delete?
+        finalResults={finalResults}
       />
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return {
+    timerValue: state.counter.timerValue, // (1)
+    textAreaValue: state.InputArea,
+    prevTextAreaValue: state.prevTextAreaValue,
+    indexOfPartialTextArr: state.wikiDisplay.indexOfPartialTextArr,
+    colorForEachLetter: state.wikiDisplay.colorForEachLetter,
+
+    liveResults: state.liveResults,
+    finalResults: state.finalResults
+
+    
+  };
+};
+
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -288,8 +336,11 @@ const mapDispatchToProps = dispatch => {
 
 // export default Display;
 
+
+
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
 )(Display); // (3)

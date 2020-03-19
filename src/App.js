@@ -343,10 +343,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // dispatching plain actions
+    // dispatching plain actions for Display delete later
     resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),
     resultsIncorrect: () => dispatch({ type: "RESULTS_INCORRECT" }),
     resultsNoPenalty: () => dispatch({ type: "RESULTS_NO_PENALTY" }),
+
+
     resultsReset: () => dispatch({ type: "RESULTS_RESET" }),
     setLiveResults: () => dispatch({ type: "SET_LIVE_RESULTS" }),
     resetLiveResults: () => dispatch({ type: "RESET_LIVE_RESULTS" }),
