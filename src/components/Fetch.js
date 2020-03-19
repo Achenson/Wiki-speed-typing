@@ -1,6 +1,7 @@
 // import React from "react";
 import { useEffect } from "react";
-
+import loremText from "./_defaultText.js";
+import { connect } from "react-redux";
 function Fetch(props) {
   // fetching data from wiki API ===============
 
@@ -21,12 +22,14 @@ function Fetch(props) {
  const disablingButton = useRef(null); */
 
   let {
+    // from mamDispatchToProps
     setMyText,
     setWikiTitle,
     setNewRandomArticle,
-    disablingButton,
+    // from mapStateToProps
     newRandomArticle,
-    loremText,
+    // from App
+    disablingButton,
     focusTextArea
   } = props;
 
@@ -114,7 +117,34 @@ function Fetch(props) {
     focusTextArea
   ]);
 
+
+
+
   return null;
 }
 
-export default Fetch;
+// export default Fetch;
+
+const mapStateToProps = state => {
+  return {
+    disablingButton: state.refs.disablingButton,
+    focusTextArea: state.refs.focusTextArea,
+
+    newRandomArticle: state.textDisplay.newRandomArticle
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
+    setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
+    setNewRandomArticle: () => dispatch({ type: "RANDOM_ARTICLE" })
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+)(Fetch); // (3)
+

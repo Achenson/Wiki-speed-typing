@@ -71,3 +71,6 @@ DONE 42. merge branches
 */
 
 
+REDUX:
+
+1. can Refs be in store??

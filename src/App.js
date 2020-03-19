@@ -41,6 +41,7 @@ function App({
   setConstantTimerValue,
 
 
+
   // dipatch
 }) {
   // const [timerValue, setTimerValue] = useState(60);
@@ -57,6 +58,9 @@ function App({
   // const [isCounterRunning, setIsCounterRunning] = useState(false);
 
   // disabling random wiki article button in <Fetch/>
+
+  
+
   const disablingButton = useRef(null);
 
   // for displaying text
@@ -216,6 +220,8 @@ function App({
   // useRef unfocusing btn-hints on textarea focus
   // useRef focusin on textArea if the timer is active
   const focusElement = useRef(null);
+
+  
   const focusTextArea = useRef(null);
 
   useEffect(() => {
@@ -337,7 +343,10 @@ const mapStateToProps = state => {
     newRandomArticle: state.textDisplay.newRandomArticle,
     // hints & results
     areHintsVisible: state.componentsDisplay.areHintsVisible,
-    areResultsVisible: state.componentsDisplay.areResultsVisible
+    areResultsVisible: state.componentsDisplay.areResultsVisible,
+    disablingButton: state.refs.disablingButton,
+    focusTextArea: state.refs.focusTextArea,
+
   };
 };
 
@@ -355,10 +364,12 @@ const mapDispatchToProps = dispatch => {
     setFinalResults: () => dispatch({ type: "SET_FINAL_RESULTS" }),
 
 
-
+    // from fetch, delete later?
     setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
     setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
     setNewRandomArticle: () => dispatch({ type: "RANDOM_ARTICLE" }),
+
+
     setDisplayToReset: () => dispatch({ type: "DISPLAY_TO_RESET" }),
 
     toggleActive: () => dispatch({type: "TOGGLE_ACTIVATE"}),
@@ -368,11 +379,11 @@ const mapDispatchToProps = dispatch => {
 
     setAreHintsVisible: () => dispatch({type: "HINTS_VISIBILITY"}),
     setAreResultsVisible: () => dispatch({type: "RESULTS_VISIBILITY"}),
+
     // for display only, delete later
     setIndexOfPartialTextArr: (data) => dispatch({type: "INDEX_OF_PARTIAL_TEXTARR" ,payload: data}),
     setTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
     setPrevTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
-    
     setColorForEachLetter: (data) => dispatch({type: "COLOR_FOR_EACH_LETTER", payload: data})
   };
 };

@@ -1,8 +1,11 @@
 import { combineReducers } from "redux";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
+
+import store from "./store.js";
 
 import actionTypes from "./actionTypes";
-let {
+
+/* let {
   RESULTS_CORRECT,
   RESULTS_INCORRECT,
   RESULTS_NO_PENALTY,
@@ -10,7 +13,7 @@ let {
   SET_LIVE_RESULTS,
   RESET_LIVE_RESULTS,
   SET_FINAL_RESULTS
-} = actionTypes;
+} = actionTypes; */
 
 const lengthOfSinglePart = 363;
 //make default(gray) color in wiki display area
@@ -35,8 +38,9 @@ const initialState = {
     correct: "-",
     incorrect: "-",
     noPenalty: "-",
+    "timer length": 60
     // !!!!!!!!!!! 60?
-    "timer length": this.counter.constantTimerValue
+    // "timer length": .counter.constantTimerValue
   },
   finalResults: {
     speed: "-",
@@ -74,7 +78,11 @@ const initialState = {
   inputArea: {
     textAreaValue: "",
     prevTextAreaValue: ""
-  }
+  },
+  /* refs: {
+    disablingButton: useRef(null),
+    focusTextArea: useRef(null)
+  } */
 };
 
 function postReducer(state = initialState, action) {
@@ -88,30 +96,24 @@ function postReducer(state = initialState, action) {
   // const { finalResults } = state;
 
   switch (action.type) {
-    case 'RESULTS_CORRECT':
+    case "RESULTS_CORRECT":
       return {
         ...state,
-        resultsCorrect: resultsCorrect + 1,
-        // resultsIncorrect: resultsIncorrect,
-        // resultsNoPenalty: resultsNoPenalty
+        resultsCorrect: resultsCorrect + 1
       };
-    case 'RESULTS_INCORRECT':
+    case "RESULTS_INCORRECT":
       return {
         ...state,
-        // resultsCorrect: resultsCorrect,
-        resultsIncorrect: resultsIncorrect + 1,
-        // resultsNoPenalty: resultsNoPenalty
+        resultsIncorrect: resultsIncorrect + 1
       };
 
-    case 'RESULTS_NO_PENALTY':
+    case "RESULTS_NO_PENALTY":
       return {
         ...state,
-        // resultsCorrect: resultsCorrect,
-        // resultsIncorrect: resultsIncorrect,
         resultsNoPenalty: resultsNoPenalty + 1
       };
 
-    case 'RESULTS_RESET':
+    case "RESULTS_RESET":
       return {
         ...state,
         resultsCorrect: 0,
@@ -119,20 +121,20 @@ function postReducer(state = initialState, action) {
         resultsNoPenalty: 0
       };
 
-    case 'SET_LIVE_RESULTS':
+    case "SET_LIVE_RESULTS":
       return {
         ...state,
         liveResults: {
           ...resultsMaker(
-            resultsCorrect,
-            resultsIncorrect,
-            resultsNoPenalty,
-            state.counter.timerValue
+            store.getState().currentResults.resultsCorrect,
+            store.getState().currentResults.resultsIncorrect,
+            store.getState().currentResults.resultsNoPenalty,
+            store.getState().counter.timerValue
           )
         }
       };
 
-    case 'RESET_LIVE_RESULTS':
+    case "RESET_LIVE_RESULTS":
       return {
         ...state,
         liveResults: {
@@ -140,18 +142,20 @@ function postReducer(state = initialState, action) {
         }
       };
 
-    case 'SET_FINAL_RESULTS':
+    case "SET_FINAL_RESULTS":
       return {
         ...state,
         finalResults: {
           // timerValue is set to 0, because that's the proper value if the counter is finished
           // otherwise - bug - infinite number due to timerValue reseting to constantTimerValue
-          ...resultsMaker(resultsCorrect, resultsIncorrect, resultsNoPenalty, 0)
+          ...resultsMaker(
+            store.getState().currentResults.resultsCorrect,
+            store.getState().currentResults.resultsIncorrect,
+            store.getState().currentResults.resultsNoPenalty,
+            0
+          )
         }
       };
-
-
-
 
     default:
       return state;
