@@ -73,4 +73,5 @@ DONE 42. merge branches
 
 REDUX:
 
-1. can Refs be in store??
+toChange:
+1. split reducers in seperate files?

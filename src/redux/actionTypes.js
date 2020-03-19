@@ -17,11 +17,11 @@ let actionTypes = {
  TOGGLE_ACTIVE: "TOGGLE_ACTIVE",
 TO_RESET: "TO_RESET",
  DISPLAY_TO_RESET: "DISPLAY_TO_RESET",
-// passing as props from <App/> to <Fetch/>
+// <Fetch/> only ?
   MY_TEXT: "MY_TEXT",
   WIKI_TITLE: "WIKI_TITLE",
   RANDOM_ARTICLE: "RANDOM_ARTICLE",
-  // passing as props from <App/> to  <Reducer> -> <Display/>
+  // <Display only>
   INDEX_OF_PARTIAL_TEXTARR: "INDEX_OF_PARTIAL_TEXTARR",
   // from <Display/>
   TEXT_AREA_VALUE: "TEXT_AREA_VALUE",

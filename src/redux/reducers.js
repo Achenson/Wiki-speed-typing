@@ -78,7 +78,7 @@ const initialState = {
   inputArea: {
     textAreaValue: "",
     prevTextAreaValue: ""
-  },
+  }
   /* refs: {
     disablingButton: useRef(null),
     focusTextArea: useRef(null)
@@ -91,6 +91,10 @@ function postReducer(state = initialState, action) {
   // const { currentResults } = state;
   const {
     currentResults: { resultsCorrect, resultsIncorrect, resultsNoPenalty }
+  } = state;
+
+  const {
+    componentsDisplay: { areHintsVisible, areResultsVisible }
   } = state;
   // const { liveResults } = state;
   // const { finalResults } = state;
@@ -156,6 +160,76 @@ function postReducer(state = initialState, action) {
           )
         }
       };
+
+    case "HINTS_VISIBILITY":
+      return {
+        ...state,
+        areHintsVisible: !areHintsVisible
+      };
+    case "RESULTS_VISIBILITY":
+      return {
+        ...state
+      };
+    case "TIMER_VALUE":
+      return {
+        ...state
+      };
+    case "CONSTANT_TIMER_VALUE":
+      return {
+        ...state
+      };
+    case "COUNTER_RUNNING":
+      return {
+        ...state
+      };
+    case "TOGGLE_ACTIVE":
+      return {
+        ...state
+      };
+    case "TO_RESET":
+      return {
+        ...state
+      };
+    case "DISPLAY_TO_RESET":
+      return {
+        ...state
+      };
+
+    // fetch only
+    case "MY_TEXT":
+      return {
+        ...state
+      };
+
+    case "WIKI_TITLE":
+      return {
+        ...state
+      };
+    case "RANDOM_ARTICLE":
+      return {
+        ...state
+      };
+
+    // display only
+
+    case "INDEX_OF_PARTIAL_TEXTARR":
+      return {
+        ...state
+      };
+
+      case "TEXT_AREA_VALUE":
+      return {
+        ...state
+      };
+
+      case "COLOR_FOR_EACH_LETTER":
+      return {
+        ...state
+      };
+
+
+
+
 
     default:
       return state;
