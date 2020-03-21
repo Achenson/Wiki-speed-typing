@@ -138,7 +138,7 @@ const mapDispatchToProps = dispatch => {
   return {
     setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
     setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
-    setNewRandomArticle: () => dispatch({ type: "RANDOM_ARTICLE" })
+    setNewRandomArticle_false: () => dispatch({ type: "RANDOM_ARTICLE_FALSE" })
   };
 };
 

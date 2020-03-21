@@ -96,6 +96,21 @@ function postReducer(state = initialState, action) {
   const {
     componentsDisplay: { areHintsVisible, areResultsVisible }
   } = state;
+
+  const {
+    counter: {
+      timerValue,
+      constantTimerValue,
+      isActive,
+      toReset,
+      isCounterRunning
+    }
+  } = state;
+
+  const {
+    textDisplay: { displayToReset, myText, wikiTitle, newRandomArticle }
+  } = state;
+
   // const { liveResults } = state;
   // const { finalResults } = state;
 
@@ -103,26 +118,37 @@ function postReducer(state = initialState, action) {
     case "RESULTS_CORRECT":
       return {
         ...state,
-        resultsCorrect: resultsCorrect + 1
+        currentResults: {
+          ...store.getState().currentResults,
+          resultsCorrect: resultsCorrect + 1
+        }
       };
     case "RESULTS_INCORRECT":
       return {
         ...state,
-        resultsIncorrect: resultsIncorrect + 1
+        currentResults: {
+          ...store.getState().currentResults,
+          resultsIncorrect: resultsIncorrect + 1
+        }
       };
 
     case "RESULTS_NO_PENALTY":
       return {
         ...state,
-        resultsNoPenalty: resultsNoPenalty + 1
+        currentResults: {
+          ...store.getState().currentResults,
+          resultsNoPenalty: resultsNoPenalty + 1
+        }
       };
 
     case "RESULTS_RESET":
       return {
         ...state,
-        resultsCorrect: 0,
-        resultsIncorrect: 0,
-        resultsNoPenalty: 0
+        currentResults: {
+          resultsCorrect: 0,
+          resultsIncorrect: 0,
+          resultsNoPenalty: 0
+        }
       };
 
     case "SET_LIVE_RESULTS":
@@ -164,72 +190,152 @@ function postReducer(state = initialState, action) {
     case "HINTS_VISIBILITY":
       return {
         ...state,
-        areHintsVisible: !areHintsVisible
+        componentsDisplay: {
+          areHintsVisible: !areHintsVisible,
+          areResultsVisible: areResultsVisible
+        }
       };
     case "RESULTS_VISIBILITY":
       return {
-        ...state
+        ...state,
+        componentsDisplay: {
+          areHintsVisible: areHintsVisible,
+          areResultsVisible: !areResultsVisible
+        }
       };
     case "TIMER_VALUE":
       return {
-        ...state
+        ...state,
+        counter: {
+          ...store.getState().counter,
+          timerValue: action.payload
+        }
       };
+
+    case "TIMER_VALUE_COUNTDOWN":
+      return {
+        ...state,
+        counter: {
+          ...store.getState().counter,
+          timerValue: timerValue - 1
+        }
+      };
+
     case "CONSTANT_TIMER_VALUE":
       return {
-        ...state
+        ...state,
+        counter: {
+          ...store.getState().counter,
+          constantTimerValue: action.payload
+        }
       };
     case "COUNTER_RUNNING":
       return {
-        ...state
+        ...state,
+        counter: {
+          ...store.getState().counter,
+          isCounterRunning: !isCounterRunning
+        }
       };
     case "TOGGLE_ACTIVE":
       return {
-        ...state
+        ...state,
+        counter: {
+          ...store.getState().counter,
+          isActive: !isActive
+        }
       };
-    case "TO_RESET":
+    case "TO_RESET_TRUE":
       return {
-        ...state
+        ...state,
+        counter: {
+          ...store.getState().counter,
+          toReset: true
+        }
       };
+
+    case "TO_RESET_FALSE":
+      return {
+        ...state,
+        counter: {
+          ...store.getState().counter,
+          toReset: false
+        }
+      };
+
     case "DISPLAY_TO_RESET":
       return {
-        ...state
+        ...state,
+        textDisplay: {
+          ...store.getState().textDisplay,
+          displayToReset: true
+        }
       };
 
     // fetch only
     case "MY_TEXT":
       return {
-        ...state
+        ...state,
+        textDisplay: {
+          ...store.getState().textDisplay,
+          myText: action.payload
+        }
       };
 
     case "WIKI_TITLE":
       return {
-        ...state
+        ...state,
+        textDisplay: {
+          ...store.getState().textDisplay,
+          wikiTitle: action.payload
+        }
       };
-    case "RANDOM_ARTICLE":
+    case "RANDOM_ARTICLE_FALSE":
       return {
-        ...state
+        ...state,
+        textDisplay: {
+          ...store.getState().textDisplay,
+          newRandomArticle: false
+        }
       };
 
     // display only
 
     case "INDEX_OF_PARTIAL_TEXTARR":
       return {
-        ...state
+        ...state,
+        wikiDisplay: {
+          ...store.getState().wikiDisplay,
+          indexOfPartialTextArr: action.payload
+        }
       };
 
-      case "TEXT_AREA_VALUE":
+    case "COLOR_FOR_EACH_LETTER":
       return {
-        ...state
+        ...state,
+        wikiDisplay: {
+          ...store.getState().wikiDisplay,
+          colorForEachLetter: action.payload
+        }
       };
 
-      case "COLOR_FOR_EACH_LETTER":
+    case "TEXT_AREA_VALUE":
       return {
-        ...state
+        ...state,
+        inputArea: {
+          ...store.getState().inputArea,
+          textAreaValue: action.payload
+        }
       };
 
-
-
-
+    case "PREV_TEXT_AREA_VALUE":
+      return {
+        ...state,
+        inputArea: {
+          ...store.getState().inputArea,
+          prevTextAreaValue: action.payload
+        }
+      };
 
     default:
       return state;

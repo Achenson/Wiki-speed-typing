@@ -32,11 +32,13 @@ function App({
   resetLiveResults,
   setFinalResults,
   setTimerValue,
+  setTimerValueCountdown,
 
   setIsCounterRunning,
   toggleActive,
 
-  setToReset,
+  setToReset_true,
+  setToReset_false,
   setDisplayToReset,
   setConstantTimerValue,
 
@@ -113,7 +115,7 @@ function App({
 
     if (isActive && timerValue > 0) {
       // timerInterval = setInterval(() => setTimerValue(t => t - 1), 1000);
-      timerInterval = setInterval(() => setTimerValue(), 1000);
+      timerInterval = setInterval(() => setTimerValueCountdown(), 1000);
 
       if (!isCounterRunning) {
 
@@ -132,7 +134,8 @@ function App({
         setIsCounterRunning(b => !b);
       }
 
-      setToReset(false);
+      // setToReset(false);
+      setToReset_false();
     }
     // turning interval off on pause
     if (!isActive && timerValue > 0) {
@@ -176,7 +179,7 @@ function App({
     // if (timerValue !== constantTimerValue) {
     if (isCounterRunning) {
       // setToReset(true);
-      setToReset();
+      setToReset_true();
       // setDisplayToReset(true);
       setDisplayToReset();
     }
@@ -367,14 +370,16 @@ const mapDispatchToProps = dispatch => {
     // from fetch, delete later?
     setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
     setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
-    setNewRandomArticle: () => dispatch({ type: "RANDOM_ARTICLE" }),
+    setNewRandomArticle_false: () => dispatch({ type: "RANDOM_ARTICLE_FALSE" }),
 
 
     setDisplayToReset: () => dispatch({ type: "DISPLAY_TO_RESET" }),
 
     toggleActive: () => dispatch({type: "TOGGLE_ACTIVATE"}),
     setTimerValue: (data) => dispatch({ type: "TIMER_VALUE", payload: data }),
-    setToReset: () => dispatch({ type: "TO_RESET" }),
+    setTimerValueCountdown: () => dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
+    setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
+    setToReset_false: () => dispatch({ type: "TO_RESET_FALSE" }),
     setIsCounterRunning:() => dispatch({type: "COUNTER_RUNNING"}),
 
     setAreHintsVisible: () => dispatch({type: "HINTS_VISIBILITY"}),
