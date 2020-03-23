@@ -190,7 +190,7 @@ function Display({
     if (displayToReset) {
       resetDisplay();
       // setDisplayToReset(false);
-      setDisplayToReset(false);
+      setDisplayToReset();
     }
 
     function resetDisplay() {
@@ -334,6 +334,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+
+    setDisplayToReset: () => dispatch({ type: "DISPLAY_TO_RESET" }),
     // dispatching plain actions
     resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),
     resultsIncorrect: () => dispatch({ type: "RESULTS_INCORRECT" }),
