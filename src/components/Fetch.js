@@ -25,7 +25,7 @@ function Fetch(props) {
     // from mamDispatchToProps
     setMyText,
     setWikiTitle,
-    setNewRandomArticle,
+    setNewRandomArticle_false,
     // from mapStateToProps
     newRandomArticle,
     // from App
@@ -38,8 +38,8 @@ function Fetch(props) {
     fetchWikiApi();
 
     //  props.setNewRandomArticle(false);
-    setNewRandomArticle(false);
-
+    // setNewRandomArticle(false);
+  setNewRandomArticle_false();
     setTimeout(() => {
       // props.disablingButton.current.removeAttribute("disabled");
       disablingButton.current.removeAttribute("disabled");
@@ -111,7 +111,7 @@ function Fetch(props) {
     newRandomArticle,
     disablingButton,
     setMyText,
-    setNewRandomArticle,
+    setNewRandomArticle_false,
     setWikiTitle,
     focusTextArea
   ]);
@@ -126,10 +126,10 @@ function Fetch(props) {
 
 const mapStateToProps = state => {
   return {
-    disablingButton: state.refs.disablingButton,
-    focusTextArea: state.refs.focusTextArea,
+    // disablingButton: state.refs.disablingButton,
+    // focusTextArea: state.refs.focusTextArea,
 
-    newRandomArticle: state.textDisplay.newRandomArticle
+    newRandomArticle: state.totalState.textDisplay.newRandomArticle
   };
 };
 

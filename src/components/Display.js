@@ -318,14 +318,14 @@ function Display({
 
 const mapStateToProps = state => {
   return {
-    timerValue: state.counter.timerValue, // (1)
-    textAreaValue: state.InputArea,
-    prevTextAreaValue: state.prevTextAreaValue,
-    indexOfPartialTextArr: state.wikiDisplay.indexOfPartialTextArr,
-    colorForEachLetter: state.wikiDisplay.colorForEachLetter,
+    timerValue: state.totalState.counter.timerValue, // (1)
+    textAreaValue: state.totalState.inputArea.textAreaValue,
+    prevTextAreaValue: state.totalState.inputArea.prevTextAreaValue,
+    indexOfPartialTextArr: state.totalState.wikiDisplay.indexOfPartialTextArr,
+    colorForEachLetter: state.totalState.wikiDisplay.colorForEachLetter,
 
-    liveResults: state.liveResults,
-    finalResults: state.finalResults
+    liveResults: state.totalState.liveResults,
+    finalResults: state.totalState.finalResults
 
     
   };

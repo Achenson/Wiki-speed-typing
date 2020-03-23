@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { useCallback } from "react";
+// import { useCallback } from "react";
 
 import store from "./store.js";
 
@@ -17,13 +17,21 @@ import store from "./store.js";
 
 const lengthOfSinglePart = 363;
 //make default(gray) color in wiki display area
-const makeDefaultColoredLetters = useCallback(() => {
+/* const makeDefaultColoredLetters = useCallback(() => {
   let arrToReturn = [];
   for (let i = 0; i < lengthOfSinglePart; i++) {
     arrToReturn.push("DimGray");
   }
   return arrToReturn;
-}, [lengthOfSinglePart]);
+}, [lengthOfSinglePart]); */
+
+function makeDefaultColoredLetters() {
+  let arrToReturn = [];
+  for (let i = 0; i < lengthOfSinglePart; i++) {
+    arrToReturn.push("DimGray");
+  }
+  return arrToReturn;
+}
 
 const initialState = {
   // originally from <Reducer/> component ======
@@ -119,7 +127,8 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         currentResults: {
-          ...store.getState().currentResults,
+          // ...store.getState().currentResults,
+          ...state.currentResults,
           resultsCorrect: resultsCorrect + 1
         }
       };
@@ -127,7 +136,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         currentResults: {
-          ...store.getState().currentResults,
+          ...state.currentResults,
           resultsIncorrect: resultsIncorrect + 1
         }
       };
@@ -136,7 +145,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         currentResults: {
-          ...store.getState().currentResults,
+          ...state.currentResults,
           resultsNoPenalty: resultsNoPenalty + 1
         }
       };
@@ -156,10 +165,10 @@ function postReducer(state = initialState, action) {
         ...state,
         liveResults: {
           ...resultsMaker(
-            store.getState().currentResults.resultsCorrect,
-            store.getState().currentResults.resultsIncorrect,
-            store.getState().currentResults.resultsNoPenalty,
-            store.getState().counter.timerValue
+            state.currentResults.resultsCorrect,
+            state.currentResults.resultsIncorrect,
+            state.getState().currentResults.resultsNoPenalty,
+            state.getState().counter.timerValue
           )
         }
       };
@@ -179,9 +188,9 @@ function postReducer(state = initialState, action) {
           // timerValue is set to 0, because that's the proper value if the counter is finished
           // otherwise - bug - infinite number due to timerValue reseting to constantTimerValue
           ...resultsMaker(
-            store.getState().currentResults.resultsCorrect,
-            store.getState().currentResults.resultsIncorrect,
-            store.getState().currentResults.resultsNoPenalty,
+            state.currentResults.resultsCorrect,
+            state.currentResults.resultsIncorrect,
+            state.currentResults.resultsNoPenalty,
             0
           )
         }
@@ -207,7 +216,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         counter: {
-          ...store.getState().counter,
+          ...state.counter,
           timerValue: action.payload
         }
       };
@@ -216,7 +225,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         counter: {
-          ...store.getState().counter,
+          ...state.counter,
           timerValue: timerValue - 1
         }
       };
@@ -225,7 +234,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         counter: {
-          ...store.getState().counter,
+          ...state.counter,
           constantTimerValue: action.payload
         }
       };
@@ -233,7 +242,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         counter: {
-          ...store.getState().counter,
+          ...state.counter,
           isCounterRunning: !isCounterRunning
         }
       };
@@ -241,7 +250,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         counter: {
-          ...store.getState().counter,
+          ...state.counter,
           isActive: !isActive
         }
       };
@@ -249,7 +258,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         counter: {
-          ...store.getState().counter,
+          ...state.counter,
           toReset: true
         }
       };
@@ -258,7 +267,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         counter: {
-          ...store.getState().counter,
+          ...state.counter,
           toReset: false
         }
       };
@@ -267,7 +276,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         textDisplay: {
-          ...store.getState().textDisplay,
+          ...state.textDisplay,
           displayToReset: true
         }
       };
@@ -277,7 +286,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         textDisplay: {
-          ...store.getState().textDisplay,
+          ...state.textDisplay,
           myText: action.payload
         }
       };
@@ -286,7 +295,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         textDisplay: {
-          ...store.getState().textDisplay,
+          ...state.textDisplay,
           wikiTitle: action.payload
         }
       };
@@ -294,7 +303,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         textDisplay: {
-          ...store.getState().textDisplay,
+          ...state.textDisplay,
           newRandomArticle: false
         }
       };
@@ -305,7 +314,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         wikiDisplay: {
-          ...store.getState().wikiDisplay,
+          ...state.wikiDisplay,
           indexOfPartialTextArr: action.payload
         }
       };
@@ -314,7 +323,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         wikiDisplay: {
-          ...store.getState().wikiDisplay,
+          ...state.wikiDisplay,
           colorForEachLetter: action.payload
         }
       };
@@ -323,7 +332,8 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         inputArea: {
-          ...store.getState().inputArea,
+          // !!!! You may not call store.getState() while the reducer is executing. 
+          ...state.inputArea,
           textAreaValue: action.payload
         }
       };
@@ -332,7 +342,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         inputArea: {
-          ...store.getState().inputArea,
+          ...state.inputArea,
           prevTextAreaValue: action.payload
         }
       };

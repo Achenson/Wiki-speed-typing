@@ -346,20 +346,21 @@ function App({
 
 const mapStateToProps = state => {
   return {
-    timerValue: state.counter.timerValue, // (1)
-    constantTimerValue: state.counter.constantTimerValue, // (1)
-    isActive: state.counter.isActive, // (1)
-    toReset: state.counter.toReset, // (1)
-    isCounterRunning: state.counter.isCounterRunning, // (1)
-    displayToReset: state.textDisplay.displayToReset,
-    myText: state.textDisplay.myText,
-    wikiTitle: state.textDisplay.wikiTitle,
-    newRandomArticle: state.textDisplay.newRandomArticle,
+    //  !!!! total state from reducers.js combineReducers at the end
+    timerValue: state.totalState.counter.timerValue, // (1)
+    constantTimerValue: state.totalState.counter.constantTimerValue, // (1)
+    isActive: state.totalState.counter.isActive, // (1)
+    toReset: state.totalState.counter.toReset, // (1)
+    isCounterRunning: state.totalState.counter.isCounterRunning, // (1)
+    displayToReset: state.totalState.textDisplay.displayToReset,
+    myText: state.totalState.textDisplay.myText,
+    wikiTitle: state.totalState.textDisplay.wikiTitle,
+    newRandomArticle: state.totalState.textDisplay.newRandomArticle,
     // hints & results
-    areHintsVisible: state.componentsDisplay.areHintsVisible,
-    areResultsVisible: state.componentsDisplay.areResultsVisible,
-    disablingButton: state.refs.disablingButton,
-    focusTextArea: state.refs.focusTextArea,
+    areHintsVisible: state.totalState.componentsDisplay.areHintsVisible,
+    areResultsVisible: state.totalState.componentsDisplay.areResultsVisible,
+    // disablingButton: state.totalState.refs.disablingButton,
+    // focusTextArea: state.totalState.refs.focusTextArea,
 
   };
 };
