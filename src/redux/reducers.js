@@ -283,7 +283,7 @@ function postReducer(state = initialState, action) {
         }
       };
 
-    case "DISPLAY_TO_RESET":
+    case "DISPLAY_TO_RESET_TRUE":
       return {
         ...state,
         textDisplay: {
@@ -291,6 +291,15 @@ function postReducer(state = initialState, action) {
           displayToReset: true
         }
       };
+
+      case "DISPLAY_TO_RESET_FALSE":
+        return {
+          ...state,
+          textDisplay: {
+            ...state.textDisplay,
+            displayToReset: false
+          }
+        };
 
     // fetch only
     case "MY_TEXT":
@@ -310,6 +319,17 @@ function postReducer(state = initialState, action) {
           wikiTitle: action.payload
         }
       };
+
+      case "RANDOM_ARTICLE_TRUE":
+        return {
+          ...state,
+          textDisplay: {
+            ...state.textDisplay,
+            newRandomArticle: true
+          }
+        };
+  
+
     case "RANDOM_ARTICLE_FALSE":
       return {
         ...state,

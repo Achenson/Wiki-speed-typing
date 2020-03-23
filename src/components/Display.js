@@ -17,7 +17,8 @@ import Results from "./Results.js";
 function Display({
   myText,
   displayToReset,
-  setDisplayToReset,
+  // setDisplayToReset_true,
+  setDisplayToReset_false,
 
   resultsCorrect,
   resultsIncorrect,
@@ -42,7 +43,7 @@ function Display({
   resetTimer,
   isActive,
   disablingButton,
-  setNewRandomArticle,
+  setNewRandomArticle_true,
   wikiTitle,
   putFocusOnTextArea,
   isDisabled,
@@ -179,7 +180,8 @@ function Display({
     if (displayToReset) {
       resetDisplay();
       // setDisplayToReset(false);
-      setDisplayToReset();
+      setDisplayToReset_false()
+      // setDisplayToReset();
     }
 
     function resetDisplay() {
@@ -190,7 +192,7 @@ function Display({
   }, [
     displayToReset,
     makeDefaultColoredLetters,
-    setDisplayToReset,
+    setDisplayToReset_false,
     //
     setColorForEachLetter,
     setIndexOfPartialTextArr,
@@ -286,7 +288,7 @@ function Display({
 
         <WikiController
           wikiTitle={wikiTitle}
-          setNewRandomArticle={setNewRandomArticle}
+          setNewRandomArticle_true={setNewRandomArticle_true}
           disablingButton={disablingButton}
           isActive={isActive}
           resetTimer={resetTimer}
@@ -325,7 +327,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setDisplayToReset: () => dispatch({ type: "DISPLAY_TO_RESET" }),
+    // setDisplayToReset_true: () => dispatch({ type: "DISPLAY_TO_RESET_TRUE" }),
+    setDisplayToReset_false: () => dispatch({ type: "DISPLAY_TO_RESET_FALSE" }),
+
+
     // dispatching plain actions
     resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),
     resultsIncorrect: () => dispatch({ type: "RESULTS_INCORRECT" }),

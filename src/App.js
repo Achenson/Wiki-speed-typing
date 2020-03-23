@@ -22,6 +22,8 @@ function App({
   myText,
   wikiTitle,
   newRandomArticle,
+  setNewRandomArticle_true,
+  setNewRandomArticle_false,
   areHintsVisible,
   areResultsVisible,
 // from mapDispatchToProps
@@ -40,7 +42,8 @@ function App({
 
   setToReset_true,
   setToReset_false,
-  setDisplayToReset,
+  setDisplayToReset_true,
+  // setDisplayToReset_false,
   setConstantTimerValue,
 
 
@@ -138,12 +141,13 @@ function App({
       setIsActiveToFalse();
 
       if (isCounterRunning) {
-        setIsCounterRunning(b => !b);
+        // setIsCounterRunning(b => !b);
+        setIsCounterRunning();
       }
 
       // setToReset(false);
-      // setToReset_false();
-      setIsActiveToFalse();
+      setToReset_false();
+      // setIsActiveToFalse();
     }
     // turning interval off on pause
     if (!isActive && timerValue > 0) {
@@ -153,14 +157,15 @@ function App({
 
     if (timerValue <= 0) {
       // setDisplayToReset(true);
-      setDisplayToReset();
+      setDisplayToReset_true();
 
       clearInterval(timerInterval);
 
       // toggleActive(false);
       setIsActiveToFalse();
       if (isCounterRunning) {
-        setIsCounterRunning(b => !b);
+        // setIsCounterRunning(b => !b);
+        setIsCounterRunning();
       }
 
       setTimerValue(constantTimerValue);
@@ -173,7 +178,7 @@ function App({
     // useEffect will run every time isActive changes
   }, [timerValue, isActive, toReset, isCounterRunning, constantTimerValue,
   // 
-  setDisplayToReset,setIsCounterRunning, setTimerValue, setTimerValueCountdown, setToReset_false, toggleActive
+  setDisplayToReset_true,setIsCounterRunning, setTimerValue, setTimerValueCountdown, setToReset_false, toggleActive
   ]);
 
   // for pause button
@@ -194,7 +199,7 @@ function App({
       // setToReset(true);
       setToReset_true();
       // setDisplayToReset(true);
-      setDisplayToReset();
+      setDisplayToReset_true();
     }
     return;
   }
@@ -306,7 +311,7 @@ function App({
         // setMyText={setMyText}
         wikiTitle={wikiTitle}
         // setWikiTitle={setWikiTitle}
-        newRandomArticle={newRandomArticle}
+        setNewRandomArticle_false={setNewRandomArticle_false}
         // setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         loremText={loremText}
@@ -339,9 +344,16 @@ function App({
         // results
         myText={myText}
         wikiTitle={wikiTitle}
-        // setNewRandomArticle={setNewRandomArticle}
         disablingButton={disablingButton}
         isCounterRunning={isCounterRunning}
+
+        // setNewRandomArticle={setNewRandomArticle}
+
+        // for Display => WikiController
+        setNewRandomArticle_true={setNewRandomArticle_true}
+        // for Fetch
+        setNewRandomArticle_false={setNewRandomArticle_false}
+
 
         // dispatch={dispatch}
       />
@@ -387,15 +399,25 @@ const mapDispatchToProps = dispatch => {
     // from fetch, delete later?
     setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
     setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
+
+    // fetch & wikiController
     setNewRandomArticle_false: () => dispatch({ type: "RANDOM_ARTICLE_FALSE" }),
 
+    // wikiController from Display
+    setNewRandomArticle_true: () => dispatch({ type: "RANDOM_ARTICLE_TRUE" }),
 
-    setDisplayToReset: () => dispatch({ type: "DISPLAY_TO_RESET" }),
+    // for App
+    setDisplayToReset_true: () => dispatch({ type: "DISPLAY_TO_RESET_TRUE" }),
+    // 
+    
 
     toggleActive: () => dispatch({type: "TOGGLE_ACTIVE"}),
     setIsActiveToFalse: () => dispatch({type: "SET_IS_ACTIVE_TO_FALSE"}),
     setTimerValue: (data) => dispatch({ type: "TIMER_VALUE", payload: data }),
     setTimerValueCountdown: (data) => dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
+
+    setConstantTimerValue: (data) => dispatch({ type: "CONSTANT_TIMER_VALUE", payload: data }),
+
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
     setToReset_false: () => dispatch({ type: "TO_RESET_FALSE" }),
     setIsCounterRunning:() => dispatch({type: "COUNTER_RUNNING"}),
@@ -407,7 +429,8 @@ const mapDispatchToProps = dispatch => {
     setIndexOfPartialTextArr: (data) => dispatch({type: "INDEX_OF_PARTIAL_TEXTARR" ,payload: data}),
     setTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
     setPrevTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
-    setColorForEachLetter: (data) => dispatch({type: "COLOR_FOR_EACH_LETTER", payload: data})
+    setColorForEachLetter: (data) => dispatch({type: "COLOR_FOR_EACH_LETTER", payload: data}),
+    setDisplayToReset_false: () => dispatch({ type: "DISPLAY_TO_RESET_FALSE" }),
   };
 };
 

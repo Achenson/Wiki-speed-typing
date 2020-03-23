@@ -23,11 +23,11 @@ function WikiController(props) {
         className="btn btn-control btn-wiki"
         onClick={() => {
           if (!props.isCounterRunning) {
-            props.setNewRandomArticle(true);
+            props.setNewRandomArticle_true();
             props.disablingButton.current.setAttribute("disabled", true);
           } else {
             props.resetTimer();
-            props.setNewRandomArticle(true);
+            props.setNewRandomArticle_true();
             props.disablingButton.current.setAttribute("disabled", true);
           }
         }}
