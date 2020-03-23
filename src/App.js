@@ -377,7 +377,7 @@ const mapDispatchToProps = dispatch => {
 
     toggleActive: () => dispatch({type: "TOGGLE_ACTIVATE"}),
     setTimerValue: (data) => dispatch({ type: "TIMER_VALUE", payload: data }),
-    setTimerValueCountdown: () => dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
+    setTimerValueCountdown: (data) => dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
     setToReset_false: () => dispatch({ type: "TO_RESET_FALSE" }),
     setIsCounterRunning:() => dispatch({type: "COUNTER_RUNNING"}),
