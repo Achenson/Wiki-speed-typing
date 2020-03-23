@@ -1,10 +1,10 @@
 import React from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 
 import "./App.css";
 import Fetch from "./components/Fetch.js";
 import Display from "./components/Display.js";
-import Reducer from "./components/Reducer.js";
+// import Reducer from "./components/Reducer.js";
 
 import { connect } from "react-redux";
 
@@ -95,7 +95,9 @@ function App({
     // functional update(r=>!r) so the useCallback don't depend on areResultsVisible
     setAreResultsVisible()
     // setAreResultsVisible(r => !r);
-  }, []);
+  }, [
+    // 
+    setAreResultsVisible]);
 
   useEffect(() => {
     if (isActive && timerValue > 0 && areResultsVisible) {
@@ -105,7 +107,10 @@ function App({
     if (!areResultsVisible && timerValue <= 0) {
       toggleResults();
     }
-  }, [isActive, timerValue, areResultsVisible, toggleResults]);
+  }, [isActive, timerValue, areResultsVisible, toggleResults,
+  // 
+  setAreResultsVisible
+  ]);
 
   // for counter=======
   useEffect(() => {
@@ -162,7 +167,10 @@ function App({
     // "our interval would be cleared and set again whenever the count changes" (useEffect complete guite)
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
-  }, [timerValue, isActive, toReset, isCounterRunning, constantTimerValue]);
+  }, [timerValue, isActive, toReset, isCounterRunning, constantTimerValue,
+  // 
+  setDisplayToReset,setIsCounterRunning, setTimerValue, setTimerValueCountdown, setToReset_false, toggleActive
+  ]);
 
   // for pause button
   function toggleTimer() {
@@ -280,7 +288,10 @@ function App({
       // dispatch({ type: "reset" });
       // dispatch({ type: "resetLiveResults" });
     }
-  }, [timerValue, isActive, toReset, constantTimerValue]);
+  }, [timerValue, isActive, toReset, constantTimerValue,
+  // 
+  resetLiveResults, resultsReset, setFinalResults, setLiveResults
+  ]);
   // ===========================================
 
   return (
@@ -304,7 +315,7 @@ function App({
         // setTimerValue={setTimerValue}
         constantTimerValue={constantTimerValue}
         toggleTimer={toggleTimer}
-        // setTimerOnSelect={setTimerOnSelect}
+        setTimerOnSelect={setTimerOnSelect}
         isActive={isActive}
         resetTimer={resetTimer}
         toReset={toReset}

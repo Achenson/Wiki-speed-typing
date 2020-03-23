@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 
 import store from "./store.js";
 
-import actionTypes from "./actionTypes";
+// import actionTypes from "./actionTypes";
 
 /* let {
   RESULTS_CORRECT,
@@ -100,16 +100,16 @@ function postReducer(state = initialState, action) {
   const {
     counter: {
       timerValue,
-      constantTimerValue,
+      // constantTimerValue,
       isActive,
-      toReset,
+      // toReset,
       isCounterRunning
     }
   } = state;
 
-  const {
+ /*  const {
     textDisplay: { displayToReset, myText, wikiTitle, newRandomArticle }
-  } = state;
+  } = state; */
 
   // const { liveResults } = state;
   // const { finalResults } = state;

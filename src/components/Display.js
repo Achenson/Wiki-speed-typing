@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 // import SingleLetter from "./SingleLetter.js";
 import { connect } from "react-redux";
 
@@ -102,7 +102,7 @@ function Display({
 
   useEffect(() => {
 
-    let arrOutOfTextValue = textAreaValue.split("");
+    // let arrOutOfTextValue = textAreaValue.split("");
     // console.log("arrOutOfTextValue");
     // console.log(arrOutOfTextValue);
 
@@ -159,15 +159,29 @@ function Display({
 
     setPrevTextAreaValue(textAreaValue);
   }, [
+
+    resultsCorrect,
+    resultsIncorrect,
+    resultsNoPenalty,
+    setColorForEachLetter,
+    setIndexOfPartialTextArr,
+    setPrevTextAreaValue,
+    setTextAreaValue,
+
+
+
     textAreaValue,
-    prevTextAreaValue.length,
+    
     // dispatch,
+
     colorForEachLetter,
     arrOutOfText,
     indexOfPartialTextArr,
+    makeDefaultColoredLetters,
+    prevTextAreaValue.length,
     textDividedByLength_floor,
     textToRender.length,
-    makeDefaultColoredLetters
+     
   ]);
 
   // reseting display
@@ -184,7 +198,10 @@ function Display({
       setIndexOfPartialTextArr(0);
       setColorForEachLetter(makeDefaultColoredLetters());
     }
-  }, [displayToReset, makeDefaultColoredLetters, setDisplayToReset]);
+  }, [displayToReset, makeDefaultColoredLetters, setDisplayToReset,
+    // 
+  setColorForEachLetter, setIndexOfPartialTextArr, setTextAreaValue
+  ]);
 
   // arrToRender = [ [letter, color for the letter], ... ]
   const arrToRender = makeArrayToRender();

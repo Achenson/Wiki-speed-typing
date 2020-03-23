@@ -109,7 +109,6 @@ function Fetch(props) {
     }
   }, [
     newRandomArticle,
-    loremText,
     disablingButton,
     setMyText,
     setNewRandomArticle,
