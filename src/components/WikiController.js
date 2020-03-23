@@ -2,7 +2,7 @@ import React from "react";
 // import { useState, useEffect, useRef } from "react";
 
 function WikiController(props) {
-  console.log(props.wikiTitle);
+  // console.log(props.wikiTitle);
 
   return (
     <div className="wiki-controler container">

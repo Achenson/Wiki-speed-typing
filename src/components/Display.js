@@ -3,8 +3,6 @@ import { useEffect, useCallback } from "react";
 // import SingleLetter from "./SingleLetter.js";
 import { connect } from "react-redux";
 
-
-
 import WikiController from "./WikiController.js";
 import Hints from "./Hints.js";
 import UpperUI from "./UpperUI.js";
@@ -14,18 +12,12 @@ import Controls from "./Controls.js";
 import ResultsButton from "./ResultsButton.js";
 import Results from "./Results.js";
 
-
-
 // const escapeStringRegexp = require("escape-string-regexp");
 
 function Display({
-
-
-
   myText,
   displayToReset,
   setDisplayToReset,
-
 
   resultsCorrect,
   resultsIncorrect,
@@ -37,33 +29,29 @@ function Display({
   setColorForEachLetter,
 
   textAreaValue,
-    prevTextAreaValue,
-    indexOfPartialTextArr,
-    colorForEachLetter,
-    liveResults,
-    finalResults,
+  prevTextAreaValue,
+  indexOfPartialTextArr,
+  colorForEachLetter,
+  liveResults,
+  finalResults,
 
-    areResultsVisible,
-    focusElement,
-    toggleResults,
-    isCounterRunning,
-    resetTimer,
-    isActive,
-    disablingButton,
-    setNewRandomArticle,
-    wikiTitle,
-    putFocusOnTextArea,
-    isDisabled,
-    setTimerOnSelect,
-    toggleTimer,
-    toggleHints,
-    areHintsVisible,
-    focusTextArea,
-    timerValue
-
-
-
-
+  areResultsVisible,
+  focusElement,
+  toggleResults,
+  isCounterRunning,
+  resetTimer,
+  isActive,
+  disablingButton,
+  setNewRandomArticle,
+  wikiTitle,
+  putFocusOnTextArea,
+  isDisabled,
+  setTimerOnSelect,
+  toggleTimer,
+  toggleHints,
+  areHintsVisible,
+  focusTextArea,
+  timerValue
 }) {
   // rendering text ============================
   const lengthOfSinglePart = 363;
@@ -101,17 +89,18 @@ function Display({
   // let { dispatch } = props;
 
   useEffect(() => {
-
     // let arrOutOfTextValue = textAreaValue.split("");
     // console.log("arrOutOfTextValue");
     // console.log(arrOutOfTextValue);
 
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
+     
+
       let colorForEachLetter_2 = [...colorForEachLetter];
 
       // dispatch({ type: "resultsNoPenalty" });
-      resultsNoPenalty() 
+      resultsNoPenalty();
       // mapresultsCorrect();
 
       if (
@@ -119,22 +108,22 @@ function Display({
         arrOutOfText[textAreaValue.length - 1]
       ) {
         // dispatch({ type: "resultsCorrect" });
-        resultsCorrect() 
+        resultsCorrect();
         colorForEachLetter_2[textAreaValue.length - 1] = "blue";
       }
-      
+
       if (
         textAreaValue[textAreaValue.length - 1] !==
         arrOutOfText[textAreaValue.length - 1]
-        ) {
-          
-          resultsIncorrect() 
+      ) {
+        resultsIncorrect();
         // dispatch({ type: "resultsIncorrect" });
         colorForEachLetter_2[textAreaValue.length - 1] = "red";
       }
 
       setColorForEachLetter([...colorForEachLetter_2]);
 
+      // if the last letter in a display is reached -> clear inputArea, load new screen
       if (textAreaValue.length === textToRender.length) {
         // e.target.value = "";
         setTextAreaValue("");
@@ -152,6 +141,8 @@ function Display({
     }
 
     if (textAreaValue.length < prevTextAreaValue.length) {
+
+      
       let colorForEachLetter_3 = [...colorForEachLetter];
       colorForEachLetter_3[textAreaValue.length] = "DimGray";
       setColorForEachLetter([...colorForEachLetter_3]);
@@ -159,29 +150,27 @@ function Display({
 
     setPrevTextAreaValue(textAreaValue);
   }, [
-
-     resultsCorrect,
-     resultsIncorrect,
-     resultsNoPenalty,
+    resultsCorrect,
+    resultsIncorrect,
+    resultsNoPenalty,
     setColorForEachLetter,
-     setIndexOfPartialTextArr,
-     setPrevTextAreaValue,
+    setIndexOfPartialTextArr,
+    setPrevTextAreaValue,
     setTextAreaValue,
 
-
-
     textAreaValue,
-    
+
     // dispatch,
 
-  // colorForEachLetter,
+    // colorForEachLetter,
     // arrOutOfText,
+
+
     indexOfPartialTextArr,
     makeDefaultColoredLetters,
     prevTextAreaValue.length,
     textDividedByLength_floor,
-    textToRender.length,
-      
+    textToRender.length
   ]);
 
   // reseting display
@@ -198,9 +187,14 @@ function Display({
       setIndexOfPartialTextArr(0);
       setColorForEachLetter(makeDefaultColoredLetters());
     }
-  }, [displayToReset, makeDefaultColoredLetters, setDisplayToReset,
-    // 
-  setColorForEachLetter, setIndexOfPartialTextArr, setTextAreaValue
+  }, [
+    displayToReset,
+    makeDefaultColoredLetters,
+    setDisplayToReset,
+    //
+    setColorForEachLetter,
+    setIndexOfPartialTextArr,
+    setTextAreaValue
   ]);
 
   // arrToRender = [ [letter, color for the letter], ... ]
@@ -326,37 +320,30 @@ const mapStateToProps = state => {
 
     liveResults: state.totalState.liveResults,
     finalResults: state.totalState.finalResults
-
-    
   };
 };
 
-
 const mapDispatchToProps = dispatch => {
   return {
-
     setDisplayToReset: () => dispatch({ type: "DISPLAY_TO_RESET" }),
     // dispatching plain actions
     resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),
     resultsIncorrect: () => dispatch({ type: "RESULTS_INCORRECT" }),
     resultsNoPenalty: () => dispatch({ type: "RESULTS_NO_PENALTY" }),
 
-      // for display only, delete later
-      setIndexOfPartialTextArr: (data) => dispatch({type: "INDEX_OF_PARTIAL_TEXTARR" ,payload: data}),
-      setTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
-      setPrevTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
-      setColorForEachLetter: (data) => dispatch({type: "COLOR_FOR_EACH_LETTER", payload: data})
-
-
-
-   
+    // for display only, delete later
+    setIndexOfPartialTextArr: data =>
+      dispatch({ type: "INDEX_OF_PARTIAL_TEXTARR", payload: data }),
+    setTextAreaValue: data =>
+      dispatch({ type: "TEXT_AREA_VALUE", payload: data }),
+    setPrevTextAreaValue: data =>
+      dispatch({ type: "PREV_TEXT_AREA_VALUE", payload: data }),
+    setColorForEachLetter: data =>
+      dispatch({ type: "COLOR_FOR_EACH_LETTER", payload: data })
   };
 };
 
 // export default Display;
-
-
-
 
 export default connect(
   mapStateToProps,
