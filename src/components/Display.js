@@ -160,12 +160,12 @@ function Display({
     setPrevTextAreaValue(textAreaValue);
   }, [
 
-    resultsCorrect,
-    resultsIncorrect,
-    resultsNoPenalty,
+     resultsCorrect,
+     resultsIncorrect,
+     resultsNoPenalty,
     setColorForEachLetter,
-    setIndexOfPartialTextArr,
-    setPrevTextAreaValue,
+     setIndexOfPartialTextArr,
+     setPrevTextAreaValue,
     setTextAreaValue,
 
 
@@ -174,14 +174,14 @@ function Display({
     
     // dispatch,
 
-    colorForEachLetter,
-    arrOutOfText,
+  // colorForEachLetter,
+    // arrOutOfText,
     indexOfPartialTextArr,
     makeDefaultColoredLetters,
     prevTextAreaValue.length,
     textDividedByLength_floor,
     textToRender.length,
-     
+      
   ]);
 
   // reseting display

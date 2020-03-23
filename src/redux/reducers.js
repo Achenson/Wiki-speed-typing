@@ -167,8 +167,8 @@ function postReducer(state = initialState, action) {
           ...resultsMaker(
             state.currentResults.resultsCorrect,
             state.currentResults.resultsIncorrect,
-            state.getState().currentResults.resultsNoPenalty,
-            state.getState().counter.timerValue
+            state.currentResults.resultsNoPenalty,
+            state.counter.timerValue
           )
         }
       };
@@ -254,6 +254,17 @@ function postReducer(state = initialState, action) {
           isActive: !isActive
         }
       };
+      case "SET_IS_ACTIVE_TO_FALSE":
+        return {
+          ...state,
+          counter: {
+            ...state.counter,
+            isActive: false
+          }
+        };
+
+
+
     case "TO_RESET_TRUE":
       return {
         ...state,

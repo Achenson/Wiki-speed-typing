@@ -36,6 +36,7 @@ function App({
 
   setIsCounterRunning,
   toggleActive,
+  setIsActiveToFalse,
 
   setToReset_true,
   setToReset_false,
@@ -133,14 +134,16 @@ function App({
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
       // shoul be named setActivate
-      toggleActive(false);
+      // toggleActive(false);
+      setIsActiveToFalse();
 
       if (isCounterRunning) {
         setIsCounterRunning(b => !b);
       }
 
       // setToReset(false);
-      setToReset_false();
+      // setToReset_false();
+      setIsActiveToFalse();
     }
     // turning interval off on pause
     if (!isActive && timerValue > 0) {
@@ -154,7 +157,8 @@ function App({
 
       clearInterval(timerInterval);
 
-      toggleActive(false);
+      // toggleActive(false);
+      setIsActiveToFalse();
       if (isCounterRunning) {
         setIsCounterRunning(b => !b);
       }
@@ -174,7 +178,8 @@ function App({
 
   // for pause button
   function toggleTimer() {
-    toggleActive(!isActive);
+    // toggleActive(!isActive);
+    toggleActive();
   }
 
   // for time select
@@ -387,7 +392,8 @@ const mapDispatchToProps = dispatch => {
 
     setDisplayToReset: () => dispatch({ type: "DISPLAY_TO_RESET" }),
 
-    toggleActive: () => dispatch({type: "TOGGLE_ACTIVATE"}),
+    toggleActive: () => dispatch({type: "TOGGLE_ACTIVE"}),
+    setIsActiveToFalse: () => dispatch({type: "SET_IS_ACTIVE_TO_FALSE"}),
     setTimerValue: (data) => dispatch({ type: "TIMER_VALUE", payload: data }),
     setTimerValueCountdown: (data) => dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
