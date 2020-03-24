@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useCallback } from "react";
-// import SingleLetter from "./SingleLetter.js";
 import { connect } from "react-redux";
 
 import WikiController from "./WikiController.js";
@@ -63,7 +62,6 @@ function Display({
   );
 
   let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
-  // const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0);
   let textToRender = arrOfPartialText[indexOfPartialTextArr];
   let arrOutOfText = textToRender.split("");
 
@@ -76,37 +74,19 @@ function Display({
     return arrToReturn;
   }, [lengthOfSinglePart]);
 
-  /* const [colorForEachLetter, setColorForEachLetter] = useState(
-    // setting gray color for each letter by default
-    makeDefaultColoredLetters()
-  ); */
-
-  // const [textAreaValue, setTextAreaValue] = useState("");
-  // const [prevTextAreaValue, setPrevTextAreaValue] = useState("");
 
   //coloring letters in display according to errors or no
   //  + counting entries!!
-
-  // let { dispatch } = props;
-
   useEffect(() => {
-    // let arrOutOfTextValue = textAreaValue.split("");
-    // console.log("arrOutOfTextValue");
-    // console.log(arrOutOfTextValue);
-
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
       let colorForEachLetter_2 = [...colorForEachLetter];
-
-      // dispatch({ type: "resultsNoPenalty" });
       resultsNoPenalty();
-      // mapresultsCorrect();
 
       if (
         textAreaValue[textAreaValue.length - 1] ===
         arrOutOfText[textAreaValue.length - 1]
       ) {
-        // dispatch({ type: "resultsCorrect" });
         resultsCorrect();
         colorForEachLetter_2[textAreaValue.length - 1] = "blue";
       }
@@ -116,7 +96,6 @@ function Display({
         arrOutOfText[textAreaValue.length - 1]
       ) {
         resultsIncorrect();
-        // dispatch({ type: "resultsIncorrect" });
         colorForEachLetter_2[textAreaValue.length - 1] = "red";
       }
 
@@ -157,12 +136,8 @@ function Display({
     setTextAreaValue,
 
     textAreaValue,
-
-    // dispatch,
-
     colorForEachLetter,
     arrOutOfText,
-
     indexOfPartialTextArr,
     makeDefaultColoredLetters,
     prevTextAreaValue.length,
@@ -171,13 +146,10 @@ function Display({
   ]);
 
   // reseting display
-  // let { displayToReset, setDisplayToReset } = props;
   useEffect(() => {
     if (displayToReset) {
       resetDisplay();
-      // setDisplayToReset(false);
       setDisplayToReset_false();
-      // setDisplayToReset();
     }
 
     function resetDisplay() {
@@ -200,7 +172,6 @@ function Display({
 
   function makeArrOfPartialText(lengthOfSinglePart, myTextToArr) {
     let arrOfPartialText = [];
-    //let myTextToArr = text.split("");
 
     for (let i = 0; i <= textDividedByLength_floor; i++) {
       let newArr = [];
@@ -216,7 +187,6 @@ function Display({
 
       arrOfPartialText.push(joinedNewArr);
     }
-
     //console.log(arrOfPartialText);
     return arrOfPartialText;
   }
@@ -246,13 +216,11 @@ function Display({
       <h3 className="title">Wiki Speed Typing</h3>
       <div className="main-square">
         <UpperUI
-          // resultsObj={resultsObj}
           toggleHints={toggleHints}
           areResultsVisible={areResultsVisible}
           areHintsVisible={areHintsVisible}
           timerValue={timerValue}
           isActive={isActive}
-          // liveResults={props.state.liveResults}
           liveResults={liveResults}
         />
 
@@ -300,8 +268,6 @@ function Display({
 
       <Results
         areResultsVisible={areResultsVisible}
-        // resultsObj={resultsObj} delete?
-        // resultsAfterFinish={resultsAfterFinish} delete?
         finalResults={finalResults}
       />
     </div>
@@ -331,7 +297,7 @@ const mapDispatchToProps = dispatch => {
     resultsIncorrect: () => dispatch({ type: "RESULTS_INCORRECT" }),
     resultsNoPenalty: () => dispatch({ type: "RESULTS_NO_PENALTY" }),
 
-    // for display only, delete later
+    // for display only
     setIndexOfPartialTextArr: data =>
       dispatch({ type: "INDEX_OF_PARTIAL_TEXTARR", payload: data }),
     setTextAreaValue: data =>
@@ -342,8 +308,6 @@ const mapDispatchToProps = dispatch => {
       dispatch({ type: "COLOR_FOR_EACH_LETTER", payload: data })
   };
 };
-
-// export default Display;
 
 export default connect(
   mapStateToProps,

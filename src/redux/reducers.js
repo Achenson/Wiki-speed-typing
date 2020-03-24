@@ -16,7 +16,6 @@ import { combineReducers } from "redux";
 } = actionTypes; */
 
 const lengthOfSinglePart = 363;
-//make default(gray) color in wiki display area
 /* const makeDefaultColoredLetters = useCallback(() => {
   let arrToReturn = [];
   for (let i = 0; i < lengthOfSinglePart; i++) {
@@ -24,7 +23,7 @@ const lengthOfSinglePart = 363;
   }
   return arrToReturn;
 }, [lengthOfSinglePart]); */
-
+//make default(gray) color in wiki display area
 function makeDefaultColoredLetters() {
   let arrToReturn = [];
   for (let i = 0; i < lengthOfSinglePart; i++) {
