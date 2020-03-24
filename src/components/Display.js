@@ -64,7 +64,7 @@ function Display({
 
   let arrOfPartialText = makeArrOfPartialText(lengthOfSinglePart, myTextToArr);
   // const [indexOfPartialTextArr, setIndexOfPartialTextArr] = useState(0);
-  const textToRender = arrOfPartialText[indexOfPartialTextArr];
+  let textToRender = arrOfPartialText[indexOfPartialTextArr];
   let arrOutOfText = textToRender.split("");
 
   //make default(gray) color in wiki display area
@@ -132,7 +132,8 @@ function Display({
         if (indexOfPartialTextArr < textDividedByLength_floor) {
           setColorForEachLetter(makeDefaultColoredLetters());
           setIndexOfPartialTextArr(
-            indexOfPartialTextArr => indexOfPartialTextArr + 1
+            // indexOfPartialTextArr => indexOfPartialTextArr + 1
+            indexOfPartialTextArr+1
           );
         } else {
           setColorForEachLetter(makeDefaultColoredLetters());
