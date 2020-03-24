@@ -23,8 +23,8 @@ function App({
   areHintsVisible,
   areResultsVisible,
   // from mapDispatchToProps
-  setAreHintsVisible,
-  setAreResultsVisible,
+  toggleAreHintsVisible,
+  toggleAreResultsVisible,
   resultsReset,
   setLiveResults,
   resetLiveResults,
@@ -32,7 +32,7 @@ function App({
 
   setTimerValue,
   setTimerValueCountdown,
-  setIsCounterRunning,
+  toggleIsCounterRunning,
   toggleActive,
   setIsActiveToFalse,
   setToReset_true,
@@ -50,8 +50,8 @@ function App({
 
   function toggleHints() {
     if (!isActive) {
-      // setAreHintsVisible(h => !h);
-      setAreHintsVisible();
+      // toggleAreHintsVisible(h => !h);
+      toggleAreHintsVisible();
     }
   }
 
@@ -59,9 +59,9 @@ function App({
   //useCallback is used so useEffect below won't run on every every time toggleResults function is called
   const toggleResults = useCallback(() => {
     // functional update(r=>!r) so the useCallback don't depend on areResultsVisible
-    // setAreResultsVisible(r => !r);
-    setAreResultsVisible();
-  }, [setAreResultsVisible]);
+    // toggleAreResultsVisible(r => !r);
+    toggleAreResultsVisible();
+  }, [toggleAreResultsVisible]);
 
   useEffect(() => {
     if (isActive && timerValue > 0 && areResultsVisible) {
@@ -76,7 +76,7 @@ function App({
     timerValue,
     areResultsVisible,
     toggleResults,
-    setAreResultsVisible
+    toggleAreResultsVisible
   ]);
 
   // for counter=======
@@ -89,8 +89,8 @@ function App({
       timerInterval = setInterval(() => setTimerValueCountdown(), 1000);
 
       if (!isCounterRunning) {
-        // setIsCounterRunning(b => !b);
-        setIsCounterRunning();
+        // toggleIsCounterRunning(b => !b);
+        toggleIsCounterRunning();
       }
     }
 
@@ -100,8 +100,8 @@ function App({
       setIsActiveToFalse();
 
       if (isCounterRunning) {
-        // setIsCounterRunning(b => !b);
-        setIsCounterRunning();
+        // toggleIsCounterRunning(b => !b);
+        toggleIsCounterRunning();
       }
 
       // setToReset(false);
@@ -118,8 +118,8 @@ function App({
       setIsActiveToFalse();
 
       if (isCounterRunning) {
-        // setIsCounterRunning(b => !b);
-        setIsCounterRunning();
+        // toggleIsCounterRunning(b => !b);
+        toggleIsCounterRunning();
       }
 
       setTimerValue(constantTimerValue);
@@ -136,7 +136,7 @@ function App({
     isCounterRunning,
     constantTimerValue,
     setDisplayToReset_true,
-    setIsCounterRunning,
+    toggleIsCounterRunning,
     setTimerValue,
     setTimerValueCountdown,
     setToReset_false,
@@ -350,14 +350,14 @@ const mapDispatchToProps = dispatch => {
 
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
     setToReset_false: () => dispatch({ type: "TO_RESET_FALSE" }),
-    setIsCounterRunning: () => dispatch({ type: "COUNTER_RUNNING" }),
+    toggleIsCounterRunning: () => dispatch({ type: "COUNTER_RUNNING" }),
 
-    setAreHintsVisible: () => dispatch({ type: "HINTS_VISIBILITY" }),
-    setAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" })
+    toggleAreHintsVisible: () => dispatch({ type: "HINTS_VISIBILITY" }),
+    toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" })
 
     // setIndexOfPartialTextArr, setTextAreaValue, setPrevTextAreaValue,
     //  setColorForEachLetter, setDisplayToReset_false for <Display only/>,
-    //  here delete
+    //  here deleted
   };
 };
 
