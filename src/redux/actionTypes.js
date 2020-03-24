@@ -1,3 +1,4 @@
+// file not used for now!
 let actionTypes = {
   RESULTS_CORRECT: "RESULTS_CORRECT",
   RESULTS_INCORRECT: "RESULTS_INCORRECT",

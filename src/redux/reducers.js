@@ -3,16 +3,6 @@ import { combineReducers } from "redux";
 // import store from "./store.js";
 // import actionTypes from "./actionTypes";
 
-/* let {
-  RESULTS_CORRECT,
-  RESULTS_INCORRECT,
-  RESULTS_NO_PENALTY,
-  RESULTS_RESET,
-  SET_LIVE_RESULTS,
-  RESET_LIVE_RESULTS,
-  SET_FINAL_RESULTS
-} = actionTypes; */
-
 const lengthOfSinglePart = 363;
 //make default(gray) color in wiki display area
 function makeDefaultColoredLetters() {
@@ -312,7 +302,6 @@ function postReducer(state = initialState, action) {
       };
 
     // display only
-
     case "INDEX_OF_PARTIAL_TEXTARR":
       return {
         ...state,

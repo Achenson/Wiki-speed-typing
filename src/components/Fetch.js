@@ -1,8 +1,19 @@
 // import React from "react";
 import { useEffect } from "react";
-import loremText from "./_defaultText.js";
 import { connect } from "react-redux";
-function Fetch(props) {
+import loremText from "./_defaultText.js";
+
+function Fetch({
+    // from mamDispatchToProps
+    setMyText,
+    setWikiTitle,
+    setNewRandomArticle_false,
+    // from mapStateToProps
+    newRandomArticle,
+    // from App props
+    disablingButton,
+    focusTextArea
+}) {
   // fetching data from wiki API ===============
 
   // Multiple extracts can only be returned if exintro is set to true.! (if only first part of wiki article is considered)
@@ -17,18 +28,6 @@ function Fetch(props) {
   
   let regexpStringEscaped = /'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~/;
   */
-
-  let {
-    // from mamDispatchToProps
-    setMyText,
-    setWikiTitle,
-    setNewRandomArticle_false,
-    // from mapStateToProps
-    newRandomArticle,
-    // from App props
-    disablingButton,
-    focusTextArea
-  } = props;
 
   useEffect(() => {
     let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exsectionformat=plain`;
