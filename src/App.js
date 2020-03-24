@@ -26,7 +26,7 @@ function App({
   setNewRandomArticle_false,
   areHintsVisible,
   areResultsVisible,
-// from mapDispatchToProps
+  // from mapDispatchToProps
   setAreHintsVisible,
   setAreResultsVisible,
   resultsReset,
@@ -44,9 +44,7 @@ function App({
   setToReset_false,
   setDisplayToReset_true,
   // setDisplayToReset_false,
-  setConstantTimerValue,
-
-
+  setConstantTimerValue
 
   // dipatch
 }) {
@@ -64,8 +62,6 @@ function App({
   // const [isCounterRunning, setIsCounterRunning] = useState(false);
 
   // disabling random wiki article button in <Fetch/>
-
-  
 
   const disablingButton = useRef(null);
 
@@ -89,7 +85,7 @@ function App({
       // setAreHintsVisible(!areHintsVisible);
       // setAreHintsVisible(h => !h);
       // dispatch({ type: "HINTS_VISIBILITY" });
-      setAreHintsVisible()
+      setAreHintsVisible();
     }
   }
 
@@ -97,11 +93,12 @@ function App({
   //useCallback is used so useEffect below won't run on every every time toggleResults function is called
   const toggleResults = useCallback(() => {
     // functional update(r=>!r) so the useCallback don't depend on areResultsVisible
-    setAreResultsVisible()
+    setAreResultsVisible();
     // setAreResultsVisible(r => !r);
   }, [
-    // 
-    setAreResultsVisible]);
+    //
+    setAreResultsVisible
+  ]);
 
   useEffect(() => {
     if (isActive && timerValue > 0 && areResultsVisible) {
@@ -111,9 +108,13 @@ function App({
     if (!areResultsVisible && timerValue <= 0) {
       toggleResults();
     }
-  }, [isActive, timerValue, areResultsVisible, toggleResults,
-  // 
-  setAreResultsVisible
+  }, [
+    isActive,
+    timerValue,
+    areResultsVisible,
+    toggleResults,
+    //
+    setAreResultsVisible
   ]);
 
   // for counter=======
@@ -127,7 +128,6 @@ function App({
       timerInterval = setInterval(() => setTimerValueCountdown(), 1000);
 
       if (!isCounterRunning) {
-
         // setIsCounterRunning(b => !b);
         setIsCounterRunning();
       }
@@ -176,9 +176,20 @@ function App({
     // "our interval would be cleared and set again whenever the count changes" (useEffect complete guite)
     return () => clearInterval(timerInterval);
     // useEffect will run every time isActive changes
-  }, [timerValue, isActive, toReset, isCounterRunning, constantTimerValue,
-  // 
-  setDisplayToReset_true,setIsCounterRunning, setTimerValue, setTimerValueCountdown, setToReset_false, toggleActive
+  }, [
+    timerValue,
+    isActive,
+    toReset,
+    isCounterRunning,
+    constantTimerValue,
+    //
+    setDisplayToReset_true,
+    setIsCounterRunning,
+    setTimerValue,
+    setTimerValueCountdown,
+    setToReset_false,
+    toggleActive,
+    setIsActiveToFalse
   ]);
 
   // for pause button
@@ -242,7 +253,6 @@ function App({
   // useRef focusin on textArea if the timer is active
   const focusElement = useRef(null);
 
-  
   const focusTextArea = useRef(null);
 
   useEffect(() => {
@@ -265,9 +275,7 @@ function App({
     focusTextArea.current.focus();
   }
 
-
-
-   // =========================================== from <Fetch/> components
+  // =========================================== from <Fetch/> components
   // for setting results (live & final)=====
   // let { isActive, timerValue, constantTimerValue, toReset } = props;
   useEffect(() => {
@@ -275,32 +283,36 @@ function App({
       // for displaying 0speed & 0 accuracy if the counter becomes active
       // dispatch({ type: "reset" });
       // dispatch({ type: "resetLiveResults" });
-      resultsReset()
-      resetLiveResults()
-
-
-
+      resultsReset();
+      resetLiveResults();
 
       // for live results display every 2s  ==============
     } else if (isActive && timerValue % 2 === 0) {
       // dispatch({ type: "setLiveResults" });
-      setLiveResults()
+      setLiveResults();
     }
     if (toReset) {
       // dispatch({ type: "resetLiveResults" });
-      resetLiveResults()
+      resetLiveResults();
     }
     if (timerValue <= 0) {
-      setFinalResults()
-      resultsReset()
-      resetLiveResults()
+      setFinalResults();
+      resultsReset();
+      resetLiveResults();
       // dispatch({ type: "setFinalResults" });
       // dispatch({ type: "reset" });
       // dispatch({ type: "resetLiveResults" });
     }
-  }, [timerValue, isActive, toReset, constantTimerValue,
-  // 
-  resetLiveResults, resultsReset, setFinalResults, setLiveResults
+  }, [
+    timerValue,
+    isActive,
+    toReset,
+    constantTimerValue,
+    //
+    resetLiveResults,
+    resultsReset,
+    setFinalResults,
+    setLiveResults
   ]);
   // ===========================================
 
@@ -346,14 +358,12 @@ function App({
         wikiTitle={wikiTitle}
         disablingButton={disablingButton}
         isCounterRunning={isCounterRunning}
-
         // setNewRandomArticle={setNewRandomArticle}
 
         // for Display => WikiController
         setNewRandomArticle_true={setNewRandomArticle_true}
         // for Fetch
         setNewRandomArticle_false={setNewRandomArticle_false}
-
 
         // dispatch={dispatch}
       />
@@ -375,10 +385,9 @@ const mapStateToProps = state => {
     newRandomArticle: state.totalState.textDisplay.newRandomArticle,
     // hints & results
     areHintsVisible: state.totalState.componentsDisplay.areHintsVisible,
-    areResultsVisible: state.totalState.componentsDisplay.areResultsVisible,
+    areResultsVisible: state.totalState.componentsDisplay.areResultsVisible
     // disablingButton: state.totalState.refs.disablingButton,
     // focusTextArea: state.totalState.refs.focusTextArea,
-
   };
 };
 
@@ -389,12 +398,10 @@ const mapDispatchToProps = dispatch => {
     resultsIncorrect: () => dispatch({ type: "RESULTS_INCORRECT" }),
     resultsNoPenalty: () => dispatch({ type: "RESULTS_NO_PENALTY" }),
 
-
     resultsReset: () => dispatch({ type: "RESULTS_RESET" }),
     setLiveResults: () => dispatch({ type: "SET_LIVE_RESULTS" }),
     resetLiveResults: () => dispatch({ type: "RESET_LIVE_RESULTS" }),
     setFinalResults: () => dispatch({ type: "SET_FINAL_RESULTS" }),
-
 
     // from fetch, delete later?
     setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
@@ -408,29 +415,34 @@ const mapDispatchToProps = dispatch => {
 
     // for App
     setDisplayToReset_true: () => dispatch({ type: "DISPLAY_TO_RESET_TRUE" }),
-    // 
-    
+    //
 
-    toggleActive: () => dispatch({type: "TOGGLE_ACTIVE"}),
-    setIsActiveToFalse: () => dispatch({type: "SET_IS_ACTIVE_TO_FALSE"}),
-    setTimerValue: (data) => dispatch({ type: "TIMER_VALUE", payload: data }),
-    setTimerValueCountdown: (data) => dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
+    toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
+    setIsActiveToFalse: () => dispatch({ type: "SET_IS_ACTIVE_TO_FALSE" }),
+    setTimerValue: data => dispatch({ type: "TIMER_VALUE", payload: data }),
+    setTimerValueCountdown: data =>
+      dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
 
-    setConstantTimerValue: (data) => dispatch({ type: "CONSTANT_TIMER_VALUE", payload: data }),
+    setConstantTimerValue: data =>
+      dispatch({ type: "CONSTANT_TIMER_VALUE", payload: data }),
 
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
     setToReset_false: () => dispatch({ type: "TO_RESET_FALSE" }),
-    setIsCounterRunning:() => dispatch({type: "COUNTER_RUNNING"}),
+    setIsCounterRunning: () => dispatch({ type: "COUNTER_RUNNING" }),
 
-    setAreHintsVisible: () => dispatch({type: "HINTS_VISIBILITY"}),
-    setAreResultsVisible: () => dispatch({type: "RESULTS_VISIBILITY"}),
+    setAreHintsVisible: () => dispatch({ type: "HINTS_VISIBILITY" }),
+    setAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
 
     // for display only, delete later
-    setIndexOfPartialTextArr: (data) => dispatch({type: "INDEX_OF_PARTIAL_TEXTARR" ,payload: data}),
-    setTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
-    setPrevTextAreaValue: (data) => dispatch({type: "TEXT_AREA_VALUE" ,payload: data}),
-    setColorForEachLetter: (data) => dispatch({type: "COLOR_FOR_EACH_LETTER", payload: data}),
-    setDisplayToReset_false: () => dispatch({ type: "DISPLAY_TO_RESET_FALSE" }),
+    setIndexOfPartialTextArr: data =>
+      dispatch({ type: "INDEX_OF_PARTIAL_TEXTARR", payload: data }),
+    setTextAreaValue: data =>
+      dispatch({ type: "TEXT_AREA_VALUE", payload: data }),
+    setPrevTextAreaValue: data =>
+      dispatch({ type: "TEXT_AREA_VALUE", payload: data }),
+    setColorForEachLetter: data =>
+      dispatch({ type: "COLOR_FOR_EACH_LETTER", payload: data }),
+    setDisplayToReset_false: () => dispatch({ type: "DISPLAY_TO_RESET_FALSE" })
   };
 };
 

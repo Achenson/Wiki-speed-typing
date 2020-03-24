@@ -96,8 +96,6 @@ function Display({
 
     // for correct, incorrect, allEntries
     if (textAreaValue.length > prevTextAreaValue.length) {
-     
-
       let colorForEachLetter_2 = [...colorForEachLetter];
 
       // dispatch({ type: "resultsNoPenalty" });
@@ -133,7 +131,7 @@ function Display({
           setColorForEachLetter(makeDefaultColoredLetters());
           setIndexOfPartialTextArr(
             // indexOfPartialTextArr => indexOfPartialTextArr + 1
-            indexOfPartialTextArr+1
+            indexOfPartialTextArr + 1
           );
         } else {
           setColorForEachLetter(makeDefaultColoredLetters());
@@ -143,8 +141,6 @@ function Display({
     }
 
     if (textAreaValue.length < prevTextAreaValue.length) {
-
-      
       let colorForEachLetter_3 = [...colorForEachLetter];
       colorForEachLetter_3[textAreaValue.length] = "DimGray";
       setColorForEachLetter([...colorForEachLetter_3]);
@@ -164,9 +160,8 @@ function Display({
 
     // dispatch,
 
-    // colorForEachLetter,
-    // arrOutOfText,
-
+    colorForEachLetter,
+    arrOutOfText,
 
     indexOfPartialTextArr,
     makeDefaultColoredLetters,
@@ -181,7 +176,7 @@ function Display({
     if (displayToReset) {
       resetDisplay();
       // setDisplayToReset(false);
-      setDisplayToReset_false()
+      setDisplayToReset_false();
       // setDisplayToReset();
     }
 
@@ -330,7 +325,6 @@ const mapDispatchToProps = dispatch => {
   return {
     // setDisplayToReset_true: () => dispatch({ type: "DISPLAY_TO_RESET_TRUE" }),
     setDisplayToReset_false: () => dispatch({ type: "DISPLAY_TO_RESET_FALSE" }),
-
 
     // dispatching plain actions
     resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),
