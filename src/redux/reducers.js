@@ -1,8 +1,6 @@
 import { combineReducers } from "redux";
-// import { useCallback } from "react";
 
 // import store from "./store.js";
-
 // import actionTypes from "./actionTypes";
 
 /* let {
@@ -16,13 +14,6 @@ import { combineReducers } from "redux";
 } = actionTypes; */
 
 const lengthOfSinglePart = 363;
-/* const makeDefaultColoredLetters = useCallback(() => {
-  let arrToReturn = [];
-  for (let i = 0; i < lengthOfSinglePart; i++) {
-    arrToReturn.push("DimGray");
-  }
-  return arrToReturn;
-}, [lengthOfSinglePart]); */
 //make default(gray) color in wiki display area
 function makeDefaultColoredLetters() {
   let arrToReturn = [];
@@ -46,8 +37,6 @@ const initialState = {
     incorrect: "-",
     noPenalty: "-",
     "timer length": 60
-    // !!!!!!!!!!! 60?
-    // "timer length": .counter.constantTimerValue
   },
   finalResults: {
     speed: "-",
@@ -86,16 +75,9 @@ const initialState = {
     textAreaValue: "",
     prevTextAreaValue: ""
   }
-  /* refs: {
-    disablingButton: useRef(null),
-    focusTextArea: useRef(null)
-  } */
 };
 
 function postReducer(state = initialState, action) {
-  //mandatory, action.type is being evaluated
-
-  // const { currentResults } = state;
   const {
     currentResults: { resultsCorrect, resultsIncorrect, resultsNoPenalty }
   } = state;
@@ -114,19 +96,13 @@ function postReducer(state = initialState, action) {
     }
   } = state;
 
- /*  const {
-    textDisplay: { displayToReset, myText, wikiTitle, newRandomArticle }
-  } = state; */
-
-  // const { liveResults } = state;
-  // const { finalResults } = state;
-
   switch (action.type) {
     case "RESULTS_CORRECT":
       return {
         ...state,
         currentResults: {
-          // ...store.getState().currentResults,
+          // ...store.getState().currentResults, <- wrong!!! reducer function
+          // already got state
           ...state.currentResults,
           resultsCorrect: resultsCorrect + 1
         }
@@ -253,16 +229,14 @@ function postReducer(state = initialState, action) {
           isActive: !isActive
         }
       };
-      case "SET_IS_ACTIVE_TO_FALSE":
-        return {
-          ...state,
-          counter: {
-            ...state.counter,
-            isActive: false
-          }
-        };
-
-
+    case "SET_IS_ACTIVE_TO_FALSE":
+      return {
+        ...state,
+        counter: {
+          ...state.counter,
+          isActive: false
+        }
+      };
 
     case "TO_RESET_TRUE":
       return {
@@ -291,14 +265,14 @@ function postReducer(state = initialState, action) {
         }
       };
 
-      case "DISPLAY_TO_RESET_FALSE":
-        return {
-          ...state,
-          textDisplay: {
-            ...state.textDisplay,
-            displayToReset: false
-          }
-        };
+    case "DISPLAY_TO_RESET_FALSE":
+      return {
+        ...state,
+        textDisplay: {
+          ...state.textDisplay,
+          displayToReset: false
+        }
+      };
 
     // fetch only
     case "MY_TEXT":
@@ -319,15 +293,14 @@ function postReducer(state = initialState, action) {
         }
       };
 
-      case "RANDOM_ARTICLE_TRUE":
-        return {
-          ...state,
-          textDisplay: {
-            ...state.textDisplay,
-            newRandomArticle: true
-          }
-        };
-  
+    case "RANDOM_ARTICLE_TRUE":
+      return {
+        ...state,
+        textDisplay: {
+          ...state.textDisplay,
+          newRandomArticle: true
+        }
+      };
 
     case "RANDOM_ARTICLE_FALSE":
       return {
@@ -362,7 +335,7 @@ function postReducer(state = initialState, action) {
       return {
         ...state,
         inputArea: {
-          // !!!! You may not call store.getState() while the reducer is executing. 
+          // !!!! You may not call store.getState() while the reducer is executing.
           ...state.inputArea,
           textAreaValue: action.payload
         }
@@ -383,9 +356,6 @@ function postReducer(state = initialState, action) {
 
   function resultsMaker(correct, incorrect, allEntries, timerValue_current) {
     // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
-
-    // console.log("resultsMaker -> timerValue", timerValue_current);
-
     let noPenaltyKPM =
       Math.round(
         ((allEntries * 60) /
@@ -427,7 +397,7 @@ function postReducer(state = initialState, action) {
   }
 }
 
-//object with reducers, ??? - arbitrary
+//object with reducers, totalState - arbitrary
 export default combineReducers({
   totalState: postReducer
 });
