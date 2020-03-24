@@ -18,9 +18,6 @@ function Fetch(props) {
   let regexpStringEscaped = /'\\\^!"#\$%&\(\)\*\+,-\.\/:;<=>\?@\[\]\^_`\{\|\}~/;
   */
 
-  /*  // disabling random wiki article button
- const disablingButton = useRef(null); */
-
   let {
     // from mamDispatchToProps
     setMyText,
@@ -28,7 +25,7 @@ function Fetch(props) {
     setNewRandomArticle_false,
     // from mapStateToProps
     newRandomArticle,
-    // from App
+    // from App props
     disablingButton,
     focusTextArea
   } = props;
@@ -37,11 +34,8 @@ function Fetch(props) {
     let wikiApiUrl = `https://en.wikipedia.org/w/api.php?format=json&action=query&generator=random&grnnamespace=0&prop=extracts&grnlimit=1&origin=*&explaintext&exsectionformat=plain`;
     fetchWikiApi();
 
-    //  props.setNewRandomArticle(false);
-    // setNewRandomArticle(false);
   setNewRandomArticle_false();
     setTimeout(() => {
-      // props.disablingButton.current.removeAttribute("disabled");
       disablingButton.current.removeAttribute("disabled");
     }, 500);
 
@@ -116,19 +110,14 @@ function Fetch(props) {
     focusTextArea
   ]);
 
-
-
-
   return null;
 }
 
-// export default Fetch;
 
 const mapStateToProps = state => {
   return {
     // disablingButton: state.refs.disablingButton,
     // focusTextArea: state.refs.focusTextArea,
-
     newRandomArticle: state.totalState.textDisplay.newRandomArticle
   };
 };
@@ -137,7 +126,6 @@ const mapDispatchToProps = dispatch => {
   return {
     setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
     setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
-    // setNewRandomArticle_false: () => dispatch({ type: "RANDOM_ARTICLE_FALSE" })
   };
 };
 
