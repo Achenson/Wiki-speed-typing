@@ -8,7 +8,7 @@ import UpperUI from "./UpperUI.js";
 import WikiDisplay from "./WikiDisplay.js";
 import InputArea from "./InputArea.js";
 import Controls from "./Controls.js";
-import ResultsButton from "./ResultsButton.js";
+import LowerUI from "./LowerUI.js";
 import Results from "./Results.js";
 
 // const escapeStringRegexp = require("escape-string-regexp");
@@ -259,7 +259,7 @@ function Display({
           isCounterRunning={isCounterRunning}
         />
 
-        <ResultsButton
+        <LowerUI
           toggleResults={toggleResults}
           areResultsVisible={areResultsVisible}
           focusElement={focusElement}

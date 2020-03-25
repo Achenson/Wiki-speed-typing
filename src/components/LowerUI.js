@@ -5,7 +5,7 @@ import { faChartBar} from "@fortawesome/free-solid-svg-icons";
 // import { farFaChartBar } from "@fortawesome/fontawesome-svg-core";
 
 
-function ResultsButton(props) {
+function LowerUI(props) {
   return (
     <div className="results-buttons-row container">
       <button
@@ -39,4 +39,4 @@ function ResultsButton(props) {
   );
 }
 
-export default ResultsButton;
+export default LowerUI;
