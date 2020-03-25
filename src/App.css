@@ -241,11 +241,18 @@ body {
   background-color: rgb(228, 27, 1);
 }
 
-.btn-wiki,
+.btn-wiki {
+  display: inline-block;
+  height: 1.95em;
+}
+/* bnt-results in lower UI below results-row-container*/
 .btn-results {
   display: inline-block;
   height: 1.95em;
 }
+
+
+
 
 /* wikipedia controller */
 .wiki-controler {
@@ -332,12 +339,31 @@ body {
   font-size: 0.85em;
 }
 
+/* lowerUI (resultButton & stats */
+
 .results-buttons-row {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 40px;
   margin-bottom: 5px;
 }
+
+.btn-results {
+  display: inline-block;
+  height: 1.95em;
+  /* align-self: center; */
+
+  
+}
+
+.fa-chart-bar {
+  color: green;
+  /* align-self: center; */
+  
+}
+
+
 
 .tooltip {
   position: relative;

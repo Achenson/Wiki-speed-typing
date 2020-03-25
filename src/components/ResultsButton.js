@@ -1,5 +1,9 @@
 import React from "react";
 //import { useState, useEffect, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChartBar} from "@fortawesome/free-solid-svg-icons";
+// import { farFaChartBar } from "@fortawesome/fontawesome-svg-core";
+
 
 function ResultsButton(props) {
   return (
@@ -25,6 +29,12 @@ function ResultsButton(props) {
       >
         Show<span style={{ margin: "auto 0.05em" }}>|</span>Hide Results
       </button>
+      <FontAwesomeIcon
+            icon={faChartBar}
+            size="2x"
+            className="fa-chart-bar"
+          />
+
     </div>
   );
 }
