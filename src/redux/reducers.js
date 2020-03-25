@@ -54,7 +54,8 @@ const initialState = {
   // hints & results visibility
   componentsDisplay: {
     areHintsVisible: false,
-    areResultsVisible: false
+    areResultsVisible: false,
+    areStatsVisible: false
   },
   // originally from <Display/> component ======
   wikiDisplay: {
@@ -73,7 +74,7 @@ function postReducer(state = initialState, action) {
   } = state;
 
   const {
-    componentsDisplay: { areHintsVisible, areResultsVisible }
+    componentsDisplay: { areHintsVisible, areResultsVisible, areStatsVisible }
   } = state;
 
   const {
@@ -166,7 +167,8 @@ function postReducer(state = initialState, action) {
         ...state,
         componentsDisplay: {
           areHintsVisible: !areHintsVisible,
-          areResultsVisible: areResultsVisible
+          areResultsVisible: areResultsVisible,
+          areStatsVisible: areStatsVisible
         }
       };
     case "RESULTS_VISIBILITY":
@@ -174,9 +176,20 @@ function postReducer(state = initialState, action) {
         ...state,
         componentsDisplay: {
           areHintsVisible: areHintsVisible,
-          areResultsVisible: !areResultsVisible
+          areResultsVisible: !areResultsVisible,
+          areStatsVisible: areStatsVisible
         }
       };
+    case "STATS_VISIBILITY":
+      return {
+        ...state,
+        componentsDisplay: {
+          areHintsVisible: areHintsVisible,
+          areResultsVisible: areResultsVisible,
+          areStatsVisible: !areStatsVisible
+        }
+      };
+
     case "TIMER_VALUE":
       return {
         ...state,

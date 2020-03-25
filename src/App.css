@@ -359,6 +359,7 @@ body {
 
 .fa-chart-bar {
   color: green;
+  cursor: pointer;
   /* align-self: center; */
   
 }

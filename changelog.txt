@@ -75,3 +75,4 @@ REDUX:
 
 toChange:
 1. split reducers in seperate files?
+2. toggleHints - change from function to action creator?

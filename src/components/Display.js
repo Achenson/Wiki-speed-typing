@@ -9,6 +9,7 @@ import WikiDisplay from "./WikiDisplay.js";
 import InputArea from "./InputArea.js";
 import Controls from "./Controls.js";
 import LowerUI from "./LowerUI.js";
+import Stats from "./Stats.js";
 import Results from "./Results.js";
 
 // const escapeStringRegexp = require("escape-string-regexp");
@@ -35,9 +36,11 @@ function Display({
   liveResults,
   finalResults,
 
+  areStatsVisible,
   areResultsVisible,
   focusElement,
   toggleResults,
+  toggleStats,
   isCounterRunning,
   resetTimer,
   isActive,
@@ -261,10 +264,14 @@ function Display({
 
         <LowerUI
           toggleResults={toggleResults}
+          toggleStats={toggleStats}
           areResultsVisible={areResultsVisible}
           focusElement={focusElement}
         />
       </div>
+      <Stats
+        areStatsVisible={areStatsVisible}
+      />
 
       <Results
         areResultsVisible={areResultsVisible}

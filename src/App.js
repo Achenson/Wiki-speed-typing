@@ -22,9 +22,11 @@ function App({
   setNewRandomArticle_false,
   areHintsVisible,
   areResultsVisible,
+  areStatsVisible,
   // from mapDispatchToProps
   toggleAreHintsVisible,
   toggleAreResultsVisible,
+  toggleAreStatsVisible,
   resultsReset,
   setLiveResults,
   resetLiveResults,
@@ -47,6 +49,16 @@ function App({
   useEffect(() => {
     document.addEventListener("keypress", handleKeyPress);
   });
+
+// display
+
+  function toggleStats() {
+    if (!isActive) {
+      // toggleAreHintsVisible(h => !h);
+      toggleAreStatsVisible();
+    }
+  } 
+
 
   function toggleHints() {
     if (!isActive) {
@@ -278,8 +290,10 @@ function App({
         // hints & results visibility
         areHintsVisible={areHintsVisible}
         areResultsVisible={areResultsVisible}
+        areStatsVisible={areStatsVisible}
         toggleHints={toggleHints}
         toggleResults={toggleResults}
+        toggleStats={toggleStats}
         // disabling select, menaging focus
         isDisabled={isDisabled}
         focusTextArea={focusTextArea}
@@ -313,7 +327,9 @@ const mapStateToProps = state => {
     newRandomArticle: state.totalState.textDisplay.newRandomArticle,
     // hints & results
     areHintsVisible: state.totalState.componentsDisplay.areHintsVisible,
-    areResultsVisible: state.totalState.componentsDisplay.areResultsVisible
+    areResultsVisible: state.totalState.componentsDisplay.areResultsVisible,
+    areStatsVisible: state.totalState.componentsDisplay.areStatsVisible,
+
   };
 };
 
@@ -342,18 +358,17 @@ const mapDispatchToProps = dispatch => {
     toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
     setIsActiveToFalse: () => dispatch({ type: "SET_IS_ACTIVE_TO_FALSE" }),
     setTimerValue: data => dispatch({ type: "TIMER_VALUE", payload: data }),
-    setTimerValueCountdown: data =>
-      dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
+    setTimerValueCountdown: data => dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
 
-    setConstantTimerValue: data =>
-      dispatch({ type: "CONSTANT_TIMER_VALUE", payload: data }),
+    setConstantTimerValue: data => dispatch({ type: "CONSTANT_TIMER_VALUE", payload: data }),
 
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
     setToReset_false: () => dispatch({ type: "TO_RESET_FALSE" }),
     toggleIsCounterRunning: () => dispatch({ type: "COUNTER_RUNNING" }),
 
     toggleAreHintsVisible: () => dispatch({ type: "HINTS_VISIBILITY" }),
-    toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" })
+    toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
+    toggleAreStatsVisible: () => dispatch({ type: "STATS_VISIBILITY" })
 
     // setIndexOfPartialTextArr, setTextAreaValue, setPrevTextAreaValue,
     //  setColorForEachLetter, setDisplayToReset_false for <Display only/>,
