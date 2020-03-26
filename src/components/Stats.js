@@ -10,7 +10,7 @@ function Stats(props) {
       }}
     >
       <div className="inner-stats container">
-        <p className="stats-title">Hints</p>
+        <p className="stats-title">Top score</p>
         <ul>
           <li>Change the timer value (optional)</li>
           <li>Type in typing area to start/resume</li>

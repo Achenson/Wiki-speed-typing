@@ -1,4 +1,4 @@
-/*  */
+/*  resets*/
 
 * {
   box-sizing: border-box;
@@ -20,6 +20,14 @@ li {
   list-style-type: none;
 }
 
+/* main css */
+
+:root {
+  /* --results-bg:  rgba(111, 198, 219, 0.431); */
+  /* --results-bg:  #6FC6DB6E; */
+  --results-bg: rgb(192, 224, 231);
+}
+
 body {
   background-color: whitesmoke;
 }
@@ -29,7 +37,6 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   height: 100vh;
-  
 }
 
 .container {
@@ -76,7 +83,6 @@ body {
   border-radius: 4px;
   box-shadow: 2px 2px 2px black;
   position: relative;
-  
 }
 
 .title {
@@ -255,9 +261,6 @@ body {
   height: 1.95em;
 }
 
-
-
-
 /* wikipedia controller */
 .wiki-controler {
   margin-top: 20px;
@@ -310,7 +313,9 @@ body {
   margin-right: auto;
   padding: 2px 2px;
   color: black;
-  background-color: rgba(111, 198, 219, 0.431);
+  /* background-color: rgba(111, 198, 219, 0.431); */
+  background-color: var(--results-bg);
+  opacity: 1;
   border: 1px solid steelblue;
   border-radius: 4px;
   box-shadow: 1px 1px 1px black;
@@ -357,18 +362,13 @@ body {
   display: inline-block;
   height: 1.95em;
   /* align-self: center; */
-
-  
 }
 
 .fa-chart-bar {
   color: green;
   cursor: pointer;
   /* align-self: center; */
-  
 }
-
-
 
 .tooltip {
   position: relative;
@@ -399,36 +399,25 @@ body {
   margin-top: 0.1em;
 }
 
-
 /* Stats */
 
-.stats{
+.stats {
+  /* visibility: hidden; */
+  width: 420px;
+  min-height: 320px;
 
-   /* visibility: hidden; */
-   width: 420px;
-   min-height: 320px;
-   /* margin-left: auto; */
-   /* margin-right: auto; */
-   /* margin-left: auto; */
-   /* margin-right: auto; */
-   color: black;
-   background-color: rgba(228, 240, 237, 1);
-   border: 2px solid green;
-   border-radius: 2px;
-   /* .outer-container set to relative */
-    position: absolute;
-  /* !!!! this is crucial for margin-left margin-right to work */
-   /* right: 0px; */
-   left: -10px;
-   /* right: 0;   */
-bottom: 40px;
-   z-index: 1;
+  color: black;
+  background-color: var(--results-bg);
+  opacity: 1;
+  border: 2px solid steelblue;
+  border-radius: 2px;
+  /* .main-square set to relative */
+  position: absolute;
+  left: -10px;
 
-
-
-
+  bottom: 40px;
+  z-index: 1;
 }
-
 
 .inner-stats {
   padding-left: 10px;
@@ -436,8 +425,6 @@ bottom: 40px;
   padding-bottom: 0.5em;
 
   /* position: absolute; */
-
-
 }
 
 .stats-title {

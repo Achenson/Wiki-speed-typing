@@ -1,9 +1,8 @@
 import React from "react";
 //import { useState, useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChartBar} from "@fortawesome/free-solid-svg-icons";
+import { faChartBar } from "@fortawesome/free-solid-svg-icons";
 // import { farFaChartBar } from "@fortawesome/fontawesome-svg-core";
-
 
 function LowerUI(props) {
   return (
@@ -29,33 +28,22 @@ function LowerUI(props) {
       >
         Show<span style={{ margin: "auto 0.05em" }}>|</span>Hide Results
       </button>
-      
+
       <FontAwesomeIcon
-            icon={faChartBar}
-            size="2x"
-            className="fa-chart-bar"
-
-            
-          onClick={props.toggleStats}
-          style={{
-            color: `${props.areStatsVisible ? "black" : "green"}`
-          }}
-          onMouseEnter={e => {
-            e.target.style.color = `${
-              props.areStatsVisible ? "green" : "black"
-            }`;
-          }}
-          onMouseLeave={e => {
-            e.target.style.color = `${
-              props.areStatsVisible ? "black" : "green"
-            }`;
-          }}
-
-
-          />
-      
-     
-
+        icon={faChartBar}
+        size="2x"
+        className="fa-chart-bar"
+        onClick={props.toggleStats}
+        style={{
+          color: `${props.areStatsVisible ? "black" : "green"}`
+        }}
+        onMouseEnter={e => {
+          e.target.style.color = `${props.areStatsVisible ? "green" : "black"}`;
+        }}
+        onMouseLeave={e => {
+          e.target.style.color = `${props.areStatsVisible ? "black" : "green"}`;
+        }}
+      />
     </div>
   );
 }
