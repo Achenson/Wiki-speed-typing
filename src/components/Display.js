@@ -77,7 +77,6 @@ function Display({
     return arrToReturn;
   }, [lengthOfSinglePart]);
 
-
   //coloring letters in display according to errors or no
   //  + counting entries!!
   useEffect(() => {
@@ -268,10 +267,9 @@ function Display({
           areResultsVisible={areResultsVisible}
           focusElement={focusElement}
         />
+
+        <Stats areStatsVisible={areStatsVisible} />
       </div>
-      <Stats
-        areStatsVisible={areStatsVisible}
-      />
 
       <Results
         areResultsVisible={areResultsVisible}
