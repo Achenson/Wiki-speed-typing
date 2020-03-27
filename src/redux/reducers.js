@@ -66,6 +66,7 @@ const initialState = {
     textAreaValue: "",
     prevTextAreaValue: ""
   }
+  // top score
 };
 
 function postReducer(state = initialState, action) {
@@ -399,7 +400,31 @@ function postReducer(state = initialState, action) {
   }
 }
 
+const statsState = {
+  "5s": ["1", "11", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+
+  "30s": ["2", "22", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+
+  "1min": ["3", "33", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+
+  "5min": ["4", "44", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+  "10min": ["5", "55", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]
+};
+
+function statsReducer(state = statsState, action) {
+  switch (action.type) {
+    case "UPDATE_STATS":
+      return {
+        ...state,
+        [action.payload.timerLenght]: [...action.payload.data]
+      };
+    default:
+      return state;
+  }
+}
+
 //object with reducers, totalState - arbitrary
 export default combineReducers({
-  totalState: postReducer
+  totalState: postReducer,
+  statsState: statsReducer
 });

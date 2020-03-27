@@ -71,8 +71,11 @@ DONE 42. merge branches
 */
 
 
-REDUX:
+REDUX_FULLSTACK:
 
 toChange:
 1. split reducers in seperate files?
 2. toggleHints - change from function to action creator?
+3. bar-chart onhover does not work perfectly
+4. stats/ top-score naming consistency?
+
