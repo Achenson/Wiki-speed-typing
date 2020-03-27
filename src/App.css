@@ -333,7 +333,7 @@ body {
 .results-main {
   display: flex;
   justify-content: space-evenly;
-  font-size: 1.1em;
+  font-size: 1.1rem;
   /* font-weight: bold; */
   margin-top: 0.5em;
   margin-bottom: 0.5em;
@@ -432,4 +432,12 @@ body {
   font-weight: bold;
   font-size: 1.1em;
   padding-bottom: 0.1em;
+}
+
+.top-score-list > li {
+  list-style-type: decimal ;
+}
+
+.top-score-main {
+  font-size: 1.3rem;
 }
