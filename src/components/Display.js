@@ -282,7 +282,7 @@ function Display({
 
 const mapStateToProps = state => {
   return {
-    timerValue: state.totalState.counter.timerValue, // (1)
+    timerValue: state.totalState.counter.timerValue,
     textAreaValue: state.totalState.inputArea.textAreaValue,
     prevTextAreaValue: state.totalState.inputArea.prevTextAreaValue,
     indexOfPartialTextArr: state.totalState.wikiDisplay.indexOfPartialTextArr,
@@ -319,4 +319,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
-)(Display); // (3)
+)(Display);

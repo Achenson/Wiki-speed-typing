@@ -1,5 +1,6 @@
 import React from "react";
 //import { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
 
 function Stats(props) {
   return (
@@ -56,4 +57,16 @@ function Stats(props) {
   );
 }
 
-export default Stats;
+
+const mapStateToProps = state => {
+  return {
+    five_s: state.statsState.five_s,
+    
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+)(Stats);
+
