@@ -266,6 +266,7 @@ function Display({
           toggleStats={toggleStats}
           areResultsVisible={areResultsVisible}
           focusElement={focusElement}
+          areStatsVisible={areStatsVisible}
         />
 
         <Stats areStatsVisible={areStatsVisible} />

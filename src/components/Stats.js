@@ -12,8 +12,25 @@ function Stats(props) {
      
 
       <div className="inner-stats container">
-      <div className="results-main top-score-main">
-        <p>Top score</p>
+      <div className="top-score-main">
+        <p className="top-score-title">Top score</p>
+        <div className="top-score-select-div">
+          <p>timer length:&nbsp;</p>
+        <select
+          className="control-item timer-select top-score-timer-select"
+          // onChange={props.setTimerOnSelect}
+          // ref={props.isDisabled}
+          defaultValue="60"
+        >
+          <option value="5">00:05</option>
+          <option value="30">00:30</option>
+          <option value="60">01:00</option>
+          <option value="120">02:00</option>
+          <option value="300">05:00</option>
+        </select>
+        </div>
+      
+
 
       </div>
 

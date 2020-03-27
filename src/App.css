@@ -222,7 +222,7 @@ body {
 .control-item {
   margin-right: 2px;
   width: 60px;
-  height: 1.8em;
+  height: 1.5rem;
   font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -435,9 +435,43 @@ body {
 }
 
 .top-score-list > li {
-  list-style-type: decimal ;
+  list-style-type: decimal;
 }
 
 .top-score-main {
+  display: flex;
+  justify-content: space-around;
+  /* align-items: center; */
+
+  /* font-weight: bold; */
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid black;
+  padding-bottom: 0.1rem;
+}
+
+.top-score-title {
   font-size: 1.3rem;
+  padding-bottom: 2px;
+}
+
+.top-score-select-div {
+  display: flex;
+  align-items: center;
+}
+
+.fa-chart-bar-default {
+  color: green;
+}
+
+.fa-chart-bar-default:hover {
+  color: black;
+}
+
+.fa-chart-bar-inverted {
+  color: black;
+}
+
+.fa-chart-bar-inverted:hover {
+  color: green;
 }
