@@ -78,4 +78,6 @@ toChange:
 2. toggleHints - change from function to action creator?
 3. bar-chart onhover does not work perfectly
 4. stats/ top-score naming consistency?
+5. stats: no KPM or % if there is no record?
+6. stats: tooltips (speed, accuracy)?
 

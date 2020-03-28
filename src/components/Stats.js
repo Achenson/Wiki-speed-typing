@@ -11,7 +11,7 @@ function Stats({
   two_min,
   five_min
 }) {
-  const [currentTimer, setCurrentTimer] = useState(one_min[0]);
+  const [currentTimer, setCurrentTimer] = useState(one_min);
 
   /*  useEffect( () => {
 
@@ -22,38 +22,31 @@ function Stats({
 
   function changeCurrentTimer(e) {
    
-    console.log(e.target.value)
 
     switch (e.target.value) {
       case "5":
-        console.log('this')
-        setCurrentTimer(five_s[0]);
+        setCurrentTimer(five_s);
         break;
-        // valueToSet = five_s[0];
       case "30":
-        setCurrentTimer(thirty_s[0]);
+        setCurrentTimer(thirty_s);
         break;
-        // valueToSet = thirty_s[0];
       case "60":
-        setCurrentTimer(one_min[0]);
+        setCurrentTimer(one_min);
         break;
-        // valueToSet = one_min[0];
       case "120":
-        setCurrentTimer(two_min[0]);
+        setCurrentTimer(two_min);
         break;
-        // valueToSet = two_min[0];
       case "300":
-        setCurrentTimer(five_min[0]);
+        setCurrentTimer(five_min);
         break;
-        // valueToSet = five_min[0];
 
       default:
-        setCurrentTimer(one_min[1]);
-        // valueToSet = one_min[0];
+        setCurrentTimer(one_min);
+        
     }
 
-    console.log(currentTimer)
-    // setCurrentTimer(valueToSet);
+   
+    
   }
 
   return (
@@ -85,16 +78,18 @@ function Stats({
         </div>
 
         <ul className="top-score-list container">
-          <li>135 KPM &nbsp;|&nbsp; 98%</li>
-          <li>{currentTimer}</li>
-          <li>-</li>
-          <li>-</li>
-          <li>-</li>
-          <li>-</li>
-          <li>-</li>
-          <li>-</li>
-          <li>-</li>
-          <li>-</li>
+          <li>{currentTimer[0]} KPM &nbsp;|&nbsp; {currentTimer[1]}%</li>
+          <li>{currentTimer[2]} KPM &nbsp;|&nbsp; {currentTimer[3]}%</li>
+          <li>{currentTimer[4]} KPM &nbsp;|&nbsp; {currentTimer[5]}%</li>
+          <li>{currentTimer[6]} KPM &nbsp;|&nbsp; {currentTimer[7]}%</li>
+          <li>{currentTimer[8]} KPM &nbsp;|&nbsp; {currentTimer[9]}%</li>
+          <li>{currentTimer[10]} KPM &nbsp;|&nbsp; {currentTimer[11]}%</li>
+          <li>{currentTimer[12]} KPM &nbsp;|&nbsp; {currentTimer[13]}%</li>
+          <li>{currentTimer[14]} KPM &nbsp;|&nbsp; {currentTimer[15]}%</li>
+          <li>{currentTimer[16]} KPM &nbsp;|&nbsp; {currentTimer[17]}%</li>
+          <li>{currentTimer[18]} KPM &nbsp;|&nbsp; {currentTimer[19]}%</li>
+        
+        
         </ul>
       </div>
     </div>
