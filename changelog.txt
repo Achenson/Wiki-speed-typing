@@ -81,3 +81,5 @@ toChange:
 5. stats: no KPM or % if there is no record?
 6. stats: tooltips (speed, accuracy)?
 
+(react scripts 3.3.0 => 3.4.0? new npm ver?)
+

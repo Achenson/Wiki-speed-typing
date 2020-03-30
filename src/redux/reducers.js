@@ -401,25 +401,174 @@ function postReducer(state = initialState, action) {
 }
 
 const statsState = {
-  "five_s": ["1", "11", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+  five_s: [
+    [1, 11],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0]
+  ],
 
-  "thirty_s": ["2", "22", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+  thirty_s: [
+    [2, 22],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0]
+  ],
 
-  "one_min": ["399", "33", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+  one_min: [
+    [3, 33],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0]
+  ],
 
-  "two_min": ["4", "44", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
-  "five_min": ["5", "55", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]
+  two_min: [
+    [4, 44],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0]
+  ],
+  five_min: [
+    [5, 55],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0]
+  ]
+  // "five_min": ["5", "55", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]
 };
 
 function statsReducer(state = statsState, action) {
   switch (action.type) {
     case "UPDATE_STATS":
+
+      let statsStateKey;
+
+      switch (action.payload[0]) {
+        case "5":
+          // setCurrentTimer(five_s);
+          statsStateKey = "five_s";
+          break;
+        case "30":
+          // setCurrentTimer(thirty_s);
+          statsStateKey = "thirty_s";
+          break;
+        case "60":
+          // setCurrentTimer(one_min);
+          statsStateKey = "one_min";
+          break;
+        case "120":
+          // setCurrentTimer(two_min);
+          statsStateKey = "two_min";
+          break;
+        case "300":
+          // setCurrentTimer(five_min);
+          statsStateKey = "five_min";
+          break;
+
+        default:
+          statsStateKey = "one_min";
+      }
+
+      console.log("statsStateKey");
+      
+      console.log(statsStateKey);
+      
+
+      let upd = updateAndSort(
+        /* state.totalState.finalResults["timer length"],
+        store.getState().totalState.finalResults.speed,
+        store.getState().totalState.finalResults.accuracy */
+        state[statsStateKey],
+        action.payload[1],
+        action.payload[2]
+      );
+
+    
+
       return {
         ...state,
-        [action.payload.timerLenght]: [...action.payload.data]
+        [statsStateKey]: [
+          upd[0],
+          upd[1],
+          upd[2],
+          upd[3],
+          upd[4],
+          upd[5],
+          upd[6],
+          upd[7],
+          upd[8],
+          upd[9]
+        ]
+
+        // [action.payload.timerLenght]: [...action.payload.data]
       };
     default:
       return state;
+  }
+
+
+
+  function updateAndSort(arr, speed, accuracy) {
+    let finalArr = [];
+    let arrToAdd = [speed, accuracy];
+
+    arr.push(arrToAdd);
+    arr.sort((a, b) => {
+      if (a[0] === b[0]) {
+        return b[1] - a[1];
+      } else {
+        return b[0] - a[0];
+      }
+    });
+
+    console.log("arr length")
+    console.log(arr.length)
+
+    console.log("action.payload0");
+    
+    console.log(action.payload[0]);
+    
+    console.log(arr[0][0], arr[0][1]);
+    
+
+
+    for (let i = 0; i < 10; i++) {
+      finalArr.push(arr[i]);
+    }
+
+    console.log("finalArr length")
+    console.log(finalArr.length)
+    return finalArr;
   }
 }
 

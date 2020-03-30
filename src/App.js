@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useRef, useCallback } from "react";
 import { connect } from "react-redux";
 
+// import store from "./store.js";
 import "./App.css";
 import Fetch from "./components/Fetch.js";
 import Display from "./components/Display.js";
@@ -40,7 +41,14 @@ function App({
   setToReset_true,
   setToReset_false,
   setDisplayToReset_true,
-  setConstantTimerValue
+  setConstantTimerValue,
+  // for Stats
+  setStats,
+  finalSpeed,
+  finalAccuracy,
+  finalTimerLength
+  
+
 }) {
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
@@ -254,6 +262,8 @@ function App({
       setFinalResults();
       resultsReset();
       resetLiveResults();
+
+      setStats([finalTimerLength, finalSpeed, finalAccuracy]);
     }
   }, [
     timerValue,
@@ -329,6 +339,10 @@ const mapStateToProps = state => {
     areHintsVisible: state.totalState.componentsDisplay.areHintsVisible,
     areResultsVisible: state.totalState.componentsDisplay.areResultsVisible,
     areStatsVisible: state.totalState.componentsDisplay.areStatsVisible,
+    // for Stats
+    finalTimerLength: state.totalState.finalResults["timer length"], 
+    finalSpeed: state.totalState.finalResults.speed,
+    finalAccuracy: state.totalState.finalResults.accuracy
 
   };
 };
@@ -368,11 +382,15 @@ const mapDispatchToProps = dispatch => {
 
     toggleAreHintsVisible: () => dispatch({ type: "HINTS_VISIBILITY" }),
     toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
-    toggleAreStatsVisible: () => dispatch({ type: "STATS_VISIBILITY" })
-
+    toggleAreStatsVisible: () => dispatch({ type: "STATS_VISIBILITY" }),
+    
     // setIndexOfPartialTextArr, setTextAreaValue, setPrevTextAreaValue,
     //  setColorForEachLetter, setDisplayToReset_false for <Display only/>,
     //  here deleted
+    
+    // for Stats
+    
+    setStats: (data) => dispatch({ type: "UPDATE_STATS", payload: data })
   };
 };
 

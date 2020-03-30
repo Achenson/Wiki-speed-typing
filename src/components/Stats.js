@@ -78,16 +78,16 @@ function Stats({
         </div>
 
         <ul className="top-score-list container">
-          <li>{currentTimer[0]} KPM &nbsp;|&nbsp; {currentTimer[1]}%</li>
-          <li>{currentTimer[2]} KPM &nbsp;|&nbsp; {currentTimer[3]}%</li>
-          <li>{currentTimer[4]} KPM &nbsp;|&nbsp; {currentTimer[5]}%</li>
-          <li>{currentTimer[6]} KPM &nbsp;|&nbsp; {currentTimer[7]}%</li>
-          <li>{currentTimer[8]} KPM &nbsp;|&nbsp; {currentTimer[9]}%</li>
-          <li>{currentTimer[10]} KPM &nbsp;|&nbsp; {currentTimer[11]}%</li>
-          <li>{currentTimer[12]} KPM &nbsp;|&nbsp; {currentTimer[13]}%</li>
-          <li>{currentTimer[14]} KPM &nbsp;|&nbsp; {currentTimer[15]}%</li>
-          <li>{currentTimer[16]} KPM &nbsp;|&nbsp; {currentTimer[17]}%</li>
-          <li>{currentTimer[18]} KPM &nbsp;|&nbsp; {currentTimer[19]}%</li>
+          <li>{currentTimer[0][0]} KPM &nbsp;|&nbsp; {currentTimer[0][1]}%</li>
+          <li>{currentTimer[1][0]} KPM &nbsp;|&nbsp; {currentTimer[1][1]}%</li>
+          <li>{currentTimer[2][0]} KPM &nbsp;|&nbsp; {currentTimer[2][1]}%</li>
+          <li>{currentTimer[3][0]} KPM &nbsp;|&nbsp; {currentTimer[3][1]}%</li>
+          <li>{currentTimer[4][0]} KPM &nbsp;|&nbsp; {currentTimer[4][1]}%</li>
+          <li>{currentTimer[5][0]} KPM &nbsp;|&nbsp; {currentTimer[5][1]}%</li>
+          <li>{currentTimer[6][0]} KPM &nbsp;|&nbsp; {currentTimer[6][1]}%</li>
+          <li>{currentTimer[7][0]} KPM &nbsp;|&nbsp; {currentTimer[7][1]}%</li>
+          <li>{currentTimer[8][0]} KPM &nbsp;|&nbsp; {currentTimer[8][1]}%</li>
+          <li>{currentTimer[9][0]} KPM &nbsp;|&nbsp; {currentTimer[9][1]}%</li>
         
         
         </ul>

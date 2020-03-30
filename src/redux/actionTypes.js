@@ -37,6 +37,8 @@ let actionTypes = {
   PREV_TEXT_AREA_VALUE: "PREV_TEXT_AREA_VALUE",
   COLOR_FOR_EACH_LETTER: "COLOR_FOR_EACH_LETTER",
 
+  // stats
+  UPDATE_STATS: "UPDATE_STATS"
 };
 
 export default actionTypes;
