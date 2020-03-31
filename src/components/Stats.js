@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import SingleStat from "./SingleStat";
 
 function Stats({
   areStatsVisible,
@@ -13,23 +14,7 @@ function Stats({
 }) {
   const [currentStatsArr, setCurrentStatsArr] = useState(one_min);
 
- /*  useEffect( () => {
-
-   
-
-    
-
-
-    
-
-
-
-  }, [e.target.value]
-  )  */
-
   function changeCurrentStatsArr(e) {
-   
-
     switch (e.target.value) {
       case "5":
         setCurrentStatsArr(five_s);
@@ -49,14 +34,8 @@ function Stats({
 
       default:
         setCurrentStatsArr(one_min);
-        
     }
-
-   
-    
   }
-
- 
 
   return (
     <div
@@ -87,18 +66,13 @@ function Stats({
         </div>
 
         <ul className="top-score-list container">
-          <li>{currentStatsArr[0][0]} KPM &nbsp;|&nbsp; {currentStatsArr[0][1]}%</li>
-          <li>{currentStatsArr[1][0]} KPM &nbsp;|&nbsp; {currentStatsArr[1][1]}%</li>
-          <li>{currentStatsArr[2][0]} KPM &nbsp;|&nbsp; {currentStatsArr[2][1]}%</li>
-          <li>{currentStatsArr[3][0]} KPM &nbsp;|&nbsp; {currentStatsArr[3][1]}%</li>
-          <li>{currentStatsArr[4][0]} KPM &nbsp;|&nbsp; {currentStatsArr[4][1]}%</li>
-          <li>{currentStatsArr[5][0]} KPM &nbsp;|&nbsp; {currentStatsArr[5][1]}%</li>
-          <li>{currentStatsArr[6][0]} KPM &nbsp;|&nbsp; {currentStatsArr[6][1]}%</li>
-          <li>{currentStatsArr[7][0]} KPM &nbsp;|&nbsp; {currentStatsArr[7][1]}%</li>
-          <li>{currentStatsArr[8][0]} KPM &nbsp;|&nbsp; {currentStatsArr[8][1]}%</li>
-          <li>{currentStatsArr[9][0]} KPM &nbsp;|&nbsp; {currentStatsArr[9][1]}%</li>
-        
-        
+          {currentStatsArr.map((el, i) => {
+            if (i > 9) {
+              return null;
+            } else {
+              return <SingleStat speed={el[0]} accuracy={el[1]} key={i} />;
+            }
+          })}
         </ul>
       </div>
     </div>

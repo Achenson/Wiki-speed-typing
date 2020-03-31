@@ -43,16 +43,7 @@ function App({
   setDisplayToReset_true,
   setConstantTimerValue,
   // for Stats
-  setStats,
-  /* finalSpeed,
-  finalAccuracy,
-  finalTimerLength */
-
-  //  DELETE
-  five_s,
-  thirty_s
-  
-
+  setStats
 }) {
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
@@ -62,15 +53,14 @@ function App({
     document.addEventListener("keypress", handleKeyPress);
   });
 
-// display
+  // display
 
   function toggleStats() {
     if (!isActive) {
       // toggleAreHintsVisible(h => !h);
       toggleAreStatsVisible();
     }
-  } 
-
+  }
 
   function toggleHints() {
     if (!isActive) {
@@ -263,27 +253,13 @@ function App({
       resetLiveResults();
     }
     if (timerValue <= 0) {
-
-console.log(five_s[0][0]);
-console.log(five_s[1][0]);
-console.log(thirty_s[0][0]);
-console.log(thirty_s[1][0]);
-
-
       setFinalResults();
-      
 
       setStats();
 
-
-
       resultsReset();
-      
 
       resetLiveResults();
-
-    
-
     }
   }, [
     timerValue,
@@ -359,16 +335,7 @@ const mapStateToProps = state => {
     // hints & results
     areHintsVisible: state.totalState.componentsDisplay.areHintsVisible,
     areResultsVisible: state.totalState.componentsDisplay.areResultsVisible,
-    areStatsVisible: state.totalState.componentsDisplay.areStatsVisible,
-    // for Stats
-   /*  finalTimerLength: state.totalState.finalResults["timer length"], 
-    finalSpeed: state.totalState.finalResults.speed,
-    finalAccuracy: state.totalState.finalResults.accuracy */
-    // !! DELETE
-    five_s: state.totalState.stats.five_s,
-    thirty_s: state.totalState.stats.thirty_s,
-
-
+    areStatsVisible: state.totalState.componentsDisplay.areStatsVisible
   };
 };
 
@@ -397,9 +364,11 @@ const mapDispatchToProps = dispatch => {
     toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
     setIsActiveToFalse: () => dispatch({ type: "SET_IS_ACTIVE_TO_FALSE" }),
     setTimerValue: data => dispatch({ type: "TIMER_VALUE", payload: data }),
-    setTimerValueCountdown: data => dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
+    setTimerValueCountdown: data =>
+      dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
 
-    setConstantTimerValue: data => dispatch({ type: "CONSTANT_TIMER_VALUE", payload: data }),
+    setConstantTimerValue: data =>
+      dispatch({ type: "CONSTANT_TIMER_VALUE", payload: data }),
 
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
     setToReset_false: () => dispatch({ type: "TO_RESET_FALSE" }),
@@ -408,16 +377,14 @@ const mapDispatchToProps = dispatch => {
     toggleAreHintsVisible: () => dispatch({ type: "HINTS_VISIBILITY" }),
     toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
     toggleAreStatsVisible: () => dispatch({ type: "STATS_VISIBILITY" }),
-    
+
     // setIndexOfPartialTextArr, setTextAreaValue, setPrevTextAreaValue,
     //  setColorForEachLetter, setDisplayToReset_false for <Display only/>,
     //  here deleted
-    
+
     // for Stats
-    
-    setStats: () => dispatch({ type: "UPDATE_STATS"})
 
-
+    setStats: () => dispatch({ type: "UPDATE_STATS" })
   };
 };
 
