@@ -44,9 +44,13 @@ function App({
   setConstantTimerValue,
   // for Stats
   setStats,
-  finalSpeed,
+  /* finalSpeed,
   finalAccuracy,
-  finalTimerLength
+  finalTimerLength */
+
+  //  DELETE
+  five_s,
+  thirty_s
   
 
 }) {
@@ -259,11 +263,27 @@ function App({
       resetLiveResults();
     }
     if (timerValue <= 0) {
+
+console.log(five_s[0][0]);
+console.log(five_s[1][0]);
+console.log(thirty_s[0][0]);
+console.log(thirty_s[1][0]);
+
+
       setFinalResults();
+      
+
+      setStats();
+
+
+
       resultsReset();
+      
+
       resetLiveResults();
 
-      setStats([finalTimerLength, finalSpeed, finalAccuracy]);
+    
+
     }
   }, [
     timerValue,
@@ -273,7 +293,8 @@ function App({
     resetLiveResults,
     resultsReset,
     setFinalResults,
-    setLiveResults
+    setLiveResults,
+    setStats
   ]);
   // ===========================================
 
@@ -340,9 +361,13 @@ const mapStateToProps = state => {
     areResultsVisible: state.totalState.componentsDisplay.areResultsVisible,
     areStatsVisible: state.totalState.componentsDisplay.areStatsVisible,
     // for Stats
-    finalTimerLength: state.totalState.finalResults["timer length"], 
+   /*  finalTimerLength: state.totalState.finalResults["timer length"], 
     finalSpeed: state.totalState.finalResults.speed,
-    finalAccuracy: state.totalState.finalResults.accuracy
+    finalAccuracy: state.totalState.finalResults.accuracy */
+    // !! DELETE
+    five_s: state.totalState.stats.five_s,
+    thirty_s: state.totalState.stats.thirty_s,
+
 
   };
 };
@@ -390,7 +415,9 @@ const mapDispatchToProps = dispatch => {
     
     // for Stats
     
-    setStats: (data) => dispatch({ type: "UPDATE_STATS", payload: data })
+    setStats: () => dispatch({ type: "UPDATE_STATS"})
+
+
   };
 };
 

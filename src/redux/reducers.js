@@ -36,6 +36,74 @@ const initialState = {
     noPenalty: "-",
     "timer length": ""
   },
+
+  // for Stats
+  stats: {
+    five_s: [
+      [1, 11],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ],
+
+    thirty_s: [
+      [2, 22],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ],
+
+    one_min: [
+      [3, 33],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ],
+
+    two_min: [
+      [4, 44],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ],
+    five_min: [
+      [5, 55],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0],
+      [0, 0]
+    ]
+  },
+
   // originally from <App/> component ======
   counter: {
     timerValue: 60,
@@ -162,6 +230,81 @@ function postReducer(state = initialState, action) {
           )
         }
       };
+
+    // for Stats
+
+    case "UPDATE_STATS":
+
+      let finalResultObj = {...resultsMaker(
+        state.currentResults.resultsCorrect,
+        state.currentResults.resultsIncorrect,
+        state.currentResults.resultsNoPenalty,
+        0
+      )}
+
+      let statsStateKey;
+
+      switch (finalResultObj["timer length"]) {
+        case "5":
+          // setCurrentTimer(five_s);
+          statsStateKey = "five_s";
+          break;
+        case "30":
+          // setCurrentTimer(thirty_s);
+          statsStateKey = "thirty_s";
+          break;
+        case "60":
+          // setCurrentTimer(one_min);
+          statsStateKey = "one_min";
+          break;
+        case "120":
+          // setCurrentTimer(two_min);
+          statsStateKey = "two_min";
+          break;
+        case "300":
+          // setCurrentTimer(five_min);
+          statsStateKey = "five_min";
+          break;
+
+        default:
+          statsStateKey = "one_min";
+      }
+
+      console.log("statsStateKey");
+
+      console.log(statsStateKey);
+
+      let upd = updateAndSort(
+        /* state.totalState.finalResults["timer length"],
+        store.getState().totalState.finalResults.speed,
+        store.getState().totalState.finalResults.accuracy */
+        state.stats[statsStateKey],
+        finalResultObj.speed,
+        finalResultObj.accuracy
+      );
+
+      return {
+        ...state,
+        stats: {
+          ...state.stats,
+          [statsStateKey]: [
+            upd[0],
+            upd[1],
+            upd[2],
+            upd[3],
+            upd[4],
+            upd[5],
+            upd[6],
+            upd[7],
+            upd[8],
+            upd[9]
+          ]
+        }
+
+        // [action.payload.timerLenght]: [...action.payload.data]
+      };
+
+    // ========================================
 
     case "HINTS_VISIBILITY":
       return {
@@ -398,145 +541,6 @@ function postReducer(state = initialState, action) {
       }
     }
   }
-}
-
-const statsState = {
-  five_s: [
-    [1, 11],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0]
-  ],
-
-  thirty_s: [
-    [2, 22],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0]
-  ],
-
-  one_min: [
-    [3, 33],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0]
-  ],
-
-  two_min: [
-    [4, 44],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0]
-  ],
-  five_min: [
-    [5, 55],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0],
-    [0, 0]
-  ]
-  // "five_min": ["5", "55", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]
-};
-
-function statsReducer(state = statsState, action) {
-  switch (action.type) {
-    case "UPDATE_STATS":
-
-      let statsStateKey;
-
-      switch (action.payload[0]) {
-        case "5":
-          // setCurrentTimer(five_s);
-          statsStateKey = "five_s";
-          break;
-        case "30":
-          // setCurrentTimer(thirty_s);
-          statsStateKey = "thirty_s";
-          break;
-        case "60":
-          // setCurrentTimer(one_min);
-          statsStateKey = "one_min";
-          break;
-        case "120":
-          // setCurrentTimer(two_min);
-          statsStateKey = "two_min";
-          break;
-        case "300":
-          // setCurrentTimer(five_min);
-          statsStateKey = "five_min";
-          break;
-
-        default:
-          statsStateKey = "one_min";
-      }
-
-      console.log("statsStateKey");
-      
-      console.log(statsStateKey);
-      
-
-      let upd = updateAndSort(
-        /* state.totalState.finalResults["timer length"],
-        store.getState().totalState.finalResults.speed,
-        store.getState().totalState.finalResults.accuracy */
-        state[statsStateKey],
-        action.payload[1],
-        action.payload[2]
-      );
-
-    
-
-      return {
-        ...state,
-        [statsStateKey]: [
-          upd[0],
-          upd[1],
-          upd[2],
-          upd[3],
-          upd[4],
-          upd[5],
-          upd[6],
-          upd[7],
-          upd[8],
-          upd[9]
-        ]
-
-        // [action.payload.timerLenght]: [...action.payload.data]
-      };
-    default:
-      return state;
-  }
-
-
 
   function updateAndSort(arr, speed, accuracy) {
     let finalArr = [];
@@ -551,29 +555,26 @@ function statsReducer(state = statsState, action) {
       }
     });
 
-    console.log("arr length")
-    console.log(arr.length)
+    console.log("arr length");
+    console.log(arr.length);
 
-    console.log("action.payload0");
     
-    console.log(action.payload[0]);
-    
+
     console.log(arr[0][0], arr[0][1]);
-    
-
+    console.log(arr[1][0], arr[1][1]);
 
     for (let i = 0; i < 10; i++) {
       finalArr.push(arr[i]);
     }
 
-    console.log("finalArr length")
-    console.log(finalArr.length)
+    console.log("finalArr length");
+    console.log(finalArr.length);
     return finalArr;
   }
 }
 
 //object with reducers, totalState - arbitrary
 export default combineReducers({
-  totalState: postReducer,
-  statsState: statsReducer
+  totalState: postReducer
+  // statsState: statsReducer
 });
