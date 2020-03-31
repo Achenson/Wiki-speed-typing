@@ -35,7 +35,7 @@ _defaultText.js -> default text to load in case of fetch error
 ||-setting/reseting final results
 - counter(start, pause/run, reset, results, timer)
 -keyboard shortcuts,
--hints & results visibility,
+-hints & results & stats visibility,
 -focusing/unfocusing/disabling elements
 - handling data to display (from Fetch to Display)
     <Fetch/> -fetching data from wikiAPI, no rendering

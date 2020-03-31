@@ -78,8 +78,9 @@ toChange:
 2. toggleHints - change from function to action creator?
 3. bar-chart onhover does not work perfectly
 4. stats/ top-score naming consistency?
-5. stats: no KPM or % if there is no record?
+DONE 5. stats: no KPM or % if there is no record? DONE
 6. stats: tooltips (speed, accuracy)?
+7. stats: | between speed & accuracy always in the same place?
 
 (react scripts 3.3.0 => 3.4.0? new npm ver?)
 

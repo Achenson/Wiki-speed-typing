@@ -333,9 +333,12 @@ const mapStateToProps = state => {
     wikiTitle: state.totalState.textDisplay.wikiTitle,
     newRandomArticle: state.totalState.textDisplay.newRandomArticle,
     // hints & results
-    areHintsVisible: state.totalState.componentsDisplay.areHintsVisible,
+    /* areHintsVisible: state.totalState.componentsDisplay.areHintsVisible,
     areResultsVisible: state.totalState.componentsDisplay.areResultsVisible,
-    areStatsVisible: state.totalState.componentsDisplay.areStatsVisible
+    areStatsVisible: state.totalState.componentsDisplay.areStatsVisible */
+    areHintsVisible: state.visibilityState.areHintsVisible,
+    areResultsVisible: state.visibilityState.areResultsVisible,
+    areStatsVisible: state.visibilityState.areStatsVisible
   };
 };
 

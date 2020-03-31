@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 
+import visibilityReducer from './reducers/visibilityReducer.js'
 // import store from "./store.js";
 // import actionTypes from "./actionTypes";
 
@@ -120,11 +121,11 @@ const initialState = {
     newRandomArticle: true
   },
   // hints & results visibility
-  componentsDisplay: {
+/*   componentsDisplay: {
     areHintsVisible: false,
     areResultsVisible: false,
     areStatsVisible: false
-  },
+  }, */
   // originally from <Display/> component ======
   wikiDisplay: {
     indexOfPartialTextArr: 0,
@@ -142,9 +143,9 @@ function postReducer(state = initialState, action) {
     currentResults: { resultsCorrect, resultsIncorrect, resultsNoPenalty }
   } = state;
 
-  const {
+ /*  const {
     componentsDisplay: { areHintsVisible, areResultsVisible, areStatsVisible }
-  } = state;
+  } = state; */
 
   const {
     counter: {
@@ -275,30 +276,22 @@ function postReducer(state = initialState, action) {
       console.log(statsStateKey);
 
       let upd = updateAndSort(
-        /* state.totalState.finalResults["timer length"],
-        store.getState().totalState.finalResults.speed,
-        store.getState().totalState.finalResults.accuracy */
+    
         state.stats[statsStateKey],
         finalResultObj.speed,
         finalResultObj.accuracy
       );
 
+      let updatedAndSortedArr = [];
+      for (let i = 0; i <10; i++) {
+        updatedAndSortedArr.push(upd[i])
+      }
+
       return {
         ...state,
         stats: {
           ...state.stats,
-          [statsStateKey]: [
-            upd[0],
-            upd[1],
-            upd[2],
-            upd[3],
-            upd[4],
-            upd[5],
-            upd[6],
-            upd[7],
-            upd[8],
-            upd[9]
-          ]
+          [statsStateKey]: updatedAndSortedArr
         }
 
         // [action.payload.timerLenght]: [...action.payload.data]
@@ -306,7 +299,7 @@ function postReducer(state = initialState, action) {
 
     // ========================================
 
-    case "HINTS_VISIBILITY":
+  /*   case "HINTS_VISIBILITY":
       return {
         ...state,
         componentsDisplay: {
@@ -332,7 +325,13 @@ function postReducer(state = initialState, action) {
           areResultsVisible: areResultsVisible,
           areStatsVisible: !areStatsVisible
         }
-      };
+      }; */
+
+
+
+
+
+
 
     case "TIMER_VALUE":
       return {
@@ -575,6 +574,7 @@ function postReducer(state = initialState, action) {
 
 //object with reducers, totalState - arbitrary
 export default combineReducers({
-  totalState: postReducer
+  totalState: postReducer,
+  visibilityState: visibilityReducer
   // statsState: statsReducer
 });
