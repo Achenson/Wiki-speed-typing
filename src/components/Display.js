@@ -283,10 +283,10 @@ function Display({
 const mapStateToProps = state => {
   return {
     timerValue: state.resultsAndTimerState.counter.timerValue,
-    textAreaValue: state.totalState.inputArea.textAreaValue,
-    prevTextAreaValue: state.totalState.inputArea.prevTextAreaValue,
-    indexOfPartialTextArr: state.totalState.wikiDisplay.indexOfPartialTextArr,
-    colorForEachLetter: state.totalState.wikiDisplay.colorForEachLetter,
+    textAreaValue: state.displayState.inputArea.textAreaValue,
+    prevTextAreaValue: state.displayState.inputArea.prevTextAreaValue,
+    indexOfPartialTextArr: state.displayState.wikiDisplay.indexOfPartialTextArr,
+    colorForEachLetter: state.displayState.wikiDisplay.colorForEachLetter,
 
     liveResults: state.resultsAndTimerState.liveResults,
     finalResults: state.resultsAndTimerState.finalResults

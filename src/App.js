@@ -328,10 +328,10 @@ const mapStateToProps = state => {
     isActive: state.resultsAndTimerState.counter.isActive, // (1)
     toReset: state.resultsAndTimerState.counter.toReset, // (1)
     isCounterRunning: state.resultsAndTimerState.counter.isCounterRunning, // (1)
-    displayToReset: state.totalState.textDisplay.displayToReset,
-    myText: state.totalState.textDisplay.myText,
-    wikiTitle: state.totalState.textDisplay.wikiTitle,
-    newRandomArticle: state.totalState.textDisplay.newRandomArticle,
+    displayToReset: state.displayState.textDisplay.displayToReset,
+    myText: state.displayState.textDisplay.myText,
+    wikiTitle: state.displayState.textDisplay.wikiTitle,
+    newRandomArticle: state.displayState.textDisplay.newRandomArticle,
     // hints & results
     /* areHintsVisible: state.totalState.componentsDisplay.areHintsVisible,
     areResultsVisible: state.totalState.componentsDisplay.areResultsVisible,

@@ -117,7 +117,7 @@ const mapStateToProps = state => {
   return {
     // disablingButton: state.refs.disablingButton,
     // focusTextArea: state.refs.focusTextArea,
-    newRandomArticle: state.totalState.textDisplay.newRandomArticle
+    newRandomArticle: state.displayState.textDisplay.newRandomArticle
   };
 };
 
