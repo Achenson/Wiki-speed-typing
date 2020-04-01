@@ -282,14 +282,14 @@ function Display({
 
 const mapStateToProps = state => {
   return {
-    timerValue: state.totalState.counter.timerValue,
+    timerValue: state.resultsAndTimerState.counter.timerValue,
     textAreaValue: state.totalState.inputArea.textAreaValue,
     prevTextAreaValue: state.totalState.inputArea.prevTextAreaValue,
     indexOfPartialTextArr: state.totalState.wikiDisplay.indexOfPartialTextArr,
     colorForEachLetter: state.totalState.wikiDisplay.colorForEachLetter,
 
-    liveResults: state.totalState.liveResults,
-    finalResults: state.totalState.finalResults
+    liveResults: state.resultsAndTimerState.liveResults,
+    finalResults: state.resultsAndTimerState.finalResults
   };
 };
 

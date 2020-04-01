@@ -323,11 +323,11 @@ function App({
 const mapStateToProps = state => {
   return {
     //  !!!! totalState is from reducers.js combineReducers at the end
-    timerValue: state.totalState.counter.timerValue, // (1)
-    constantTimerValue: state.totalState.counter.constantTimerValue, // (1)
-    isActive: state.totalState.counter.isActive, // (1)
-    toReset: state.totalState.counter.toReset, // (1)
-    isCounterRunning: state.totalState.counter.isCounterRunning, // (1)
+    timerValue: state.resultsAndTimerState.counter.timerValue, // (1)
+    constantTimerValue: state.resultsAndTimerState.counter.constantTimerValue, // (1)
+    isActive: state.resultsAndTimerState.counter.isActive, // (1)
+    toReset: state.resultsAndTimerState.counter.toReset, // (1)
+    isCounterRunning: state.resultsAndTimerState.counter.isCounterRunning, // (1)
     displayToReset: state.totalState.textDisplay.displayToReset,
     myText: state.totalState.textDisplay.myText,
     wikiTitle: state.totalState.textDisplay.wikiTitle,

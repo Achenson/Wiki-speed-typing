@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect, Fragment } from "react";
-import { connect } from "react-redux";
+import { Fragment } from "react";
+// import { connect } from "react-redux";
 
 function SingleStat({ speed, accuracy, key }) {
   let isThisARecord;

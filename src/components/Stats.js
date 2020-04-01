@@ -81,11 +81,11 @@ function Stats({
 
 const mapStateToProps = state => {
   return {
-    five_s: state.totalState.stats.five_s,
-    thirty_s: state.totalState.stats.thirty_s,
-    one_min: state.totalState.stats.one_min,
-    two_min: state.totalState.stats.two_min,
-    five_min: state.totalState.stats.five_min
+    five_s: state.resultsAndTimerState.stats.five_s,
+    thirty_s: state.resultsAndTimerState.stats.thirty_s,
+    one_min: state.resultsAndTimerState.stats.one_min,
+    two_min: state.resultsAndTimerState.stats.two_min,
+    five_min: state.resultsAndTimerState.stats.five_min
   };
 };
 
