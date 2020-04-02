@@ -74,13 +74,17 @@ DONE 42. merge branches
 REDUX_FULLSTACK:
 
 toChange:
-1. split reducers in seperate files?
+DONE 1. split reducers in seperate files? DONE
 2. toggleHints - change from function to action creator?
 3. bar-chart onhover does not work perfectly
 4. stats/ top-score naming consistency?
 DONE 5. stats: no KPM or % if there is no record? DONE
 6. stats: tooltips (speed, accuracy)?
 7. stats: | between speed & accuracy always in the same place?
+8. implement-redux thunk for fetching?
+DONE 9. moreHints DONE
+10. fa in hints?
+
 
 (react scripts 3.3.0 => 3.4.0? new npm ver?)
 

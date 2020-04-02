@@ -22,6 +22,7 @@ function Hints(props) {
           </li>
           <li>Click on the article title to visit wikipedia page</li>
           <li>Mouse over results for more information</li>
+          <li>Register to access your Top Score</li>
         </ul>
       </div>
     </div>

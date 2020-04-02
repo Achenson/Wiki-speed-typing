@@ -55,7 +55,7 @@ body {
   border-radius: 2px;
   /* absolute would be better if there are more hints */
   position: relative;
-  top: 265px;
+  top: 271px;
   left: 1px;
   z-index: 1;
 }
@@ -404,7 +404,9 @@ body {
 .stats {
   /* visibility: hidden; */
   width: 420px;
-  min-height: 320px;
+  /* min-height: 320px; */
+  /* min-height: 310px; */
+  height: 310px;
 
   color: black;
   background-color: var(--results-bg);
@@ -415,7 +417,8 @@ body {
   position: absolute;
   left: -10px;
 
-  bottom: 40px;
+  /* bottom: 35px; */
+  bottom: 45px;
   z-index: 1;
 }
 
@@ -434,9 +437,14 @@ body {
   padding-bottom: 0.1em;
 }
 
+.top-score-list {
+  margin-bottom: 2rem;
+}
+
 .top-score-list > li {
   list-style-type: decimal;
 }
+
 
 .top-score-main {
   display: flex;
@@ -460,6 +468,27 @@ body {
   align-items: center;
 }
 
+.delete-top-score-div {
+  display: flex;
+  /* position: relative; */
+  /* left: 50px; */
+  /* float: right; */
+  justify-content: center;
+} 
+
+.delete-top-score-text {
+  align-self: center;
+  padding-bottom: 2px;
+
+}
+
+.btn-delete-stats {
+  width: auto;
+  /* align-self: center; */
+}
+
+
+/* lower UI fa icon */
 .fa-chart-bar-default {
   color: green;
 }

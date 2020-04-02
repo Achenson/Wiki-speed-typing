@@ -74,6 +74,24 @@ function Stats({
             }
           })}
         </ul>
+        
+        <div className="delete-top-score-div">
+        <span className="delete-top-score-text">
+          {/* Delete top score for selected timer length -&nbsp; */}
+          Delete top score for selected timer length&nbsp;&nbsp;
+        </span>
+        <button
+          className="btn btn-control control-item btn-reset btn-delete-stats"
+          // onClick={event => {
+            // props.resetTimer();
+            // props.putFocusOnTextArea();
+          // }}
+        >
+          x
+        </button>
+        </div>
+
+     
       </div>
     </div>
   );
