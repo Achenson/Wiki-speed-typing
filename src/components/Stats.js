@@ -107,7 +107,16 @@ const mapStateToProps = state => {
   };
 };
 
+
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteCurrentStats: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
+   
+  };
+};
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
 )(Stats);

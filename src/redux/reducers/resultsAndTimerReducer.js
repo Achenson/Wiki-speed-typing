@@ -23,69 +23,15 @@ const initialState = {
 
   // for Stats
   stats: {
-    five_s: [
-      [1, 11],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0]
-    ],
+    five_s: makeDefaultStats(1),
 
-    thirty_s: [
-      [2, 22],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0]
-    ],
+    thirty_s: makeDefaultStats(2),
 
-    one_min: [
-      [3, 33],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0]
-    ],
+    one_min: makeDefaultStats(3),
 
-    two_min: [
-      [4, 44],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0]
-    ],
-    five_min: [
-      [5, 55],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0],
-      [0, 0]
-    ]
+    two_min: makeDefaultStats(4),
+
+    five_min: makeDefaultStats(5)
   },
 
   counter: {
@@ -96,6 +42,21 @@ const initialState = {
     isCounterRunning: false
   }
 };
+
+function makeDefaultStats(n) {
+  return [
+    [n, n],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0],
+    [0, 0]
+  ];
+}
 
 function resultsAndTimerReducer(state = initialState, action) {
   const {
