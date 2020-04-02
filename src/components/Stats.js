@@ -6,36 +6,41 @@ import SingleStat from "./SingleStat";
 function Stats({
   areStatsVisible,
   // from statsReducer
+  currentStatsArr,
+
+  setCurrentStatsArr,
+  deleteCurrentStatsArr,
   five_s,
   thirty_s,
   one_min,
   two_min,
   five_min
 }) {
-  const [currentStatsArr, setCurrentStatsArr] = useState(one_min);
+  // const [currentStatsArr, setCurrentStatsArr] = useState(one_min);
 
-  function changeCurrentStatsArr(e) {
-    switch (e.target.value) {
+  //  function changeCurrentStatsArr(e) {
+    /* switch (e.target.value) {
       case "5":
-        setCurrentStatsArr(five_s);
+        // setCurrentStatsArr(five_s);
         break;
       case "30":
-        setCurrentStatsArr(thirty_s);
+        // setCurrentStatsArr(thirty_s);
         break;
       case "60":
-        setCurrentStatsArr(one_min);
+        // setCurrentStatsArr(one_min);
         break;
       case "120":
-        setCurrentStatsArr(two_min);
+        // setCurrentStatsArr(two_min);
         break;
       case "300":
-        setCurrentStatsArr(five_min);
+        // setCurrentStatsArr(five_min);
         break;
 
       default:
-        setCurrentStatsArr(one_min);
-    }
-  }
+        // setCurrentStatsArr(one_min);
+    } */
+    // setCurrentStatsArr(e.target.value)
+  //  } 
 
   return (
     <div
@@ -52,7 +57,7 @@ function Stats({
             <select
               className="control-item timer-select top-score-timer-select"
               // onChange={props.setTimerOnSelect}
-              onChange={changeCurrentStatsArr}
+              onChange={(e) => setCurrentStatsArr(e.target.value)}
               // ref={props.isDisabled}
               defaultValue="60"
             >
@@ -99,6 +104,7 @@ function Stats({
 
 const mapStateToProps = state => {
   return {
+    currentStatsArr: state.resultsAndTimerState.stats.currentStatsArr,
     five_s: state.resultsAndTimerState.stats.five_s,
     thirty_s: state.resultsAndTimerState.stats.thirty_s,
     one_min: state.resultsAndTimerState.stats.one_min,
@@ -110,7 +116,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteCurrentStats: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
+    setCurrentStatsArr: (data) => dispatch({ type: "SET_CURRENT_STATS", payload: data }),
+    deleteCurrentStatsArr: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
    
   };
 };

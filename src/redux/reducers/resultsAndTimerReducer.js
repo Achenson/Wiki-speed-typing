@@ -1,4 +1,10 @@
+
+
+
 const initialState = {
+
+
+
   currentResults: {
     resultsCorrect: 0,
     resultsIncorrect: 0,
@@ -23,6 +29,10 @@ const initialState = {
 
   // for Stats
   stats: {
+
+
+    currentStatsArr: makeDefaultStats(3),
+
     five_s: makeDefaultStats(1),
 
     thirty_s: makeDefaultStats(2),
@@ -31,7 +41,9 @@ const initialState = {
 
     two_min: makeDefaultStats(4),
 
-    five_min: makeDefaultStats(5)
+    five_min: makeDefaultStats(5),
+
+    
   },
 
   counter: {
@@ -43,6 +55,9 @@ const initialState = {
   }
 };
 
+
+
+// !!! change later
 function makeDefaultStats(n) {
   return [
     [n, n],
@@ -57,6 +72,9 @@ function makeDefaultStats(n) {
     [0, 0]
   ];
 }
+
+
+
 
 function resultsAndTimerReducer(state = initialState, action) {
   const {
@@ -274,9 +292,48 @@ function resultsAndTimerReducer(state = initialState, action) {
         }
       };
 
+    case "SET_CURRENT_STATS":
+      return {
+        ...state,
+        stats: {
+          ...state.stats,
+          currentStatsArr: changeCurrentStatsArr(action.payload)
+        }
+      };
+
+      function changeCurrentStatsArr(payload) {
+        switch (payload) {
+          case "5":
+            return state.stats.five_s;
+            // setCurrentStatsArr(five_s);
+            // break;
+          case "30":
+            // setCurrentStatsArr(thirty_s);
+            return state.stats.thirty_s;
+            // break;
+          case "60":
+            // setCurrentStatsArr(one_min);
+            return state.stats.one_min;
+            // break;
+          case "120":
+            // setCurrentStatsArr(two_min);
+            return state.stats.two_min;
+            break;
+          case "300":
+            return state.stats.five_min;
+            // setCurrentStatsArr(five_min);
+            // break;
+
+          default:
+            return state.stats.one_min;
+        }
+        // setCurrentStatsArr(e.target.value)
+      }
+
     default:
       return state;
   }
+
   function resultsMaker(correct, incorrect, allEntries, timerValue_current) {
     // (constantTimerValue-timerValue) !!! crucial for displaying proper speed&accuracy live
     let noPenaltyKPM =

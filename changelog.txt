@@ -84,6 +84,7 @@ DONE 5. stats: no KPM or % if there is no record? DONE
 8. implement-redux thunk for fetching?
 DONE 9. moreHints DONE
 10. fa in hints?
+11. currentStats: change to by default showing stats for current timer value?
 
 
 (react scripts 3.3.0 => 3.4.0? new npm ver?)
