@@ -301,14 +301,15 @@ function resultsAndTimerReducer(state = initialState, action) {
         }
       };
 
-      /* case "DELETE_CURRENT_STATS":
+      case "DELETE_CURRENT_STATS":
       return {
         ...state,
         stats: {
           ...state.stats,
-          currentStatsArr: changeCurrentStatsKey(action.payload)
+          // currentStatsArr: changeCurrentStatsKey(action.payload)
+          [state.stats.currentStatsKey]: makeDefaultStats(7)
         }
-      }; */
+      };
 
 
       function changeCurrentStatsKey(payload) {

@@ -17,31 +17,7 @@ function Stats({
   two_min,
   five_min
 }) {
-  // const [currentStatsArr, setCurrentStatsArr] = useState(one_min);
-
-  //  function changeCurrentStatsArr(e) {
-    /* switch (e.target.value) {
-      case "5":
-        // setCurrentStatsArr(five_s);
-        break;
-      case "30":
-        // setCurrentStatsArr(thirty_s);
-        break;
-      case "60":
-        // setCurrentStatsArr(one_min);
-        break;
-      case "120":
-        // setCurrentStatsArr(two_min);
-        break;
-      case "300":
-        // setCurrentStatsArr(five_min);
-        break;
-
-      default:
-        // setCurrentStatsArr(one_min);
-    } */
-    // setCurrentStatsArr(e.target.value)
-  //  } 
+ 
 
   return (
     <div
@@ -89,10 +65,9 @@ function Stats({
         </span>
         <button
           className="btn btn-control control-item btn-reset btn-delete-stats"
-          // onClick={event => {
-            // props.resetTimer();
-            // props.putFocusOnTextArea();
-          // }}
+          onClick={
+             deleteCurrentStatsArr
+           }
         >
           x
         </button>
@@ -108,12 +83,6 @@ const mapStateToProps = state => {
   return {
     currentStatsKey: state.resultsAndTimerState.stats.currentStatsKey,
     currentStats: state.resultsAndTimerState.stats
-
-    /* five_s: state.resultsAndTimerState.stats.five_s,
-    thirty_s: state.resultsAndTimerState.stats.thirty_s,
-    one_min: state.resultsAndTimerState.stats.one_min,
-    two_min: state.resultsAndTimerState.stats.two_min,
-    five_min: state.resultsAndTimerState.stats.five_min */
   };
 };
 
@@ -121,7 +90,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setCurrentStatsKey: (data) => dispatch({ type: "SET_CURRENT_STATS", payload: data }),
-    // deleteCurrentStatsArr: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
+    deleteCurrentStatsArr: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
    
   };
 };
