@@ -46,7 +46,8 @@ body {
 .hints {
   /* visibility: hidden; */
   width: 420px;
-  min-height: 158px;
+  /* min-height: 158px; */
+  height: 169px;
   margin-left: auto;
   margin-right: auto;
   color: black;
@@ -55,7 +56,7 @@ body {
   border-radius: 2px;
   /* absolute would be better if there are more hints */
   position: relative;
-  top: 271px;
+  top: 272px;
   left: 1px;
   z-index: 1;
 }

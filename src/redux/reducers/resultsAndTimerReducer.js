@@ -31,7 +31,7 @@ const initialState = {
   stats: {
 
 
-    currentStatsArr: makeDefaultStats(3),
+    currentStatsKey: "one_min",
 
     five_s: makeDefaultStats(1),
 
@@ -297,35 +297,45 @@ function resultsAndTimerReducer(state = initialState, action) {
         ...state,
         stats: {
           ...state.stats,
-          currentStatsArr: changeCurrentStatsArr(action.payload)
+          currentStatsKey: changeCurrentStatsKey(action.payload)
         }
       };
 
-      function changeCurrentStatsArr(payload) {
+      /* case "DELETE_CURRENT_STATS":
+      return {
+        ...state,
+        stats: {
+          ...state.stats,
+          currentStatsArr: changeCurrentStatsKey(action.payload)
+        }
+      }; */
+
+
+      function changeCurrentStatsKey(payload) {
         switch (payload) {
           case "5":
-            return state.stats.five_s;
+            return "five_s";
             // setCurrentStatsArr(five_s);
             // break;
           case "30":
             // setCurrentStatsArr(thirty_s);
-            return state.stats.thirty_s;
+            return "thirty_s";
             // break;
           case "60":
             // setCurrentStatsArr(one_min);
-            return state.stats.one_min;
+            return "one_min";
             // break;
           case "120":
             // setCurrentStatsArr(two_min);
-            return state.stats.two_min;
+            return "two_min";
             break;
           case "300":
-            return state.stats.five_min;
+            return "five_min";
             // setCurrentStatsArr(five_min);
             // break;
 
           default:
-            return state.stats.one_min;
+            return "one_min";
         }
         // setCurrentStatsArr(e.target.value)
       }

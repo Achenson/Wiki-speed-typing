@@ -6,9 +6,10 @@ import SingleStat from "./SingleStat";
 function Stats({
   areStatsVisible,
   // from statsReducer
-  currentStatsArr,
+  currentStatsKey,
 
-  setCurrentStatsArr,
+  setCurrentStatsKey,
+  currentStats,
   deleteCurrentStatsArr,
   five_s,
   thirty_s,
@@ -57,7 +58,7 @@ function Stats({
             <select
               className="control-item timer-select top-score-timer-select"
               // onChange={props.setTimerOnSelect}
-              onChange={(e) => setCurrentStatsArr(e.target.value)}
+              onChange={(e) => setCurrentStatsKey(e.target.value)}
               // ref={props.isDisabled}
               defaultValue="60"
             >
@@ -71,7 +72,8 @@ function Stats({
         </div>
 
         <ul className="top-score-list container">
-          {currentStatsArr.map((el, i) => {
+        {/* !! [] not . */}
+          {currentStats[currentStatsKey].map((el, i) => {
             if (i > 9) {
               return null;
             } else {
@@ -104,20 +106,22 @@ function Stats({
 
 const mapStateToProps = state => {
   return {
-    currentStatsArr: state.resultsAndTimerState.stats.currentStatsArr,
-    five_s: state.resultsAndTimerState.stats.five_s,
+    currentStatsKey: state.resultsAndTimerState.stats.currentStatsKey,
+    currentStats: state.resultsAndTimerState.stats
+
+    /* five_s: state.resultsAndTimerState.stats.five_s,
     thirty_s: state.resultsAndTimerState.stats.thirty_s,
     one_min: state.resultsAndTimerState.stats.one_min,
     two_min: state.resultsAndTimerState.stats.two_min,
-    five_min: state.resultsAndTimerState.stats.five_min
+    five_min: state.resultsAndTimerState.stats.five_min */
   };
 };
 
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCurrentStatsArr: (data) => dispatch({ type: "SET_CURRENT_STATS", payload: data }),
-    deleteCurrentStatsArr: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
+    setCurrentStatsKey: (data) => dispatch({ type: "SET_CURRENT_STATS", payload: data }),
+    // deleteCurrentStatsArr: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
    
   };
 };
