@@ -1,5 +1,7 @@
 import React from "react";
 //import { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
+
 
 function Controls(props) {
   return (
@@ -15,7 +17,8 @@ function Controls(props) {
           className="control-item timer-select"
           onChange={props.setTimerOnSelect}
           ref={props.isDisabled}
-          defaultValue="60"
+          // defaultValue="60"
+          value={props.constantTimerValue.toString()}
         >
           <option value="5">00:05</option>
           <option value="30">00:30</option>
@@ -40,4 +43,26 @@ function Controls(props) {
   );
 }
 
-export default Controls;
+
+const mapStateToProps = state => {
+  return {
+  
+    constantTimerValue: state.resultsAndTimerState.counter.constantTimerValue
+  };
+};
+
+/* const mapDispatchToProps = dispatch => {
+  return {
+    setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
+    setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
+  };
+}; */
+
+
+export default connect(
+  mapStateToProps,
+  // mapDispatchToProps
+  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+)(Controls); // (3)
+
+// export default Controls;

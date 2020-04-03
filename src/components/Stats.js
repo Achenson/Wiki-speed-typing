@@ -5,8 +5,10 @@ import SingleStat from "./SingleStat";
 
 function Stats({
   areStatsVisible,
+  constantTimerValue,
   // from statsReducer
   currentStatsKey,
+  
 
   setCurrentStatsKey,
   currentStats,
@@ -18,6 +20,36 @@ function Stats({
   five_min
 }) {
  
+
+  // inverted version of  changeCurrentStatsKey from resultsAndTimerReducer
+  function changeCurrentStatsKey(payload) {
+    switch (payload) {
+      case "five_s":
+        return "5";
+        // setCurrentStatsArr(five_s);
+        // break;
+      case "thirty_s":
+        // setCurrentStatsArr(thirty_s);
+        return "30";
+        // break;
+      case "one_min":
+        // setCurrentStatsArr(one_min);
+        return "60";
+        // break;
+      case "two_min":
+        // setCurrentStatsArr(two_min);
+        return "120";
+        break;
+      case "five_min":
+        return "300";
+        // setCurrentStatsArr(five_min);
+        // break;
+
+      default:
+        return "60";
+    }
+    // setCurrentStatsArr(e.target.value)
+  }
 
   return (
     <div
@@ -34,9 +66,14 @@ function Stats({
             <select
               className="control-item timer-select top-score-timer-select"
               // onChange={props.setTimerOnSelect}
-              onChange={(e) => setCurrentStatsKey(e.target.value)}
+              // onChange={(e) => {
+                // setCurrentStatsKey(e.target.value)
+                // }}
+
               // ref={props.isDisabled}
-              defaultValue="60"
+              // defaultValue="60"
+              // defaultValue={constantTimerValue.toString()}
+              value={constantTimerValue.toString()}
             >
               <option value="5">00:05</option>
               <option value="30">00:30</option>
@@ -82,7 +119,9 @@ function Stats({
 const mapStateToProps = state => {
   return {
     currentStatsKey: state.resultsAndTimerState.stats.currentStatsKey,
-    currentStats: state.resultsAndTimerState.stats
+    currentStats: state.resultsAndTimerState.stats,
+    constantTimerValue: state.resultsAndTimerState.counter.constantTimerValue
+
   };
 };
 

@@ -43,7 +43,8 @@ function App({
   setDisplayToReset_true,
   setConstantTimerValue,
   // for Stats
-  setStats
+  setStats,
+  setCurrentStatsKey
 }) {
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
@@ -168,6 +169,10 @@ function App({
   function setTimerOnSelect(e) {
     setTimerValue(e.target.value);
     setConstantTimerValue(e.target.value);
+    // for Stats
+    setCurrentStatsKey(e.target.value)
+
+
   }
 
   function resetTimer() {
@@ -386,8 +391,9 @@ const mapDispatchToProps = dispatch => {
     //  here deleted
 
     // for Stats
-
-    setStats: () => dispatch({ type: "UPDATE_STATS" })
+    setStats: () => dispatch({ type: "UPDATE_STATS" }),
+    // for synchronizing select timer with select from Stats
+    setCurrentStatsKey: (data) => dispatch({ type: "SET_CURRENT_STATS", payload: data }),
   };
 };
 
