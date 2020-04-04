@@ -73,7 +73,12 @@ function Stats({
               // ref={props.isDisabled}
               // defaultValue="60"
               // defaultValue={constantTimerValue.toString()}
-              value={constantTimerValue.toString()}
+              // value={constantTimerValue.toString()}
+              onChange={
+                e => setCurrentStatsKey(e.target.value)
+              }
+              value={changeCurrentStatsKey(currentStatsKey)}
+
             >
               <option value="5">00:05</option>
               <option value="30">00:30</option>
