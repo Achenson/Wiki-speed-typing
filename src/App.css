@@ -92,6 +92,7 @@ body {
   font-family: Merriweather;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 30px;
   font-weight: normal;
   font-size: 1rem;
 }
@@ -504,4 +505,29 @@ body {
 
 .fa-chart-bar-inverted:hover {
   color: green;
+}
+
+/* AuthenticationUI */
+
+.auth-div {
+  /* background-color: black; */
+  display: flex;
+  justify-content: space-evenly;
+  color: whitesmoke;
+  position: absolute;
+  top: -21px;
+  right: 0px;
+  /* border-top: 0px solid blue; */
+  border-bottom: 20px solid black;
+  border-left: 20px solid transparent;
+  border-right: 15px solid transparent;
+  border-radius: 3px;
+  height: 0;
+  width: 160px;
+
+
+}
+
+.auth-link {
+  margin: auto 0.3rem;
 }

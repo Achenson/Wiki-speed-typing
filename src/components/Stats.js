@@ -65,15 +65,7 @@ function Stats({
             <p>timer length:&nbsp;</p>
             <select
               className="control-item timer-select top-score-timer-select"
-              // onChange={props.setTimerOnSelect}
-              // onChange={(e) => {
-                // setCurrentStatsKey(e.target.value)
-                // }}
-
-              // ref={props.isDisabled}
-              // defaultValue="60"
-              // defaultValue={constantTimerValue.toString()}
-              // value={constantTimerValue.toString()}
+             cd
               onChange={
                 e => setCurrentStatsKey(e.target.value)
               }

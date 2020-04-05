@@ -11,6 +11,7 @@ import Controls from "./Controls.js";
 import LowerUI from "./LowerUI.js";
 import Stats from "./Stats.js";
 import Results from "./Results.js";
+import AuthenticationUI from "./AuthenticationUI.js"
 
 // const escapeStringRegexp = require("escape-string-regexp");
 
@@ -216,7 +217,9 @@ function Display({
       <Hints areHintsVisible={areHintsVisible} />
 
       <h3 className="title">Wiki Speed Typing</h3>
+      
       <div className="main-square">
+        <AuthenticationUI/>
         <UpperUI
           toggleHints={toggleHints}
           areResultsVisible={areResultsVisible}
