@@ -1,12 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-
-function AuthenticationUI(
-
-  {isAuthenticated}
-) {
-
+function AuthenticationUI({ isAuthenticated }) {
   // let isAuthenticated = false;
 
   function authLinks() {
@@ -27,30 +22,21 @@ function AuthenticationUI(
     }
   }
 
-  return (
-     authLinks()
-  );
+  return authLinks();
 }
-
-
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: state.authState.isAuthenticated,
-
-
+    isAuthenticated: state.authState.isAuthenticated
   };
 };
-
 
 const mapDispatchToProps = dispatch => {
   return {
-    LogIn: () => dispatch({ type: "LOG_IN"}),
-    LogOut: () => dispatch({ type: "LOG_OUT" }),
-   
+    LogIn: () => dispatch({ type: "LOG_IN" }),
+    LogOut: () => dispatch({ type: "LOG_OUT" })
   };
 };
-
 
 export default connect(
   mapStateToProps,

@@ -12,6 +12,7 @@ import LowerUI from "./LowerUI.js";
 import Stats from "./Stats.js";
 import Results from "./Results.js";
 import AuthenticationUI from "./AuthenticationUI.js"
+import Login from "../components_links/Login.js"
 
 // const escapeStringRegexp = require("escape-string-regexp");
 
@@ -214,11 +215,19 @@ function Display({
   let ellipsis = "...";
   return (
     <div className="outer-container">
+
+      
       <Hints areHintsVisible={areHintsVisible} />
 
       <h3 className="title">Wiki Speed Typing</h3>
       
-      <div className="main-square">
+      <div className="main-square-login">
+
+        <Login />
+
+
+      </div>
+      <div className="main-square" style={{display: "none"}}>
         <AuthenticationUI/>
         <UpperUI
           toggleHints={toggleHints}

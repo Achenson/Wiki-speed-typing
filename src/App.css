@@ -538,3 +538,63 @@ body {
   cursor: pointer;
   transition: all 0.1s linear;
 }
+
+/* Login */
+
+.main-square-login {
+  width: 400px;
+  /* min-height: 578px; */
+  min-height: 289px;
+  /* background-color: #afd9d0; */
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  /* border: 1px solid rgba(92, 177, 158, 0.831); */
+  border: 1px solid darkgray;
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px black;
+  position: relative;
+  z-index:0;
+}
+
+.form-div {
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+}
+
+.title-login-div {
+  text-align: center;
+}
+
+.form {
+  margin-top: 1rem;
+}
+
+.btn-login {
+  /* display: inline-block; */
+  display: block;
+  /* background-color: steelblue;
+  border-radius: 0.5em;
+  color: white;
+  border: 1px solid black; */
+  width: 100%;
+  height: 2rem;
+  font-size: 0.9rem;
+}
+
+/* .label {
+  margin: 0.rem auto;
+} */
+
+.input {
+  margin: 0.3rem auto;
+  width: 100%;
+  height: 2rem;
+}
+
+.title-login {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+
+}

@@ -86,6 +86,7 @@ DONE 9. moreHints DONE
 10. fa in hints?
 DONE 11. currentStats: change to by default showing stats for current timer value? DONE
 12. app-title: move left/up?
+13. confirmation for stats reset
 
 
 
