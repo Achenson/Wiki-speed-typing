@@ -513,6 +513,7 @@ body {
   /* background-color: black; */
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   color: whitesmoke;
   position: absolute;
   top: -21px;
@@ -521,13 +522,19 @@ body {
   border-bottom: 20px solid black;
   border-left: 20px solid transparent;
   border-right: 15px solid transparent;
-  border-radius: 3px;
+  border-radius: 2px;
   height: 0;
-  width: 160px;
+  width: 170px;
 
 
 }
 
 .auth-link {
   margin: auto 0.3rem;
+}
+
+.auth-link:hover {
+  color: turquoise;
+  cursor: pointer;
+  transition: all 0.1s linear;
 }
