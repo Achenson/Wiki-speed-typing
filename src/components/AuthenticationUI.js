@@ -1,8 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
 
-function AuthenticationUI() {
 
-  let isAuthenticated = true;
+function AuthenticationUI(
+
+  {isAuthenticated}
+) {
+
+  // let isAuthenticated = false;
 
   function authLinks() {
     if (!isAuthenticated) {
@@ -27,4 +32,28 @@ function AuthenticationUI() {
   );
 }
 
-export default AuthenticationUI;
+
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.authState.isAuthenticated,
+
+
+  };
+};
+
+
+const mapDispatchToProps = dispatch => {
+  return {
+    LogIn: () => dispatch({ type: "LOG_IN"}),
+    LogOut: () => dispatch({ type: "LOG_OUT" }),
+   
+  };
+};
+
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+)(AuthenticationUI);
