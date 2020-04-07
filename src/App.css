@@ -563,7 +563,7 @@ body {
   width: 200px;
 }
 
-.title-login-div {
+.title-auth-div {
   text-align: center;
 }
 
@@ -571,7 +571,7 @@ body {
   margin-top: 1rem;
 }
 
-.btn-login {
+.btn-auth {
   /* display: inline-block; */
   display: block;
   /* background-color: steelblue;
@@ -595,17 +595,17 @@ body {
   height: 2rem;
 }
 
-.title-login {
+.title-auth {
   margin-bottom: 1rem;
   font-size: 1.1rem;
 
 }
 
-.login-links-div {
+.auth-links-div {
   text-align: center;
   margin-top: 1.25rem;
 }
 
-.login-link-item {
+.auth-link-item {
   margin-bottom: 0.5rem;
 }

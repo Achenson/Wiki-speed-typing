@@ -5,34 +5,41 @@ function Register() {
 
   return (
     <div className="form-div">
-      <div className="title-login-div">
-        <h3 className="title title-login">Register</h3>
+      <div className="title-auth-div">
+        <h3 className="title title-auth">Register</h3>
       </div>
       <form className="form">
         {/* associating label with input without ID -> nesting */}
         <label className="label">
+          Username
+          <input className="input" type="text" />
+        </label>
+        
+        <label className="label">
           Email address
           <input className="input" type="email" />
         </label>
-        <br />
-        <br />
-
+       
         <label className="label">
           Password
           <input className="input" type="password" />
         </label>
+        <label className="label">
+          Confirm password
+          <input className="input" type="password" />
+        </label>
         <br />
 
-        <button className="btn btn-control btn-login" type="submit">
-          Login
+        <button className="btn btn-control btn-auth" type="submit">
+          Register
         </button>
       </form>
-      <div className="login-links-div">
-        <p className="login-link-item">
-          No account?&nbsp;<a>register here</a>
+      <div className="auth-links-div">
+        <p className="auth-link-item">
+          Already registered?&nbsp;<a>login here</a>
         </p>
 
-        <p className="login-link-item">
+        <p className="auth-link-item">
           <a>Back&nbsp;</a>to speed typing
         </p>
       </div>

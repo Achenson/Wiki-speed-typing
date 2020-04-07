@@ -5,8 +5,8 @@ function Login() {
 
   return (
     <div className="form-div">
-      <div className="title-login-div">
-        <h3 className="title title-login">Login</h3>
+      <div className="title-auth-div">
+        <h3 className="title title-auth">Login</h3>
       </div>
       <form className="form">
         {/* associating label with input without ID -> nesting */}
@@ -23,16 +23,16 @@ function Login() {
         </label>
         <br />
 
-        <button className="btn btn-control btn-login" type="submit">
+        <button className="btn btn-control btn-auth" type="submit">
           Login
         </button>
       </form>
-      <div className="login-links-div">
-        <p className="login-link-item">
+      <div className="auth-links-div">
+        <p className="auth-link-item">
           No account?&nbsp;<a>register here</a>
         </p>
 
-        <p className="login-link-item">
+        <p className="auth-link-item">
           <a>Back&nbsp;</a>to speed typing
         </p>
       </div>
