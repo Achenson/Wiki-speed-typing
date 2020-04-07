@@ -13,6 +13,7 @@ import Stats from "./Stats.js";
 import Results from "./Results.js";
 import AuthenticationUI from "./AuthenticationUI.js"
 import Login from "../components_links/Login.js"
+import Register from "../components_links/Register.js"
 
 // const escapeStringRegexp = require("escape-string-regexp");
 
@@ -223,10 +224,12 @@ function Display({
       
       <div className="main-square-login">
 
+      <div style={{display: "none"}}>
         <Login />
-
-
       </div>
+     <Register/>
+      </div>
+
       <div className="main-square" style={{display: "none"}}>
         <AuthenticationUI/>
         <UpperUI
@@ -288,6 +291,7 @@ function Display({
         areResultsVisible={areResultsVisible}
         finalResults={finalResults}
       />
+    
     </div>
   );
 }

@@ -11,7 +11,7 @@ function Login() {
       <form className="form">
         {/* associating label with input without ID -> nesting */}
         <label className="label">
-          Email address
+          Email address / username
           <input className="input" type="email" />
         </label>
         <br />

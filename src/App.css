@@ -582,6 +582,7 @@ body {
   height: 2rem;
   font-size: 0.9rem;
   margin-top: 0.5rem;
+  transition: all 0.1s linear;
 }
 
 /* .label {
