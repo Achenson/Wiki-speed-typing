@@ -581,6 +581,7 @@ body {
   width: 100%;
   height: 2rem;
   font-size: 0.9rem;
+  margin-top: 0.5rem;
 }
 
 /* .label {
@@ -597,4 +598,13 @@ body {
   margin-bottom: 1rem;
   font-size: 1.1rem;
 
+}
+
+.login-links-div {
+  text-align: center;
+  margin-top: 1.25rem;
+}
+
+.login-link-item {
+  margin-bottom: 0.5rem;
 }

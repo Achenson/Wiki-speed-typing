@@ -27,6 +27,15 @@ function Login() {
           Login
         </button>
       </form>
+      <div className="login-links-div">
+        <p className="login-link-item">
+          No account?&nbsp;<a>register here</a>
+        </p>
+
+        <p className="login-link-item">
+          <a>Back&nbsp;</a>to speed typing
+        </p>
+      </div>
     </div>
   );
 }
