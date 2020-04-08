@@ -36,7 +36,7 @@ function Register() {
       </form>
       <div className="auth-links-div">
         <p className="auth-link-item">
-          Already registered?&nbsp;<a>login here</a>
+          Already registered?&nbsp;<a>Login here</a>
         </p>
 
         <p className="auth-link-item">

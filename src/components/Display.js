@@ -222,15 +222,18 @@ function Display({
 
       <h3 className="title">Wiki Speed Typing</h3>
       
-      <div className="main-square-login">
+      <div className="main-square-login" style={{display: "none"}}>
 
       <div style={{display: "none"}}>
         <Login />
       </div>
+      <div style={{display: "none"}}>
      <Register/>
+
+      </div>
       </div>
 
-      <div className="main-square" style={{display: "none"}}>
+      <div className="main-square" >
         <AuthenticationUI/>
         <UpperUI
           toggleHints={toggleHints}
