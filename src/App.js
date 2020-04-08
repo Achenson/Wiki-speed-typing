@@ -8,6 +8,12 @@ import Fetch from "./components/Fetch.js";
 import Display from "./components/Display.js";
 import loremText from "./components/_defaultText.js";
 
+import Login from "./components_links/Login.js";
+import Register from "./components_links/Register.js";
+import testComponent from "./components_links/testComponent.js";
+
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+
 //!!!!! imported actions creators must be passed here as props
 function App({
   //  from mapStateToProps
@@ -44,7 +50,7 @@ function App({
   setConstantTimerValue,
   // for Stats
   setStats,
-  setCurrentStatsKey
+  setCurrentStatsKey,
 }) {
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
@@ -91,7 +97,7 @@ function App({
     timerValue,
     areResultsVisible,
     toggleResults,
-    toggleAreResultsVisible
+    toggleAreResultsVisible,
   ]);
 
   // for counter=======
@@ -156,7 +162,7 @@ function App({
     setTimerValueCountdown,
     setToReset_false,
     toggleActive,
-    setIsActiveToFalse
+    setIsActiveToFalse,
   ]);
 
   // for pause button
@@ -170,9 +176,7 @@ function App({
     setTimerValue(e.target.value);
     setConstantTimerValue(e.target.value);
     // for Stats
-    setCurrentStatsKey(e.target.value)
-
-
+    setCurrentStatsKey(e.target.value);
   }
 
   function resetTimer() {
@@ -275,21 +279,22 @@ function App({
     resultsReset,
     setFinalResults,
     setLiveResults,
-    setStats
+    setStats,
   ]);
   // ===========================================
 
   return (
-    <div className="App" onKeyDown={handleKeyPress}>
-      <Fetch
-        myText={myText}
-        wikiTitle={wikiTitle}
-        setNewRandomArticle_false={setNewRandomArticle_false}
-        disablingButton={disablingButton}
-        loremText={loremText}
-        focusTextArea={focusTextArea}
-      />
-      <Display
+    <BrowserRouter>
+      <div className="App" onKeyDown={handleKeyPress}>
+        <Fetch
+          myText={myText}
+          wikiTitle={wikiTitle}
+          setNewRandomArticle_false={setNewRandomArticle_false}
+          disablingButton={disablingButton}
+          loremText={loremText}
+          focusTextArea={focusTextArea}
+        />
+        {/* <Display
         // timer
         timerValue={timerValue}
         constantTimerValue={constantTimerValue}
@@ -320,12 +325,57 @@ function App({
         setNewRandomArticle_true={setNewRandomArticle_true}
         // for Fetch
         setNewRandomArticle_false={setNewRandomArticle_false}
-      />
-    </div>
+      /> */}
+        <Switch>
+          {/* <Route path="/" exact component={Display}/> */}
+          <Route
+            path="/"
+            exact
+            render={() => (
+              <Display
+                // {...props}
+                // timer
+                timerValue={timerValue}
+                constantTimerValue={constantTimerValue}
+                toggleTimer={toggleTimer}
+                setTimerOnSelect={setTimerOnSelect}
+                isActive={isActive}
+                resetTimer={resetTimer}
+                toReset={toReset}
+                displayToReset={displayToReset}
+                // hints & results visibility
+                areHintsVisible={areHintsVisible}
+                areResultsVisible={areResultsVisible}
+                areStatsVisible={areStatsVisible}
+                toggleHints={toggleHints}
+                toggleResults={toggleResults}
+                toggleStats={toggleStats}
+                // disabling select, menaging focus
+                isDisabled={isDisabled}
+                focusTextArea={focusTextArea}
+                putFocusOnTextArea={putFocusOnTextArea}
+                focusElement={focusElement}
+                // results
+                myText={myText}
+                wikiTitle={wikiTitle}
+                disablingButton={disablingButton}
+                isCounterRunning={isCounterRunning}
+                // for Display => WikiController
+                setNewRandomArticle_true={setNewRandomArticle_true}
+                // for Fetch
+                setNewRandomArticle_false={setNewRandomArticle_false}
+              />
+            )}
+          />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     //  !!!! totalState is from reducers.js combineReducers at the end
     timerValue: state.resultsAndTimerState.counter.timerValue, // (1)
@@ -343,11 +393,11 @@ const mapStateToProps = state => {
     areStatsVisible: state.totalState.componentsDisplay.areStatsVisible */
     areHintsVisible: state.visibilityState.areHintsVisible,
     areResultsVisible: state.visibilityState.areResultsVisible,
-    areStatsVisible: state.visibilityState.areStatsVisible
+    areStatsVisible: state.visibilityState.areStatsVisible,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     //  resultsCorrect, resultsIncorrect, resultsNoPenalty in for <Display>,
     // here deleted
@@ -371,11 +421,11 @@ const mapDispatchToProps = dispatch => {
 
     toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
     setIsActiveToFalse: () => dispatch({ type: "SET_IS_ACTIVE_TO_FALSE" }),
-    setTimerValue: data => dispatch({ type: "TIMER_VALUE", payload: data }),
-    setTimerValueCountdown: data =>
+    setTimerValue: (data) => dispatch({ type: "TIMER_VALUE", payload: data }),
+    setTimerValueCountdown: (data) =>
       dispatch({ type: "TIMER_VALUE_COUNTDOWN", payload: data }),
 
-    setConstantTimerValue: data =>
+    setConstantTimerValue: (data) =>
       dispatch({ type: "CONSTANT_TIMER_VALUE", payload: data }),
 
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
@@ -393,7 +443,8 @@ const mapDispatchToProps = dispatch => {
     // for Stats
     setStats: () => dispatch({ type: "UPDATE_STATS" }),
     // for synchronizing select timer with select from Stats
-    setCurrentStatsKey: (data) => dispatch({ type: "SET_CURRENT_STATS", payload: data }),
+    setCurrentStatsKey: (data) =>
+      dispatch({ type: "SET_CURRENT_STATS", payload: data }),
   };
 };
 

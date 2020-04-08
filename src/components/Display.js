@@ -15,6 +15,11 @@ import AuthenticationUI from "./AuthenticationUI.js"
 import Login from "../components_links/Login.js"
 import Register from "../components_links/Register.js"
 
+import testComponent from "../components_links/testComponent.js"
+
+
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+
 // const escapeStringRegexp = require("escape-string-regexp");
 
 function Display({
@@ -215,8 +220,13 @@ function Display({
   // for "..." displaying at the end of wiki-diplay
   let ellipsis = "...";
   return (
+  
     <div className="outer-container">
 
+      <Switch>
+
+        
+      </Switch>
       
       <Hints areHintsVisible={areHintsVisible} />
 
@@ -295,7 +305,10 @@ function Display({
         finalResults={finalResults}
       />
     
+
+
     </div>
+    
   );
 }
 

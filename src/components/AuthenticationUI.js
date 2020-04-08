@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+
 function AuthenticationUI({ isAuthenticated }) {
   // let isAuthenticated = false;
 
@@ -8,8 +10,9 @@ function AuthenticationUI({ isAuthenticated }) {
     if (!isAuthenticated) {
       return (
         <div className="auth-div">
-          <a className="auth-link">Register</a>
-          <a className="auth-link">Login</a>
+
+          <Link to="/register" className="auth-link">Register</Link>
+          <Link to="/login" className="auth-link">Login</Link>
         </div>
       );
     } else {
