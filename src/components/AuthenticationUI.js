@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
-function AuthenticationUI({ isAuthenticated }) {
+function AuthenticationUI({ isAuthenticated, toggleStats, logOut }) {
   // let isAuthenticated = false;
 
   function authLinks() {
@@ -18,8 +18,8 @@ function AuthenticationUI({ isAuthenticated }) {
     } else {
       return (
         <div className="auth-div">
-          <a className="main-link">Stats</a>
-          <a className="main-link">Logout</a>
+          <span className="main-link" onClick={toggleStats}>Stats</span>
+          <span className="main-link" onClick={logOut}>Logout</span>
         </div>
       );
     }
@@ -36,8 +36,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    LogIn: () => dispatch({ type: "LOG_IN" }),
-    LogOut: () => dispatch({ type: "LOG_OUT" })
+    logIn: () => dispatch({ type: "LOG_IN" }),
+    logOut: () => dispatch({ type: "LOG_OUT" })
   };
 };
 

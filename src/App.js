@@ -30,6 +30,8 @@ function App({
   areHintsVisible,
   areResultsVisible,
   areStatsVisible,
+  isAuthenticated,
+
   // from mapDispatchToProps
   toggleAreHintsVisible,
   toggleAreResultsVisible,
@@ -38,6 +40,7 @@ function App({
   setLiveResults,
   resetLiveResults,
   setFinalResults,
+  
 
   setTimerValue,
   setTimerValueCountdown,
@@ -63,7 +66,7 @@ function App({
   // display
 
   function toggleStats() {
-    if (!isActive) {
+    if (!isActive && isAuthenticated) {
       // toggleAreHintsVisible(h => !h);
       toggleAreStatsVisible();
     }
@@ -362,6 +365,8 @@ const mapStateToProps = (state) => {
     areHintsVisible: state.visibilityState.areHintsVisible,
     areResultsVisible: state.visibilityState.areResultsVisible,
     areStatsVisible: state.visibilityState.areStatsVisible,
+    // auth
+    isAuthenticated: state.authState.isAuthenticated
   };
 };
 

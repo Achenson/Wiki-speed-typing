@@ -1,7 +1,11 @@
 import React from "react";
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
-function Login() {
+import { connect } from "react-redux";
+
+function Login({
+  logIn
+}) {
   // let isAuthenticated = false;
 
   return (
@@ -27,7 +31,13 @@ function Login() {
             </label>
             <br />
 
-            <button className="btn btn-control btn-auth" type="submit">
+            <button className="btn btn-control btn-auth" onClick={(e) => 
+            
+            {e.preventDefault()
+            
+            logIn()
+            
+            }}>
               Login
             </button>
           </form>
@@ -46,4 +56,17 @@ function Login() {
   );
 }
 
-export default Login;
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logIn: () => dispatch({ type: "LOG_IN" })
+    
+  };
+};
+
+
+export default connect(
+  null,
+  mapDispatchToProps
+  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+)(Login);
