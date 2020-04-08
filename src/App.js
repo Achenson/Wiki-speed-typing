@@ -294,46 +294,14 @@ function App({
           loremText={loremText}
           focusTextArea={focusTextArea}
         />
-        {/* <Display
-        // timer
-        timerValue={timerValue}
-        constantTimerValue={constantTimerValue}
-        toggleTimer={toggleTimer}
-        setTimerOnSelect={setTimerOnSelect}
-        isActive={isActive}
-        resetTimer={resetTimer}
-        toReset={toReset}
-        displayToReset={displayToReset}
-        // hints & results visibility
-        areHintsVisible={areHintsVisible}
-        areResultsVisible={areResultsVisible}
-        areStatsVisible={areStatsVisible}
-        toggleHints={toggleHints}
-        toggleResults={toggleResults}
-        toggleStats={toggleStats}
-        // disabling select, menaging focus
-        isDisabled={isDisabled}
-        focusTextArea={focusTextArea}
-        putFocusOnTextArea={putFocusOnTextArea}
-        focusElement={focusElement}
-        // results
-        myText={myText}
-        wikiTitle={wikiTitle}
-        disablingButton={disablingButton}
-        isCounterRunning={isCounterRunning}
-        // for Display => WikiController
-        setNewRandomArticle_true={setNewRandomArticle_true}
-        // for Fetch
-        setNewRandomArticle_false={setNewRandomArticle_false}
-      /> */}
         <Switch>
           {/* <Route path="/" exact component={Display}/> */}
           <Route
             path="/"
             exact
-            render={() => (
+            render={(props) => (
               <Display
-                // {...props}
+                {...props}
                 // timer
                 timerValue={timerValue}
                 constantTimerValue={constantTimerValue}

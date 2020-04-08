@@ -223,16 +223,13 @@ function Display({
   
     <div className="outer-container">
 
-      <Switch>
-
-        
-      </Switch>
+     
       
       <Hints areHintsVisible={areHintsVisible} />
 
       <h3 className="title">Wiki Speed Typing</h3>
       
-      <div className="main-square-login" style={{display: "none"}}>
+   {/*    <div className="main-square-login" style={{display: "none"}}>
 
       <div style={{display: "none"}}>
         <Login />
@@ -241,7 +238,7 @@ function Display({
      <Register/>
 
       </div>
-      </div>
+      </div> */}
 
       <div className="main-square" >
         <AuthenticationUI/>

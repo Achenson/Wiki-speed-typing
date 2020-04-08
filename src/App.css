@@ -541,12 +541,13 @@ body {
 
 /* Login */
 
-.main-square-login {
+.main-square-auth {
   width: 400px;
   /* min-height: 578px; */
   min-height: 289px;
   /* background-color: #afd9d0; */
   background-color: white;
+  margin-top: 12%;
   margin-left: auto;
   margin-right: auto;
   /* border: 1px solid rgba(92, 177, 158, 0.831); */
@@ -608,4 +609,11 @@ body {
 
 .auth-link-item {
   margin-bottom: 0.5rem;
+}
+
+.outer-container-auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
 }
