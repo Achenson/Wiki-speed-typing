@@ -93,7 +93,7 @@ body {
   font-family: Merriweather;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 30px;
+  margin-bottom: 45px;
   font-weight: normal;
   font-size: 1rem;
 }
@@ -530,11 +530,13 @@ body {
 
 }
 
-.auth-link {
+.main-link {
   margin: auto 0.3rem;
+  text-decoration: none;
+  color: white;
 }
 
-.auth-link:hover {
+.main-link:hover {
   color: turquoise;
   cursor: pointer;
   transition: all 0.1s linear;
@@ -548,7 +550,7 @@ body {
   min-height: 289px;
   /* background-color: #afd9d0; */
   background-color: white;
-  
+  margin-bottom: 10%;
   margin-left: auto;
   margin-right: auto;
   /* border: 1px solid rgba(92, 177, 158, 0.831); */
@@ -612,9 +614,13 @@ body {
   margin-bottom: 0.5rem;
 }
 
-/* .outer-container-auth {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100vh;
-} */
+
+.auth-link {
+  color: indigo;
+}
+
+.auth-link:hover {
+  color: chocolate;
+ 
+  text-decoration: none;
+}

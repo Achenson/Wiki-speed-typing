@@ -1,10 +1,12 @@
 import React from "react";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 function Login() {
   // let isAuthenticated = false;
 
   return (
     <div className="outer-container">
+     
       <div className="main-square-auth">
         <div className="form-div">
           <div className="title-auth-div">
@@ -31,11 +33,11 @@ function Login() {
           </form>
           <div className="auth-links-div">
             <p className="auth-link-item">
-              No account?&nbsp;<a>register here</a>
+              No account?&nbsp;Register <Link to="/register" className="auth-link">here</Link>
             </p>
 
             <p className="auth-link-item">
-              <a>Back&nbsp;</a>to speed typing
+              <Link to="/" className="auth-link">Back</Link>&nbsp;to speed typing
             </p>
           </div>
         </div>

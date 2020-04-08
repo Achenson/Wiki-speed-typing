@@ -11,15 +11,15 @@ function AuthenticationUI({ isAuthenticated }) {
       return (
         <div className="auth-div">
 
-          <Link to="/register" className="auth-link">Register</Link>
-          <Link to="/login" className="auth-link">Login</Link>
+          <Link to="/register" className="main-link">Register</Link>
+          <Link to="/login" className="main-link">Login</Link>
         </div>
       );
     } else {
       return (
         <div className="auth-div">
-          <a className="auth-link">Stats</a>
-          <a className="auth-link">Logout</a>
+          <a className="main-link">Stats</a>
+          <a className="main-link">Logout</a>
         </div>
       );
     }

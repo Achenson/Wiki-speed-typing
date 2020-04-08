@@ -1,10 +1,12 @@
 import React from "react";
+import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 function Register() {
   // let isAuthenticated = false;
 
   return (
     <div className="outer-container">
+     
     <div className="main-square-auth">
       <div className="form-div">
         <div className="title-auth-div">
@@ -21,7 +23,7 @@ function Register() {
             Email address
             <input className="input" type="email" />
           </label>
-
+<br/><br/>
           <label className="label">
             Password
             <input className="input" type="password" />
@@ -38,11 +40,11 @@ function Register() {
         </form>
         <div className="auth-links-div">
           <p className="auth-link-item">
-            Already registered?&nbsp;<a>Login here</a>
+            Already registered?&nbsp;Login <Link to="/login" className="auth-link">here</Link>
           </p>
 
           <p className="auth-link-item">
-            <a>Back&nbsp;</a>to speed typing
+            <Link to="/" className="auth-link">Back</Link>&nbsp;to speed typing
           </p>
         </div>
       </div>
