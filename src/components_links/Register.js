@@ -4,7 +4,7 @@ function Register() {
   // let isAuthenticated = false;
 
   return (
-    <div className="outer-container-auth">
+    <div className="outer-container">
     <div className="main-square-auth">
       <div className="form-div">
         <div className="title-auth-div">

@@ -225,7 +225,7 @@ function Display({
 
      
       
-      <Hints areHintsVisible={areHintsVisible} />
+     
 
       <h3 className="title">Wiki Speed Typing</h3>
       
@@ -242,6 +242,7 @@ function Display({
 
       <div className="main-square" >
         <AuthenticationUI/>
+
         <UpperUI
           toggleHints={toggleHints}
           areResultsVisible={areResultsVisible}
@@ -251,6 +252,7 @@ function Display({
           liveResults={liveResults}
         />
 
+        <Hints areHintsVisible={areHintsVisible} />
         <WikiDisplay
           indexOfPartialTextArr={indexOfPartialTextArr}
           arrToRender={arrToRender}
