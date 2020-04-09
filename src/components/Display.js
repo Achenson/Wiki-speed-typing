@@ -11,15 +11,11 @@ import Controls from "./Controls.js";
 import LowerUI from "./LowerUI.js";
 import Stats from "./Stats.js";
 import Results from "./Results.js";
-import AuthenticationUI from "./AuthenticationUI.js"
-
+import AuthenticationUI from "./AuthenticationUI.js";
 
 // const escapeStringRegexp = require("escape-string-regexp");
 
-
 function Display({
-
-
   myText,
   displayToReset,
   // setDisplayToReset_true,
@@ -59,9 +55,8 @@ function Display({
   toggleHints,
   areHintsVisible,
   focusTextArea,
-  timerValue
+  timerValue,
 }) {
-
   // rendering text ============================
   const lengthOfSinglePart = 363;
 
@@ -150,7 +145,7 @@ function Display({
     makeDefaultColoredLetters,
     prevTextAreaValue.length,
     textDividedByLength_floor,
-    textToRender.length
+    textToRender.length,
   ]);
 
   // reseting display
@@ -172,7 +167,7 @@ function Display({
     //
     setColorForEachLetter,
     setIndexOfPartialTextArr,
-    setTextAreaValue
+    setTextAreaValue,
   ]);
 
   // arrToRender = [ [letter, color for the letter], ... ]
@@ -218,19 +213,11 @@ function Display({
   // for "..." displaying at the end of wiki-diplay
   let ellipsis = "...";
   return (
-  
     <div className="outer-container">
-
-     
-  
       <h3 className="title">Wiki Speed Typing</h3>
 
-      <div className="main-square" >
-
-
-        <AuthenticationUI
-          toggleStats={toggleStats}
-        />
+      <div className="main-square">
+        <AuthenticationUI toggleStats={toggleStats} />
 
         <UpperUI
           toggleHints={toggleHints}
@@ -283,7 +270,6 @@ function Display({
           areResultsVisible={areResultsVisible}
           focusElement={focusElement}
           areStatsVisible={areStatsVisible}
-         
         />
 
         <Stats areStatsVisible={areStatsVisible} />
@@ -293,15 +279,11 @@ function Display({
         areResultsVisible={areResultsVisible}
         finalResults={finalResults}
       />
-    
-
-
     </div>
-    
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     timerValue: state.resultsAndTimerState.counter.timerValue,
     textAreaValue: state.displayState.inputArea.textAreaValue,
@@ -310,11 +292,11 @@ const mapStateToProps = state => {
     colorForEachLetter: state.displayState.wikiDisplay.colorForEachLetter,
 
     liveResults: state.resultsAndTimerState.liveResults,
-    finalResults: state.resultsAndTimerState.finalResults
+    finalResults: state.resultsAndTimerState.finalResults,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     // setDisplayToReset_true: () => dispatch({ type: "DISPLAY_TO_RESET_TRUE" }),
     setDisplayToReset_false: () => dispatch({ type: "DISPLAY_TO_RESET_FALSE" }),
@@ -325,14 +307,14 @@ const mapDispatchToProps = dispatch => {
     resultsNoPenalty: () => dispatch({ type: "RESULTS_NO_PENALTY" }),
 
     // for display only
-    setIndexOfPartialTextArr: data =>
+    setIndexOfPartialTextArr: (data) =>
       dispatch({ type: "INDEX_OF_PARTIAL_TEXTARR", payload: data }),
-    setTextAreaValue: data =>
+    setTextAreaValue: (data) =>
       dispatch({ type: "TEXT_AREA_VALUE", payload: data }),
-    setPrevTextAreaValue: data =>
+    setPrevTextAreaValue: (data) =>
       dispatch({ type: "PREV_TEXT_AREA_VALUE", payload: data }),
-    setColorForEachLetter: data =>
-      dispatch({ type: "COLOR_FOR_EACH_LETTER", payload: data })
+    setColorForEachLetter: (data) =>
+      dispatch({ type: "COLOR_FOR_EACH_LETTER", payload: data }),
   };
 };
 

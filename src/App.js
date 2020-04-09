@@ -12,7 +12,7 @@ import Login from "./components_links/Login.js";
 import Register from "./components_links/Register.js";
 import testComponent from "./components_links/testComponent.js";
 
-import { BrowserRouter, Route, Link, Switch, Redirect, useHistory } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch, Redirect, useHistory, HashRouter } from "react-router-dom";
 
 //!!!!! imported actions creators must be passed here as props
 function App({
@@ -289,7 +289,7 @@ function App({
   // ===========================================
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App" onKeyDown={handleKeyPress}>
         <Fetch
           myText={myText}
@@ -350,9 +350,10 @@ function App({
           <Route path="/login" component={Login} />
           </>
           }
+          <Route render={() => <h1>404: page not found</h1>} />
         </Switch>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
