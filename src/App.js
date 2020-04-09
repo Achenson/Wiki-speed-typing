@@ -338,8 +338,16 @@ function App({
               />
             )}
           />
+          {/* route guarding <> & </>!!!!*/}
+          {isAuthenticated ? 
+
+          <Redirect to="/"/> :
+          
+          <>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+          </>
+          }
         </Switch>
       </div>
     </BrowserRouter>

@@ -3,8 +3,27 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChartBar } from "@fortawesome/free-solid-svg-icons";
 // import { farFaChartBar } from "@fortawesome/fontawesome-svg-core";
+import { connect } from "react-redux";
 
-function LowerUI(props) {
+import { useHistory } from "react-router-dom";
+
+
+
+function LowerUI({
+  
+  areStatsVisible,
+  areResultsVisible,
+  toggleResults,
+  focusElement,
+  toggleStats,
+  isAuthenticated,
+  // history
+  
+}) {
+
+
+  let history = useHistory();
+
 
   const faChartBar_default = "fa-chart-bar-default"
   const faChartBar_inverted = "fa-chart-bar-inverted"
@@ -13,35 +32,35 @@ function LowerUI(props) {
 
   useEffect( () => {
 
-    if(props.areStatsVisible) {
+    if(areStatsVisible) {
       setFaChartBarClass(faChartBar_inverted)
     } else {
       setFaChartBarClass(faChartBar_default)
     }
 
 
-  }, [props.areStatsVisible])
+  }, [areStatsVisible])
 
   return (
     <div className="results-buttons-row container">
       <button
         hidden
         className="btn btn-control btn-results"
-        onClick={props.toggleResults}
+        onClick={toggleResults}
         style={{
-          backgroundColor: `${props.areResultsVisible ? "Black" : "steelblue"}`
+          backgroundColor: `${areResultsVisible ? "Black" : "steelblue"}`
         }}
         onMouseEnter={e => {
           e.target.style.backgroundColor = `${
-            props.areResultsVisible ? "steelblue" : "Black"
+            areResultsVisible ? "steelblue" : "Black"
           }`;
         }}
         onMouseLeave={e => {
           e.target.style.backgroundColor = `${
-            props.areResultsVisible ? "Black" : "steelblue"
+           areResultsVisible ? "Black" : "steelblue"
           }`;
         }}
-        ref={props.focusElement}
+        ref={focusElement}
       >
         Show<span style={{ margin: "auto 0.05em" }}>|</span>Hide Results
       </button>
@@ -49,7 +68,19 @@ function LowerUI(props) {
       <FontAwesomeIcon
         icon={faChartBar}
         size="2x"
-        onClick={props.toggleStats}
+        onClick={() => {
+          toggleStats()
+
+          if (!isAuthenticated) {
+
+            history.push("/login")
+
+          }
+
+
+
+        }}
+          
         // MouseEnter/MouseLeave didn't work properly, css :hover instead
         className={faChartBarClass}
       />
@@ -58,4 +89,19 @@ function LowerUI(props) {
 }
 
 
-export default LowerUI;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.authState.isAuthenticated,
+   
+
+  };
+};
+
+
+
+export default connect(
+  mapStateToProps,
+//  mapDispatchToProps 
+  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+)(LowerUI);
+

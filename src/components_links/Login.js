@@ -3,9 +3,15 @@ import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 
+import { useHistory } from "react-router-dom";
+
 function Login({
   logIn
+  
 }) {
+
+ let history = useHistory()
+
   // let isAuthenticated = false;
 
   return (
@@ -36,6 +42,12 @@ function Login({
             {e.preventDefault()
             
             logIn()
+
+            // history.push('/')
+            // no going back! not possible to go back to login when logged in
+            history.replace('/')
+
+
             
             }}>
               Login

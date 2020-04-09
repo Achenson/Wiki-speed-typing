@@ -99,7 +99,7 @@ function Stats({
         </span>
         <button
           className="btn btn-control control-item btn-reset btn-delete-stats"
-          onClick={
+          onClick={ 
              deleteCurrentStatsArr
            }
         >

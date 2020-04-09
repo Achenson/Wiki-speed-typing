@@ -12,17 +12,14 @@ import LowerUI from "./LowerUI.js";
 import Stats from "./Stats.js";
 import Results from "./Results.js";
 import AuthenticationUI from "./AuthenticationUI.js"
-import Login from "../components_links/Login.js"
-import Register from "../components_links/Register.js"
 
-import testComponent from "../components_links/testComponent.js"
-
-
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 // const escapeStringRegexp = require("escape-string-regexp");
 
+
 function Display({
+
+
   myText,
   displayToReset,
   // setDisplayToReset_true,
@@ -64,6 +61,7 @@ function Display({
   focusTextArea,
   timerValue
 }) {
+
   // rendering text ============================
   const lengthOfSinglePart = 363;
 
@@ -285,6 +283,7 @@ function Display({
           areResultsVisible={areResultsVisible}
           focusElement={focusElement}
           areStatsVisible={areStatsVisible}
+         
         />
 
         <Stats areStatsVisible={areStatsVisible} />
