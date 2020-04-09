@@ -3,23 +3,45 @@ import { connect } from "react-redux";
 
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
-function AuthenticationUI({ isAuthenticated, toggleStats, logOut }) {
+function AuthenticationUI({
+  isAuthenticated,
+  toggleStats,
+  logOut,
+  areStatsVisible,
+  
+}) {
   // let isAuthenticated = false;
 
   function authLinks() {
     if (!isAuthenticated) {
       return (
         <div className="auth-div">
-
-          <Link to="/register" className="main-link">Register</Link>
-          <Link to="/login" className="main-link">Login</Link>
+          <Link to="/register" className="main-link">
+            Register
+          </Link>
+          <Link to="/login" className="main-link">
+            Login
+          </Link>
         </div>
       );
     } else {
       return (
         <div className="auth-div">
-          <span className="main-link" onClick={toggleStats}>Stats</span>
-          <span className="main-link" onClick={logOut}>Logout</span>
+          <span className="main-link" onClick={toggleStats}>
+            Stats
+          </span>
+          <span
+            className="main-link"
+            onClick={() => {
+              logOut();
+
+              if(areStatsVisible) {
+                toggleStats()
+              }
+            }}
+          >
+            Logout
+          </span>
         </div>
       );
     }
@@ -28,16 +50,19 @@ function AuthenticationUI({ isAuthenticated, toggleStats, logOut }) {
   return authLinks();
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    isAuthenticated: state.authState.isAuthenticated
+    isAuthenticated: state.authState.isAuthenticated,
+    areStatsVisible: state.visibilityState.areStatsVisible,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     logIn: () => dispatch({ type: "LOG_IN" }),
-    logOut: () => dispatch({ type: "LOG_OUT" })
+    logOut: () => dispatch({ type: "LOG_OUT" }),
+
+
   };
 };
 

@@ -90,6 +90,7 @@ DONE 11. currentStats: change to by default showing stats for current timer valu
 14. implement trasition effect to all button?
 15. authentication UI upper padding?
 16. title not visible is app is minimized.
+17. authentication UI more consistent with the app
 
 
 

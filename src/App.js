@@ -12,7 +12,7 @@ import Login from "./components_links/Login.js";
 import Register from "./components_links/Register.js";
 import testComponent from "./components_links/testComponent.js";
 
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Link, Switch, Redirect, useHistory } from "react-router-dom";
 
 //!!!!! imported actions creators must be passed here as props
 function App({
@@ -55,6 +55,8 @@ function App({
   setStats,
   setCurrentStatsKey,
 }) {
+
+  // let history = useHistory();
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
 
@@ -302,6 +304,8 @@ function App({
           <Route
             path="/"
             exact
+            // normally it would be component+ but render is needed is passing props
+            // to a component
             render={(props) => (
               <Display
                 {...props}
@@ -340,9 +344,7 @@ function App({
           />
           {/* route guarding <> & </>!!!!*/}
           {isAuthenticated ? 
-
           <Redirect to="/"/> :
-          
           <>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />

@@ -7,10 +7,7 @@ import { connect } from "react-redux";
 
 import { useHistory } from "react-router-dom";
 
-
-
 function LowerUI({
-  
   areStatsVisible,
   areResultsVisible,
   toggleResults,
@@ -18,28 +15,21 @@ function LowerUI({
   toggleStats,
   isAuthenticated,
   // history
-  
 }) {
-
-
   let history = useHistory();
 
+  const faChartBar_default = "fa-chart-bar-default";
+  const faChartBar_inverted = "fa-chart-bar-inverted";
 
-  const faChartBar_default = "fa-chart-bar-default"
-  const faChartBar_inverted = "fa-chart-bar-inverted"
-  
-  const [faChartBarClass, setFaChartBarClass] = useState(faChartBar_default)
+  const [faChartBarClass, setFaChartBarClass] = useState(faChartBar_default);
 
-  useEffect( () => {
-
-    if(areStatsVisible) {
-      setFaChartBarClass(faChartBar_inverted)
+  useEffect(() => {
+    if (areStatsVisible) {
+      setFaChartBarClass(faChartBar_inverted);
     } else {
-      setFaChartBarClass(faChartBar_default)
+      setFaChartBarClass(faChartBar_default);
     }
-
-
-  }, [areStatsVisible])
+  }, [areStatsVisible]);
 
   return (
     <div className="results-buttons-row container">
@@ -48,16 +38,16 @@ function LowerUI({
         className="btn btn-control btn-results"
         onClick={toggleResults}
         style={{
-          backgroundColor: `${areResultsVisible ? "Black" : "steelblue"}`
+          backgroundColor: `${areResultsVisible ? "Black" : "steelblue"}`,
         }}
-        onMouseEnter={e => {
+        onMouseEnter={(e) => {
           e.target.style.backgroundColor = `${
             areResultsVisible ? "steelblue" : "Black"
           }`;
         }}
-        onMouseLeave={e => {
+        onMouseLeave={(e) => {
           e.target.style.backgroundColor = `${
-           areResultsVisible ? "Black" : "steelblue"
+            areResultsVisible ? "Black" : "steelblue"
           }`;
         }}
         ref={focusElement}
@@ -69,18 +59,12 @@ function LowerUI({
         icon={faChartBar}
         size="2x"
         onClick={() => {
-          toggleStats()
+          toggleStats();
 
           if (!isAuthenticated) {
-
-            history.push("/login")
-
+            history.push("/login");
           }
-
-
-
         }}
-          
         // MouseEnter/MouseLeave didn't work properly, css :hover instead
         className={faChartBarClass}
       />
@@ -88,20 +72,15 @@ function LowerUI({
   );
 }
 
-
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.authState.isAuthenticated,
-   
-
+    
   };
 };
 
-
-
 export default connect(
-  mapStateToProps,
-//  mapDispatchToProps 
+  mapStateToProps
+  //  mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
 )(LowerUI);
-
