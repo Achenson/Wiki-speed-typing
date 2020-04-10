@@ -290,7 +290,7 @@ function App({
 
   return (
     <HashRouter>
-      <div className="App" onKeyDown={handleKeyPress}>
+      <div className="App" onKeyDown={handleKeyPress} >
         <Fetch
           myText={myText}
           wikiTitle={wikiTitle}
@@ -299,6 +299,8 @@ function App({
           loremText={loremText}
           focusTextArea={focusTextArea}
         />
+        <div className="app-outer-container">
+        <h3 className="title">Wiki Speed Typing</h3>
         <Switch>
           {/* <Route path="/" exact component={Display}/> */}
           <Route
@@ -352,6 +354,10 @@ function App({
           }
           <Route render={() => <h1>404: page not found</h1>} />
         </Switch>
+        </div>
+     
+        
+        
       </div>
     </HashRouter>
   );

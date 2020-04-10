@@ -32,11 +32,30 @@ body {
   background-color: whitesmoke;
 }
 
-.outer-container {
+.app-outer-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 100vh;
+  margin-top: 13vh;
+  
+
+  
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+}
+
+
+.outer-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* height: 90vh; */
+  
+  
 }
 
 .container {
@@ -96,6 +115,7 @@ body {
   margin-bottom: 45px;
   font-weight: normal;
   font-size: 1rem;
+  text-align: center;
 }
 
 .btn {

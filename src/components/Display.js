@@ -214,7 +214,7 @@ function Display({
   let ellipsis = "...";
   return (
     <div className="outer-container">
-      <h3 className="title">Wiki Speed Typing</h3>
+    
 
       <div className="main-square">
         <AuthenticationUI toggleStats={toggleStats} />
