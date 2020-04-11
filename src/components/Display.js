@@ -217,7 +217,9 @@ function Display({
     
 
       <div className="main-square">
-        <AuthenticationUI toggleStats={toggleStats} />
+        <AuthenticationUI toggleStats={toggleStats}
+        resetTimer={resetTimer}
+         />
 
         <UpperUI
           toggleHints={toggleHints}

@@ -85,16 +85,17 @@ DONE 5. stats: no KPM or % if there is no record? DONE
 DONE 9. moreHints DONE
 10. fa in hints?
 DONE 11. currentStats: change to by default showing stats for current timer value? DONE
-12. app-title: move left/up?
+XX 12. app-title: move left/up? XX
 13. confirmation for stats reset
 DONE 14. implement trasition effect to all button? DONE
 15. authentication UI upper padding?
 16. title not visible is app is minimized.
-17. authentication UI more consistent with the app
+DONE 17. authentication UI more consistent with the app DONE
 18. login & register should start at the same height?
 19. info that you need to login when hover/click on chartBar
 20. reset if login/register/logout is clicked
-21. lower the main app display?
+DONE 21. lower the main app display? DONE
+22. pause on clicking stats
 
 
 

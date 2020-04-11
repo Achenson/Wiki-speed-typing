@@ -350,6 +350,15 @@ function App({
           <>
           <Route path="/register" component={Register} />
           <Route path="/login" component={Login} />
+     {/*        render={(props) => (
+              <Register
+              path="/register"
+            {...props}
+              resetTimer={resetTimer}
+              />
+            )} */}
+   
+
           </>
           }
           <Route render={() => <h1>404: page not found</h1>} />

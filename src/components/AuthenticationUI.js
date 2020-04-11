@@ -3,25 +3,45 @@ import { connect } from "react-redux";
 
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
+import { useHistory } from "react-router-dom";
+
 function AuthenticationUI({
   isAuthenticated,
   toggleStats,
   logOut,
   areStatsVisible,
+  // from 
+  resetTimer
   
 }) {
+  let history = useHistory()
   // let isAuthenticated = false;
 
   function authLinks() {
+
+    
+
     if (!isAuthenticated) {
       return (
         <div className="auth-div">
-          <Link to="/register" className="main-link">
+          <Link to="/register" className="main-link" onClick={resetTimer}>
             Register
           </Link>
-          <Link to="/login" className="main-link">
+         {/*  <Link to="/login" className="main-link"  onClick={resetTimer}>
+            Login
+          </Link> */}
+          <Link  className="main-link"  onClick={
+            () => {
+
+            
+            resetTimer()
+          
+            }
+            }>
             Login
           </Link>
+
+
         </div>
       );
     } else {
@@ -33,6 +53,7 @@ function AuthenticationUI({
           <span
             className="main-link"
             onClick={() => {
+              resetTimer();
               logOut();
 
               if(areStatsVisible) {
@@ -61,6 +82,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logIn: () => dispatch({ type: "LOG_IN" }),
     logOut: () => dispatch({ type: "LOG_OUT" }),
+
 
 
   };
