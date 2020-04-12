@@ -216,16 +216,7 @@ function App({
     return;
   }
 
-  // for disabling select
-  const isDisabled = useRef(null);
-
-  useEffect(() => {
-    if (isActive || isCounterRunning) {
-      isDisabled.current.setAttribute("disabled", true);
-    } else {
-      isDisabled.current.removeAttribute("disabled");
-    }
-  }, [isActive, isCounterRunning]);
+  // isDisabled for disabling select -> moved to <Display/>
 
   // useRef unfocusing btn-hints on textarea focus
   // useRef focusin on textArea if the timer is active
@@ -298,6 +289,8 @@ function App({
           disablingButton={disablingButton}
           loremText={loremText}
           focusTextArea={focusTextArea}
+          
+
         />
         <div className="app-outer-container">
         <h3 className="title">Wiki Speed Typing</h3>
@@ -328,7 +321,7 @@ function App({
                 toggleResults={toggleResults}
                 toggleStats={toggleStats}
                 // disabling select, menaging focus
-                isDisabled={isDisabled}
+                // isDisabled={isDisabled} isDisabled moved to Display!
                 focusTextArea={focusTextArea}
                 putFocusOnTextArea={putFocusOnTextArea}
                 focusElement={focusElement}

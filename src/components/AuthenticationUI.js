@@ -27,19 +27,17 @@ function AuthenticationUI({
           <Link to="/register" className="main-link" onClick={resetTimer}>
             Register
           </Link>
-         {/*  <Link to="/login" className="main-link"  onClick={resetTimer}>
+          <Link to="/login" className="main-link"  onClick={resetTimer}>
             Login
-          </Link> */}
-          <Link  className="main-link"  onClick={
+          </Link>
+    {/*       <Link  className="main-link"  onClick={
             () => {
 
-            
             resetTimer()
-          
             }
             }>
             Login
-          </Link>
+          </Link> */}
 
 
         </div>

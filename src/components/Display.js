@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback,useRef } from "react";
 import { connect } from "react-redux";
 
 import WikiController from "./WikiController.js";
@@ -49,7 +49,6 @@ function Display({
   setNewRandomArticle_true,
   wikiTitle,
   putFocusOnTextArea,
-  isDisabled,
   setTimerOnSelect,
   toggleTimer,
   toggleHints,
@@ -170,6 +169,31 @@ function Display({
     setTextAreaValue,
   ]);
 
+
+
+
+  const isDisabled = useRef(null);
+
+  useEffect(() => {
+    if (isActive || isCounterRunning) {
+      isDisabled.current.setAttribute("disabled", true);
+    } else {
+      isDisabled.current.removeAttribute("disabled");
+    }
+  }, [isActive, isCounterRunning]);
+
+
+
+
+
+
+
+
+
+
+
+
+
   // arrToRender = [ [letter, color for the letter], ... ]
   const arrToRender = makeArrayToRender();
 
@@ -209,6 +233,13 @@ function Display({
   function changeTextAreaValue(e) {
     setTextAreaValue(e.target.value);
   }
+
+
+
+
+
+
+
 
   // for "..." displaying at the end of wiki-diplay
   let ellipsis = "...";

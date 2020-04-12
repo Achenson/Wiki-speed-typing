@@ -12,7 +12,7 @@ function Fetch({
     newRandomArticle,
     // from App props
     disablingButton,
-    focusTextArea
+    focusTextArea,
 }) {
   // fetching data from wiki API ===============
 
