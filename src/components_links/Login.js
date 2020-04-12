@@ -2,8 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
-
 import { useHistory } from "react-router-dom";
+
+import AuthNotification from './AuthNotification';
 
 function Login({
   logIn
@@ -17,8 +18,9 @@ function Login({
   // let isAuthenticated = false;
 
   return (
+    <div>
+           <AuthNotification/>
     <div className="outer-container">
-     
       <div className="main-square-auth">
         <div className="form-div">
           <div className="title-auth-div">
@@ -67,6 +69,8 @@ function Login({
         </div>
       </div>
     </div>
+    </div>
+ 
   );
 }
 
