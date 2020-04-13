@@ -1,14 +1,22 @@
 import React from "react";
+import {useState} from 'react';
+
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 import { useHistory } from "react-router-dom";
+
+import AuthNotification from "./AuthNotification";
 
 function Register() {
   // let isAuthenticated = false;
   let history = useHistory();
 
+  let [errorNotification, setErrorNotification] = useState("sth");
+
   return (
-    <div className="outer-container">
+    <div>
+     {errorNotification ? <AuthNotification notification={errorNotification} /> : null}
+         <div className="outer-container">
       <div className="main-square-auth">
         <div className="form-div">
           <div className="title-auth-div">
@@ -66,6 +74,8 @@ function Register() {
         </div>
       </div>
     </div>
+    </div>
+ 
   );
 }
 

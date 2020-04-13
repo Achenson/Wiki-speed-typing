@@ -1,125 +1,137 @@
 import React from "react";
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from "react";
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import AuthNotification from './AuthNotification';
+import AuthNotification from "./AuthNotification";
 
 function Login({
   logIn,
   isNotificationNeeded,
+  isErrorNotificationNeeded,
   notification_true,
-  notification_false
-  
+  notification_false,
+
 }) {
+  // not {history}!!! because we are not destructuring here,
+  // history is an object!
+  let history = useHistory();
 
-// not {history}!!! because we are not destructuring here,
-// history is an object!
- let history = useHistory()
-
-// let [notification, setNotification] = useState(null);
-let [notification, setNotification] = useState(null);
-
-
-useEffect( () => {
-  if(isNotificationNeeded) {
-    setNotification("Logging in is needed for accessing top score");
-    // notificationToggle()
-  } else {
-    setNotification(null)
-  } 
+ 
+  let [notification, setNotification] = useState(null);
   
-}, [isNotificationNeeded])
+  useEffect(() => {
+    if (isNotificationNeeded) {
+      setNotification("Logging in is needed for accessing top score");
+      
+    } else {
+      setNotification(null);
+    }
+  }, [isNotificationNeeded]);
+  
+  
+  
+  
+  let [errorNotification, setErrorNotification] = useState(null);
 
+  useEffect(() => {
+    if (isErrorNotificationNeeded) {
+      setErrorNotification("Error");
+     
+    } else {
+      setErrorNotification(null);
+    }
+  }, [isErrorNotificationNeeded]);
 
-//  let notification ="Login to access top score"
-  // let isAuthenticated = false;
 
   return (
     <div>
-    {notification ? <AuthNotification
+      {notification ? <AuthNotification notification={notification} colorClass={"auth-notification-info"}/> : null}
+      {errorNotification ? <AuthNotification notification={errorNotification} colorClass={"auth-notification-danger"}/> : null}
 
-notification={notification}
-/> : null}
-           
-    <div className="outer-container">
-      <div className="main-square-auth">
-        <div className="form-div">
-          <div className="title-auth-div">
-            <h3 className="title title-auth">Login</h3>
-          </div>
-          <form className="form">
-            {/* associating label with input without ID -> nesting */}
-            <label className="label">
-              Email address / username
-              <input className="input" type="email" />
-            </label>
-            <br />
-            <br />
+      <div className="outer-container">
+        <div className="main-square-auth">
+          <div className="form-div">
+            <div className="title-auth-div">
+              <h3 className="title title-auth">Login</h3>
+            </div>
+            <form className="form">
+              {/* associating label with input without ID -> nesting */}
+              <label className="label">
+                Email address / username
+                <input className="input" type="email" />
+              </label>
+              <br />
+              <br />
 
-            <label className="label">
-              Password
-              <input className="input" type="password" />
-            </label>
-            <br />
+              <label className="label">
+                Password
+                <input className="input" type="password" />
+              </label>
+              <br />
 
-            <button className="btn btn-control btn-auth" onClick={(e) => 
-            
-            {e.preventDefault()
-            
-            logIn()
-            notification_false()
+              <button
+                className="btn btn-control btn-auth"
+                onClick={(e) => {
+                  e.preventDefault();
 
-            // history.push('/')
-            // no going back! not possible to go back to login when logged in
-            history.replace('/')
+                  logIn();
+                  notification_false();
 
+                  // history.push('/')
+                  // no going back! not possible to go back to login when logged in
+                  history.replace("/");
+                }}
+              >
+                Login
+              </button>
+            </form>
+            <div className="auth-links-div">
+              <p className="auth-link-item">
+                No account?&nbsp;Register{" "}
+                <Link
+                  onClick={notification_false}
+                  to="/register"
+                  className="auth-link"
+                >
+                  here
+                </Link>
+              </p>
 
-            
-            }}>
-              Login
-            </button>
-          </form>
-          <div className="auth-links-div">
-            <p className="auth-link-item">
-              No account?&nbsp;Register <Link onClick={notification_false} to="/register" className="auth-link">here</Link>
-            </p>
-
-            <p className="auth-link-item">
-              <Link to="/" onClick={notification_false} className="auth-link">Back</Link>&nbsp;to speed typing
-            </p>
+              <p className="auth-link-item">
+                <Link to="/" onClick={notification_false} className="auth-link">
+                  Back
+                </Link>
+                &nbsp;to speed typing
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    </div>
- 
   );
 }
 
-
 const mapStateToProps = (state) => {
   return {
-   isNotificationNeeded: state.authState.isNotificationNeeded
+    isNotificationNeeded: state.authState.isNotificationNeeded,
+    isErrorNotificationNeeded: state.authState.isErrorNotificationNeeded,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     logIn: () => dispatch({ type: "LOG_IN" }),
-    notification_true: () => dispatch({type: "NOTIFICATION_TRUE"}),
-    notification_false: () => dispatch({type: "NOTIFICATION_FALSE"}),
-    
+    notification_true: () => dispatch({ type: "NOTIFICATION_TRUE" }),
+    notification_false: () => dispatch({ type: "NOTIFICATION_FALSE" }),
+    error_true: () => dispatch({type: "ERROR_TRUE"})
   };
 };
 
-
-
-
 export default connect(
- mapStateToProps,
+  mapStateToProps,
   mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
 )(Login);

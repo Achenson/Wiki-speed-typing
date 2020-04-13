@@ -1,13 +1,21 @@
 import React from "react";
 // import { connect } from "react-redux";
 
+
+
+
 function AuthNotification({
-  notification={notification}
+  notification={notification},
+  colorClass={colorClass}
+
 }) {
  
 
+
+
+
   return (
-    <div className="auth-notification-div">
+    <div className={`auth-notification-div ${colorClass}`}>
     <p>{notification}</p>
     </div>
   );
