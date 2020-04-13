@@ -681,7 +681,7 @@ body {
 
 .auth-notification-danger {
 
-  border: 1px solid red;
+  border: 1px solid firebrick;
   background-color: tomato;
 
 }

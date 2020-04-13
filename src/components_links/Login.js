@@ -10,7 +10,7 @@ import AuthNotification from "./AuthNotification";
 function Login({
   logIn,
   isNotificationNeeded,
-  isErrorNotificationNeeded,
+  showLoginError,
   notification_true,
   notification_false,
 
@@ -34,22 +34,22 @@ function Login({
   
   
   
-  let [errorNotification, setErrorNotification] = useState(null);
+  let [error, setError] = useState(null);
 
   useEffect(() => {
-    if (isErrorNotificationNeeded) {
-      setErrorNotification("Error");
+    if (showLoginError) {
+      setError("Incorrect username of password");
      
     } else {
-      setErrorNotification(null);
+      setError(null);
     }
-  }, [isErrorNotificationNeeded]);
+  }, [showLoginError]);
 
 
   return (
     <div>
       {notification ? <AuthNotification notification={notification} colorClass={"auth-notification-info"}/> : null}
-      {errorNotification ? <AuthNotification notification={errorNotification} colorClass={"auth-notification-danger"}/> : null}
+      {error ? <AuthNotification notification={error} colorClass={"auth-notification-danger"}/> : null}
 
       <div className="outer-container">
         <div className="main-square-auth">
@@ -117,7 +117,7 @@ function Login({
 const mapStateToProps = (state) => {
   return {
     isNotificationNeeded: state.authState.isNotificationNeeded,
-    isErrorNotificationNeeded: state.authState.isErrorNotificationNeeded,
+    showLoginError: state.authState.showLoginError,
   };
 };
 
@@ -126,7 +126,7 @@ const mapDispatchToProps = (dispatch) => {
     logIn: () => dispatch({ type: "LOG_IN" }),
     notification_true: () => dispatch({ type: "NOTIFICATION_TRUE" }),
     notification_false: () => dispatch({ type: "NOTIFICATION_FALSE" }),
-    error_true: () => dispatch({type: "ERROR_TRUE"})
+    loginError_true: () => dispatch({type: "LOGIN_ERROR_TRUE"})
   };
 };
 

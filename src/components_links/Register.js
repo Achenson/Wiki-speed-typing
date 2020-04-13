@@ -11,11 +11,11 @@ function Register() {
   // let isAuthenticated = false;
   let history = useHistory();
 
-  let [errorNotification, setErrorNotification] = useState("sth");
+  let [errorNotification, setErrorNotification] = useState("Incorrect username of password");
 
   return (
     <div>
-     {errorNotification ? <AuthNotification notification={errorNotification} /> : null}
+     {errorNotification ? <AuthNotification notification={errorNotification} colorClass={"auth-notification-danger"} /> : null}
          <div className="outer-container">
       <div className="main-square-auth">
         <div className="form-div">
