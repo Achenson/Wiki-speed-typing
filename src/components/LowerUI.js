@@ -14,7 +14,7 @@ function LowerUI({
   focusElement,
   toggleStats,
   isAuthenticated,
-  // history
+  notification_true
 }) {
   let history = useHistory();
 
@@ -62,6 +62,7 @@ function LowerUI({
           toggleStats();
 
           if (!isAuthenticated) {
+            notification_true();
             history.push("/login");
           }
         }}
@@ -75,12 +76,21 @@ function LowerUI({
 const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.authState.isAuthenticated,
+    // notificationToggle: () => dispatch({type: "NOTIFICATION_TOGGLE"})
     
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+   notification_true: () => dispatch({type: "NOTIFICATION_TRUE"}) 
+  };
+};
+
+
+
 export default connect(
-  mapStateToProps
-  //  mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
 )(LowerUI);

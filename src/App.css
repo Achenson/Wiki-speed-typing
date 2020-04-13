@@ -663,11 +663,14 @@ body {
   margin-bottom: 1rem;
   padding: 0.5rem 0;
   width: 400px;
-  background-color: MediumAquaMarine;
+  color: white;
+  /* background-color: dodgerblue; */
+  background-color: rgb(123, 184, 245);
   text-align: center;
 
-  border: 1px solid green;
+  border: 1px solid dodgerblue;
   border-radius: 4px;
+  /* font-weight: 500; */
   /* box-shadow: 1px 1px 1px black; */
   /* box-shadow: 2px 2px 2px black; */
 }

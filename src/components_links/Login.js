@@ -1,4 +1,5 @@
 import React from "react";
+import {useState, useEffect} from 'react';
 import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
 
 import { connect } from "react-redux";
@@ -7,7 +8,10 @@ import { useHistory } from "react-router-dom";
 import AuthNotification from './AuthNotification';
 
 function Login({
-  logIn
+  logIn,
+  isNotificationNeeded,
+  notification_true,
+  notification_false
   
 }) {
 
@@ -15,11 +19,31 @@ function Login({
 // history is an object!
  let history = useHistory()
 
+// let [notification, setNotification] = useState(null);
+let [notification, setNotification] = useState(null);
+
+
+useEffect( () => {
+  if(isNotificationNeeded) {
+    setNotification("Logging in is needed for accessing top score");
+    // notificationToggle()
+  } else {
+    setNotification(null)
+  } 
+  
+}, [isNotificationNeeded])
+
+
+//  let notification ="Login to access top score"
   // let isAuthenticated = false;
 
   return (
     <div>
-           <AuthNotification/>
+    {notification ? <AuthNotification
+
+notification={notification}
+/> : null}
+           
     <div className="outer-container">
       <div className="main-square-auth">
         <div className="form-div">
@@ -46,6 +70,7 @@ function Login({
             {e.preventDefault()
             
             logIn()
+            notification_false()
 
             // history.push('/')
             // no going back! not possible to go back to login when logged in
@@ -59,11 +84,11 @@ function Login({
           </form>
           <div className="auth-links-div">
             <p className="auth-link-item">
-              No account?&nbsp;Register <Link to="/register" className="auth-link">here</Link>
+              No account?&nbsp;Register <Link onClick={notification_false} to="/register" className="auth-link">here</Link>
             </p>
 
             <p className="auth-link-item">
-              <Link to="/" className="auth-link">Back</Link>&nbsp;to speed typing
+              <Link to="/" onClick={notification_false} className="auth-link">Back</Link>&nbsp;to speed typing
             </p>
           </div>
         </div>
@@ -75,16 +100,26 @@ function Login({
 }
 
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = (state) => {
   return {
-    logIn: () => dispatch({ type: "LOG_IN" })
+   isNotificationNeeded: state.authState.isNotificationNeeded
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logIn: () => dispatch({ type: "LOG_IN" }),
+    notification_true: () => dispatch({type: "NOTIFICATION_TRUE"}),
+    notification_false: () => dispatch({type: "NOTIFICATION_FALSE"}),
     
   };
 };
 
 
+
+
 export default connect(
-  null,
+ mapStateToProps,
   mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
 )(Login);

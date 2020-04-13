@@ -1,5 +1,6 @@
 const initialState = {
-  isAuthenticated: true
+  isAuthenticated: true,
+  isNotificationNeeded: false
 };
 
 function authReducer(state = initialState, action) {
@@ -16,6 +17,19 @@ function authReducer(state = initialState, action) {
         ...state,
         isAuthenticated: false
       };
+    case "NOTIFICATION_TRUE":
+      return {
+        ...state,
+        isNotificationNeeded: true
+      };
+      case "NOTIFICATION_FALSE":
+        return {
+          ...state,
+          isNotificationNeeded: false
+        };
+
+
+
 
     default:
       return state;
