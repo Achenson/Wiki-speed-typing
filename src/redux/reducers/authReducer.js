@@ -1,7 +1,8 @@
 const initialState = {
   isAuthenticated: true,
   isNotificationNeeded: false,
-  showLoginError: true
+  showLoginError: true,
+  showRegisterError: true
 };
 
 function authReducer(state = initialState, action) {
@@ -38,6 +39,16 @@ function authReducer(state = initialState, action) {
               ...state,
               showLoginError: false
             };
+            case "REGISTER_ERROR_TRUE":
+              return {
+                ...state,
+                showRegisterError: true
+              };
+              case "REGISTER_ERROR_FALSE":
+                return {
+                  ...state,
+                  showRegisterError: false
+                };
 
 
 
