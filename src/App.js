@@ -3,6 +3,7 @@ import { useEffect, useRef, useCallback } from "react";
 import { connect } from "react-redux";
 
 // import store from "./store.js";
+
 import "./App.css";
 import Fetch from "./components/Fetch.js";
 import Display from "./components/Display.js";

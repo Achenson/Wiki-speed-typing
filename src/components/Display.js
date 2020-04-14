@@ -250,7 +250,9 @@ function Display({
           liveResults={liveResults}
         />
 
-        <Hints areHintsVisible={areHintsVisible} />
+        <Hints areHintsVisible={areHintsVisible}
+        toggleStats={toggleStats}
+         />
         <WikiDisplay
           indexOfPartialTextArr={indexOfPartialTextArr}
           arrToRender={arrToRender}

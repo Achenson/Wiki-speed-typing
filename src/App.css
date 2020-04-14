@@ -68,6 +68,7 @@ body {
   margin: auto 20px;
 }
 
+/* ==== Hints */
 .hints {
   /* visibility: hidden; */
   width: 420px;
@@ -100,6 +101,9 @@ body {
   padding-bottom: 0.1em;
 }
 
+
+
+/* ======= main */
 .main-square {
   width: 400px;
   height: 578px;
@@ -685,3 +689,5 @@ body {
   background-color: tomato;
 
 }
+
+
