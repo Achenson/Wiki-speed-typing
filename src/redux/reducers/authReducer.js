@@ -1,8 +1,8 @@
 const initialState = {
   isAuthenticated: true,
   isNotificationNeeded: false,
-  showLoginError: true,
-  showRegisterError: true
+  showLoginError: false,
+  showRegisterError: false
 };
 
 function authReducer(state = initialState, action) {

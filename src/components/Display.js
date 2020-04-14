@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useCallback,useRef } from "react";
+import { useEffect, useCallback, useRef } from "react";
 import { connect } from "react-redux";
 
 import WikiController from "./WikiController.js";
@@ -55,7 +55,22 @@ function Display({
   areHintsVisible,
   focusTextArea,
   timerValue,
+  // for reseting auth
+  notification_false,
+  loginError_false,
+  registerError_false,
 }) {
+  // ===========================================
+  // reseting authState, so auth notifications/warnings disappear after going back
+  // in the browser
+  useEffect(() => {
+    // return () => {
+      notification_false();
+      loginError_false();
+      registerError_false();
+    // };
+  }, []);
+
   // rendering text ============================
   const lengthOfSinglePart = 363;
 
@@ -169,9 +184,6 @@ function Display({
     setTextAreaValue,
   ]);
 
-
-
-
   const isDisabled = useRef(null);
 
   useEffect(() => {
@@ -181,18 +193,6 @@ function Display({
       isDisabled.current.removeAttribute("disabled");
     }
   }, [isActive, isCounterRunning]);
-
-
-
-
-
-
-
-
-
-
-
-
 
   // arrToRender = [ [letter, color for the letter], ... ]
   const arrToRender = makeArrayToRender();
@@ -234,23 +234,12 @@ function Display({
     setTextAreaValue(e.target.value);
   }
 
-
-
-
-
-
-
-
   // for "..." displaying at the end of wiki-diplay
   let ellipsis = "...";
   return (
     <div className="outer-container">
-    
-
       <div className="main-square">
-        <AuthenticationUI toggleStats={toggleStats}
-        resetTimer={resetTimer}
-         />
+        <AuthenticationUI toggleStats={toggleStats} resetTimer={resetTimer} />
 
         <UpperUI
           toggleHints={toggleHints}
@@ -348,6 +337,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: "PREV_TEXT_AREA_VALUE", payload: data }),
     setColorForEachLetter: (data) =>
       dispatch({ type: "COLOR_FOR_EACH_LETTER", payload: data }),
+    // reseting auth
+    notification_false: () => dispatch({ type: "NOTIFICATION_FALSE" }),
+    loginError_false: () => dispatch({ type: "LOGIN_ERROR_FALSE" }),
+    registerError_false: () => dispatch({ type: "REGISTER_ERROR_FALSE" }),
   };
 };
 

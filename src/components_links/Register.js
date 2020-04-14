@@ -8,8 +8,24 @@ import { useHistory } from "react-router-dom";
 
 import AuthNotification from "./AuthNotification";
 
-function Register({showRegisterError,
- registerError_true, registerError_false}) {
+function Register({
+  showRegisterError,
+  registerError_true,
+  registerError_false,
+  notification_false,
+  loginError_false
+
+}) {
+
+  // reseting authState for Login, so auth notifications/warnings disappear
+  // when going back to Login
+  useEffect(() => {
+    // return () => {
+    loginError_false();
+    notification_false();
+    // };
+  }, []);
+
   // let isAuthenticated = false;
   let history = useHistory();
 
@@ -17,7 +33,7 @@ function Register({showRegisterError,
 
   // let [errorMessage, setErrorMessage] = useState(null);
 
- /*  useEffect(() => {
+  /*  useEffect(() => {
     if (showRegisterError) {
       setErrorNotification("Incorrect username of password");
     } else {
@@ -32,38 +48,37 @@ function Register({showRegisterError,
 
   function registerValidation() {
     if (username === "") {
-      setErrorNotification("Invalid username")
-      registerError_true()
+      setErrorNotification("Invalid username");
+      registerError_true();
       return;
     }
 
     if (email === "") {
-      setErrorNotification("Invalid email")
-      registerError_true()
+      setErrorNotification("Invalid email");
+      registerError_true();
       return;
     }
 
     if (password === "") {
-      setErrorNotification("Invalid password")
-      registerError_true()
+      setErrorNotification("Invalid password");
+      registerError_true();
       return;
     }
 
     if (password !== confirmation) {
-      setErrorNotification("Password confirmation does not match")
-      registerError_true()
+      setErrorNotification("Password confirmation does not match");
+      registerError_true();
       return;
     }
 
     // else
-    registerError_false()
-    history.push('/login')
-
+    registerError_false();
+    history.push("/login");
   }
 
   return (
     <div>
-      {errorNotification ? (
+      {showRegisterError ? (
         <AuthNotification
           notification={errorNotification}
           colorClass={"auth-notification-danger"}
@@ -132,7 +147,7 @@ function Register({showRegisterError,
                 onClick={(e) => {
                   e.preventDefault();
                   // history.push("/login");
-                  registerValidation()
+                  registerValidation();
                 }}
               >
                 Register
@@ -174,6 +189,8 @@ const mapDispatchToProps = (dispatch) => {
     notification_false: () => dispatch({ type: "NOTIFICATION_FALSE" }), */
     registerError_true: () => dispatch({ type: "REGISTER_ERROR_TRUE" }),
     registerError_false: () => dispatch({ type: "REGISTER_ERROR_FALSE" }),
+    notification_false: () => dispatch({ type: "NOTIFICATION_FALSE" }),
+    loginError_false: () => dispatch({ type: "LOGIN_ERROR_FALSE" }),
   };
 };
 
