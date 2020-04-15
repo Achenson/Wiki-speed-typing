@@ -50,7 +50,7 @@ function Display({
   wikiTitle,
   putFocusOnTextArea,
   setTimerOnSelect,
-  toggleTimer,
+  toggleActive,
   toggleHints,
   areHintsVisible,
   focusTextArea,
@@ -239,7 +239,7 @@ function Display({
   return (
     <div className="outer-container">
       <div className="main-square">
-        <AuthenticationUI toggleStats={toggleStats} resetTimer={resetTimer} toggleTimer={toggleTimer} />
+        <AuthenticationUI toggleStats={toggleStats} />
 
         <UpperUI
           toggleHints={toggleHints}
@@ -262,7 +262,7 @@ function Display({
 
         <InputArea
           changeTextAreaValue={changeTextAreaValue}
-          toggleTimer={toggleTimer}
+          toggleActive={toggleActive}
           focusTextArea={focusTextArea}
           isActive={isActive}
           areHintsVisible={areHintsVisible}
@@ -271,7 +271,7 @@ function Display({
         />
 
         <Controls
-          toggleTimer={toggleTimer}
+          toggleActive={toggleActive}
           isActive={isActive}
           setTimerOnSelect={setTimerOnSelect}
           isDisabled={isDisabled}
@@ -294,7 +294,6 @@ function Display({
           areResultsVisible={areResultsVisible}
           focusElement={focusElement}
           areStatsVisible={areStatsVisible}
-          toggleTimer={toggleTimer}
           isActive={isActive}
         />
 
@@ -324,8 +323,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // setDisplayToReset_true: () => dispatch({ type: "DISPLAY_TO_RESET_TRUE" }),
     setDisplayToReset_false: () => dispatch({ type: "DISPLAY_TO_RESET_FALSE" }),
+    toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
 
     // dispatching plain actions
     resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),

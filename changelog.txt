@@ -93,9 +93,9 @@ DONE 16. title not visible is app is minimized.DONE
 DONE 17. authentication UI more consistent with the app DONE
 DONE 18. login & register should start at the same height DONE
 XXX 19. info that you need to login when hover/click on chartBar XXX
-DONE 20. reset if login/register/logout is clicked DONE
+ XXX DONE 20. reset if login/register/logout is clicked DONE XXX pause instead
 DONE 21. lower the main app display? DONE
-22. pause on clicking stats
+DONE 22. pause on clicking stats/login/register/logout DONE
 23. no class in Hints' chartBar but it behave the same?
 24. clicking results is still making results visible for a moment
 25. change toggleTimer to toggleActive in App.js, InputArea, Controls, LowerUI

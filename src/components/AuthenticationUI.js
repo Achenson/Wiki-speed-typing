@@ -11,7 +11,7 @@ function AuthenticationUI({
   logOut,
   areStatsVisible,
   isActive,
-  toggleTimer,
+  toggleActive,
 
   // from
 }) {
@@ -27,7 +27,7 @@ function AuthenticationUI({
             className="main-link"
             onClick={() => {
               if (isActive) {
-                toggleTimer();
+                toggleActive();
               }
             }}
           >
@@ -38,7 +38,7 @@ function AuthenticationUI({
             className="main-link"
             onClick={() => {
               if (isActive) {
-                toggleTimer();
+                toggleActive();
               }
             }}
           >
@@ -57,7 +57,7 @@ function AuthenticationUI({
             className="main-link"
             onClick={() => {
               if (isActive) {
-                toggleTimer();
+                toggleActive();
               }
               logOut();
 
@@ -88,6 +88,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logIn: () => dispatch({ type: "LOG_IN" }),
     logOut: () => dispatch({ type: "LOG_OUT" }),
+    toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
   };
 };
 

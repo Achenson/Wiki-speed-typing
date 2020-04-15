@@ -79,7 +79,7 @@ function App({
       toggleAreStatsVisible();
     } else {
       toggleAreStatsVisible();
-      toggleTimer()
+      toggleActive()
     }
 
   }
@@ -180,12 +180,6 @@ function App({
     setIsActiveToFalse,
   ]);
 
-  // for pause button
-  function toggleTimer() {
-    // toggleActive(!isActive);
-    toggleActive();
-  }
-
   // for time select
   function setTimerOnSelect(e) {
     setTimerValue(e.target.value);
@@ -213,7 +207,7 @@ function App({
 
       //if (keysPressed["Shift"] && event.key == "Pause") {
       if (event.key === "Tab" && isActive) {
-        toggleTimer();
+        toggleActive();
         delete keysPressed[event.key];
       }
 
@@ -317,7 +311,7 @@ function App({
                 // timer
                 timerValue={timerValue}
                 constantTimerValue={constantTimerValue}
-                toggleTimer={toggleTimer}
+                toggleActive={toggleActive}
                 setTimerOnSelect={setTimerOnSelect}
                 isActive={isActive}
                 resetTimer={resetTimer}

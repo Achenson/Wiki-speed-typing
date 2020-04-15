@@ -9,7 +9,7 @@ function Controls(props) {
       <div className="column-left">
         <button
           className="btn btn-control control-item"
-          onClick={() => props.toggleTimer()}
+          onClick={() => props.toggleActive()}
         >
           {props.isActive ? "Pause" : "Run"}
         </button>

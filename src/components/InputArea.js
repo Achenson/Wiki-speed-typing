@@ -33,7 +33,7 @@ function InputArea(props) {
         let arrowKeysArr = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
         preventArrowKeys(event);
         if (!props.isActive && arrowKeysArr.indexOf(event.key) === -1) {
-          props.toggleTimer();
+          props.toggleActive();
         }
       }}
       onClick={focusOnlyOnClick}
