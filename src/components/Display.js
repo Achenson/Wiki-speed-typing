@@ -239,7 +239,7 @@ function Display({
   return (
     <div className="outer-container">
       <div className="main-square">
-        <AuthenticationUI toggleStats={toggleStats} resetTimer={resetTimer} />
+        <AuthenticationUI toggleStats={toggleStats} resetTimer={resetTimer} toggleTimer={toggleTimer} />
 
         <UpperUI
           toggleHints={toggleHints}
@@ -294,6 +294,8 @@ function Display({
           areResultsVisible={areResultsVisible}
           focusElement={focusElement}
           areStatsVisible={areStatsVisible}
+          toggleTimer={toggleTimer}
+          isActive={isActive}
         />
 
         <Stats areStatsVisible={areStatsVisible} />

@@ -10,36 +10,41 @@ function AuthenticationUI({
   toggleStats,
   logOut,
   areStatsVisible,
-  // from 
-  resetTimer
-  
+  isActive,
+  toggleTimer,
+
+  // from
 }) {
-  let history = useHistory()
+  let history = useHistory();
   // let isAuthenticated = false;
 
   function authLinks() {
-
-    
-
     if (!isAuthenticated) {
       return (
         <div className="auth-div">
-          <Link to="/register" className="main-link" onClick={resetTimer}>
+          <Link
+            to="/register"
+            className="main-link"
+            onClick={() => {
+              if (isActive) {
+                toggleTimer();
+              }
+            }}
+          >
             Register
           </Link>
-          <Link to="/login" className="main-link"  onClick={resetTimer}>
+          <Link
+            to="/login"
+            className="main-link"
+            onClick={() => {
+              if (isActive) {
+                toggleTimer();
+              }
+            }}
+          >
             Login
           </Link>
-    {/*       <Link  className="main-link"  onClick={
-            () => {
-
-            resetTimer()
-            }
-            }>
-            Login
-          </Link> */}
-
-
+         
         </div>
       );
     } else {
@@ -51,11 +56,13 @@ function AuthenticationUI({
           <span
             className="main-link"
             onClick={() => {
-              resetTimer();
+              if (isActive) {
+                toggleTimer();
+              }
               logOut();
 
-              if(areStatsVisible) {
-                toggleStats()
+              if (areStatsVisible) {
+                toggleStats();
               }
             }}
           >
@@ -73,6 +80,7 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.authState.isAuthenticated,
     areStatsVisible: state.visibilityState.areStatsVisible,
+    isActive: state.resultsAndTimerState.counter.isActive,
   };
 };
 
@@ -80,9 +88,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     logIn: () => dispatch({ type: "LOG_IN" }),
     logOut: () => dispatch({ type: "LOG_OUT" }),
-
-
-
   };
 };
 

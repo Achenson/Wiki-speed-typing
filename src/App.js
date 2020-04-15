@@ -69,10 +69,19 @@ function App({
   // display
 
   function toggleStats() {
-    if (!isActive && isAuthenticated) {
+
+    if (!isAuthenticated) {
+      return;
+    }
+
+    if (!isActive) {
       // toggleAreHintsVisible(h => !h);
       toggleAreStatsVisible();
+    } else {
+      toggleAreStatsVisible();
+      toggleTimer()
     }
+
   }
 
   function toggleHints() {

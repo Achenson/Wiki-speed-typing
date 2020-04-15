@@ -14,7 +14,9 @@ function LowerUI({
   focusElement,
   toggleStats,
   isAuthenticated,
-  notification_true
+  notification_true,
+  toggleActive,
+  isActive,
 }) {
   let history = useHistory();
 
@@ -59,9 +61,12 @@ function LowerUI({
         icon={faChartBar}
         size="2x"
         onClick={() => {
-          toggleStats();
-
-          if (!isAuthenticated) {
+          if (isAuthenticated) {
+            toggleStats();
+          } else {
+            if (isActive) {
+              toggleActive();
+            }
             notification_true();
             history.push("/login");
           }
@@ -77,17 +82,15 @@ const mapStateToProps = (state) => {
   return {
     isAuthenticated: state.authState.isAuthenticated,
     // notificationToggle: () => dispatch({type: "NOTIFICATION_TOGGLE"})
-    
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-   notification_true: () => dispatch({type: "NOTIFICATION_TRUE"}) 
+    notification_true: () => dispatch({ type: "NOTIFICATION_TRUE" }),
+    toggleActive: () => dispatch ({type: "TOGGLE_ACTIVE"})
   };
 };
-
-
 
 export default connect(
   mapStateToProps,
