@@ -12,6 +12,7 @@ function AuthenticationUI({
   areStatsVisible,
   isActive,
   toggleActive,
+  setToReset_true
 
   // from
 }) {
@@ -56,9 +57,7 @@ function AuthenticationUI({
           <span
             className="main-link"
             onClick={() => {
-              if (isActive) {
-                toggleActive();
-              }
+              setToReset_true();
               logOut();
 
               if (areStatsVisible) {
@@ -89,6 +88,7 @@ const mapDispatchToProps = (dispatch) => {
     logIn: () => dispatch({ type: "LOG_IN" }),
     logOut: () => dispatch({ type: "LOG_OUT" }),
     toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
+    setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
   };
 };
 
