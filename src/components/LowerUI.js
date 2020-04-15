@@ -38,7 +38,18 @@ function LowerUI({
       <button
         hidden
         className="btn btn-control btn-results"
-        onClick={toggleResults}
+
+
+
+
+
+        onClick={() =>{
+
+          if(isActive) {
+            toggleActive()
+            toggleResults()
+          }
+        }}
         style={{
           backgroundColor: `${areResultsVisible ? "Black" : "steelblue"}`,
         }}

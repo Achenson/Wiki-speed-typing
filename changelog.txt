@@ -85,7 +85,7 @@ DONE 5. stats: no KPM or % if there is no record? DONE
 DONE 9. moreHints DONE
 DONE 10. fa in hints? DONE
 DONE 11. currentStats: change to by default showing stats for current timer value? DONE
-XX 12. app-title: move left/up? XX
+XXX 12. app-title: move left/up? XXX
 13. confirmation for stats reset
 DONE 14. implement trasition effect to all button? DONE
 15. authentication UI upper padding?
@@ -98,7 +98,8 @@ DONE 21. lower the main app display? DONE
 DONE 22. pause on clicking stats/login/register DONE
 23. no class in Hints' chartBar but it behave the same?
 24. clicking results is still making results visible for a moment
-25. change toggleTimer to toggleActive in App.js, InputArea, Controls, LowerUI
+DONE 25. change toggleTimer to toggleActive in App.js, ... DONE
+25. some useCallbacks are not needed??
 
 
 
@@ -107,3 +108,4 @@ DONE 22. pause on clicking stats/login/register DONE
 isseus:
 DONE 1. reloadin/typing address cause error DONE fixed: hashRouter instead of BrowserRouter,
 (everything after # is ignored by the server) may cause problem later???
+2. no first letter if typing after clicking reset but not focusing on input with mouse
