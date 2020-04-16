@@ -12,7 +12,10 @@ function AuthenticationUI({
   areStatsVisible,
   isActive,
   toggleActive,
-  setToReset_true
+  setToReset_true,
+  toggleResults,
+  areResultsVisible,
+  resetFinalResults,
 
   // from
 }) {
@@ -45,7 +48,6 @@ function AuthenticationUI({
           >
             Login
           </Link>
-         
         </div>
       );
     } else {
@@ -58,6 +60,10 @@ function AuthenticationUI({
             className="main-link"
             onClick={() => {
               setToReset_true();
+              if (areResultsVisible) {
+                toggleResults();
+              }
+              resetFinalResults();
               logOut();
 
               if (areStatsVisible) {
@@ -80,6 +86,7 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.authState.isAuthenticated,
     areStatsVisible: state.visibilityState.areStatsVisible,
     isActive: state.resultsAndTimerState.counter.isActive,
+    areResultsVisible: state.visibilityState.areResultsVisible,
   };
 };
 
@@ -89,6 +96,7 @@ const mapDispatchToProps = (dispatch) => {
     logOut: () => dispatch({ type: "LOG_OUT" }),
     toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
+    resetFinalResults: () => dispatch({ type: "RESET_FINAL_RESULTS" }),
   };
 };
 

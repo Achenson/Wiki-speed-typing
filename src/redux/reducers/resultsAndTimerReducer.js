@@ -159,6 +159,19 @@ function resultsAndTimerReducer(state = initialState, action) {
           )
         }
       };
+      // for reseting results after logging out
+      case "RESET_FINAL_RESULTS":
+        return {
+          ...state,
+          finalResults: {
+            speed: "-",
+    accuracy: "- ",
+    correct: "-",
+    incorrect: "-",
+    noPenalty: "-",
+    "timer length": ""
+          }
+        };
 
     // for Stats
 

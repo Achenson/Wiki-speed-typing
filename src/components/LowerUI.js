@@ -48,7 +48,10 @@ function LowerUI({
           if(isActive) {
             toggleActive()
             toggleResults()
+          } else {
+            toggleResults()
           }
+
         }}
         style={{
           backgroundColor: `${areResultsVisible ? "Black" : "steelblue"}`,

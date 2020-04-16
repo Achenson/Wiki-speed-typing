@@ -239,7 +239,9 @@ function Display({
   return (
     <div className="outer-container">
       <div className="main-square">
-        <AuthenticationUI toggleStats={toggleStats} />
+        <AuthenticationUI toggleStats={toggleStats}
+        toggleResults={toggleResults}
+         />
 
         <UpperUI
           toggleHints={toggleHints}
