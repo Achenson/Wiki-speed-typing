@@ -76,18 +76,6 @@ function Login({
     }
   }
 
- /*  useEffect( () => {
-
-    console.log('sth')
-
-    return () => {
-      notification_false()
-      loginError_false()
-    }
-
-  })
- */
-
 
   return (
     <div>

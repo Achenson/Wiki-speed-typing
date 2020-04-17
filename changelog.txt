@@ -88,7 +88,7 @@ DONE 11. currentStats: change to by default showing stats for current timer valu
 XXX 12. app-title: move left/up? XXX
 13. confirmation for stats reset
 DONE 14. implement trasition effect to all button? DONE
-15. authentication UI upper padding?
+ ?DONE 15. authentication UI upper padding? DONE? in chrome it works, in firefox: to big top padding when height is lower
 DONE 16. title not visible is app is minimized.DONE
 DONE 17. authentication UI more consistent with the app DONE
 DONE 18. login & register should start at the same height DONE

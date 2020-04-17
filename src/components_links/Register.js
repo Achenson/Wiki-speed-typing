@@ -31,15 +31,6 @@ function Register({
 
   let [errorNotification, setErrorNotification] = useState(null);
 
-  // let [errorMessage, setErrorMessage] = useState(null);
-
-  /*  useEffect(() => {
-    if (showRegisterError) {
-      setErrorNotification("Incorrect username of password");
-    } else {
-      setErrorNotification(null);
-    }
-  }, [showRegisterError]); */
 
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");

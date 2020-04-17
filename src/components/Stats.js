@@ -8,42 +8,90 @@ function Stats({
   constantTimerValue,
   // from statsReducer
   currentStatsKey,
-  
 
   setCurrentStatsKey,
   currentStats,
   deleteCurrentStatsArr,
-  five_s,
-  thirty_s,
-  one_min,
-  two_min,
-  five_min
+
+  isConfirmDeleteVisible,
+  confirmDeleteVisibility,
 }) {
- 
+  useEffect(() => {
+    console.log("render");
+    if (isConfirmDeleteVisible) {
+      confirmDeleteVisibility();
+    }
+  }, [areStatsVisible]);
+
+  function renderDeletion() {
+    if (!isConfirmDeleteVisible) {
+      return (
+        <div className="delete-score-div  delete-score-initial-div">
+          <span className="delete-score-text">
+            {/* Delete top score for selected timer length -&nbsp; */}
+            Delete top score for selected timer length&nbsp;&nbsp;
+          </span>
+          <button
+            className="btn btn-control control-item btn-reset btn-delete-stats"
+            onClick={() => {
+              confirmDeleteVisibility();
+            }}
+          >
+            x
+          </button>
+        </div>
+      );
+    } else {
+      return (
+        <div className="delete-score-div delete-score-confirmation-div ">
+          <span className="delete-score-text">
+            {/* Delete top score for selected timer length -&nbsp; */}
+            Confirm deletion: &nbsp;&nbsp;
+          </span>
+          <span
+            className="delete-score-confirm"
+            onClick={() => {
+              deleteCurrentStatsArr();
+              confirmDeleteVisibility();
+            }}
+          >
+            DELETE
+          </span>
+          &nbsp;&nbsp;
+          <span
+            className="delete-score-cancel"
+            onClick={confirmDeleteVisibility}
+          >
+            CANCEL
+          </span>
+        </div>
+      );
+    }
+  }
 
   // inverted version of  changeCurrentStatsKey from resultsAndTimerReducer
   function changeCurrentStatsKey(payload) {
     switch (payload) {
       case "five_s":
         return "5";
-        // setCurrentStatsArr(five_s);
-        // break;
+      // setCurrentStatsArr(five_s);
+      // break;
       case "thirty_s":
         // setCurrentStatsArr(thirty_s);
         return "30";
-        // break;
+      // break;
       case "one_min":
         // setCurrentStatsArr(one_min);
         return "60";
-        // break;
+      // break;
       case "two_min":
         // setCurrentStatsArr(two_min);
         return "120";
         break;
       case "five_min":
         return "300";
-        // setCurrentStatsArr(five_min);
-        // break;
+      // setCurrentStatsArr(five_min);
+      // break;
 
       default:
         return "60";
@@ -55,22 +103,18 @@ function Stats({
     <div
       className="stats"
       style={{
-        visibility: `${areStatsVisible ? "visible" : "hidden"}`
+        visibility: `${areStatsVisible ? "visible" : "hidden"}`,
       }}
     >
       <div className="inner-stats container">
-        <div className="top-score-main">
-          <p className="top-score-title">Top score</p>
-          <div className="top-score-select-div">
+        <div className="score-main">
+          <p className="score-title">Top score</p>
+          <div className="score-select-div">
             <p>timer length:&nbsp;</p>
             <select
               className="control-item timer-select top-score-timer-select"
-             
-              onChange={
-                e => setCurrentStatsKey(e.target.value)
-              }
+              onChange={(e) => setCurrentStatsKey(e.target.value)}
               value={changeCurrentStatsKey(currentStatsKey)}
-
             >
               <option value="5">00:05</option>
               <option value="30">00:30</option>
@@ -81,8 +125,8 @@ function Stats({
           </div>
         </div>
 
-        <ul className="top-score-list container">
-        {/* !! [] not . */}
+        <ul className="score-list container">
+          {/* !! [] not . */}
           {currentStats[currentStatsKey].map((el, i) => {
             if (i > 9) {
               return null;
@@ -91,10 +135,11 @@ function Stats({
             }
           })}
         </ul>
-        
-        <div className="delete-top-score-div">
-        <span className="delete-top-score-text">
-          {/* Delete top score for selected timer length -&nbsp; */}
+
+        {renderDeletion()}
+
+        {/*    <div className="delete-score-div" style={{display: 'none'}}>
+        <span className="delete-score-text">
           Delete top score for selected timer length&nbsp;&nbsp;
         </span>
         <button
@@ -107,27 +152,43 @@ function Stats({
         </button>
         </div>
 
-     
+        <div className="delete-score-div" style={{display: 'none'}}>
+        <span className="delete-score-element delete-score-text">
+          Confirm deletion: &nbsp;&nbsp;
+        </span>
+        
+        <span className="delete-score-element delete-score-confirm">
+         DELETE
+       </span>
+       &nbsp;&nbsp;
+       <span className="delete-score-element delete-score-cancel">
+         CANCEL
+       </span>
+        
+      
+        </div> */}
       </div>
     </div>
   );
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     currentStatsKey: state.resultsAndTimerState.stats.currentStatsKey,
     currentStats: state.resultsAndTimerState.stats,
-    constantTimerValue: state.resultsAndTimerState.counter.constantTimerValue
-
+    constantTimerValue: state.resultsAndTimerState.counter.constantTimerValue,
+    isConfirmDeleteVisible: state.visibilityState.isConfirmDeleteVisible,
+    areStatsVisible: state.visibilityState.areStatsVisible,
   };
 };
 
-
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    setCurrentStatsKey: (data) => dispatch({ type: "SET_CURRENT_STATS", payload: data }),
+    setCurrentStatsKey: (data) =>
+      dispatch({ type: "SET_CURRENT_STATS", payload: data }),
     deleteCurrentStatsArr: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
-   
+    confirmDeleteVisibility: () =>
+      dispatch({ type: "CONFIRM_DELETE_VISIBILITY" }),
   };
 };
 
