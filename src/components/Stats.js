@@ -14,14 +14,16 @@ function Stats({
   deleteCurrentStatsArr,
 
   isConfirmDeleteVisible,
-  confirmDeleteVisibility,
+  confirmDeleteVisibility_true,
+  confirmDeleteVisibility_false
+  // confirmDeleteVisibility,
 }) {
   useEffect(() => {
     console.log("render");
-    if (isConfirmDeleteVisible) {
-      confirmDeleteVisibility();
-    }
-  }, [areStatsVisible]);
+    
+      confirmDeleteVisibility_false();
+    
+  }, [areStatsVisible, confirmDeleteVisibility_false]);
 
   function renderDeletion() {
     if (!isConfirmDeleteVisible) {
@@ -34,7 +36,7 @@ function Stats({
           <button
             className="btn btn-control control-item btn-reset btn-delete-stats"
             onClick={() => {
-              confirmDeleteVisibility();
+              confirmDeleteVisibility_true();
             }}
           >
             x
@@ -52,7 +54,7 @@ function Stats({
             className="delete-score-confirm"
             onClick={() => {
               deleteCurrentStatsArr();
-              confirmDeleteVisibility();
+              confirmDeleteVisibility_false();
             }}
           >
             DELETE
@@ -60,7 +62,7 @@ function Stats({
           &nbsp;&nbsp;
           <span
             className="delete-score-cancel"
-            onClick={confirmDeleteVisibility}
+            onClick={confirmDeleteVisibility_false}
           >
             CANCEL
           </span>
@@ -187,8 +189,12 @@ const mapDispatchToProps = (dispatch) => {
     setCurrentStatsKey: (data) =>
       dispatch({ type: "SET_CURRENT_STATS", payload: data }),
     deleteCurrentStatsArr: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
-    confirmDeleteVisibility: () =>
-      dispatch({ type: "CONFIRM_DELETE_VISIBILITY" }),
+   /*  confirmDeleteVisibility: () =>
+      dispatch({ type: "CONFIRM_DELETE_VISIBILITY" }), */
+      confirmDeleteVisibility_true: () =>
+      dispatch({ type: "CONFIRM_DELETE_VISIBILITY_TRUE" }),
+      confirmDeleteVisibility_false: () =>
+      dispatch({ type: "CONFIRM_DELETE_VISIBILITY_FALSE" }),
   };
 };
 
