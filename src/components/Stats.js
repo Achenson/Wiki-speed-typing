@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import {useEffect } from "react";
 import { connect } from "react-redux";
 import SingleStat from "./SingleStat";
 
@@ -89,7 +89,7 @@ function Stats({
       case "two_min":
         // setCurrentStatsArr(two_min);
         return "120";
-        break;
+        // break;
       case "five_min":
         return "300";
       // setCurrentStatsArr(five_min);

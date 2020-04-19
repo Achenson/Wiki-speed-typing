@@ -10,7 +10,7 @@ function visibilityReducer(state = initialState, action) {
     areHintsVisible,
     areResultsVisible,
     areStatsVisible,
-    isConfirmDeleteVisible,
+    // isConfirmDeleteVisible,
   } = state;
 
   switch (action.type) {
@@ -30,30 +30,17 @@ function visibilityReducer(state = initialState, action) {
         areStatsVisible: !areStatsVisible,
       };
 
-  /*   case "CONFIRM_DELETE_VISIBILITY":
+    case "CONFIRM_DELETE_VISIBILITY_TRUE":
       return {
         ...state,
-        isConfirmDeleteVisible: !isConfirmDeleteVisible,
-      }; */
+        isConfirmDeleteVisible: true,
+      };
 
-      case "CONFIRM_DELETE_VISIBILITY_TRUE":
-        return {
-          ...state,
-          isConfirmDeleteVisible: true,
-        };
-
-        case "CONFIRM_DELETE_VISIBILITY_FALSE":
-          return {
-            ...state,
-            isConfirmDeleteVisible: false,
-          };
-    
-  
-
-
-
-
-
+    case "CONFIRM_DELETE_VISIBILITY_FALSE":
+      return {
+        ...state,
+        isConfirmDeleteVisible: false,
+      };
 
     default:
       return state;

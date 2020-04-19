@@ -69,7 +69,7 @@ function Display({
       loginError_false();
       registerError_false();
     // };
-  }, []);
+  }, [notification_false, loginError_false, registerError_false]);
 
   // rendering text ============================
   const lengthOfSinglePart = 363;

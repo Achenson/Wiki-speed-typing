@@ -29,7 +29,6 @@ const initialState = {
 };
 
 function displayReducer(state = initialState, action) {
-  let { areHintsVisible, areResultsVisible, areStatsVisible } = state;
 
   switch (action.type) {
     case "DISPLAY_TO_RESET_TRUE":

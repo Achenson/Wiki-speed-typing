@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+// import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -24,7 +25,7 @@ function Login({
     // return () => {
       registerError_false();
     // };
-  }, []);
+  }, [registerError_false]);
 
 
 

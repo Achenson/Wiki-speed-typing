@@ -342,7 +342,7 @@ function resultsAndTimerReducer(state = initialState, action) {
           case "120":
             // setCurrentStatsArr(two_min);
             return "two_min";
-            break;
+            // break;
           case "300":
             return "five_min";
             // setCurrentStatsArr(five_min);

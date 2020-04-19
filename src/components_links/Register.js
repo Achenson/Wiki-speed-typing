@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+// import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -24,7 +25,7 @@ function Register({
     loginError_false();
     notification_false();
     // };
-  }, []);
+  }, [loginError_false, notification_false]);
 
   // let isAuthenticated = false;
   let history = useHistory();

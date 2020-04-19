@@ -1,9 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+// import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
+import {Link} from "react-router-dom";
 
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
 function AuthenticationUI({
   isAuthenticated,
@@ -19,7 +20,7 @@ function AuthenticationUI({
 
   // from
 }) {
-  let history = useHistory();
+  // let history = useHistory();
   // let isAuthenticated = false;
 
   function authLinks() {

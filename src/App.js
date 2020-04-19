@@ -11,9 +11,10 @@ import loremText from "./components/_defaultText.js";
 
 import Login from "./components_links/Login.js";
 import Register from "./components_links/Register.js";
-import testComponent from "./components_links/testComponent.js";
+// import testComponent from "./components_links/testComponent.js";
 
-import { BrowserRouter, Route, Link, Switch, Redirect, useHistory, HashRouter } from "react-router-dom";
+// import { BrowserRouter, Route, Link, Switch, Redirect, useHistory, HashRouter } from "react-router-dom";
+import { Route, Switch, Redirect, HashRouter } from "react-router-dom";
 
 //!!!!! imported actions creators must be passed here as props
 function App({
