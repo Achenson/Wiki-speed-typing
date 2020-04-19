@@ -86,7 +86,7 @@ DONE 9. moreHints DONE
 DONE 10. fa in hints? DONE
 DONE 11. currentStats: change to by default showing stats for current timer value? DONE
 XXX 12. app-title: move left/up? XXX
-13. confirmation for stats reset
+DONE 13. confirmation for stats reset DONE
 DONE 14. implement trasition effect to all button? DONE
  ?DONE 15. authentication UI upper padding? DONE? in chrome it works, in firefox: to big top padding when height is lower
 DONE 16. title not visible is app is minimized.DONE
@@ -100,7 +100,7 @@ DONE 22. pause on clicking stats/login/register DONE
 DONE 24. clicking results is still making results visible for a moment DONE now it is pausing instead
 DONE 25. change toggleTimer to toggleActive in App.js, ... DONE
 25. some useCallbacks are not needed??
-
+26. too much space in Stats
 
 
 (react scripts 3.3.0 => 3.4.0? new npm ver?)

@@ -539,6 +539,34 @@ body {
   background-color: rgb(136, 209, 233);
 }
 
+.tooltip-text-stats {
+  position: absolute;
+  visibility: hidden;
+  background-color: bisque;
+  z-index: 1;
+  padding: 0.3em 0.3em;
+  border-radius: 5px;
+  border: 1px solid black;
+  left: -3px;
+  bottom: 1.35rem;
+  font-size: 1rem;
+  font-weight: normal;
+  min-width: 263px;
+  white-space: nowrap;
+}
+
+.tooltip:hover .tooltip-text-stats {
+  visibility: visible;
+}
+
+
+
+
+
+
+
+
+
 /* lower UI fa icon */
 .fa-chart-bar-default {
   color: green;

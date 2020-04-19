@@ -15,28 +15,27 @@ function SingleStat({ speed, accuracy, key }) {
     <Fragment>
       {isThisARecord ? (
         <li>
-          {speed} KPM &nbsp;|&nbsp; {accuracy}%
+          {/* <span>{speed} KPM &nbsp;|&nbsp; </span> */}
+          <div className="tooltip" style={{display: "inline-block"}}>
+            <span>{speed} KPM</span>
+            <span className="tooltip-text-stats">
+              Speed - keys per minute with penalties
+            </span>
+          </div>
+          <span> &nbsp;|&nbsp; </span>
+
+          <div className="tooltip" style={{display: "inline-block"}}>
+            <span>{accuracy}%</span>
+            <span className="tooltip-text-stats">
+            Accuracy - incorrect entries/total entries
+            </span>
+          </div>
         </li>
       ) : (
-       <li>-</li>
+        <li>-</li>
       )}
     </Fragment>
   );
 }
-
-/* const mapStateToProps = state => {
-  return {
-    five_s: state.totalState.stats.five_s,
-    thirty_s: state.totalState.stats.thirty_s,
-    one_min: state.totalState.stats.one_min,
-    two_min: state.totalState.stats.two_min,
-    five_min: state.totalState.stats.five_min
-  };
-};
-
-export default connect(
-  mapStateToProps
-  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
-)(Stats); */
 
 export default SingleStat;
