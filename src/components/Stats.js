@@ -1,5 +1,5 @@
 import React from "react";
-import {useEffect } from "react";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import SingleStat from "./SingleStat";
 
@@ -15,14 +15,13 @@ function Stats({
 
   isConfirmDeleteVisible,
   confirmDeleteVisibility_true,
-  confirmDeleteVisibility_false
+  confirmDeleteVisibility_false,
   // confirmDeleteVisibility,
 }) {
   useEffect(() => {
     console.log("render");
-    
-      confirmDeleteVisibility_false();
-    
+
+    confirmDeleteVisibility_false();
   }, [areStatsVisible, confirmDeleteVisibility_false]);
 
   function renderDeletion() {
@@ -89,7 +88,7 @@ function Stats({
       case "two_min":
         // setCurrentStatsArr(two_min);
         return "120";
-        // break;
+      // break;
       case "five_min":
         return "300";
       // setCurrentStatsArr(five_min);
@@ -139,36 +138,6 @@ function Stats({
         </ul>
 
         {renderDeletion()}
-
-        {/*    <div className="delete-score-div" style={{display: 'none'}}>
-        <span className="delete-score-text">
-          Delete top score for selected timer length&nbsp;&nbsp;
-        </span>
-        <button
-          className="btn btn-control control-item btn-reset btn-delete-stats"
-          onClick={ 
-             deleteCurrentStatsArr
-           }
-        >
-          x
-        </button>
-        </div>
-
-        <div className="delete-score-div" style={{display: 'none'}}>
-        <span className="delete-score-element delete-score-text">
-          Confirm deletion: &nbsp;&nbsp;
-        </span>
-        
-        <span className="delete-score-element delete-score-confirm">
-         DELETE
-       </span>
-       &nbsp;&nbsp;
-       <span className="delete-score-element delete-score-cancel">
-         CANCEL
-       </span>
-        
-      
-        </div> */}
       </div>
     </div>
   );
@@ -189,11 +158,11 @@ const mapDispatchToProps = (dispatch) => {
     setCurrentStatsKey: (data) =>
       dispatch({ type: "SET_CURRENT_STATS", payload: data }),
     deleteCurrentStatsArr: () => dispatch({ type: "DELETE_CURRENT_STATS" }),
-   /*  confirmDeleteVisibility: () =>
+    /*  confirmDeleteVisibility: () =>
       dispatch({ type: "CONFIRM_DELETE_VISIBILITY" }), */
-      confirmDeleteVisibility_true: () =>
+    confirmDeleteVisibility_true: () =>
       dispatch({ type: "CONFIRM_DELETE_VISIBILITY_TRUE" }),
-      confirmDeleteVisibility_false: () =>
+    confirmDeleteVisibility_false: () =>
       dispatch({ type: "CONFIRM_DELETE_VISIBILITY_FALSE" }),
   };
 };

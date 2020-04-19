@@ -473,6 +473,7 @@ body {
 
 .score-list > li {
   list-style-type: decimal;
+  margin-top: 0.1rem;
 }
 
 .score-main {
@@ -503,11 +504,11 @@ body {
   /* left: 50px; */
   /* float: right; */
   justify-content: center;
-  margin-top: 2.5rem;
+  margin-top: 1.8rem;
 }
 
 .delete-score-confirmation-div {
-  margin-top: 2.6rem;
+  margin-top: 1.9rem;
 }
 
 .delete-score-text {
@@ -548,7 +549,7 @@ body {
   border-radius: 5px;
   border: 1px solid black;
   left: -3px;
-  bottom: 1.35rem;
+  bottom: 1.2rem;
   font-size: 1rem;
   font-weight: normal;
   min-width: 263px;
