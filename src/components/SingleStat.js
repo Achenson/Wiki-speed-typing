@@ -18,7 +18,7 @@ function SingleStat({ speed, accuracy, key }) {
           {/* <span>{speed} KPM &nbsp;|&nbsp; </span> */}
           <div className="tooltip" style={{display: "inline-block"}}>
             <span>{speed} KPM</span>
-            <span className="tooltip-text-stats">
+            <span className="tooltip-text tooltip-text-stats">
               Speed - keys per minute with penalties
             </span>
           </div>
@@ -26,7 +26,7 @@ function SingleStat({ speed, accuracy, key }) {
 
           <div className="tooltip" style={{display: "inline-block"}}>
             <span>{accuracy}%</span>
-            <span className="tooltip-text-stats">
+            <span className="tooltip-text tooltip-text-stats">
             Accuracy - incorrect entries/total entries
             </span>
           </div>

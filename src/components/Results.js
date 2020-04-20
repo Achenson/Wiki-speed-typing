@@ -50,7 +50,7 @@ function Results(props) {
           <div className="tooltip">
             <p>Accuracy: {props.finalResults.accuracy}%</p>
             <span className="tooltip-text">
-              Incorrect entries/total entries percentage
+              Incorrect entries/total entries
             </span>
           </div>
         </div>

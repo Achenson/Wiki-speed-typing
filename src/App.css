@@ -414,14 +414,14 @@ body {
   visibility: hidden;
   background-color: bisque;
   z-index: 1;
-  padding: 0.3em 0.3em;
+  padding: 0.3em 0.4em;
   border-radius: 5px;
   border: 1px solid black;
   left: 0px;
   bottom: 1.55rem;
   font-size: 1rem;
   font-weight: normal;
-  min-width: 270px;
+  /* min-width: 200px; */
   white-space: nowrap;
 }
 
@@ -544,19 +544,8 @@ body {
 }
 
 .tooltip-text-stats {
-  position: absolute;
-  visibility: hidden;
-  background-color: bisque;
-  z-index: 1;
-  padding: 0.3em 0.3em;
-  border-radius: 5px;
-  border: 1px solid black;
   left: -3px;
   bottom: 1.2rem;
-  font-size: 1rem;
-  font-weight: normal;
-  min-width: 263px;
-  white-space: nowrap;
 }
 
 .tooltip:hover .tooltip-text-stats {
