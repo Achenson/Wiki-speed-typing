@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 // import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -16,28 +16,21 @@ function Login({
   notification_false,
   loginError_true,
   loginError_false,
-  registerError_false
+  registerError_false,
 }) {
-
   // reseting authState for Register, so auth notifications/warnings disappear
   // when going back to Register
   useEffect(() => {
     // return () => {
-      registerError_false();
+    registerError_false();
     // };
   }, [registerError_false]);
-
-
 
   // not {history}!!! because we are not destructuring here,
   // history is an object!
   let history = useHistory();
 
   let [notification, setNotification] = useState(null);
-
-
-
-
 
   useEffect(() => {
     if (isNotificationNeeded) {
@@ -48,14 +41,6 @@ function Login({
   }, [isNotificationNeeded]);
 
   let [error, setError] = useState(null);
-
-  /*   useEffect(() => {
-    if (showLoginError) {
-      setError("Incorrect username of password");
-    } else {
-      setError(null);
-    }
-  }, [showLoginError]); */
 
   let [username, setUsername] = useState("");
   let [password, setPassword] = useState("");
@@ -76,7 +61,6 @@ function Login({
       history.replace("/");
     }
   }
-
 
   return (
     <div>
@@ -133,7 +117,6 @@ function Login({
                 onClick={(e) => {
                   e.preventDefault();
                   loginValidation();
-                  
                 }}
               >
                 Login
@@ -152,9 +135,11 @@ function Login({
               </p>
 
               <p className="auth-link-item">
-                <Link to="/" 
-                // onClick={notification_false} 
-                className="auth-link">
+                <Link
+                  to="/"
+                  // onClick={notification_false}
+                  className="auth-link"
+                >
                   Back
                 </Link>
                 &nbsp;to speed typing

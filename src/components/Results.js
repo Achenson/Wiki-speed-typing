@@ -28,7 +28,7 @@ function Results(props) {
     <div
       className="results"
       style={{
-        visibility: `${props.areResultsVisible ? "visible" : "hidden"}`
+        visibility: `${props.areResultsVisible ? "visible" : "hidden"}`,
       }}
     >
       <div className="inner-results container">

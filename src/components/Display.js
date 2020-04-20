@@ -65,9 +65,9 @@ function Display({
   // in the browser
   useEffect(() => {
     // return () => {
-      notification_false();
-      loginError_false();
-      registerError_false();
+    notification_false();
+    loginError_false();
+    registerError_false();
     // };
   }, [notification_false, loginError_false, registerError_false]);
 
@@ -84,7 +84,7 @@ function Display({
   let arrOutOfText = textToRender.split("");
 
   //make default(gray) color in wiki display area
-   //useCallback is used so useEffect below won't run on every every time toggleResults function is called
+  //useCallback is used so useEffect below won't run on every every time toggleResults function is called
   const makeDefaultColoredLetters = useCallback(() => {
     let arrToReturn = [];
     for (let i = 0; i < lengthOfSinglePart; i++) {
@@ -240,9 +240,10 @@ function Display({
   return (
     <div className="outer-container">
       <div className="main-square">
-        <AuthenticationUI toggleStats={toggleStats}
-        // toggleResults={toggleResults}
-         />
+        <AuthenticationUI
+          toggleStats={toggleStats}
+          // toggleResults={toggleResults}
+        />
 
         <UpperUI
           toggleHints={toggleHints}
@@ -253,9 +254,7 @@ function Display({
           liveResults={liveResults}
         />
 
-        <Hints areHintsVisible={areHintsVisible}
-        toggleStats={toggleStats}
-         />
+        <Hints areHintsVisible={areHintsVisible} toggleStats={toggleStats} />
         <WikiDisplay
           indexOfPartialTextArr={indexOfPartialTextArr}
           arrToRender={arrToRender}
@@ -348,7 +347,6 @@ const mapDispatchToProps = (dispatch) => {
     notification_false: () => dispatch({ type: "NOTIFICATION_FALSE" }),
     loginError_false: () => dispatch({ type: "LOGIN_ERROR_FALSE" }),
     registerError_false: () => dispatch({ type: "REGISTER_ERROR_FALSE" }),
-
   };
 };
 

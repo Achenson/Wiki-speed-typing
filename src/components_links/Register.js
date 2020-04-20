@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 // import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -14,10 +14,8 @@ function Register({
   registerError_true,
   registerError_false,
   notification_false,
-  loginError_false
-
+  loginError_false,
 }) {
-
   // reseting authState for Login, so auth notifications/warnings disappear
   // when going back to Login
   useEffect(() => {
@@ -31,7 +29,6 @@ function Register({
   let history = useHistory();
 
   let [errorNotification, setErrorNotification] = useState(null);
-
 
   let [username, setUsername] = useState("");
   let [email, setEmail] = useState("");
@@ -176,9 +173,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    /*  logIn: () => dispatch({ type: "LOG_IN" }),
-    notification_true: () => dispatch({ type: "NOTIFICATION_TRUE" }),
-    notification_false: () => dispatch({ type: "NOTIFICATION_FALSE" }), */
     registerError_true: () => dispatch({ type: "REGISTER_ERROR_TRUE" }),
     registerError_false: () => dispatch({ type: "REGISTER_ERROR_FALSE" }),
     notification_false: () => dispatch({ type: "NOTIFICATION_FALSE" }),

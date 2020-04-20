@@ -76,11 +76,11 @@ REDUX_FULLSTACK:
 toChange:
 DONE 1. split reducers in seperate files? DONE
 2. toggleHints - change from function to action creator?
-3. bar-chart onhover does not work perfectly
+DONE 3. bar-chart onhover does not work perfectly DONE this behaviour is expected actually
 4. stats/ top-score naming consistency?
 DONE 5. stats: no KPM or % if there is no record? DONE
-6. stats: tooltips (speed, accuracy)?
-7. stats: | between speed & accuracy always in the same place?
+DONE 6. stats: tooltips (speed, accuracy)? DONE
+XXX 7. stats: | between speed & accuracy always in the same place? XXX left as it was
 8. implement-redux thunk for fetching?
 DONE 9. moreHints DONE
 DONE 10. fa in hints? DONE

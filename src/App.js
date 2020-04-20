@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 
 // import store from "./store.js";
@@ -42,7 +42,6 @@ function App({
   setLiveResults,
   resetLiveResults,
   setFinalResults,
-  
 
   setTimerValue,
   setTimerValueCountdown,
@@ -57,7 +56,6 @@ function App({
   setStats,
   setCurrentStatsKey,
 }) {
-
   // let history = useHistory();
   // disabling random wiki article button in <Fetch/>
   const disablingButton = useRef(null);
@@ -70,7 +68,6 @@ function App({
   // display
 
   function toggleStats() {
-
     if (!isAuthenticated) {
       return;
     }
@@ -80,9 +77,8 @@ function App({
       toggleAreStatsVisible();
     } else {
       toggleAreStatsVisible();
-      toggleActive()
+      toggleActive();
     }
-
   }
 
   function toggleHints() {
@@ -94,7 +90,7 @@ function App({
 
   // for turning results off when the timer is running  =========
   //useCallback is used so useEffect below won't run on every every time toggleResults function is called
-/*   const toggleResults = useCallback(() => {
+  /*   const toggleResults = useCallback(() => {
     // functional update(r=>!r) so the useCallback don't depend on areResultsVisible
     // toggleAreResultsVisible(r => !r);
     toggleAreResultsVisible();
@@ -108,12 +104,7 @@ function App({
     if (!areResultsVisible && timerValue <= 0) {
       toggleAreResultsVisible();
     }
-  }, [
-    isActive,
-    timerValue,
-    areResultsVisible,
-    toggleAreResultsVisible,
-  ]);
+  }, [isActive, timerValue, areResultsVisible, toggleAreResultsVisible]);
 
   // for counter=======
   useEffect(() => {
@@ -285,7 +276,7 @@ function App({
 
   return (
     <HashRouter>
-      <div className="App" onKeyDown={handleKeyPress} >
+      <div className="App" onKeyDown={handleKeyPress}>
         <Fetch
           myText={myText}
           wikiTitle={wikiTitle}
@@ -293,77 +284,71 @@ function App({
           disablingButton={disablingButton}
           loremText={loremText}
           focusTextArea={focusTextArea}
-          
-
         />
         <div className="app-outer-container">
-        <h3 className="title">Wiki Speed Typing</h3>
-        <Switch>
-          {/* <Route path="/" exact component={Display}/> */}
-          <Route
-            path="/"
-            exact
-            // normally it would be component+ but render is needed is passing props
-            // to a component
-            render={(props) => (
-              <Display
-                {...props}
-                // timer
-                timerValue={timerValue}
-                constantTimerValue={constantTimerValue}
-                toggleActive={toggleActive}
-                setTimerOnSelect={setTimerOnSelect}
-                isActive={isActive}
-                resetTimer={resetTimer}
-                toReset={toReset}
-                displayToReset={displayToReset}
-                // hints & results visibility
-                areHintsVisible={areHintsVisible}
-                areResultsVisible={areResultsVisible}
-                areStatsVisible={areStatsVisible}
-                toggleHints={toggleHints}
-                // toggleResults={toggleResults}
-                toggleStats={toggleStats}
-                // disabling select, menaging focus
-                // isDisabled={isDisabled} isDisabled moved to Display!
-                focusTextArea={focusTextArea}
-                putFocusOnTextArea={putFocusOnTextArea}
-                focusElement={focusElement}
-                // results
-                myText={myText}
-                wikiTitle={wikiTitle}
-                disablingButton={disablingButton}
-                isCounterRunning={isCounterRunning}
-                // for Display => WikiController
-                setNewRandomArticle_true={setNewRandomArticle_true}
-                // for Fetch
-                setNewRandomArticle_false={setNewRandomArticle_false}
-              />
-            )}
-          />
-          {/* route guarding <> & </>!!!!*/}
-          {isAuthenticated ? 
-          <Redirect to="/"/> :
-          <>
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
-     {/*        render={(props) => (
+          <h3 className="title">Wiki Speed Typing</h3>
+          <Switch>
+            {/* <Route path="/" exact component={Display}/> */}
+            <Route
+              path="/"
+              exact
+              // normally it would be component+ but render is needed is passing props
+              // to a component
+              render={(props) => (
+                <Display
+                  {...props}
+                  // timer
+                  timerValue={timerValue}
+                  constantTimerValue={constantTimerValue}
+                  toggleActive={toggleActive}
+                  setTimerOnSelect={setTimerOnSelect}
+                  isActive={isActive}
+                  resetTimer={resetTimer}
+                  toReset={toReset}
+                  displayToReset={displayToReset}
+                  // hints & results visibility
+                  areHintsVisible={areHintsVisible}
+                  areResultsVisible={areResultsVisible}
+                  areStatsVisible={areStatsVisible}
+                  toggleHints={toggleHints}
+                  // toggleResults={toggleResults}
+                  toggleStats={toggleStats}
+                  // disabling select, menaging focus
+                  // isDisabled={isDisabled} isDisabled moved to Display!
+                  focusTextArea={focusTextArea}
+                  putFocusOnTextArea={putFocusOnTextArea}
+                  focusElement={focusElement}
+                  // results
+                  myText={myText}
+                  wikiTitle={wikiTitle}
+                  disablingButton={disablingButton}
+                  isCounterRunning={isCounterRunning}
+                  // for Display => WikiController
+                  setNewRandomArticle_true={setNewRandomArticle_true}
+                  // for Fetch
+                  setNewRandomArticle_false={setNewRandomArticle_false}
+                />
+              )}
+            />
+            {/* route guarding <> & </>!!!!*/}
+            {isAuthenticated ? (
+              <Redirect to="/" />
+            ) : (
+              <>
+                <Route path="/register" component={Register} />
+                <Route path="/login" component={Login} />
+                {/*        render={(props) => (
               <Register
               path="/register"
             {...props}
               resetTimer={resetTimer}
               />
             )} */}
-   
-
-          </>
-          }
-          <Route render={() => <h1>404: page not found</h1>} />
-        </Switch>
+              </>
+            )}
+            <Route render={() => <h1>404: page not found</h1>} />
+          </Switch>
         </div>
-     
-        
-        
       </div>
     </HashRouter>
   );
@@ -389,7 +374,7 @@ const mapStateToProps = (state) => {
     areResultsVisible: state.visibilityState.areResultsVisible,
     areStatsVisible: state.visibilityState.areStatsVisible,
     // auth
-    isAuthenticated: state.authState.isAuthenticated
+    isAuthenticated: state.authState.isAuthenticated,
   };
 };
 
