@@ -504,11 +504,13 @@ body {
   /* left: 50px; */
   /* float: right; */
   justify-content: center;
-  margin-top: 1.8rem;
+  /* margin-top: 1.8rem; */
+  margin-top: 1.6rem;
 }
 
 .delete-score-confirmation-div {
-  margin-top: 1.9rem;
+  /* margin-top: 1.9rem; */
+  margin-top: 1.7rem;
 }
 
 .delete-score-text {
@@ -517,8 +519,9 @@ body {
 }
 
 .btn-delete-stats {
-  width: auto;
+  /* width: auto; */
   /* align-self: center; */
+  width: 24px;
 }
 
 .delete-score-confirm {
