@@ -94,25 +94,24 @@ function App({
 
   // for turning results off when the timer is running  =========
   //useCallback is used so useEffect below won't run on every every time toggleResults function is called
-  const toggleResults = useCallback(() => {
+/*   const toggleResults = useCallback(() => {
     // functional update(r=>!r) so the useCallback don't depend on areResultsVisible
     // toggleAreResultsVisible(r => !r);
     toggleAreResultsVisible();
-  }, [toggleAreResultsVisible]);
+  }, [toggleAreResultsVisible]); */
 
   useEffect(() => {
     if (isActive && timerValue > 0 && areResultsVisible) {
-      toggleResults();
+      toggleAreResultsVisible();
     }
 
     if (!areResultsVisible && timerValue <= 0) {
-      toggleResults();
+      toggleAreResultsVisible();
     }
   }, [
     isActive,
     timerValue,
     areResultsVisible,
-    toggleResults,
     toggleAreResultsVisible,
   ]);
 
@@ -323,7 +322,7 @@ function App({
                 areResultsVisible={areResultsVisible}
                 areStatsVisible={areStatsVisible}
                 toggleHints={toggleHints}
-                toggleResults={toggleResults}
+                // toggleResults={toggleResults}
                 toggleStats={toggleStats}
                 // disabling select, menaging focus
                 // isDisabled={isDisabled} isDisabled moved to Display!

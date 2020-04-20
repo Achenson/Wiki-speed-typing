@@ -99,7 +99,7 @@ DONE 22. pause on clicking stats/login/register DONE
 23. no class in Hints' chartBar but it behave the same?
 DONE 24. clicking results is still making results visible for a moment DONE now it is pausing instead
 DONE 25. change toggleTimer to toggleActive in App.js, ... DONE
-25. some useCallbacks are not needed??
+DONE 25. toggleResult useCallbacks is App.js is not needed?? DONE action creator used instead
 DONE 26. too much space in Stats DONE
 DONE 27. "x" btn on chrome too small DONE
 

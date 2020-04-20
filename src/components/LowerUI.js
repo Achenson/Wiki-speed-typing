@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 function LowerUI({
   areStatsVisible,
   areResultsVisible,
-  toggleResults,
+  toggleAreResultsVisible,
   focusElement,
   toggleStats,
   isAuthenticated,
@@ -38,20 +38,13 @@ function LowerUI({
       <button
         hidden
         className="btn btn-control btn-results"
-
-
-
-
-
-        onClick={() =>{
-
-          if(isActive) {
-            toggleActive()
-            toggleResults()
+        onClick={() => {
+          if (isActive) {
+            toggleActive();
+            toggleAreResultsVisible();
           } else {
-            toggleResults()
+            toggleAreResultsVisible();
           }
-
         }}
         style={{
           backgroundColor: `${areResultsVisible ? "Black" : "steelblue"}`,
@@ -102,7 +95,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     notification_true: () => dispatch({ type: "NOTIFICATION_TRUE" }),
-    toggleActive: () => dispatch ({type: "TOGGLE_ACTIVE"})
+    toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
+    toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
   };
 };
 

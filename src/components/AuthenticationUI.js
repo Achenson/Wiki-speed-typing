@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 // import { BrowserRouter, Route, Link, Switch, Redirect } from "react-router-dom";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // import { useHistory } from "react-router-dom";
 
@@ -14,7 +14,8 @@ function AuthenticationUI({
   isActive,
   toggleActive,
   setToReset_true,
-  toggleResults,
+  // toggleResults,
+  toggleAreResultsVisible,
   areResultsVisible,
   resetFinalResults,
 
@@ -62,7 +63,7 @@ function AuthenticationUI({
             onClick={() => {
               setToReset_true();
               if (areResultsVisible) {
-                toggleResults();
+                toggleAreResultsVisible();
               }
               resetFinalResults();
               logOut();
@@ -98,6 +99,7 @@ const mapDispatchToProps = (dispatch) => {
     toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
     resetFinalResults: () => dispatch({ type: "RESET_FINAL_RESULTS" }),
+    toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
   };
 };
 

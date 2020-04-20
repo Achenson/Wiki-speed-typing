@@ -40,7 +40,7 @@ function Display({
   areStatsVisible,
   areResultsVisible,
   focusElement,
-  toggleResults,
+  // toggleResults,
   toggleStats,
   isCounterRunning,
   resetTimer,
@@ -84,6 +84,7 @@ function Display({
   let arrOutOfText = textToRender.split("");
 
   //make default(gray) color in wiki display area
+   //useCallback is used so useEffect below won't run on every every time toggleResults function is called
   const makeDefaultColoredLetters = useCallback(() => {
     let arrToReturn = [];
     for (let i = 0; i < lengthOfSinglePart; i++) {
@@ -240,7 +241,7 @@ function Display({
     <div className="outer-container">
       <div className="main-square">
         <AuthenticationUI toggleStats={toggleStats}
-        toggleResults={toggleResults}
+        // toggleResults={toggleResults}
          />
 
         <UpperUI
@@ -291,7 +292,7 @@ function Display({
         />
 
         <LowerUI
-          toggleResults={toggleResults}
+          // toggleResults={toggleResults}
           toggleStats={toggleStats}
           areResultsVisible={areResultsVisible}
           focusElement={focusElement}
@@ -327,6 +328,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setDisplayToReset_false: () => dispatch({ type: "DISPLAY_TO_RESET_FALSE" }),
     toggleActive: () => dispatch({ type: "TOGGLE_ACTIVE" }),
+    toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
 
     // dispatching plain actions
     resultsCorrect: () => dispatch({ type: "RESULTS_CORRECT" }),
@@ -346,6 +348,7 @@ const mapDispatchToProps = (dispatch) => {
     notification_false: () => dispatch({ type: "NOTIFICATION_FALSE" }),
     loginError_false: () => dispatch({ type: "LOGIN_ERROR_FALSE" }),
     registerError_false: () => dispatch({ type: "REGISTER_ERROR_FALSE" }),
+
   };
 };
 
