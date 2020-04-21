@@ -23,6 +23,16 @@ function LowerUI({
   const faChartBar_default = "fa-chart-bar-default";
   const faChartBar_inverted = "fa-chart-bar-inverted";
 
+/*   const [faChartBarClass, setFaChartBarClass] = useState(faChartBar_default);
+
+  useEffect(() => {
+    if (areStatsVisible) {
+      setFaChartBarClass(faChartBar_inverted);
+    } else {
+      setFaChartBarClass(faChartBar_default);
+    }
+  }, [areStatsVisible]); */
+
   const [faChartBarClass, setFaChartBarClass] = useState(faChartBar_default);
 
   useEffect(() => {
@@ -32,6 +42,10 @@ function LowerUI({
       setFaChartBarClass(faChartBar_default);
     }
   }, [areStatsVisible]);
+
+
+
+
 
   return (
     <div className="results-buttons-row container">
@@ -64,10 +78,33 @@ function LowerUI({
         Show<span style={{ margin: "auto 0.05em" }}>|</span>Hide Results
       </button>
 
+      <div
+      
+
+          // className="bar-test"
+       >
       <FontAwesomeIcon
+            style={{
+            color: `${areStatsVisible ? "black" : "green"}`
+          }}
+          // Events mouseover/out trigger even when we
+          //  go from the parent element to a child element.
+          onMouseOver={e => {
+            e.target.style.color = `${
+              areStatsVisible ? "green" : "black"
+            }`;
+          }}
+          onMouseOut={e => {
+            e.target.style.color = `${
+              areStatsVisible ? "black" : "green"
+            }`;
+          }}
+
         icon={faChartBar}
         size="2x"
         onClick={() => {
+
+          
           if (isAuthenticated) {
             toggleStats();
           } else {
@@ -77,10 +114,17 @@ function LowerUI({
             notification_true();
             history.push("/login");
           }
+
+          
         }}
         // MouseEnter/MouseLeave didn't work properly, css :hover instead
-        className={faChartBarClass}
+        // className={faChartBarClass}
+        // className={"fa-chart-bar-test"}
+
+     
       />
+      </div>
+    
     </div>
   );
 }

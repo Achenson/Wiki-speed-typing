@@ -713,3 +713,13 @@ body {
   border: 1px solid firebrick;
   background-color: tomato;
 }
+
+
+
+
+
+.bar-test {
+  width: 50px;
+  height: 50px;
+  background-color: lavenderblush;
+}
