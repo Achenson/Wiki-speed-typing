@@ -557,17 +557,9 @@ body {
   color: green;
 }
 
-/* .fa-chart-bar-default:hover {
-  color: black;
-} */
-
 .fa-chart-bar-black{
   color: black;
 }
-
-/* .fa-chart-bar-inverted:hover {
-  color: green;
-} */
 
 /* AuthenticationUI */
 
@@ -712,19 +704,6 @@ body {
 .auth-notification-danger {
   border: 1px solid firebrick;
   background-color: tomato;
-}
-
-
-.bar-test {
-  cursor: pointer;
-  background-color: lavenderblush;
-  height: 40px;
-  width: 40px;
-}
-
-
-.bar-test:hover {
-  background-color: lemonchiffon;
 }
 
 
