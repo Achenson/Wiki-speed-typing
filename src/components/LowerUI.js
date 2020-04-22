@@ -6,7 +6,7 @@ import { faChartBar } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 
 import { useHistory } from "react-router-dom";
-import { logDOM } from "@testing-library/react";
+
 
 function LowerUI({
   areStatsVisible,
@@ -29,21 +29,25 @@ function LowerUI({
 
   const [shouldMouseOverWork, setShouldMouseOverWork] = useState(true);
 
+
+  useEffect(() => {
+    setShouldMouseOverWork(false);
+    setRenderMouseOverEffect(false);
+
+    if (areStatsVisible) {
+      setFaChartBarClassDefault(false);
+    }
+
+    if (!areStatsVisible) {
+      setFaChartBarClassDefault(true);
+    }
+  }, [areStatsVisible])
+
   function faChartBarRendering() {
     if (renderMouseOverEffect) {
       return faChartBarClassDefault ? faChartBar_black : faChartBar_green;
     } else {
       return faChartBarClassDefault ? faChartBar_green : faChartBar_black;
-    }
-  }
-
-  function toggleChartBar() {
-    if (areStatsVisible) {
-      setFaChartBarClassDefault(true);
-    }
-
-    if (!areStatsVisible) {
-      setFaChartBarClassDefault(false);
     }
   }
 
@@ -79,11 +83,6 @@ function LowerUI({
       </button>
 
       <div
-        onClick={() => {
-          toggleChartBar();
-          setShouldMouseOverWork(false);
-          setRenderMouseOverEffect(false);
-        }}
         onMouseOver={() => {
           if (shouldMouseOverWork) {
             setRenderMouseOverEffect(true);
@@ -95,7 +94,6 @@ function LowerUI({
           // won't toggle right after clicking chartBar
           setRenderMouseOverEffect(false)
           setShouldMouseOverWork(true)
-          
         }}
       >
         <FontAwesomeIcon

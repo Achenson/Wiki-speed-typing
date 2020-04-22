@@ -77,7 +77,7 @@ toChange:
 DONE 1. split reducers in seperate files? DONE
 2. toggleHints - change from function to action creator?
 DONE 3. bar-chart onhover does not work perfectly DONE this behaviour is expected actually
-3.5 onhover not consistent for toggleable buttons
+DONE 3.5 onhover not consistent for toggleable buttons DONE
 XXX 4. stats/ top-score naming consistency? XXX
 DONE 5. stats: no KPM or % if there is no record? DONE
 DONE 6. stats: tooltips (speed, accuracy)? DONE
