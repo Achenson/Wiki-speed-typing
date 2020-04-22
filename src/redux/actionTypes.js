@@ -1,4 +1,4 @@
-// file not used for now!
+// file not used for now!!! strings are dispatched instead
 let actionTypes = {
   RESULTS_CORRECT: "RESULTS_CORRECT",
   RESULTS_INCORRECT: "RESULTS_INCORRECT",
@@ -37,6 +37,7 @@ let actionTypes = {
   PREV_TEXT_AREA_VALUE: "PREV_TEXT_AREA_VALUE",
   COLOR_FOR_EACH_LETTER: "COLOR_FOR_EACH_LETTER",
 
+
   // stats
   UPDATE_STATS: "UPDATE_STATS",
   SET_CURRENT_STATS: "SET_CURRENT_STATS",
@@ -57,6 +58,10 @@ let actionTypes = {
 
   //for AuthenficationUI logout
   RESET_FINAL_RESULTS: "RESET_FINAL_RESULTS",
+
+  // focusTextArea value
+  ENABLE_FOCUS_TEXT_AREA: "ENABLE_FOCUS_TEXT_AREA",
+  DISABLE_FOCUS_TEXT_AREA: "ENABLE_FOCUS_TEXT_AREA",
 };
 
 export default actionTypes;
