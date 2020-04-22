@@ -1,6 +1,8 @@
 import React from "react";
 // import { useState, useEffect, useRef } from "react";
 
+import { connect } from "react-redux";
+
 function WikiController(props) {
   // console.log(props.wikiTitle);
 
@@ -23,9 +25,11 @@ function WikiController(props) {
         className="btn btn-control btn-wiki"
         onClick={() => {
           if (!props.isCounterRunning) {
+            props.disableFocusTextArea()
             props.setNewRandomArticle_true();
             props.disablingButton.current.setAttribute("disabled", true);
           } else {
+            props.disableFocusTextArea()
             props.resetTimer();
             props.setNewRandomArticle_true();
             props.disablingButton.current.setAttribute("disabled", true);
@@ -39,4 +43,17 @@ function WikiController(props) {
   );
 }
 
-export default WikiController;
+const mapDispatchToProps = dispatch => {
+  return {
+    
+    disableFocusTextArea: () =>dispatch({type: "DISABLE_FOCUS_TEXT_AREA" }),
+};
+}
+
+
+// export default WikiController;
+export default connect(
+  null,
+  mapDispatchToProps
+  // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
+)(WikiController); // (3)

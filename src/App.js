@@ -55,6 +55,8 @@ function App({
   // for Stats
   setStats,
   setCurrentStatsKey,
+  // 
+  disableFocusTextArea
 }) {
   // let history = useHistory();
   // disabling random wiki article button in <Fetch/>
@@ -219,8 +221,15 @@ function App({
   const focusTextArea = useRef(null);
 
   useEffect(() => {
-    focusTextArea.current.setAttribute("disabled", true);
-  }, []);
+    if(disableFocusTextArea) {
+      focusTextArea.current.setAttribute("disabled", true);
+    }
+
+    if(!disableFocusTextArea) {
+      focusTextArea.current.removeAttribute("disabled");
+    }
+
+  }, [disableFocusTextArea]);
 
   useEffect(() => {
     if (timerValue <= 0) {
@@ -375,6 +384,8 @@ const mapStateToProps = (state) => {
     areStatsVisible: state.visibilityState.areStatsVisible,
     // auth
     isAuthenticated: state.authState.isAuthenticated,
+    // 
+    disableFocusTextArea: state.displayState.inputArea.disableFocusTextArea
   };
 };
 

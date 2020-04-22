@@ -12,7 +12,9 @@ function Fetch({
     newRandomArticle,
     // from App props
     disablingButton,
-    focusTextArea,
+    // focusTextArea,
+    enableFocusTextArea,
+    disableFocusTextArea
 }) {
   // fetching data from wiki API ===============
 
@@ -86,14 +88,16 @@ function Fetch({
 
             setTextToRender(articleExtract);
             setWikiTitle(dataQueryPages[Object.keys(dataQueryPages)[0]].title);
-            focusTextArea.current.removeAttribute("disabled");
+            enableFocusTextArea()
+            // focusTextArea.current.removeAttribute("disabled");
           })
 
           .catch(() => {
             console.log("error fetching data");
             setMyText(loremText);
             setWikiTitle("[Error accessing wikipedia - default text loaded]");
-            focusTextArea.current.removeAttribute("disabled");
+            enableFocusTextArea()
+            // focusTextArea.current.removeAttribute("disabled");
           });
       }
     }
@@ -106,7 +110,7 @@ function Fetch({
     setMyText,
     setNewRandomArticle_false,
     setWikiTitle,
-    focusTextArea
+    // focusTextArea
   ]);
 
   return null;
@@ -125,6 +129,8 @@ const mapDispatchToProps = dispatch => {
   return {
     setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
     setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
+    enableFocusTextArea: () =>dispatch({type: "ENABLE_FOCUS_TEXT_AREA" }),
+    disableFocusTextArea: () =>dispatch({type: "DISABLE_FOCUS_TEXT_AREA" }),
   };
 };
 

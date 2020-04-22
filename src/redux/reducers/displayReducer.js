@@ -24,7 +24,8 @@ const initialState = {
   },
   inputArea: {
     textAreaValue: "",
-    prevTextAreaValue: ""
+    prevTextAreaValue: "",
+    disableFocusTextArea: true
   }
 };
 
@@ -123,6 +124,30 @@ function displayReducer(state = initialState, action) {
           prevTextAreaValue: action.payload
         }
       };
+
+      case "ENABLE_FOCUS_TEXT_AREA":
+        return {
+          ...state,
+          inputArea: {
+            ...state.inputArea,
+            disableFocusTextArea: false
+          }
+        };
+  
+
+        case "DISABLE_FOCUS_TEXT_AREA":
+          return {
+            ...state,
+            inputArea: {
+              ...state.inputArea,
+              disableFocusTextArea: true
+            }
+          };
+    
+
+
+
+
 
     default:
       return state;
