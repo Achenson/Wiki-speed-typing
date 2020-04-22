@@ -6,6 +6,7 @@ import { faChartBar } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 
 import { useHistory } from "react-router-dom";
+import { logDOM } from "@testing-library/react";
 
 function LowerUI({
   areStatsVisible,
@@ -20,32 +21,31 @@ function LowerUI({
 }) {
   let history = useHistory();
 
-  const faChartBar_default = "fa-chart-bar-default";
-  const faChartBar_inverted = "fa-chart-bar-inverted";
+  const faChartBar_green = "fa-chart-bar-green";
+  const faChartBar_black = "fa-chart-bar-black";
 
-/*   const [faChartBarClass, setFaChartBarClass] = useState(faChartBar_default);
+  const [faChartBarClassDefault, setFaChartBarClassDefault] = useState(true);
+  const [renderMouseOverEffect, setRenderMouseOverEffect] = useState(false);
 
-  useEffect(() => {
-    if (areStatsVisible) {
-      setFaChartBarClass(faChartBar_inverted);
+  const [shouldMouseOverWork, setShouldMouseOverWork] = useState(true);
+
+  function faChartBarRendering() {
+    if (renderMouseOverEffect) {
+      return faChartBarClassDefault ? faChartBar_black : faChartBar_green;
     } else {
-      setFaChartBarClass(faChartBar_default);
+      return faChartBarClassDefault ? faChartBar_green : faChartBar_black;
     }
-  }, [areStatsVisible]); */
+  }
 
-  const [faChartBarClass, setFaChartBarClass] = useState(faChartBar_default);
-
-  useEffect(() => {
+  function toggleChartBar() {
     if (areStatsVisible) {
-      setFaChartBarClass(faChartBar_inverted);
-    } else {
-      setFaChartBarClass(faChartBar_default);
+      setFaChartBarClassDefault(true);
     }
-  }, [areStatsVisible]);
 
-
-
-
+    if (!areStatsVisible) {
+      setFaChartBarClassDefault(false);
+    }
+  }
 
   return (
     <div className="results-buttons-row container">
@@ -79,52 +79,42 @@ function LowerUI({
       </button>
 
       <div
-      
-
-          // className="bar-test"
-       >
-      <FontAwesomeIcon
-            style={{
-            color: `${areStatsVisible ? "black" : "green"}`
-          }}
-          // Events mouseover/out trigger even when we
-          //  go from the parent element to a child element.
-          onMouseOver={e => {
-            e.target.style.color = `${
-              areStatsVisible ? "green" : "black"
-            }`;
-          }}
-          onMouseOut={e => {
-            e.target.style.color = `${
-              areStatsVisible ? "black" : "green"
-            }`;
-          }}
-
-        icon={faChartBar}
-        size="2x"
         onClick={() => {
-
-          
-          if (isAuthenticated) {
-            toggleStats();
-          } else {
-            if (isActive) {
-              toggleActive();
-            }
-            notification_true();
-            history.push("/login");
+          toggleChartBar();
+          setShouldMouseOverWork(false);
+          setRenderMouseOverEffect(false);
+        }}
+        onMouseOver={() => {
+          if (shouldMouseOverWork) {
+            setRenderMouseOverEffect(true);
           }
-
+        }}
+        onMouseOut={() => {
+          // mouse over works again only if
+          // mouseOut event was triggered - this way mouseOver
+          // won't toggle right after clicking chartBar
+          setRenderMouseOverEffect(false)
+          setShouldMouseOverWork(true)
           
         }}
-        // MouseEnter/MouseLeave didn't work properly, css :hover instead
-        // className={faChartBarClass}
-        // className={"fa-chart-bar-test"}
-
-     
-      />
+      >
+        <FontAwesomeIcon
+          className={faChartBarRendering()}
+          icon={faChartBar}
+          size="2x"
+          onClick={() => {
+            if (isAuthenticated) {
+              toggleStats();
+            } else {
+              if (isActive) {
+                toggleActive();
+              }
+              notification_true();
+              history.push("/login");
+            }
+          }}
+        />
       </div>
-    
     </div>
   );
 }
