@@ -381,9 +381,6 @@ const mapStateToProps = (state) => {
     wikiTitle: state.displayState.textDisplay.wikiTitle,
     newRandomArticle: state.displayState.textDisplay.newRandomArticle,
     // hints & results
-    /* areHintsVisible: state.totalState.componentsDisplay.areHintsVisible,
-    areResultsVisible: state.totalState.componentsDisplay.areResultsVisible,
-    areStatsVisible: state.totalState.componentsDisplay.areStatsVisible */
     areHintsVisible: state.visibilityState.areHintsVisible,
     areResultsVisible: state.visibilityState.areResultsVisible,
     areStatsVisible: state.visibilityState.areStatsVisible,
@@ -391,8 +388,6 @@ const mapStateToProps = (state) => {
     isAuthenticated: state.authState.isAuthenticated,
     //
     disableFocusTextArea: state.displayState.inputArea.disableFocusTextArea,
-    // fetching WikiApi
-    // newRandomArticle: state.displayState.textDisplay.newRandomArticle
   };
 };
 
@@ -438,7 +433,7 @@ const mapDispatchToProps = (dispatch) => {
     // setIndexOfPartialTextArr, setTextAreaValue, setPrevTextAreaValue,
     //  setColorForEachLetter, setDisplayToReset_false for <Display only/>,
     //  here deleted
-    
+
     // for Stats
     setStats: () => dispatch({ type: "UPDATE_STATS" }),
     // for synchronizing select timer with select from Stats
