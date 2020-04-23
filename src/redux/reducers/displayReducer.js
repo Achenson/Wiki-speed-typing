@@ -14,31 +14,30 @@ const initialState = {
     myText: "[Data loading...]",
     wikiTitle: "",
     // newRandomArticle will be fetched if true
-    newRandomArticle: true
+    newRandomArticle: true,
   },
 
   // originally from <Display/> component ======
   wikiDisplay: {
     indexOfPartialTextArr: 0,
-    colorForEachLetter: makeDefaultColoredLetters()
+    colorForEachLetter: makeDefaultColoredLetters(),
   },
   inputArea: {
     textAreaValue: "",
     prevTextAreaValue: "",
-    disableFocusTextArea: true
-  }
+    disableFocusTextArea: true,
+  },
 };
 
 function displayReducer(state = initialState, action) {
-
   switch (action.type) {
     case "DISPLAY_TO_RESET_TRUE":
       return {
         ...state,
         textDisplay: {
           ...state.textDisplay,
-          displayToReset: true
-        }
+          displayToReset: true,
+        },
       };
 
     case "DISPLAY_TO_RESET_FALSE":
@@ -46,8 +45,8 @@ function displayReducer(state = initialState, action) {
         ...state,
         textDisplay: {
           ...state.textDisplay,
-          displayToReset: false
-        }
+          displayToReset: false,
+        },
       };
 
     // fetch only
@@ -56,8 +55,8 @@ function displayReducer(state = initialState, action) {
         ...state,
         textDisplay: {
           ...state.textDisplay,
-          myText: action.payload
-        }
+          myText: action.payload,
+        },
       };
 
     case "WIKI_TITLE":
@@ -65,8 +64,8 @@ function displayReducer(state = initialState, action) {
         ...state,
         textDisplay: {
           ...state.textDisplay,
-          wikiTitle: action.payload
-        }
+          wikiTitle: action.payload,
+        },
       };
 
     case "RANDOM_ARTICLE_TRUE":
@@ -74,8 +73,8 @@ function displayReducer(state = initialState, action) {
         ...state,
         textDisplay: {
           ...state.textDisplay,
-          newRandomArticle: true
-        }
+          newRandomArticle: true,
+        },
       };
 
     case "RANDOM_ARTICLE_FALSE":
@@ -83,8 +82,8 @@ function displayReducer(state = initialState, action) {
         ...state,
         textDisplay: {
           ...state.textDisplay,
-          newRandomArticle: false
-        }
+          newRandomArticle: false,
+        },
       };
 
     // display only
@@ -93,8 +92,8 @@ function displayReducer(state = initialState, action) {
         ...state,
         wikiDisplay: {
           ...state.wikiDisplay,
-          indexOfPartialTextArr: action.payload
-        }
+          indexOfPartialTextArr: action.payload,
+        },
       };
 
     case "COLOR_FOR_EACH_LETTER":
@@ -102,8 +101,8 @@ function displayReducer(state = initialState, action) {
         ...state,
         wikiDisplay: {
           ...state.wikiDisplay,
-          colorForEachLetter: action.payload
-        }
+          colorForEachLetter: action.payload,
+        },
       };
 
     case "TEXT_AREA_VALUE":
@@ -112,8 +111,8 @@ function displayReducer(state = initialState, action) {
         inputArea: {
           // !!!! You may not call store.getState() while the reducer is executing.
           ...state.inputArea,
-          textAreaValue: action.payload
-        }
+          textAreaValue: action.payload,
+        },
       };
 
     case "PREV_TEXT_AREA_VALUE":
@@ -121,33 +120,29 @@ function displayReducer(state = initialState, action) {
         ...state,
         inputArea: {
           ...state.inputArea,
-          prevTextAreaValue: action.payload
-        }
+          prevTextAreaValue: action.payload,
+        },
       };
 
-      case "ENABLE_FOCUS_TEXT_AREA":
-        return {
-          ...state,
-          inputArea: {
-            ...state.inputArea,
-            disableFocusTextArea: false
-          }
-        };
-  
+    case "ENABLE_FOCUS_TEXT_AREA":
+      return {
+        ...state,
+        inputArea: {
+          ...state.inputArea,
+          disableFocusTextArea: false,
+        },
+      };
 
-        case "DISABLE_FOCUS_TEXT_AREA":
-          return {
-            ...state,
-            inputArea: {
-              ...state.inputArea,
-              disableFocusTextArea: true
-            }
-          };
-    
+    case "DISABLE_FOCUS_TEXT_AREA":
+      return {
+        ...state,
+        inputArea: {
+          ...state.inputArea,
+          disableFocusTextArea: true,
+        },
+      };
 
-
-
-
+      
 
     default:
       return state;

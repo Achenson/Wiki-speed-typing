@@ -57,6 +57,7 @@ export const fetchWikiApi = () => (dispatch) => {
             console.log("text to short, rendering again");
             // setWikiTitle("[Data loading...]");
             dispatch({ type: "WIKI_TITLE", payload: "[Data loading...]" });
+            dispatch({ type: "WIKILINK_CLICKABLE_FALSE" });
             // return fetchWikiApi();
             return fetchingData();
           }
@@ -69,6 +70,7 @@ export const fetchWikiApi = () => (dispatch) => {
           if (!regexpForEngCharOnly.test(articleExtract)) {
             console.log("characters out of english, rendering again");
             dispatch({ type: "WIKI_TITLE", payload: "[Data loading...]" });
+            dispatch({ type: "WIKILINK_CLICKABLE_FALSE" });
             return fetchingData();
           }
           dispatch({ type: "MY_TEXT", payload: articleExtract });
@@ -81,6 +83,8 @@ export const fetchWikiApi = () => (dispatch) => {
           dispatch({ type: "ENABLE_FOCUS_TEXT_AREA" });
 
           dispatch({ type: "RANDOM_ARTICLE_FALSE" });
+          dispatch({ type: "WIKILINK_CLICKABLE_TRUE" });
+
         })
 
         .catch(() => {
@@ -92,6 +96,7 @@ export const fetchWikiApi = () => (dispatch) => {
           });
           dispatch({ type: "ENABLE_FOCUS_TEXT_AREA" });
           dispatch({ type: "RANDOM_ARTICLE_FALSE" });
+          dispatch({ type: "WIKILINK_CLICKABLE_FALSE" });
         });
     }
   }

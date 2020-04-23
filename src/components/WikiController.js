@@ -11,26 +11,30 @@ function WikiController(props) {
       <div className="wiki-title-container">
         <p className="wiki-title-label">Current wikipedia article</p>
         <div className="wiki-title-display">
-          <a
-            className="wiki-title-display-link"
-            href={`https://en.wikipedia.org/wiki/${props.wikiTitle}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {props.wikiTitle}
-          </a>
+          {props.isWikiLinkClickable ? (
+            <a
+              className="wiki-title-display-link"
+              href={`https://en.wikipedia.org/wiki/${props.wikiTitle}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {props.wikiTitle}
+            </a>
+          ) : (
+            <p>{props.wikiTitle}</p>
+          )}
         </div>
       </div>
       <button
         className="btn btn-control btn-wiki"
         onClick={() => {
-          console.log('button clicked')
+          console.log("button clicked");
           if (!props.isCounterRunning) {
-            props.disableFocusTextArea()
+            props.disableFocusTextArea();
             props.setNewRandomArticle_true();
             props.disablingButton.current.setAttribute("disabled", true);
           } else {
-            props.disableFocusTextArea()
+            props.disableFocusTextArea();
             props.setToReset_true();
             props.setNewRandomArticle_true();
             props.disablingButton.current.setAttribute("disabled", true);
@@ -44,18 +48,22 @@ function WikiController(props) {
   );
 }
 
-const mapDispatchToProps = dispatch => {
+const mapStateToProps = (state) => {
   return {
-    
-    disableFocusTextArea: () =>dispatch({type: "DISABLE_FOCUS_TEXT_AREA" }),
-    setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
+    isWikiLinkClickable: state.visibilityState.isWikiLinkClickable,
+  };
 };
-}
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    disableFocusTextArea: () => dispatch({ type: "DISABLE_FOCUS_TEXT_AREA" }),
+    setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
+  };
+};
 
 // export default WikiController;
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
 )(WikiController); // (3)
