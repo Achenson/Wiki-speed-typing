@@ -31,7 +31,7 @@ function WikiController(props) {
             props.disablingButton.current.setAttribute("disabled", true);
           } else {
             props.disableFocusTextArea()
-            props.resetTimer();
+            props.setToReset_true();
             props.setNewRandomArticle_true();
             props.disablingButton.current.setAttribute("disabled", true);
           }
@@ -48,6 +48,7 @@ const mapDispatchToProps = dispatch => {
   return {
     
     disableFocusTextArea: () =>dispatch({type: "DISABLE_FOCUS_TEXT_AREA" }),
+    setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
 };
 }
 

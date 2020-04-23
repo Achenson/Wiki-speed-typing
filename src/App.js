@@ -197,15 +197,6 @@ function App({
     setCurrentStatsKey(e.target.value);
   }
 
-  function resetTimer() {
-    // if (timerValue !== constantTimerValue) {
-    // if (isCounterRunning) {
-    setToReset_true();
-    // setDisplayToReset_true();
-    // }
-    return;
-  }
-
   //  for key press
   let keysPressed = {};
 
@@ -221,7 +212,7 @@ function App({
       }
 
       if (keysPressed["Shift"] && event.key === "Delete") {
-        resetTimer();
+        setToReset_true()
 
         delete keysPressed[event.key];
       }
@@ -327,7 +318,6 @@ function App({
                   toggleActive={toggleActive}
                   setTimerOnSelect={setTimerOnSelect}
                   isActive={isActive}
-                  resetTimer={resetTimer}
                   toReset={toReset}
                   displayToReset={displayToReset}
                   // hints & results visibility

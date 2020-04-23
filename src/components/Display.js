@@ -43,7 +43,6 @@ function Display({
   // toggleResults,
   toggleStats,
   isCounterRunning,
-  resetTimer,
   isActive,
   disablingButton,
   setNewRandomArticle_true,
@@ -277,7 +276,6 @@ function Display({
           isActive={isActive}
           setTimerOnSelect={setTimerOnSelect}
           isDisabled={isDisabled}
-          resetTimer={resetTimer}
           putFocusOnTextArea={putFocusOnTextArea}
         />
 
@@ -286,7 +284,6 @@ function Display({
           setNewRandomArticle_true={setNewRandomArticle_true}
           disablingButton={disablingButton}
           isActive={isActive}
-          resetTimer={resetTimer}
           isCounterRunning={isCounterRunning}
         />
 

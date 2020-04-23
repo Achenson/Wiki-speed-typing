@@ -32,7 +32,7 @@ function Controls(props) {
         <button
           className="btn btn-control control-item btn-reset"
           onClick={event => {
-            props.resetTimer();
+            props.setToReset_true();
             props.putFocusOnTextArea();
           }}
         >
@@ -51,17 +51,16 @@ const mapStateToProps = state => {
   };
 };
 
-/* const mapDispatchToProps = dispatch => {
+ const mapDispatchToProps = dispatch => {
   return {
-    setMyText: data => dispatch({ type: "MY_TEXT", payload: data }),
-    setWikiTitle: data => dispatch({ type: "WIKI_TITLE", payload: data }),
+    setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
   };
-}; */
+}; 
 
 
 export default connect(
   mapStateToProps,
-  // mapDispatchToProps
+  mapDispatchToProps
   // Your component will receive dispatch by default, i.e., when you do not supply a second parameter to connect():
 )(Controls); // (3)
 
