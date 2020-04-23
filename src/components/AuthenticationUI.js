@@ -18,6 +18,7 @@ function AuthenticationUI({
   toggleAreResultsVisible,
   areResultsVisible,
   resetFinalResults,
+  setDisplayToReset_true
 
   // from
 }) {
@@ -62,6 +63,7 @@ function AuthenticationUI({
             className="main-link"
             onClick={() => {
               setToReset_true();
+              setDisplayToReset_true();
               if (areResultsVisible) {
                 toggleAreResultsVisible();
               }
@@ -100,6 +102,8 @@ const mapDispatchToProps = (dispatch) => {
     setToReset_true: () => dispatch({ type: "TO_RESET_TRUE" }),
     resetFinalResults: () => dispatch({ type: "RESET_FINAL_RESULTS" }),
     toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
+    setDisplayToReset_true: () => dispatch({ type: "DISPLAY_TO_RESET_TRUE" }),
+
   };
 };
 

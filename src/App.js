@@ -212,10 +212,10 @@ function App({
 
   function resetTimer() {
     // if (timerValue !== constantTimerValue) {
-    if (isCounterRunning) {
+    // if (isCounterRunning) {
       setToReset_true();
       setDisplayToReset_true();
-    }
+    // }
     return;
   }
 

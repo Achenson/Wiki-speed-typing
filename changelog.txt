@@ -103,7 +103,7 @@ DONE 25. change toggleTimer to toggleActive in App.js, ... DONE
 DONE 25. toggleResult useCallbacks is App.js is not needed?? DONE action creator used instead
 DONE 26. too much space in Stats DONE
 DONE 27. "x" btn on chrome too small DONE
-
+28. toReset should resetDisplay by default
 
 (react scripts 3.3.0 => 3.4.0? new npm ver?)
 
