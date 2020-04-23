@@ -111,4 +111,10 @@ isseus:
 DONE 1. reloadin/typing address cause error DONE fixed: hashRouter instead of BrowserRouter,
 (everything after # is ignored by the server) may cause problem later???
 ?? 2. no first letter if typing after clicking reset but not focusing on input with mouse ??
-3. disable wiki link if data is loading
+DONE 3. disable wiki link if data is loading DONE
+
+
+Redux notes:
+
+1. ...state <-- this is always OK, we only need SHALOW copy of the state
+2. redux-thunk: dispatching function instead of objects only

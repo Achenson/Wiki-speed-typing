@@ -438,12 +438,13 @@ const mapDispatchToProps = (dispatch) => {
     // setIndexOfPartialTextArr, setTextAreaValue, setPrevTextAreaValue,
     //  setColorForEachLetter, setDisplayToReset_false for <Display only/>,
     //  here deleted
-
+    
     // for Stats
     setStats: () => dispatch({ type: "UPDATE_STATS" }),
     // for synchronizing select timer with select from Stats
     setCurrentStatsKey: (data) =>
       dispatch({ type: "SET_CURRENT_STATS", payload: data }),
+      // !!! dispatching function instead of object thanks to redux-thunk
     fetchingWiki: () => dispatch(fetchWikiApi()),
   };
 };
