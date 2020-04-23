@@ -24,6 +24,7 @@ function WikiController(props) {
       <button
         className="btn btn-control btn-wiki"
         onClick={() => {
+          console.log('button clicked')
           if (!props.isCounterRunning) {
             props.disableFocusTextArea()
             props.setNewRandomArticle_true();

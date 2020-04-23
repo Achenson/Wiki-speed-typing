@@ -9,12 +9,10 @@ import "./App.css";
 import Display from "./components/Display.js";
 // import loremText from "./components/_defaultText.js";
 
-
 import Login from "./components_links/Login.js";
 import Register from "./components_links/Register.js";
 
-import {fetchWikiApi} from "./redux/fetchPostAction.js"; 
-
+import { fetchWikiApi } from "./redux/fetchPostAction.js";
 
 // import { BrowserRouter, Route, Link, Switch, Redirect, useHistory, HashRouter } from "react-router-dom";
 import { Route, Switch, Redirect, HashRouter } from "react-router-dom";
@@ -58,12 +56,12 @@ function App({
   // for Stats
   setStats,
   setCurrentStatsKey,
-  // 
+  //
   disableFocusTextArea,
   // fetching WikiApi
   newRandomArticle,
   // imported actionCreator
-  fetchingWiki
+  fetchingWiki,
 }) {
   // let history = useHistory();
   // disabling random wiki article button in <Fetch/>
@@ -77,24 +75,12 @@ function App({
   // fetching WikiApi
 
   useEffect(() => {
-    console.log('fetch???')
-    // if(newRandomArticle) {
-      fetchingWiki()
-    // }
-    console.log("fetch2")
-    // setNewRandomArticle_false();
+    fetchingWiki();
+
     setTimeout(() => {
       disablingButton.current.removeAttribute("disabled");
     }, 500);
-
-  },[newRandomArticle,
-    // disablingButton,
-    // setMyText,
-    setNewRandomArticle_false,
-    fetchWikiApi
-    // setWikiTitle,
-  ])
-
+  }, [newRandomArticle, setNewRandomArticle_false, fetchWikiApi]);
 
   // display
 
@@ -156,6 +142,7 @@ function App({
       clearInterval(timerInterval);
       setTimerValue(constantTimerValue);
       setIsActiveToFalse();
+      setDisplayToReset_true();
 
       if (isCounterRunning) {
         // toggleIsCounterRunning(b => !b);
@@ -213,8 +200,8 @@ function App({
   function resetTimer() {
     // if (timerValue !== constantTimerValue) {
     // if (isCounterRunning) {
-      setToReset_true();
-      setDisplayToReset_true();
+    setToReset_true();
+    // setDisplayToReset_true();
     // }
     return;
   }
@@ -250,14 +237,13 @@ function App({
   const focusTextArea = useRef(null);
 
   useEffect(() => {
-    if(disableFocusTextArea) {
+    if (disableFocusTextArea) {
       focusTextArea.current.setAttribute("disabled", true);
     }
 
-    if(!disableFocusTextArea) {
+    if (!disableFocusTextArea) {
       focusTextArea.current.removeAttribute("disabled");
     }
-
   }, [disableFocusTextArea]);
 
   useEffect(() => {
@@ -315,7 +301,7 @@ function App({
   return (
     <HashRouter>
       <div className="App" onKeyDown={handleKeyPress}>
-      {/*   <Fetch
+        {/*   <Fetch
           myText={myText}
           wikiTitle={wikiTitle}
           setNewRandomArticle_false={setNewRandomArticle_false}
@@ -413,7 +399,7 @@ const mapStateToProps = (state) => {
     areStatsVisible: state.visibilityState.areStatsVisible,
     // auth
     isAuthenticated: state.authState.isAuthenticated,
-    // 
+    //
     disableFocusTextArea: state.displayState.inputArea.disableFocusTextArea,
     // fetching WikiApi
     // newRandomArticle: state.displayState.textDisplay.newRandomArticle
@@ -458,7 +444,6 @@ const mapDispatchToProps = (dispatch) => {
     toggleAreHintsVisible: () => dispatch({ type: "HINTS_VISIBILITY" }),
     toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
     toggleAreStatsVisible: () => dispatch({ type: "STATS_VISIBILITY" }),
-    
 
     // setIndexOfPartialTextArr, setTextAreaValue, setPrevTextAreaValue,
     //  setColorForEachLetter, setDisplayToReset_false for <Display only/>,
@@ -469,12 +454,7 @@ const mapDispatchToProps = (dispatch) => {
     // for synchronizing select timer with select from Stats
     setCurrentStatsKey: (data) =>
       dispatch({ type: "SET_CURRENT_STATS", payload: data }),
-      fetchingWiki: () => dispatch(fetchWikiApi())
-      
-
-      
-    
-    
+    fetchingWiki: () => dispatch(fetchWikiApi()),
   };
 };
 
