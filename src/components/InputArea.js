@@ -20,7 +20,7 @@ function InputArea(props) {
     <textarea
       className="typing-display container"
       onChange={e => {
-        props.changeTextAreaValue(e);
+        props.setTextAreaValue(e.target.value);
       }}
       autoFocus
       // crucial for two-way binding! reset button

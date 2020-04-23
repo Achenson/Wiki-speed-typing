@@ -230,10 +230,6 @@ function Display({
     return arrToSet;
   }
 
-  function changeTextAreaValue(e) {
-    setTextAreaValue(e.target.value);
-  }
-
   // for "..." displaying at the end of wiki-diplay
   let ellipsis = "...";
   return (
@@ -262,7 +258,7 @@ function Display({
         />
 
         <InputArea
-          changeTextAreaValue={changeTextAreaValue}
+          setTextAreaValue={setTextAreaValue}
           toggleActive={toggleActive}
           focusTextArea={focusTextArea}
           isActive={isActive}
