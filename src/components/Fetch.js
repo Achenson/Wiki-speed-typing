@@ -72,7 +72,7 @@ function Fetch({
 
             if (articleExtract.length < 370) {
               console.log("text to short, rendering again");
-              setWikiTitle("[Data loading...]");
+              setWikiTitle("[Data loading...C]");
               return fetchWikiApi();
             }
 
@@ -82,7 +82,7 @@ function Fetch({
 
             if (!regexpForEngCharOnly.test(articleExtract)) {
               console.log("characters out of english, rendering again");
-              setWikiTitle("[Data loading...]");
+              setWikiTitle("[Data loading...D]");
               return fetchWikiApi();
             }
 

@@ -111,3 +111,5 @@ isseus:
 DONE 1. reloadin/typing address cause error DONE fixed: hashRouter instead of BrowserRouter,
 (everything after # is ignored by the server) may cause problem later???
 ?? 2. no first letter if typing after clicking reset but not focusing on input with mouse ??
+
+3. 

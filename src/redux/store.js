@@ -8,7 +8,7 @@ const initialState = {
  
 };
 
-let middleware = [thunk];
+const middleware = [thunk];
 
 /* eslint-disable no-underscore-dangle */
 const store = createStore(

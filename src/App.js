@@ -5,13 +5,16 @@ import { connect } from "react-redux";
 // import store from "./store.js";
 
 import "./App.css";
-import Fetch from "./components/Fetch.js";
+// import Fetch from "./components/Fetch.js";
 import Display from "./components/Display.js";
-import loremText from "./components/_defaultText.js";
+// import loremText from "./components/_defaultText.js";
+
 
 import Login from "./components_links/Login.js";
 import Register from "./components_links/Register.js";
-// import testComponent from "./components_links/testComponent.js";
+
+import {fetchWikiApi} from "./redux/fetchPostAction.js"; 
+
 
 // import { BrowserRouter, Route, Link, Switch, Redirect, useHistory, HashRouter } from "react-router-dom";
 import { Route, Switch, Redirect, HashRouter } from "react-router-dom";
@@ -56,7 +59,11 @@ function App({
   setStats,
   setCurrentStatsKey,
   // 
-  disableFocusTextArea
+  disableFocusTextArea,
+  // fetching WikiApi
+  newRandomArticle,
+  // imported actionCreator
+  fetchingWiki
 }) {
   // let history = useHistory();
   // disabling random wiki article button in <Fetch/>
@@ -66,6 +73,28 @@ function App({
   useEffect(() => {
     document.addEventListener("keypress", handleKeyPress);
   });
+
+  // fetching WikiApi
+
+  useEffect(() => {
+    console.log('fetch???')
+    // if(newRandomArticle) {
+      fetchingWiki()
+    // }
+    console.log("fetch2")
+    // setNewRandomArticle_false();
+    setTimeout(() => {
+      disablingButton.current.removeAttribute("disabled");
+    }, 500);
+
+  },[newRandomArticle,
+    // disablingButton,
+    // setMyText,
+    setNewRandomArticle_false,
+    fetchWikiApi
+    // setWikiTitle,
+  ])
+
 
   // display
 
@@ -286,14 +315,14 @@ function App({
   return (
     <HashRouter>
       <div className="App" onKeyDown={handleKeyPress}>
-        <Fetch
+      {/*   <Fetch
           myText={myText}
           wikiTitle={wikiTitle}
           setNewRandomArticle_false={setNewRandomArticle_false}
           disablingButton={disablingButton}
           loremText={loremText}
           focusTextArea={focusTextArea}
-        />
+        /> */}
         <div className="app-outer-container">
           <h3 className="title">Wiki Speed Typing</h3>
           <Switch>
@@ -385,7 +414,9 @@ const mapStateToProps = (state) => {
     // auth
     isAuthenticated: state.authState.isAuthenticated,
     // 
-    disableFocusTextArea: state.displayState.inputArea.disableFocusTextArea
+    disableFocusTextArea: state.displayState.inputArea.disableFocusTextArea,
+    // fetching WikiApi
+    // newRandomArticle: state.displayState.textDisplay.newRandomArticle
   };
 };
 
@@ -427,6 +458,7 @@ const mapDispatchToProps = (dispatch) => {
     toggleAreHintsVisible: () => dispatch({ type: "HINTS_VISIBILITY" }),
     toggleAreResultsVisible: () => dispatch({ type: "RESULTS_VISIBILITY" }),
     toggleAreStatsVisible: () => dispatch({ type: "STATS_VISIBILITY" }),
+    
 
     // setIndexOfPartialTextArr, setTextAreaValue, setPrevTextAreaValue,
     //  setColorForEachLetter, setDisplayToReset_false for <Display only/>,
@@ -437,6 +469,12 @@ const mapDispatchToProps = (dispatch) => {
     // for synchronizing select timer with select from Stats
     setCurrentStatsKey: (data) =>
       dispatch({ type: "SET_CURRENT_STATS", payload: data }),
+      fetchingWiki: () => dispatch(fetchWikiApi())
+      
+
+      
+    
+    
   };
 };
 
