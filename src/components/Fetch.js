@@ -1,6 +1,6 @@
 // import React from "react";
 
-// Component is not used now!!! now fetchPostAcion is used instead
+// !!!!!! Component is not used now!!! now fetchPostAcion is used instead !!!!!
 
 
 import { useEffect } from "react";
