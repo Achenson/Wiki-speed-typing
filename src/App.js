@@ -80,7 +80,7 @@ function App({
     setTimeout(() => {
       disablingButton.current.removeAttribute("disabled");
     }, 500);
-  }, [newRandomArticle, setNewRandomArticle_false, fetchWikiApi]);
+  }, [newRandomArticle, setNewRandomArticle_false, fetchingWiki]);
 
   // display
 
