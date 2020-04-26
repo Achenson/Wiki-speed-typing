@@ -26,39 +26,8 @@ _defaultText.js -> default text to load in case of fetch error
             <Results> - formating timer display
 
 
-===== with redux
 
-_defaultText.js -> default text to load in case of fetch error
-||redux -> redux/reducers.js: initial store, recuder function
-
-before stats & Login & Register & before fetchPostAction
-
-<App/> 
-||-setting/reseting final results
-- counter(start, pause/run, reset, results, timer)
--keyboard shortcuts,
--hints & results & stats visibility,
--focusing/unfocusing/disabling elements
-- handling data to display (from Fetch to Display)
-    <Fetch/> -fetching data from wikiAPI, no rendering
-    <Display/>
-        ||-setting/reseting  live results
-         -rendering outer App part
-        - handling input/reseting in InputArea
-        -array with colorred letters in WikiDisplay according to mistakes
-        - changing parts of text to display
-        ||- setting correct, incorrect, allEntries
-            <UpperUI> - formating timer display
-            <WikiDisplay>
-                <SingleLetter/> - rendering colors of each single letter
-            <InputArea> - prevent arrow keys, no text selecting
-            <Controls>
-            <WikiController/> -setting new random article
-            <ResultButton>
-            <Results> - formating timer display
-
-
-==== stats & dummy authentication & redux-thunk
+====redux: stats & dummy authentication & redux-thunk
 
 
 _defaultText.js -> default text to load in case of fetch error
