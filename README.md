@@ -4,6 +4,8 @@ Test your typing speed using random* articles from English Wikipedia. Main resul
 
 \* \- articles shorter than 370 characters or containing non-english characters are skipped. All text in brackets is edited out.
 
+Fullstack version: https://github.com/Achenson/wiki-speed-typing-MERN
+
 ## Live app
 
 https://achenson.github.io/wiki-speed-typing/
